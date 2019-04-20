@@ -23,7 +23,4 @@ export class UserService extends ModelService<User>{
     });
     return user;
   }
-  async update(user: User): Promise<User> {
-    return this.userRepository.save(user);
-  }
 }

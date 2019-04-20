@@ -1,7 +1,7 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_training_sections} from "./hris_training_sections";
 import {hris_trainings} from "./hris_trainings";
-import {hris_organisationunit} from "./hris_organisationunit";
+import { hris_organisationunit } from "./hris_organisationunit";
 import {hris_training_sponsors} from "./hris_training_sponsors";
 import {hris_training_units} from "./hris_training_units";
 import {hris_training_curriculums} from "./hris_training_curriculums";

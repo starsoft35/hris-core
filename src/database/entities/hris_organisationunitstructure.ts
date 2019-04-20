@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_organisationunit} from "./hris_organisationunit";
+import { hris_organisationunit } from "./hris_organisationunit";
 import {hris_organisationunitlevel} from "./hris_organisationunitlevel";
 
 

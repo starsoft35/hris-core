@@ -15,7 +15,7 @@ import {hris_record_history_date} from "./hris_record_history_date";
 import {hris_relationalfilter} from "./hris_relationalfilter";
 import {hris_resourcetable_fieldmembers} from "./hris_resourcetable_fieldmembers";
 import {hris_fieldgroup} from "./hris_fieldgroup";
-import {hris_form} from "./hris_form";
+import {hris_form} from "./form";
 
 
 @Entity("hris_field",{schema:"public" } )

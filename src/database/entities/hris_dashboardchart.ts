@@ -1,8 +1,8 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_field} from "./hris_field";
 import { User} from "./user";
-import {hris_organisationunit} from "./hris_organisationunit";
-import {hris_form} from "./hris_form";
+import { hris_organisationunit } from "./hris_organisationunit";
+import {hris_form} from "./form";
 
 
 @Entity('hris_dashboardchart', { schema: 'public' })

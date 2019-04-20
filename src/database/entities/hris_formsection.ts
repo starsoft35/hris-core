@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_form} from "./hris_form";
+import {hris_form} from "./form";
 import {hris_formsection_fieldmembers} from "./hris_formsection_fieldmembers";
 
 

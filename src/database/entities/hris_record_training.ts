@@ -1,11 +1,11 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_record} from "./hris_record";
+import {Record} from "./record";
 import {hris_traininginstance} from "./hris_traininginstance";
 
 
 @Entity("hris_record_training",{schema:"public" } )
-@Index("unique_recordtraining_idx",["record_","trainingsession_",],{unique:true})
-@Index("idx_f3e7ab184dfd750c",["record_",])
+//@Index("unique_recordtraining_idx",["record_","trainingsession_",],{unique:true})
+//@Index("idx_f3e7ab184dfd750c",["record_",])
 @Index("uniq_f3e7ab18539b0606",["uid",],{unique:true})
 export class hris_record_training {
 
@@ -15,12 +15,6 @@ export class hris_record_training {
         name:"id"
         })
     id:number;
-        
-
-   
-    @ManyToOne(type=>hris_record, hris_record=>hris_record.hris_record_trainings,{ onDelete: 'CASCADE', })
-    @JoinColumn({ name:'record_id'})
-    record_:hris_record | null;
 
 
     @Column("character varying",{ 

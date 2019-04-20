@@ -1,10 +1,10 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_organisationunit} from "./hris_organisationunit";
-import {hris_form} from "./hris_form";
+import { OrganisationUnit } from "./organisationunit";
+import {hris_form} from "./form";
 
 
 @Entity("record",{schema:"public" } )
-export class record {
+export class Record {
 
     @Column("integer",{ 
         nullable:false,
@@ -15,9 +15,9 @@ export class record {
         
 
    
-    @ManyToOne(type=>hris_organisationunit, hris_organisationunit=>hris_organisationunit.records,{  nullable:false,onDelete: 'CASCADE', })
+    @ManyToOne(type=>OrganisationUnit, OrganisationUnit=>OrganisationUnit.records,{  nullable:false,onDelete: 'CASCADE', })
     @JoinColumn({ name:'organisationunit_id'})
-    organisationunit_:hris_organisationunit | null;
+    organisationunit_:OrganisationUnit | null;
 
 
    

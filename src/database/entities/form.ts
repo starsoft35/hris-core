@@ -3,8 +3,7 @@ import {hris_form_fieldmembers} from "./hris_form_fieldmembers";
 import {hris_form_visiblefields} from "./hris_form_visiblefields";
 import {hris_formsection} from "./hris_formsection";
 import {hris_organisationunitcompleteness} from "./hris_organisationunitcompleteness";
-import {hris_record} from "./hris_record";
-import {record} from "./record";
+import {Record} from "./record";
 import {hris_field} from "./hris_field";
 import { User} from "./user";
 import {hris_dashboardchart} from "./hris_dashboardchart";
@@ -90,13 +89,10 @@ export class hris_form {
   )
   hris_organisationunitcompletenesss: hris_organisationunitcompleteness[];
 
-  @OneToMany(type => hris_record, hris_record => hris_record.form_, {
+  @OneToMany(type => Record, Record => Record.form_, {
     onDelete: 'CASCADE',
   })
-  hris_records: hris_record[];
-
-  @OneToMany(type => record, record => record.form_, { onDelete: 'CASCADE' })
-  records: record[];
+  records: Record[];
 
   @ManyToMany(type => hris_field, hris_field => hris_field.hris_forms, {
     nullable: false,
@@ -104,7 +100,7 @@ export class hris_form {
   @JoinTable({ name: 'hris_form_uniquerecordfields' })
   hris_fields: hris_field[];
 
-    @ManyToMany(type => User, User => User.hris_forms)
+  @ManyToMany(type => User, User => User.hris_forms)
   hris_users: User[];
 
   @ManyToMany(

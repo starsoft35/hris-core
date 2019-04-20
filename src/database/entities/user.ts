@@ -1,12 +1,12 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_organisationunit} from "./hris_organisationunit";
+import { hris_organisationunit } from "./hris_organisationunit";
 import {hris_dashboardchart} from "./hris_dashboardchart";
 import {hris_message} from "./hris_message";
 import {hris_message_metadata} from "./hris_message_metadata";
 import {hris_message_thread} from "./hris_message_thread";
 import {hris_message_thread_metadata} from "./hris_message_thread_metadata";
 import {hris_usersettings} from "./hris_usersettings";
-import {hris_form} from "./hris_form";
+import {hris_form} from "./form";
 import {hris_user_group} from "./hris_user_group";
 
 

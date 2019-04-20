@@ -14,7 +14,7 @@ export class AuthService {
   async login(username, password): Promise<User> {
     let user = await this.userService.findByUsername(username);
     user.confirmation_token = this.encodePassword(password, user.salt);
-    this.userService.update(user);
+    this.userService.update(user.uid, user);
     return user;
   }
   async validateUser(token: string): Promise<any> {

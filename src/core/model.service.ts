@@ -1,5 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Repository, FindManyOptions } from 'typeorm';
+import {
+  Repository,
+  FindManyOptions,
+  DeleteResult,
+  UpdateResult,
+} from 'typeorm';
 
 @Injectable()
 export class ModelService<T> {
@@ -12,7 +17,18 @@ export class ModelService<T> {
   async findAndCount(options: FindManyOptions<T>): Promise<[T[], number]> {
     return await this.modelRepository.findAndCount(options);
   }
-  async update(model: T): Promise<T> {
-    return this.modelRepository.save(model);
+  async findOneById(id: string): Promise<T> {
+    return await this.modelRepository.findOne({ where: { uid: id } });
+  }
+  async create(entity: T): Promise<T> {
+    return await this.modelRepository.save(entity);
+  }
+  async update(id: string, model: any): Promise<UpdateResult> {
+    let condition: any = { uid: id };
+    return this.modelRepository.update(condition, model);
+  }
+  async delete(id: string): Promise<DeleteResult> {
+    let condition: any = { uid: id };
+    return this.modelRepository.delete(condition);
   }
 }

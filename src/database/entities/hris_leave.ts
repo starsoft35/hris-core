@@ -1,13 +1,13 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_record} from "./hris_record";
+import {Record} from "./record";
 import {hris_leave_type} from "./hris_leave_type";
 import {hris_leave_relative} from "./hris_leave_relative";
 
 
 @Entity("hris_leave",{schema:"public" } )
 @Index("idx_4d817b688313f474",["leave_type_",])
-@Index("unique_leave_idx",["leave_type_","record_","startdate",],{unique:true})
-@Index("idx_4d817b684dfd750c",["record_",])
+//@Index("unique_leave_idx",["leave_type_","record_","startdate",],{unique:true})
+//@Index("idx_4d817b684dfd750c",["record_",])
 export class hris_leave {
 
     @Column("integer",{ 
@@ -16,13 +16,6 @@ export class hris_leave {
         name:"id"
         })
     id:number;
-        
-
-   
-    @ManyToOne(type=>hris_record, hris_record=>hris_record.hris_leaves,{ onDelete: 'CASCADE', })
-    @JoinColumn({ name:'record_id'})
-    record_:hris_record | null;
-
 
    
     @ManyToOne(type=>hris_leave_type, hris_leave_type=>hris_leave_type.hris_leaves,{ onDelete: 'CASCADE', })

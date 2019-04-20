@@ -1,12 +1,11 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_record} from "./hris_record";
 import {hris_field} from "./hris_field";
 
 
 @Entity("hris_record_history",{schema:"public" } )
 @Index("idx_bab4b7b443707b0",["field_",])
-@Index("unique_recordhistory_idx",["history","record_","startdate",],{unique:true})
-@Index("idx_bab4b7b4dfd750c",["record_",])
+//@Index("unique_recordhistory_idx",["history","record_","startdate",],{unique:true})
+//@Index("idx_bab4b7b4dfd750c",["record_",])
 @Index("uniq_bab4b7b539b0606",["uid",],{unique:true})
 export class hris_record_history {
 
@@ -16,12 +15,6 @@ export class hris_record_history {
         name:"id"
         })
     id:number;
-        
-
-   
-    @ManyToOne(type=>hris_record, hris_record=>hris_record.hris_record_historys,{ onDelete: 'CASCADE', })
-    @JoinColumn({ name:'record_id'})
-    record_:hris_record | null;
 
 
    
