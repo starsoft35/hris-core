@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_field} from "./hris_field";
+import {Field} from "./hris_field";
 import {hris_friendlyreport} from "./hris_friendlyreport";
 import {hris_friendlyreportcategory} from "./hris_friendlyreportcategory";
 import {hris_intergration_dhis_dataelementfieldoptionrelation} from "./hris_intergration_dhis_dataelementfieldoptionrelation";
@@ -22,9 +22,9 @@ export class hris_fieldoptiongroup {
         
 
    
-    @ManyToOne(type=>hris_field, hris_field=>hris_field.hris_fieldoptiongroups,{ onDelete: 'CASCADE', })
+    @ManyToOne(type=>Field, Field=>Field.hris_fieldoptiongroups,{ onDelete: 'CASCADE', })
     @JoinColumn({ name:'field_id'})
-    field_:hris_field | null;
+    field_:Field | null;
 
 
     @Column("character varying",{ 

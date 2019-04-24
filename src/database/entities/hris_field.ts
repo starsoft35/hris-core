@@ -23,7 +23,7 @@ import {hris_form} from "./form";
 @Index("idx_8dc4bee0f0cbe24d",["inputtype_",])
 @Index("uniq_8dc4bee05e237e06",["name",],{unique:true})
 @Index("uniq_8dc4bee0539b0606",["uid",],{unique:true})
-export class hris_field {
+export class Field {
 
     @Column("integer",{ 
         nullable:false,

@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_field} from "./hris_field";
+import {Field} from "./hris_field";
 
 
 @Entity("hris_field_datatype",{schema:"public" } )
@@ -54,7 +54,7 @@ export class hris_field_datatype {
         
 
    
-    @OneToMany(type=>hris_field, hris_field=>hris_field.datatype_,{ onDelete: 'CASCADE' , })
-    hris_fields:hris_field[];
+    @OneToMany(type=>Field, Field=>Field.datatype_,{ onDelete: 'CASCADE' , })
+    hris_fields:Field[];
     
 }

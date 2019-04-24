@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_field} from "./hris_field";
+import {Field} from "./hris_field";
 import {hris_fieldgroupset} from "./hris_fieldgroupset";
 
 
@@ -55,9 +55,9 @@ export class hris_fieldgroup {
         
 
    
-    @ManyToMany(type=>hris_field, hris_field=>hris_field.hris_fieldgroups,{  nullable:false, })
+    @ManyToMany(type=>Field, Field=>Field.hris_fieldgroups,{  nullable:false, })
     @JoinTable({ name:'hris_fieldgroup_members'})
-    hris_fields:hris_field[];
+    hris_fields:Field[];
     
 
    

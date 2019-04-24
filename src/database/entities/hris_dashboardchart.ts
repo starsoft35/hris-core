@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_field} from "./hris_field";
+import {Field} from "./hris_field";
 import { User} from "./user";
 import { hris_organisationunit } from "./hris_organisationunit";
 import {hris_form} from "./form";
@@ -24,20 +24,20 @@ export class hris_dashboardchart {
   id: number;
 
   @ManyToOne(
-    type => hris_field,
-    hris_field => hris_field.hris_dashboardcharts,
+    type => Field,
+    Field => Field.hris_dashboardcharts,
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'fieldone_id' })
-  fieldone_: hris_field | null;
+  fieldone_: Field | null;
 
   @ManyToOne(
-    type => hris_field,
-    hris_field => hris_field.hris_dashboardcharts2,
+    type => Field,
+    Field => Field.hris_dashboardcharts2,
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'fieldtwo_id' })
-  fieldtwo_: hris_field | null;
+  fieldtwo_: Field | null;
 
     @ManyToOne(type => User, User => User.hris_dashboardcharts, {
     onDelete: 'CASCADE',

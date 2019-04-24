@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_field} from "./hris_field";
+import {Field} from "./hris_field";
 import {hris_fieldoption_children} from "./hris_fieldoption_children";
 import {hris_fieldoptionmerge} from "./hris_fieldoptionmerge";
 import {hris_indicator_targetfieldoption} from "./hris_indicator_targetfieldoption";
@@ -23,9 +23,9 @@ export class hris_fieldoption {
         
 
    
-    @ManyToOne(type=>hris_field, hris_field=>hris_field.hris_fieldoptions,{  nullable:false,onDelete: 'CASCADE', })
+    @ManyToOne(type=>Field, Field=>Field.hris_fieldoptions,{  nullable:false,onDelete: 'CASCADE', })
     @JoinColumn({ name:'field_id'})
-    field_:hris_field | null;
+    field_:Field | null;
 
 
     @Column("character varying",{ 

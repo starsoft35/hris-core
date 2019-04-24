@@ -1,6 +1,6 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_formsection} from "./hris_formsection";
-import {hris_field} from "./hris_field";
+import {Field} from "./hris_field";
 
 
 @Entity("hris_formsection_fieldmembers",{schema:"public" } )
@@ -15,9 +15,9 @@ export class hris_formsection_fieldmembers {
 
 
    
-    @ManyToOne(type=>hris_field, hris_field=>hris_field.hris_formsection_fieldmemberss,{ primary:true, nullable:false,onDelete: 'CASCADE', })
+    @ManyToOne(type=>Field, Field=>Field.hris_formsection_fieldmemberss,{ primary:true, nullable:false,onDelete: 'CASCADE', })
     @JoinColumn({ name:'field_id'})
-    field_:hris_field | null;
+    field_:Field | null;
 
 
     @Column("integer",{ 

@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_field} from "./hris_field";
+import {Field} from "./hris_field";
 import {hris_fieldoption} from "./hris_fieldoption";
 
 
@@ -20,9 +20,9 @@ export class hris_fieldoptionmerge {
         
 
    
-    @ManyToOne(type=>hris_field, hris_field=>hris_field.hris_fieldoptionmerges,{ onDelete: 'CASCADE', })
+    @ManyToOne(type=>Field, Field=>Field.hris_fieldoptionmerges,{ onDelete: 'CASCADE', })
     @JoinColumn({ name:'field_id'})
-    field_:hris_field | null;
+    field_:Field | null;
 
 
    
