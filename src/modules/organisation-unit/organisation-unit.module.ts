@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../../database/database.module';
-import { organisationUnitProviders } from './providers/organisation-unit.providers';
-import { OrganisationUnitService } from './services/organisation-unit.service';
-import { OrganisationUnitsController } from './controllers/organisation-unit.controller';
 import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { OrganisationUnitsController } from './controllers/organisation-unit.controller';
+import { OrganisationUnit } from './entities/organisationunit.entity';
+import { OrganisationUnitService } from './services/organisation-unit.service';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'basic', session: true }),
-    DatabaseModule,
+    TypeOrmModule.forFeature([OrganisationUnit]),
   ],
   controllers: [OrganisationUnitsController],
-  providers: [...organisationUnitProviders, OrganisationUnitService],
+  providers: [OrganisationUnitService],
 })
 export class OrganisatinUnitModule {}

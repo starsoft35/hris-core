@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Injectable()
-export class ModelService<T> {
+export class BaseService<T> {
   constructor(private readonly modelRepository: Repository<T>) {}
 
   async findAll(): Promise<T[]> {
