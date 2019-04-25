@@ -4,8 +4,8 @@
   "port": 5432,
   "username": "postgres",
   "password": "postgres",
-  "database": "symfony_hris3",
-  "entities": ["src/database/entities/*.ts"],
+  "database": "hris4",
+  "entities": ["src/**/*.entity{.ts,.js}"],
   "migrations": ["src/database/migration/*.ts"],
   "cli": {
     "migrationsDir": "src/database/migration"

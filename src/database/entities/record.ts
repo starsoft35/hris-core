@@ -1,19 +1,5 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  RelationId,
-} from 'typeorm';
-import { OrganisationUnit } from '../../modules/organisation-unit/entities/organisationunit.entity';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+
 import { hris_form } from './form';
 
 @Entity('record', { schema: 'public' })
@@ -25,13 +11,13 @@ export class Record {
   })
   id: number;
 
-  @ManyToOne(
-    type => OrganisationUnit,
-    OrganisationUnit => OrganisationUnit.records,
-    { nullable: false, onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'organisationunit_id' })
-  organisationunit_: OrganisationUnit | null;
+  // @ManyToOne(
+  //   type => OrganisationUnit,
+  //   OrganisationUnit => OrganisationUnit.records,
+  //   { nullable: false, onDelete: 'CASCADE' },
+  // )
+  // @JoinColumn({ name: 'organisationunit_id' })
+  // organisationunit_: OrganisationUnit | null;
 
   @ManyToOne(type => hris_form, hris_form => hris_form.records, {
     nullable: false,

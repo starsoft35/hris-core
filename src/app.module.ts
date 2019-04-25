@@ -5,15 +5,13 @@ import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-unit.module';
-import { RecordModule } from './modules/record/record.module';
-import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    UserModule,
+    // UserModule,
     OrganisatinUnitModule,
-    RecordModule,
+    // RecordModule,
   ],
   controllers: [AppController],
   providers: [AppService],

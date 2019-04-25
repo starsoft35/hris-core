@@ -148,6 +148,7 @@ export class BaseController<T> {
     return conditions;
   }
 
+  // TODO: give descriptive name for this method
   get plural() {
     throw Error('Plural Not set');
     return 'undefined';

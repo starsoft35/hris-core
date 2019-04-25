@@ -1,13 +1,19 @@
-import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_form_fieldmembers} from "./hris_form_fieldmembers";
-import {hris_form_visiblefields} from "./hris_form_visiblefields";
-import {hris_formsection} from "./hris_formsection";
-import {hris_organisationunitcompleteness} from "./hris_organisationunitcompleteness";
-import {Record} from "./record";
-import {Field} from "./hris_field";
-import { User} from "./user";
-import {hris_dashboardchart} from "./hris_dashboardchart";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+} from 'typeorm';
 
+import { hris_dashboardchart } from './hris_dashboardchart';
+import { Field } from './hris_field';
+import { hris_form_fieldmembers } from './hris_form_fieldmembers';
+import { hris_form_visiblefields } from './hris_form_visiblefields';
+import { hris_formsection } from './hris_formsection';
+import { Record } from './record';
+import { User } from './user';
 
 @Entity('hris_form', { schema: 'public' })
 @Index('uniq_b5d0adef5e237e06', ['name'], { unique: true })
@@ -82,12 +88,12 @@ export class hris_form {
   )
   hris_formsections: hris_formsection[];
 
-  @OneToMany(
-    type => hris_organisationunitcompleteness,
-    hris_organisationunitcompleteness =>
-      hris_organisationunitcompleteness.form_,
-  )
-  hris_organisationunitcompletenesss: hris_organisationunitcompleteness[];
+  // @OneToMany(
+  //   type => hris_organisationunitcompleteness,
+  //   hris_organisationunitcompleteness =>
+  //     hris_organisationunitcompleteness.form_,
+  // )
+  // hris_organisationunitcompletenesss: hris_organisationunitcompleteness[];
 
   @OneToMany(type => Record, Record => Record.form_, {
     onDelete: 'CASCADE',
