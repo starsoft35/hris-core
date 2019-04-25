@@ -1,9 +1,16 @@
-import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {Field} from "./hris_field";
-import { User} from "./user";
-import { hris_organisationunit } from "./hris_organisationunit";
-import {hris_form} from "./form";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+} from 'typeorm';
 
+import { hris_form } from './form';
+import { Field } from './hris_field';
+import { User } from './user';
 
 @Entity('hris_dashboardchart', { schema: 'public' })
 @Index(
@@ -23,23 +30,19 @@ export class hris_dashboardchart {
   })
   id: number;
 
-  @ManyToOne(
-    type => Field,
-    Field => Field.hris_dashboardcharts,
-    { onDelete: 'CASCADE' },
-  )
+  @ManyToOne(type => Field, Field => Field.hris_dashboardcharts, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'fieldone_id' })
   fieldone_: Field | null;
 
-  @ManyToOne(
-    type => Field,
-    Field => Field.hris_dashboardcharts2,
-    { onDelete: 'CASCADE' },
-  )
+  @ManyToOne(type => Field, Field => Field.hris_dashboardcharts2, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'fieldtwo_id' })
   fieldtwo_: Field | null;
 
-    @ManyToOne(type => User, User => User.hris_dashboardcharts, {
+  @ManyToOne(type => User, User => User.hris_dashboardcharts, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
@@ -97,13 +100,13 @@ export class hris_dashboardchart {
   })
   lastupdated: Date | null;
 
-  @ManyToMany(
-    type => hris_organisationunit,
-    hris_organisationunit => hris_organisationunit.hris_dashboardcharts,
-    { nullable: false },
-  )
-  @JoinTable({ name: 'hris_dashboardchart_organisationunitmembers' })
-  hris_organisationunits: hris_organisationunit[];
+  // @ManyToMany(
+  //   type => hris_organisationunit,
+  //   hris_organisationunit => hris_organisationunit.hris_dashboardcharts,
+  //   { nullable: false },
+  // )
+  // @JoinTable({ name: 'hris_dashboardchart_organisationunitmembers' })
+  // hris_organisationunits: hris_organisationunit[];
 
   @ManyToMany(type => hris_form, hris_form => hris_form.hris_dashboardcharts, {
     nullable: false,

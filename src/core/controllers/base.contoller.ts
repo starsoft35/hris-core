@@ -1,40 +1,44 @@
 import { Body, Get, Post, Put, Param, Delete, Query } from '@nestjs/common';
-import { ModelService } from './model.service';
+import { BaseService } from '../services/base.service';
+import { Pager, ApiResult } from '../interfaces';
+import { getPagerDetails, getWhereConditions } from '../utilities';
 
-export class ModelController<T> {
-  constructor(private readonly modelService: ModelService<T>) {}
+export class BaseController<T> {
+  constructor(private readonly baseService: BaseService<T>) {}
   @Get()
-  async findAll(@Query() query): Promise<Object> {
-    const pageSize = query.pageSize || 50;
-    const page = query.page || 1;
-    console.log('params:', page - 1);
-
-    let results = {};
+  async findAll(@Query() query): Promise<ApiResult> {
     if (query.paging === 'false') {
-      results[this.plural] = await this.modelService.findAll();
-    } else {
-      const [result, total] = await this.modelService.findAndCount({
-        where: query.filter ? this.convertWhere(query.filter) : {},
-        take: pageSize,
-        skip: page - 1,
-      });
-      results['pager'] = {
-        page: +page,
-        pageCount: result.length,
-        total: total,
-        pageSize: +pageSize,
-        nextPage: '/' + this.plural + '?page=' + (page + 1),
-      };
-      results[this.plural] = result;
+      const allContents: T[] = await this.baseService.findAll();
+
+      return { [this.plural]: allContents };
     }
-    return results;
+
+    const pagerDetails: Pager = getPagerDetails(query);
+
+    const [contents, totalCount]: [
+      T[],
+      number
+    ] = await this.baseService.findAndCount({
+      where: getWhereConditions(query),
+      take: pagerDetails.pageSize,
+      skip: pagerDetails.page - 1,
+    });
+
+    return {
+      pager: {
+        ...pagerDetails,
+        pageCount: contents.length,
+        total: totalCount,
+        nextPage: '/' + this.plural + '?page=' + (pagerDetails.page + 1),
+      },
+      [this.plural]: contents,
+    };
   }
 
   @Get(':id')
-  async findOne(@Param() params): Promise<Object> {
-    console.log(params.id);
-    var result = await this.modelService.findOneById(params.id);
-    console.log('result:', result);
+  async findOne(@Param() params): Promise<ApiResult> {
+    const result = await this.baseService.findOneById(params.id);
+
     if (result) {
       return result;
     } else {
@@ -52,14 +56,10 @@ export class ModelController<T> {
   }
 
   @Get(':id/:relation')
-  async findOneRelation(@Param() params): Promise<Object> {
-    console.log(params.id);
-    var result = await this.modelService.findOneById(params.id);
-    console.log('result:', result);
+  async findOneRelation(@Param() params): Promise<ApiResult> {
+    const result = await this.baseService.findOneById(params.id);
     if (result) {
-      let returnResult = {};
-      returnResult[params.relation] = result[params.relation];
-      return returnResult;
+      return { [params.relation]: result[params.relation] };
     } else {
       return {
         httpStatus: 'Not Found',
@@ -75,15 +75,15 @@ export class ModelController<T> {
   }
 
   @Post()
-  async create(@Body() createEntityDto): Promise<Object> {
-    return await this.modelService.create(createEntityDto);
+  async create(@Body() createEntityDto): Promise<ApiResult> {
+    return await this.baseService.create(createEntityDto);
   }
 
   @Put(':id')
-  async update(@Param() params, @Body() updateEntityDto): Promise<Object> {
-    var result = await this.modelService.findOneById(params.id);
+  async update(@Param() params, @Body() updateEntityDto): Promise<ApiResult> {
+    const result = await this.baseService.findOneById(params.id);
     if (result) {
-      return await this.modelService.update(params.id, updateEntityDto);
+      return await this.baseService.update(params.id, updateEntityDto);
     } else {
       return {
         httpStatus: 'Not Found',
@@ -99,8 +99,8 @@ export class ModelController<T> {
   }
 
   @Delete(':id')
-  async delete(@Param() params): Promise<Object> {
-    let results = await this.modelService.delete(params.id);
+  async delete(@Param() params): Promise<ApiResult> {
+    const results = await this.baseService.delete(params.id);
     if (results.affected === 1) {
       return {
         httpStatus: 'OK',
@@ -126,26 +126,29 @@ export class ModelController<T> {
       };
     }
   }
+
+  // TODO: This method should be removed since there is already a method doing same thing which needs testing
   convertWhere(filter) {
     let filters = [];
-    let conditions = [];
+    const conditions = [];
     if (typeof filter === 'string') {
       filters.push(filter);
     } else {
       filters = filter;
     }
     filters.forEach(f => {
-      let filterSplit = f.split(':');
-      let condition = {};
+      const filterSplit = f.split(':');
+      const condition = {};
       if (filterSplit[1] === 'eq') {
         condition[filterSplit[0]] = filterSplit[2];
       }
       conditions.push(condition);
     });
-    console.log('params:', conditions);
+
     return conditions;
   }
 
+  // TODO: give descriptive name for this method
   get plural() {
     throw Error('Plural Not set');
     return 'undefined';

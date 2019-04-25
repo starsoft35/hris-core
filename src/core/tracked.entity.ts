@@ -1,7 +1,6 @@
-import { Column} from "typeorm";
+import { Column } from 'typeorm';
 
 export class Tracked {
-
   @Column('timestamp without time zone', {
     nullable: false,
     name: 'datecreated',

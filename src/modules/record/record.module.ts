@@ -8,7 +8,6 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'basic', session: true }),
-    DatabaseModule,
   ],
   controllers: [RecordsController],
   providers: [...recordProviders, RecordService],

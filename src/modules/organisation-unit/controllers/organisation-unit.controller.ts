@@ -1,13 +1,14 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { BaseController } from 'src/core/controllers/base.contoller';
+
 import { OrganisationUnitService } from '../services/organisation-unit.service';
-import { AuthGuard } from '@nestjs/passport';
-import { ModelController } from 'src/core/model.contoller';
-import { OrganisationUnit } from 'src/database/entities/organisationunit';
+import { OrganisationUnit } from '../entities/organisation-unit.entity';
 
 @Controller('organisationUnits')
-//@UseGuards(AuthGuard())
-export class OrganisationUnitsController extends ModelController<OrganisationUnit> {
-  constructor(private readonly organisationUnitService: OrganisationUnitService) {
+export class OrganisationUnitsController extends BaseController<
+  OrganisationUnit
+> {
+  constructor(organisationUnitService: OrganisationUnitService) {
     super(organisationUnitService);
   }
   get plural() {
