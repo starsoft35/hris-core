@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrganisationUnitGroupSetService } from './organisation-unit-group-set.service';
+import { OrganisationUnitGroupSetService } from '../../../../src/modules/organisation-unit/services/organisation-unit-group-set.service';
 
 describe('OrganisationUnitGroupSetService', () => {
   let service: OrganisationUnitGroupSetService;
@@ -9,7 +9,9 @@ describe('OrganisationUnitGroupSetService', () => {
       providers: [OrganisationUnitGroupSetService],
     }).compile();
 
-    service = module.get<OrganisationUnitGroupSetService>(OrganisationUnitGroupSetService);
+    service = module.get<OrganisationUnitGroupSetService>(
+      OrganisationUnitGroupSetService,
+    );
   });
 
   it('should be defined', () => {
