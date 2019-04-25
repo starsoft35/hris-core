@@ -1,5 +1,5 @@
 import { Connection, Repository } from 'typeorm';
-import { Record } from '../../../database/entities/record';
+import { Record } from '../entities/record';
 
 export const recordProviders = [
   {

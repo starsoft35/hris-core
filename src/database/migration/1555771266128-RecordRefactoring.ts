@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { RecordValue } from '../entities/recordvalue';
+import { RecordValue } from '../../modules/record/entities/recordvalue';
 
 export class RecordRefactoring1555771266128 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {

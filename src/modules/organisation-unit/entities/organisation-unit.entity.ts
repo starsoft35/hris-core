@@ -1,47 +1,26 @@
+import { TransactionDate } from 'src/core/entities/transaction-date.entity';
 import {
   Column,
   Entity,
-  Index,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
-  ManyToMany,
 } from 'typeorm';
-import { Record } from 'src/database/entities/record';
-import { OrganisationUnitGroup } from './organisation-unit-group.entity';
+
 import { OrganisationUnitCompleteness } from './organisation-unit-completeness.entity';
+import { OrganisationUnitGroup } from './organisation-unit-group.entity';
+import IdentifiableObject from 'src/core/entities/identifiable-object';
 
-@Entity('organisationUnit', { schema: 'public' })
-@Index('uniq_9394222277153098', ['code'], { unique: true })
-@Index('uniq_939422227f0db905', ['dhisuid'], { unique: true })
-@Index('organisationunits_with_one_parent_idx', ['longname', 'parent'], {
-  unique: true,
-})
-@Index('idx_93942222727aca70', ['parent'])
-@Index('uniq_9394222264082763', ['shortname'], { unique: true })
-@Index('uniq_93942222539b0606', ['uid'], { unique: true })
-export class OrganisationUnit {
-  @Column('integer', {
-    nullable: false,
-    primary: true,
-    name: 'id',
-  })
-  id: number;
-
+@Entity('organisationunit', { schema: 'public' })
+export class OrganisationUnit extends IdentifiableObject {
   @ManyToOne(
     type => OrganisationUnit,
-    organisationUnit => organisationUnit.OrganisationUnits,
+    organisationUnit => organisationUnit.organisationUnits,
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'parentid' })
   parent: OrganisationUnit | null;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 13,
-    name: 'uid',
-  })
-  uid: string;
 
   @Column('character varying', {
     nullable: true,
@@ -50,28 +29,6 @@ export class OrganisationUnit {
     name: 'dhisuid',
   })
   dhisuid: string | null;
-
-  @Column('character varying', {
-    nullable: true,
-    length: 25,
-    default: () => 'NULL::character varying',
-    name: 'code',
-  })
-  code: string | null;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 20,
-    name: 'shortname',
-  })
-  shortname: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'longname',
-  })
-  longname: string;
 
   @Column('boolean', {
     nullable: true,
@@ -83,13 +40,13 @@ export class OrganisationUnit {
     nullable: true,
     name: 'openingdate',
   })
-  openingdate: string | null;
+  openingDate: string | null;
 
   @Column('date', {
     nullable: true,
     name: 'closingdate',
   })
-  closingdate: string | null;
+  closingDate: string | null;
 
   @Column('character varying', {
     nullable: true,
@@ -97,7 +54,7 @@ export class OrganisationUnit {
     default: () => 'NULL::character varying',
     name: 'geocode',
   })
-  geocode: string | null;
+  geoCode: string | null;
 
   @Column('text', {
     nullable: true,
@@ -111,7 +68,7 @@ export class OrganisationUnit {
     default: () => 'NULL::character varying',
     name: 'featuretype',
   })
-  featuretype: string | null;
+  featureType: string | null;
 
   @Column('text', {
     nullable: true,
@@ -133,7 +90,7 @@ export class OrganisationUnit {
     default: () => 'NULL::character varying',
     name: 'phonenumber',
   })
-  phonenumber: string | null;
+  phoneNumber: string | null;
 
   @Column('character varying', {
     nullable: true,
@@ -141,26 +98,7 @@ export class OrganisationUnit {
     default: () => 'NULL::character varying',
     name: 'contactperson',
   })
-  contactperson: string | null;
-
-  @Column('text', {
-    nullable: true,
-    name: 'description',
-  })
-  description: string | null;
-
-  @Column('timestamp without time zone', {
-    nullable: false,
-    name: 'datecreated',
-  })
-  datecreated: Date;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
+  contactPerson: string | null;
 
   // @OneToMany(
   //   type => hris_intergration_dhis_dataconnection,
@@ -182,7 +120,7 @@ export class OrganisationUnit {
     organisationUnit => organisationUnit.parent,
     { onDelete: 'CASCADE' },
   )
-  OrganisationUnits: OrganisationUnit[];
+  organisationUnits: OrganisationUnit[];
 
   @OneToMany(
     type => OrganisationUnitCompleteness,
@@ -191,56 +129,6 @@ export class OrganisationUnit {
     { onDelete: 'CASCADE' },
   )
   organisationUnitCompletenesses: OrganisationUnitCompleteness[];
-
-  // @OneToMany(
-  //   type => hris_organisationunitstructure,
-  //   hris_organisationunitstructure => hris_organisationunitstructure.level1_,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_organisationunitstructures: hris_organisationunitstructure[];
-
-  // @OneToMany(
-  //   type => hris_organisationunitstructure,
-  //   hris_organisationunitstructure => hris_organisationunitstructure.level2_,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_organisationunitstructures2: hris_organisationunitstructure[];
-
-  // @OneToMany(
-  //   type => hris_organisationunitstructure,
-  //   hris_organisationunitstructure => hris_organisationunitstructure.level3_,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_organisationunitstructures3: hris_organisationunitstructure[];
-
-  // @OneToMany(
-  //   type => hris_organisationunitstructure,
-  //   hris_organisationunitstructure => hris_organisationunitstructure.level4_,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_organisationunitstructures4: hris_organisationunitstructure[];
-
-  // @OneToMany(
-  //   type => hris_organisationunitstructure,
-  //   hris_organisationunitstructure => hris_organisationunitstructure.level5_,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_organisationunitstructures5: hris_organisationunitstructure[];
-
-  // @OneToMany(
-  //   type => hris_organisationunitstructure,
-  //   hris_organisationunitstructure => hris_organisationunitstructure.level6_,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_organisationunitstructures6: hris_organisationunitstructure[];
-
-  // @OneToOne(
-  //   type => hris_organisationunitstructure,
-  //   hris_organisationunitstructure =>
-  //     hris_organisationunitstructure.organisationunit_,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_organisationunitstructure: hris_organisationunitstructure | null;
 
   // @OneToMany(type => Record, record => record.organisationunit_, {
   //   onDelete: 'CASCADE',
