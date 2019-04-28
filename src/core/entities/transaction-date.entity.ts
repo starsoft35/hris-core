@@ -1,13 +1,16 @@
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
+import { Field, Int, ObjectType } from 'type-graphql';
+@ObjectType()
 export abstract class TransactionDate {
+  @Field()
   @CreateDateColumn({
     type: 'timestamp',
     name: 'created',
     default: () => 'LOCALTIMESTAMP',
   })
-  dateCreated: Date;
+  created: Date;
 
+  @Field()
   @UpdateDateColumn({
     type: 'timestamp',
     name: 'lastupdated',
