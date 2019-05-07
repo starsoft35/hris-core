@@ -12,7 +12,7 @@ import { Field } from './hris_field';
 import { hris_form_fieldmembers } from './hris_form_fieldmembers';
 import { hris_form_visiblefields } from './hris_form_visiblefields';
 import { hris_formsection } from './hris_formsection';
-import { Record } from './record';
+import { Record } from '../../modules/record/entities/record';
 import { User } from './user';
 
 @Entity('hris_form', { schema: 'public' })

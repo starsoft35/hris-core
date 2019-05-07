@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { hris_form } from './form';
+import { hris_form } from '../../../database/entities/form';
 
 @Entity('record', { schema: 'public' })
 export class Record {
