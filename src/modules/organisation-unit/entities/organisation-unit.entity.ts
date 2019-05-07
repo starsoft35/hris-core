@@ -114,12 +114,12 @@ export class OrganisationUnit extends IdentifiableObject {
   })
   contactPerson: string | null;
 
-  // @OneToMany(
-  //   type => hris_intergration_dhis_dataconnection,
-  //   hris_intergration_dhis_dataconnection =>
-  //     hris_intergration_dhis_dataconnection.parent_organisationunit_,
-  // )
-  // hris_intergration_dhis_dataconnections: hris_intergration_dhis_dataconnection[];
+  @OneToMany(
+    type => OrganisationUnit,
+    organisationUnit =>
+      organisationUnit.parent,
+  )
+  children: OrganisationUnit[];
 
   // @OneToMany(
   //   type => hris_intergration_tiis_data_connection,

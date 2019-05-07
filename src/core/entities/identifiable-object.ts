@@ -1,5 +1,5 @@
 import { TransactionDate } from './transaction-date.entity';
-import { PrimaryGeneratedColumn, Column } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
 
 @ObjectType()
@@ -46,4 +46,10 @@ export default class IdentifiableObject extends TransactionDate {
     name: 'code',
   })
   code: string | null;
+
+  @BeforeInsert()
+  beforeInsertIdentifiable(){
+    console.log('Called before Insert Ident')
+    this.uid = '1234567890123';
+  }
 }

@@ -2,8 +2,9 @@ import { Body, Get, Post, Put, Param, Delete, Query } from '@nestjs/common';
 import { BaseService } from '../services/base.service';
 import { Pager, ApiResult } from '../interfaces';
 import { getPagerDetails, getWhereConditions } from '../utilities';
+import { BaseEntity } from 'typeorm';
 
-export class BaseController<T> {
+export class BaseController<T extends BaseEntity> {
   constructor(private readonly baseService: BaseService<T>) {}
   @Get()
   async findAll(@Query() query): Promise<ApiResult> {
@@ -19,6 +20,7 @@ export class BaseController<T> {
       T[],
       number
     ] = await this.baseService.findAndCount({
+      relations: ['children', 'children.children' ],
       where: getWhereConditions(query),
       take: pagerDetails.pageSize,
       skip: pagerDetails.page - 1,
@@ -152,5 +154,9 @@ export class BaseController<T> {
   get plural() {
     throw Error('Plural Not set');
     return 'undefined';
+  }
+
+  getRelations(){
+    
   }
 }
