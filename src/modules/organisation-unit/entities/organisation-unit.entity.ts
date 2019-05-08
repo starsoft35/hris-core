@@ -116,8 +116,10 @@ export class OrganisationUnit extends IdentifiableObject {
 
   @OneToMany(
     type => OrganisationUnit,
-    organisationUnit =>
-      organisationUnit.parent,
+    organisationUnit => organisationUnit.parent, 
+    { 
+      cascade: ["insert", "update"]
+    }
   )
   children: OrganisationUnit[];
 

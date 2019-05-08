@@ -14,6 +14,6 @@ export class OrganisationUnitService extends BaseService<OrganisationUnit> {
     super(organisationUnitRepository);
   }
   get model() {
-    return new OrganisationUnit();
+    return OrganisationUnit;
   }
 }
