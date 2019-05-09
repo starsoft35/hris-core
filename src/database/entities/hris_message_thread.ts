@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import { User} from "./user";
+import { User} from "../../modules/user/entities/user";
 import {hris_message} from "./hris_message";
 import {hris_message_thread_metadata} from "./hris_message_thread_metadata";
 

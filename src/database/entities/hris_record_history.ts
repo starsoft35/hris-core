@@ -9,19 +9,6 @@ import {Field} from "./hris_field";
 @Index("uniq_bab4b7b539b0606",["uid",],{unique:true})
 export class hris_record_history {
 
-    @Column("integer",{ 
-        nullable:false,
-        primary:true,
-        name:"id"
-        })
-    id:number;
-
-
-   
-    @ManyToOne(type=>Field, Field=>Field.hris_record_historys,{ onDelete: 'CASCADE', })
-    @JoinColumn({ name:'field_id'})
-    field_:Field | null;
-
 
     @Column("character varying",{ 
         nullable:false,
@@ -34,56 +21,9 @@ export class hris_record_history {
     @Column("character varying",{ 
         nullable:false,
         length:64,
-        name:"history"
-        })
-    history:string;
-        
-
-    @Column("character varying",{ 
-        nullable:true,
-        length:255,
-        default: () => "NULL::character varying",
-        name:"reason"
-        })
-    reason:string | null;
-        
-
-    @Column("timestamp without time zone",{ 
-        nullable:false,
-        name:"startdate"
-        })
-    startdate:Date;
-        
-
-    @Column("character varying",{ 
-        nullable:false,
-        length:64,
         name:"username"
         })
     username:string;
-        
-
-    @Column("timestamp without time zone",{ 
-        nullable:false,
-        name:"datecreated"
-        })
-    datecreated:Date;
-        
-
-    @Column("timestamp without time zone",{ 
-        nullable:true,
-        default: () => "NULL::timestamp without time zone",
-        name:"lastupdated"
-        })
-    lastupdated:Date | null;
-        
-
-    @Column("timestamp without time zone",{ 
-        nullable:true,
-        default: () => "NULL::timestamp without time zone",
-        name:"enddate"
-        })
-    enddate:Date | null;
         
 
     @Column("character varying",{ 
@@ -93,12 +33,5 @@ export class hris_record_history {
         name:"entitled_payment"
         })
     entitled_payment:string | null;
-        
-
-    @Column("integer",{ 
-        nullable:true,
-        name:"organisationunit_id"
-        })
-    organisationunit_id:number | null;
         
 }

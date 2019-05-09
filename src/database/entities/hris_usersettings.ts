@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import { User } from './user';
+import { User } from '../../modules/user/entities/user';
 
 
 @Entity('hris_usersettings', { schema: 'public' })

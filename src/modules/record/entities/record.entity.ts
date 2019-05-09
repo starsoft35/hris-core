@@ -1,9 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { hris_form } from '../../../database/entities/form';
+import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 
 @Entity('record', { schema: 'public' })
-export class Record {
+export class Record extends TransactionDate{
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -23,7 +24,7 @@ export class Record {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'form_id' })
+  @JoinColumn({ name: 'formid' })
   form_: hris_form | null;
 
   @Column('character varying', {
@@ -69,19 +70,6 @@ export class Record {
     name: 'hastraining',
   })
   hastraining: boolean;
-
-  @Column('timestamp without time zone', {
-    nullable: false,
-    name: 'datecreated',
-  })
-  datecreated: Date;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
 
   @Column('character varying', {
     nullable: false,

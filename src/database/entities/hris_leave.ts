@@ -13,7 +13,7 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
-import { Record } from '../../modules/record/entities/record';
+import { Record } from '../../modules/record/entities/record.entity';
 import { hris_leave_type } from './hris_leave_type';
 import { hris_leave_relative } from './hris_leave_relative';
 

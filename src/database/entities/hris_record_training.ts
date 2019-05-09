@@ -13,7 +13,7 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
-import { Record } from '../../modules/record/entities/record';
+import { Record } from '../../modules/record/entities/record.entity';
 import { hris_traininginstance } from './hris_traininginstance';
 
 @Entity('hris_record_training', { schema: 'public' })

@@ -8,24 +8,21 @@ import {
   OneToOne,
 } from 'typeorm';
 
-import { hris_form } from './form';
-import { hris_dashboardchart } from './hris_dashboardchart';
-import { hris_message } from './hris_message';
-import { hris_message_metadata } from './hris_message_metadata';
-import { hris_message_thread } from './hris_message_thread';
-import { hris_message_thread_metadata } from './hris_message_thread_metadata';
-import { hris_user_group } from './hris_user_group';
-import { hris_usersettings } from './hris_usersettings';
+import { hris_form } from '../../../database/entities/form';
+import { hris_dashboardchart } from '../../../database/entities/hris_dashboardchart';
+import { hris_message } from '../../../database/entities/hris_message';
+import { hris_message_metadata } from '../../../database/entities/hris_message_metadata';
+import { hris_message_thread } from '../../../database/entities/hris_message_thread';
+import { hris_message_thread_metadata } from '../../../database/entities/hris_message_thread_metadata';
+import { hris_user_group } from '../../../database/entities/hris_user_group';
+import { hris_usersettings } from '../../../database/entities/hris_usersettings';
 
-@Entity('hris_user', { schema: 'public' })
-@Index('idx_6acb86e983954d93', ['organisationunit_'])
-@Index('uniq_6acb86e9539b0606', ['uid'], { unique: true })
-@Index('uniq_6acb86e992fc23a8', ['username_canonical'], { unique: true })
+@Entity('User', { schema: 'public' })
 export class User {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'id',
+    name: 'userid',
   })
   id: number;
 
