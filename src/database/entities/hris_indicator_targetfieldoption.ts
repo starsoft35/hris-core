@@ -1,6 +1,6 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_indicator_target} from "./hris_indicator_target";
-import {hris_fieldoption} from "./hris_fieldoption";
+import {hris_fieldoption} from "../../modules/form/entities/field-option.entity";
 
 
 @Entity("hris_indicator_targetfieldoption",{schema:"public" } )

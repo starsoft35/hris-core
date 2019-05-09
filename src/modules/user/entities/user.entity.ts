@@ -10,8 +10,8 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { Form } from '../../../database/entities/form';
-import { hris_dashboardchart } from '../../../database/entities/hris_dashboardchart';
+import { Form } from '../../form/entities/form.entity';
+import { DashboardChart } from '../../dashboard/entities/dashboard-chart.entity';
 import { Message } from '../../message/entities/message.entity';
 import { MessageMetadata } from '../../message/entities/message-metadata.entity';
 import { MessageThread } from '../../message/entities/message-thread.entity';
@@ -212,11 +212,11 @@ export class User extends BaseEntity{
   description: string | null;
 
   @OneToMany(
-    type => hris_dashboardchart,
+    type => DashboardChart,
     hris_dashboardchart => hris_dashboardchart.user_,
     { onDelete: 'CASCADE' },
   )
-  hris_dashboardcharts: hris_dashboardchart[];
+  dashboardCharts: DashboardChart[];
 
   @OneToMany(type => Message, message => message.user, {
     onDelete: 'CASCADE',

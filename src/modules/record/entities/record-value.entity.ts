@@ -1,7 +1,7 @@
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { Field } from '../../../database/entities/hris_field';
+import { Field } from '../../form/entities/field.entity';
 import { Record } from './record.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { User } from 'src/modules/user/entities/user.entity';

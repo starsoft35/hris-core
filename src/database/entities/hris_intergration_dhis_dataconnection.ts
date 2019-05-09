@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { hris_fieldoptiongroupset } from './hris_fieldoptiongroupset';
+import { hris_fieldoptiongroupset } from '../../modules/form/entities/field-option-groupset.entity';
 import { hris_intergration_dhis_dataelementfieldoptionrelation } from './hris_intergration_dhis_dataelementfieldoptionrelation';
 
 @Entity('hris_intergration_dhis_dataconnection', { schema: 'public' })

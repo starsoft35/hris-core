@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { Form } from '../../../database/entities/form';
+import { Form } from '../../form/entities/form.entity';
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 
 @Entity('record', { schema: 'public' })

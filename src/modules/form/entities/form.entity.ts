@@ -7,12 +7,11 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { hris_dashboardchart } from './hris_dashboardchart';
-import { Field } from './hris_field';
-import { hris_form_fieldmembers } from './hris_form_fieldmembers';
-import { hris_form_visiblefields } from './hris_form_visiblefields';
-import { hris_formsection } from './hris_formsection';
-import { Record } from '../../modules/record/entities/record.entity';
+import { Field } from './field.entity';
+import { FormFieldMember } from './form-field-member.entity';
+import { FormVisibleField } from './form-visible-fields.entity';
+import { FormSection } from './form-section.entity';
+import { Record } from '../../record/entities/record.entity';
 import { User } from 'src/modules/user/entities/user.entity';
 
 @Entity('form', { schema: 'public' })
@@ -66,25 +65,25 @@ export class Form {
   lastupdated: Date | null;
 
   @OneToMany(
-    type => hris_form_fieldmembers,
-    hris_form_fieldmembers => hris_form_fieldmembers.form_,
+    type => FormFieldMember,
+    formFieldMember => formFieldMember.form,
     { onDelete: 'CASCADE' },
   )
-  hris_form_fieldmemberss: hris_form_fieldmembers[];
+  formFieldMembers: FormFieldMember[];
 
   @OneToMany(
-    type => hris_form_visiblefields,
-    hris_form_visiblefields => hris_form_visiblefields.form_,
+    type => FormVisibleField,
+    formVisibleField => formVisibleField.form,
     { onDelete: 'CASCADE' },
   )
-  hris_form_visiblefieldss: hris_form_visiblefields[];
+  formVisibleFields: FormVisibleField[];
 
   @OneToMany(
-    type => hris_formsection,
-    hris_formsection => hris_formsection.form_,
+    type => FormSection,
+    formSection => formSection.form,
     { onDelete: 'CASCADE' },
   )
-  hris_formsections: hris_formsection[];
+  formSections: FormSection[];
 
   // @OneToMany(
   //   type => hris_organisationunitcompleteness,
@@ -98,18 +97,12 @@ export class Form {
   })
   records: Record[];
 
-  @ManyToMany(type => Field, Field => Field.hris_forms, {
+  @ManyToMany(type => Field, field => field.forms, {
     nullable: false,
   })
-  @JoinTable({ name: 'hris_form_uniquerecordfields' })
-  hris_fields: Field[];
+  @JoinTable({ name: 'formuniquerecordfields' })
+  fields: Field[];
 
   @ManyToMany(type => User, User => User.forms)
   users: User[];
-
-  @ManyToMany(
-    type => hris_dashboardchart,
-    hris_dashboardchart => hris_dashboardchart.hris_forms,
-  )
-  hris_dashboardcharts: hris_dashboardchart[];
 }

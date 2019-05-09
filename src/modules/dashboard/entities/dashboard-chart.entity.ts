@@ -8,21 +8,12 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { Form } from './form';
-import { Field } from './hris_field';
-import { User } from '../../modules/user/entities/user.entity';
+import { Form } from '../../form/entities/form.entity';
+import { Field } from '../../form/entities/field.entity';
+import { User } from '../../user/entities/user.entity';
 
-@Entity('hris_dashboardchart', { schema: 'public' })
-@Index(
-  'userfieldonetwographtypelowerlevel_idx',
-  ['fieldone_', 'fieldtwo_', 'graphtype', 'lowerlevels', 'user_'],
-  { unique: true },
-)
-@Index('idx_34cd0e7e5a05b474', ['fieldone_'])
-@Index('idx_34cd0e7e315953bb', ['fieldtwo_'])
-@Index('uniq_34cd0e7e5e237e06', ['name'], { unique: true })
-@Index('idx_34cd0e7ea76ed395', ['user_'])
-export class hris_dashboardchart {
+@Entity('dashboardchart', { schema: 'public' })
+export class DashboardChart {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -30,19 +21,7 @@ export class hris_dashboardchart {
   })
   id: number;
 
-  @ManyToOne(type => Field, Field => Field.hris_dashboardcharts, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'fieldone_id' })
-  fieldone_: Field | null;
-
-  @ManyToOne(type => Field, Field => Field.hris_dashboardcharts2, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'fieldtwo_id' })
-  fieldtwo_: Field | null;
-
-  @ManyToOne(type => User, User => User.hris_dashboardcharts, {
+  @ManyToOne(type => User, user => user.dashboardCharts, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
@@ -107,10 +86,4 @@ export class hris_dashboardchart {
   // )
   // @JoinTable({ name: 'hris_dashboardchart_organisationunitmembers' })
   // hris_organisationunits: hris_organisationunit[];
-
-  @ManyToMany(type => Form, hris_form => hris_form.hris_dashboardcharts, {
-    nullable: false,
-  })
-  @JoinTable({ name: 'hris_dashboardchart_formmembers' })
-  hris_forms: Form[];
 }

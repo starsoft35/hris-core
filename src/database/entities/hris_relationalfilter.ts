@@ -1,7 +1,7 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {Field} from "./hris_field";
+import {Field} from "../../modules/form/entities/field.entity";
 import {hris_friendlyreport} from "./hris_friendlyreport";
-import {hris_fieldoption} from "./hris_fieldoption";
+import {hris_fieldoption} from "../../modules/form/entities/field-option.entity";
 
 
 @Entity("hris_relationalfilter",{schema:"public" } )

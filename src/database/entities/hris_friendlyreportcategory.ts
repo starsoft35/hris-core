@@ -1,6 +1,6 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_friendlyreport} from "./hris_friendlyreport";
-import {hris_fieldoptiongroup} from "./hris_fieldoptiongroup";
+import {hris_fieldoptiongroup} from "../../modules/form/entities/field-option-group.entity";
 
 
 @Entity("hris_friendlyreportcategory",{schema:"public" } )
