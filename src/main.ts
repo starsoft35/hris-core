@@ -20,6 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);*/
   app.use(helmet());
   app.use(session({ secret: 'nest is awesome' }));
+
   //app.use(csurf());
   app.use(
     rateLimit({

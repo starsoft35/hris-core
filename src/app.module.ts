@@ -11,8 +11,7 @@ getAppsConfiguration();
 @Module({
   imports: [
     TypeOrmModule.forRoot(
-      getDataBaseConfiguration()
-    ),
+      getDataBaseConfiguration()),
     // UserModule,
     OrganisatinUnitModule,
     // RecordModule,
