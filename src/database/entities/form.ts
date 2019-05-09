@@ -95,10 +95,10 @@ export class hris_form {
   // )
   // hris_organisationunitcompletenesss: hris_organisationunitcompleteness[];
 
-  @OneToMany(type => Record, Record => Record.form_, {
-    onDelete: 'CASCADE',
-  })
-  records: Record[];
+  // @OneToMany(type => Record, Record => Record.form_, {
+  //   onDelete: 'CASCADE',
+  // })
+  // records: Record[];
 
   @ManyToMany(type => Field, Field => Field.hris_forms, {
     nullable: false,

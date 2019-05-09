@@ -4,7 +4,7 @@ import { hris_form } from '../../../database/entities/form';
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 
 @Entity('record', { schema: 'public' })
-export class Record extends TransactionDate{
+export class Record extends TransactionDate {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -20,12 +20,12 @@ export class Record extends TransactionDate{
   // @JoinColumn({ name: 'organisationunit_id' })
   // organisationunit_: OrganisationUnit | null;
 
-  @ManyToOne(type => hris_form, hris_form => hris_form.records, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'formid' })
-  form_: hris_form | null;
+  // @ManyToOne(type => hris_form, hris_form => hris_form.records, {
+  //   nullable: false,
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'formid' })
+  // form_: hris_form | null;
 
   @Column('character varying', {
     nullable: false,
