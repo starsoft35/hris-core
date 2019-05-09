@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { GraphQLModule } from '@nestjs/graphql';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,9 +13,6 @@ getAppsConfiguration();
     TypeOrmModule.forRoot(
       getDataBaseConfiguration()
     ),
-    GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.gql',
-    }),
     // UserModule,
     OrganisatinUnitModule,
     // RecordModule,
