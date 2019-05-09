@@ -1,4 +1,4 @@
-import IdentifiableObject from 'src/core/entities/identifiable-object';
+import IdentifiableObject from '../../../core/entities/identifiable-object';
 import { Column, Entity } from 'typeorm';
 
 @Entity('organisationunitlevel', { schema: 'public' })

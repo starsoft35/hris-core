@@ -1,12 +1,12 @@
 import * as _ from 'lodash';
-export function getWhereConditions(queryParams: any): any[] {
-  if (!queryParams || (queryParams && !queryParams.filter)) {
+export function getWhereConditions(filter: any): any[] {
+  if (filter) {
     return [];
   }
 
-  const filterParams = _.isString(queryParams.filter)
-    ? [queryParams.filter]
-    : queryParams.filter;
+  const filterParams = _.isString(filter)
+    ? [filter]
+    : filter;
 
   return _.filter(
     _.map(filterParams || [], (filterParam: string) => {

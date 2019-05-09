@@ -3,6 +3,7 @@ import { BaseService } from '../services/base.service';
 import { Pager, ApiResult } from '../interfaces';
 import { getPagerDetails, getWhereConditions } from '../utilities';
 import { BaseEntity } from 'typeorm';
+import { getSelections, getRelations } from '../utilities/get-fields.utility';
 
 export class BaseController<T extends BaseEntity> {
   constructor(private readonly baseService: BaseService<T>) {}
@@ -19,12 +20,14 @@ export class BaseController<T extends BaseEntity> {
     const [contents, totalCount]: [
       T[],
       number
-    ] = await this.baseService.findAndCount({
-      relations: ['children', 'children.children' ],
-      where: getWhereConditions(query),
-      take: pagerDetails.pageSize,
-      skip: pagerDetails.page - 1,
-    });
+    ] = await this.baseService.findAndCount(query.fields, query.filter, pagerDetails.pageSize, pagerDetails.page - 1);
+    // })= await this.baseService.findAndCount({
+    //   select: getSelections(query),
+    //   relations: getRelations(query),
+    //   where: getWhereConditions(query),
+    //   take: pagerDetails.pageSize,
+    //   skip: pagerDetails.page - 1,
+    // });
 
     return {
       pager: {
@@ -129,27 +132,6 @@ export class BaseController<T extends BaseEntity> {
     }
   }
 
-  // TODO: This method should be removed since there is already a method doing same thing which needs testing
-  convertWhere(filter) {
-    let filters = [];
-    const conditions = [];
-    if (typeof filter === 'string') {
-      filters.push(filter);
-    } else {
-      filters = filter;
-    }
-    filters.forEach(f => {
-      const filterSplit = f.split(':');
-      const condition = {};
-      if (filterSplit[1] === 'eq') {
-        condition[filterSplit[0]] = filterSplit[2];
-      }
-      conditions.push(condition);
-    });
-
-    return conditions;
-  }
-
   // TODO: give descriptive name for this method
   get plural() {
     throw Error('Plural Not set');
@@ -157,6 +139,6 @@ export class BaseController<T extends BaseEntity> {
   }
 
   getRelations(){
-    
+
   }
 }

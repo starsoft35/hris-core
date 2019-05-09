@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrganisationUnitCompletenessService } from 'src/modules/organisation-unit/services/organisation-unit-completeness.service';
+import { OrganisationUnitCompletenessService } from '../../../../src/modules/organisation-unit/services/organisation-unit-completeness.service';
 
 describe('OrganisationUnitCompletenessService', () => {
   let service: OrganisationUnitCompletenessService;

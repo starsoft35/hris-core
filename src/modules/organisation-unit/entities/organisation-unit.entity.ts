@@ -1,4 +1,3 @@
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
 import {
   Column,
   Entity,
@@ -11,7 +10,7 @@ import { Field, Int, ObjectType } from 'type-graphql';
 
 import { OrganisationUnitCompleteness } from './organisation-unit-completeness.entity';
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
-import IdentifiableObject from 'src/core/entities/identifiable-object';
+import IdentifiableObject from '../../../core/entities/identifiable-object';
 
 @Entity('organisationunit', { schema: 'public' })
 @ObjectType()
@@ -116,8 +115,10 @@ export class OrganisationUnit extends IdentifiableObject {
 
   @OneToMany(
     type => OrganisationUnit,
-    organisationUnit =>
-      organisationUnit.parent,
+    organisationUnit => organisationUnit.parent, 
+    { 
+      cascade: ["insert", "update"]
+    }
   )
   children: OrganisationUnit[];
 

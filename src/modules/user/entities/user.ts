@@ -6,6 +6,7 @@ import {
   ManyToMany,
   OneToMany,
   OneToOne,
+  BaseEntity,
 } from 'typeorm';
 
 import { hris_form } from '../../../database/entities/form';
@@ -18,7 +19,7 @@ import { hris_user_group } from '../../../database/entities/hris_user_group';
 import { hris_usersettings } from '../../../database/entities/hris_usersettings';
 
 @Entity('User', { schema: 'public' })
-export class User {
+export class User extends BaseEntity{
   @Column('integer', {
     nullable: false,
     primary: true,

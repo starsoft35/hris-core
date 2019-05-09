@@ -1,8 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 
 import { OrganisationUnit } from './organisation-unit.entity';
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
-import IdentifiableObject from 'src/core/entities/identifiable-object';
+import IdentifiableObject from '../../../core/entities/identifiable-object';
 
 @Entity('organisationunitcompleteness', { schema: 'public' })
 @Index('idx_e57d917183954d93', ['organisationUnitId'])
