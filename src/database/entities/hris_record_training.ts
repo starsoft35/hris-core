@@ -14,7 +14,7 @@ import {
   RelationId,
 } from 'typeorm';
 import { Record } from '../../modules/record/entities/record.entity';
-import { hris_traininginstance } from './hris_traininginstance';
+import { hris_traininginstance } from '../../modules/training/entities/training-session.entity';
 
 @Entity('hris_record_training', { schema: 'public' })
 //@Index("unique_recordtraining_idx",["record_","trainingsession_",],{unique:true})

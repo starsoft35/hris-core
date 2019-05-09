@@ -11,6 +11,9 @@ import { Field, Int, ObjectType } from 'type-graphql';
 import { OrganisationUnitCompleteness } from './organisation-unit-completeness.entity';
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
 import IdentifiableObject from '../../../core/entities/identifiable-object';
+import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
+import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
+import { User } from 'src/modules/user/entities/user.entity';
 
 @Entity('organisationunit', { schema: 'public' })
 @ObjectType()
@@ -150,24 +153,24 @@ export class OrganisationUnit extends IdentifiableObject {
   // })
   // records: Record[];
 
-  // @OneToMany(
-  //   type => hris_traininginstance,
-  //   hris_traininginstance => hris_traininginstance.district,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_traininginstances: hris_traininginstance[];
+  @OneToMany(
+    type => TrainingSession,
+    trainingSession => trainingSession.organisationUnit,
+    { onDelete: 'CASCADE' },
+  )
+  trainingSessions: TrainingSession[];
 
-  // @OneToMany(
-  //   type => hris_traininginstance,
-  //   hris_traininginstance => hris_traininginstance.region,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_traininginstances2: hris_traininginstance[];
+  @OneToMany(
+    type => TrainingVenue,
+    TrainingVenue => TrainingVenue.organisationUnit,
+    { onDelete: 'CASCADE' },
+  )
+  trainingVenues: TrainingVenue[];
 
-  // @OneToMany(type => User, User => User.organisationunit_, {
-  //   onDelete: 'CASCADE',
-  // })
-  // hris_users: User[];
+  @OneToMany(type => User, User => User.organisationUnits, {
+    onDelete: 'CASCADE',
+  })
+  users: User[];
 
   @ManyToMany(
     type => OrganisationUnitGroup,

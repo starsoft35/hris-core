@@ -7,6 +7,7 @@ import {
   OneToMany,
   OneToOne,
   BaseEntity,
+  ManyToOne,
 } from 'typeorm';
 
 import { Form } from '../../../database/entities/form';
@@ -18,6 +19,7 @@ import { MessageThreadMetadata } from '../../message/entities/message-thread-met
 import { UserGroup } from './user-group.entity';
 import { UserSettings } from './user-settings.entity';
 import { UserRole } from './user-role.entity';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 
 @Entity('user', { schema: 'public' })
 export class User extends BaseEntity{
@@ -27,10 +29,6 @@ export class User extends BaseEntity{
     name: 'userid',
   })
   id: number;
-
-  // @ManyToOne(type=>hris_organisationunit, hris_organisationunit=>hris_organisationunit.hris_users,{ onDelete: 'CASCADE', })
-  // @JoinColumn({ name:'organisationunit_id'})
-  // organisationunit_:hris_organisationunit | null;
 
   @Column('character varying', {
     nullable: false,
@@ -258,6 +256,14 @@ export class User extends BaseEntity{
   })
   @JoinTable({ name: 'hris_user_formmembers' })
   forms: Form[];
+
+  @ManyToMany(
+    type => OrganisationUnit,
+    organisationUnit => organisationUnit.users,
+    { nullable: false },
+  )
+  @JoinTable({ name: 'organisationunitmembers' })
+  organisationUnits: OrganisationUnit[];
 
   @ManyToMany(
     type => UserGroup,
