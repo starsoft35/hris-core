@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { BaseController } from 'src/core/controllers/base.contoller';
+import { BaseController } from '../../../core/controllers/base.contoller';
 
 import { OrganisationUnitService } from '../services/organisation-unit.service';
 import { OrganisationUnit } from '../entities/organisation-unit.entity';

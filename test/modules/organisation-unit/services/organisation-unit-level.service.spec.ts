@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrganisationUnitLevelService } from '../../../../src/modules/organisation-unit/services/organisation-unit-level.service';
-import { BaseService } from 'src/core/services/base.service';
+import { BaseService } from '../../../../src/core/services/base.service';
 
 describe('OrganisationUnitLevelService', () => {
   let service: OrganisationUnitLevelService;

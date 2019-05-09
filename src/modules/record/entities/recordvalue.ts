@@ -1,4 +1,4 @@
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
+import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Field } from '../../../database/entities/hris_field';
