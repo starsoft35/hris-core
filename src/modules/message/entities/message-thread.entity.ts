@@ -1,13 +1,13 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import { User} from "../../modules/user/entities/user.entity";
-import {hris_message} from "./hris_message";
-import {hris_message_thread_metadata} from "./hris_message_thread_metadata";
+import { User} from "../../user/entities/user.entity";
+import {Message} from "./message.entity";
+import {hris_message_thread_metadata} from "../../../database/entities/hris_message_thread_metadata";
 
 
 @Entity('hris_message_thread', { schema: 'public' })
 @Index('idx_9dc9eac1f0b5af0b', ['createdby_'])
 @Index('uniq_9dc9eac1539b0606', ['uid'], { unique: true })
-export class hris_message_thread {
+export class MessageThread {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -60,10 +60,10 @@ export class hris_message_thread {
   })
   lastupdated: Date | null;
 
-  @OneToMany(type => hris_message, hris_message => hris_message.thread_, {
+  @OneToMany(type => Message, message => message.thread, {
     onDelete: 'CASCADE',
   })
-  hris_messages: hris_message[];
+  messages: Message[];
 
   @OneToMany(
     type => hris_message_thread_metadata,

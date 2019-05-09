@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_form} from "./form";
+import { Form} from "./form";
 import {Field} from "./hris_field";
 
 
@@ -9,9 +9,9 @@ import {Field} from "./hris_field";
 export class hris_form_fieldmembers {
 
    
-    @ManyToOne(type=>hris_form, hris_form=>hris_form.hris_form_fieldmemberss,{ primary:true, nullable:false,onDelete: 'CASCADE', })
+    @ManyToOne(type => Form, hris_form=>hris_form.hris_form_fieldmemberss,{ primary:true, nullable:false,onDelete: 'CASCADE', })
     @JoinColumn({ name:'form_id'})
-    form_:hris_form | null;
+    form_: Form | null;
 
 
    

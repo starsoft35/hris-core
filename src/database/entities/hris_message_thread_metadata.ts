@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_message_thread} from "./hris_message_thread";
+import {hris_message_thread} from "../../modules/message/entities/message-thread.entity";
 import { User} from "../../modules/user/entities/user.entity";
 
 

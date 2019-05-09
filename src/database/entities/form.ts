@@ -13,12 +13,10 @@ import { hris_form_fieldmembers } from './hris_form_fieldmembers';
 import { hris_form_visiblefields } from './hris_form_visiblefields';
 import { hris_formsection } from './hris_formsection';
 import { Record } from '../../modules/record/entities/record.entity';
-import { User } from '../../modules/user/entities/user';
+import { User } from 'src/modules/user/entities/user.entity';
 
-@Entity('hris_form', { schema: 'public' })
-@Index('uniq_b5d0adef5e237e06', ['name'], { unique: true })
-@Index('uniq_b5d0adef539b0606', ['uid'], { unique: true })
-export class hris_form {
+@Entity('form', { schema: 'public' })
+export class Form {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -95,7 +93,7 @@ export class hris_form {
   // )
   // hris_organisationunitcompletenesss: hris_organisationunitcompleteness[];
 
-  @OneToMany(type => Record, Record => Record.form_, {
+  @OneToMany(type => Record, Record => Record.form, {
     onDelete: 'CASCADE',
   })
   records: Record[];
@@ -106,8 +104,8 @@ export class hris_form {
   @JoinTable({ name: 'hris_form_uniquerecordfields' })
   hris_fields: Field[];
 
-  @ManyToMany(type => User, User => User.hris_forms)
-  hris_users: User[];
+  @ManyToMany(type => User, User => User.forms)
+  users: User[];
 
   @ManyToMany(
     type => hris_dashboardchart,

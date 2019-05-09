@@ -15,7 +15,7 @@ import {hris_record_history_date} from "./hris_record_history_date";
 import {hris_relationalfilter} from "./hris_relationalfilter";
 import {hris_resourcetable_fieldmembers} from "./hris_resourcetable_fieldmembers";
 import {hris_fieldgroup} from "./hris_fieldgroup";
-import {hris_form} from "./form";
+import {Form} from "./form";
 
 
 @Entity("hris_field",{schema:"public" } )
@@ -228,7 +228,7 @@ export class Field {
     
 
    
-    @ManyToMany(type=>hris_form, hris_form=>hris_form.hris_fields)
-    hris_forms:hris_form[];
+    @ManyToMany(type=>Form, form=>form.hris_fields)
+    hris_forms: Form[];
     
 }

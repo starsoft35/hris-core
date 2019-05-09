@@ -8,7 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { hris_form } from './form';
+import { Form } from './form';
 import { Field } from './hris_field';
 import { User } from '../../modules/user/entities/user.entity';
 
@@ -108,9 +108,9 @@ export class hris_dashboardchart {
   // @JoinTable({ name: 'hris_dashboardchart_organisationunitmembers' })
   // hris_organisationunits: hris_organisationunit[];
 
-  @ManyToMany(type => hris_form, hris_form => hris_form.hris_dashboardcharts, {
+  @ManyToMany(type => Form, hris_form => hris_form.hris_dashboardcharts, {
     nullable: false,
   })
   @JoinTable({ name: 'hris_dashboardchart_formmembers' })
-  hris_forms: hris_form[];
+  hris_forms: Form[];
 }

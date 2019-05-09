@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_form} from "./form";
+import { Form} from "./form";
 import {hris_formsection_fieldmembers} from "./hris_formsection_fieldmembers";
 
 
@@ -18,9 +18,9 @@ export class hris_formsection {
         
 
    
-    @ManyToOne(type=>hris_form, hris_form=>hris_form.hris_formsections,{ onDelete: 'CASCADE', })
+    @ManyToOne(type => Form, hris_form=>hris_form.hris_formsections,{ onDelete: 'CASCADE', })
     @JoinColumn({ name:'form_id'})
-    form_:hris_form | null;
+    form_: Form | null;
 
 
     @Column("character varying",{ 

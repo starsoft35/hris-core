@@ -9,11 +9,11 @@ import {
   BaseEntity,
 } from 'typeorm';
 
-import { hris_form } from '../../../database/entities/form';
+import { Form } from '../../../database/entities/form';
 import { hris_dashboardchart } from '../../../database/entities/hris_dashboardchart';
-import { hris_message } from '../../../database/entities/hris_message';
-import { hris_message_metadata } from '../../../database/entities/hris_message_metadata';
-import { hris_message_thread } from '../../../database/entities/hris_message_thread';
+import { hris_message } from '../../message/entities/message.entity';
+import { hris_message_metadata } from '../../message/entities/message-metadata.entity';
+import { hris_message_thread } from '../../message/entities/message-thread.entity';
 import { hris_message_thread_metadata } from '../../../database/entities/hris_message_thread_metadata';
 import { UserGroup } from './user-group.entity';
 import { UserSettings } from './user-settings.entity';
@@ -253,11 +253,11 @@ export class User extends BaseEntity{
   )
   userSettings: UserSettings | null;
 
-  @ManyToMany(type => hris_form, hris_form => hris_form.hris_users, {
+  @ManyToMany(type => Form, form => form.users, {
     nullable: false,
   })
   @JoinTable({ name: 'hris_user_formmembers' })
-  hris_forms: hris_form[];
+  forms: Form[];
 
   @ManyToMany(
     type => UserGroup,

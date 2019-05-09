@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { hris_form } from '../../../database/entities/form';
+import { Form } from '../../../database/entities/form';
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 
 @Entity('record', { schema: 'public' })
@@ -20,12 +20,12 @@ export class Record extends TransactionDate{
   // @JoinColumn({ name: 'organisationunit_id' })
   // organisationunit_: OrganisationUnit | null;
 
-  // @ManyToOne(type => hris_form, hris_form => hris_form.records, {
-  //   nullable: false,
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'formid' })
-  // form_: hris_form | null;
+  @ManyToOne(type => Form, form => form.records, {
+     nullable: false,
+     onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'formid' })
+  form: Form | null;
 
   @Column('character varying', {
     nullable: false,
