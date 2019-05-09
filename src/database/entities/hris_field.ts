@@ -203,8 +203,8 @@ export class Field {
     
 
    
-    @OneToMany(type=>hris_record_history, hris_record_history=>hris_record_history.field_,{ onDelete: 'CASCADE' , })
-    hris_record_historys:hris_record_history[];
+    // @OneToMany(type=>hris_record_history, hris_record_history=>hris_record_history.field_,{ onDelete: 'CASCADE' , })
+    // hris_record_historys:hris_record_history[];
     
 
    
