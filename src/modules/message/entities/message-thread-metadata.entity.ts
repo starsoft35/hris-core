@@ -1,13 +1,10 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_message_thread} from "../../modules/message/entities/message-thread.entity";
-import { User} from "../../modules/user/entities/user.entity";
+import {MessageThread} from "./message-thread.entity";
+import { User} from "../../user/entities/user.entity";
 
 
-@Entity('hris_message_thread_metadata', { schema: 'public' })
-@Index('idx_240580139d1c3019', ['participant_'])
-@Index('idx_24058013e2904019', ['thread_'])
-@Index('uniq_24058013539b0606', ['uid'], { unique: true })
-export class hris_message_thread_metadata {
+@Entity('messagethreadmetadata', { schema: 'public' })
+export class MessageThreadMetadata {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -16,18 +13,18 @@ export class hris_message_thread_metadata {
   id: number;
 
   @ManyToOne(
-    type => hris_message_thread,
-    hris_message_thread => hris_message_thread.hris_message_thread_metadatas,
+    type => MessageThread,
+    messageThread => messageThread.messageThreadMetadatas,
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'thread_id' })
-  thread_: hris_message_thread | null;
+  thread: MessageThread | null;
 
-    @ManyToOne(type => User, User => User.hris_message_thread_metadatas, {
+    @ManyToOne(type => User, user => user.messageThreadMetadatas, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'participant_id' })
-  participant_: User | null;
+  @JoinColumn({ name: 'participantid' })
+  participant: User | null;
 
   @Column('boolean', {
     nullable: false,

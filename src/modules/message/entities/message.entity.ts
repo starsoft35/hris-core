@@ -5,7 +5,7 @@ import {MessageMetadata} from "./message-metadata.entity";
 import { UserTracker } from 'src/modules/user/entities/user-tracker';
 
 
-@Entity("hris_message",{schema:"public" } )
+@Entity("message",{schema:"public" } )
 export class Message extends UserTracker{
 
     @Column("integer",{ 
@@ -23,7 +23,7 @@ export class Message extends UserTracker{
 
 
    
-    @ManyToOne(type => User, User => User.hris_messages,{ onDelete: 'CASCADE', })
+    @ManyToOne(type => User, User => User.messages,{ onDelete: 'CASCADE', })
     @JoinColumn({ name:'userid'})
     user:User | null;
 

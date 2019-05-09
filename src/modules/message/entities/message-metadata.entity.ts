@@ -3,7 +3,7 @@ import { Message} from "./message.entity";
 import { User} from "../../user/entities/user.entity";
 
 
-@Entity('hris_message_metadata', { schema: 'public' })
+@Entity('messagemetadata', { schema: 'public' })
 export class MessageMetadata {
   @Column('integer', {
     nullable: false,
@@ -20,7 +20,7 @@ export class MessageMetadata {
   @JoinColumn({ name: 'messageid' })
   message: Message | null;
 
-    @ManyToOne(type => User, User => User.hris_message_metadatas, {
+    @ManyToOne(type => User, user => user.messageMetadatas, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'participantid' })

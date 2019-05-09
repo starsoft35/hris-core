@@ -11,10 +11,10 @@ import {
 
 import { Form } from '../../../database/entities/form';
 import { hris_dashboardchart } from '../../../database/entities/hris_dashboardchart';
-import { hris_message } from '../../message/entities/message.entity';
-import { hris_message_metadata } from '../../message/entities/message-metadata.entity';
-import { hris_message_thread } from '../../message/entities/message-thread.entity';
-import { hris_message_thread_metadata } from '../../../database/entities/hris_message_thread_metadata';
+import { Message } from '../../message/entities/message.entity';
+import { MessageMetadata } from '../../message/entities/message-metadata.entity';
+import { MessageThread } from '../../message/entities/message-thread.entity';
+import { MessageThreadMetadata } from '../../message/entities/message-thread-metadata.entity';
 import { UserGroup } from './user-group.entity';
 import { UserSettings } from './user-settings.entity';
 import { UserRole } from './user-role.entity';
@@ -220,31 +220,31 @@ export class User extends BaseEntity{
   )
   hris_dashboardcharts: hris_dashboardchart[];
 
-  @OneToMany(type => hris_message, hris_message => hris_message.user_, {
+  @OneToMany(type => Message, message => message.user, {
     onDelete: 'CASCADE',
   })
-  hris_messages: hris_message[];
+  messages: Message[];
 
   @OneToMany(
-    type => hris_message_metadata,
-    hris_message_metadata => hris_message_metadata.participant_,
+    type => MessageMetadata,
+    messageMetadata => messageMetadata.participant,
     { onDelete: 'CASCADE' },
   )
-  hris_message_metadatas: hris_message_metadata[];
+  messageMetadatas: MessageMetadata[];
 
   @OneToMany(
-    type => hris_message_thread,
-    hris_message_thread => hris_message_thread.createdby_,
+    type => MessageThread,
+    messageThread => messageThread.createdBy,
     { onDelete: 'CASCADE' },
   )
-  hris_message_threads: hris_message_thread[];
+  messageThreads: MessageThread[];
 
   @OneToMany(
-    type => hris_message_thread_metadata,
-    hris_message_thread_metadata => hris_message_thread_metadata.participant_,
+    type => MessageThreadMetadata,
+    messageThreadMetadata => messageThreadMetadata.participant,
     { onDelete: 'CASCADE' },
   )
-  hris_message_thread_metadatas: hris_message_thread_metadata[];
+  messageThreadMetadatas: MessageThreadMetadata[];
 
   @OneToOne(
     type => UserSettings,
