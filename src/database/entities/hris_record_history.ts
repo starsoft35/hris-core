@@ -15,23 +15,5 @@ export class hris_record_history {
         length:13,
         name:"uid"
         })
-    uid:string;
-        
-
-    @Column("character varying",{ 
-        nullable:false,
-        length:64,
-        name:"username"
-        })
-    username:string;
-        
-
-    @Column("character varying",{ 
-        nullable:true,
-        length:255,
-        default: () => "NULL::character varying",
-        name:"entitled_payment"
-        })
-    entitled_payment:string | null;
-        
+    uid:string;        
 }

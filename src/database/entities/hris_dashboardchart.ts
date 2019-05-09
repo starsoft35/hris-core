@@ -10,7 +10,7 @@ import {
 
 import { hris_form } from './form';
 import { Field } from './hris_field';
-import { User } from '../../modules/user/entities/user';
+import { User } from '../../modules/user/entities/user.entity';
 
 @Entity('hris_dashboardchart', { schema: 'public' })
 @Index(

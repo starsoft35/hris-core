@@ -20,12 +20,12 @@ export class Record extends TransactionDate{
   // @JoinColumn({ name: 'organisationunit_id' })
   // organisationunit_: OrganisationUnit | null;
 
-  @ManyToOne(type => hris_form, hris_form => hris_form.records, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'formid' })
-  form_: hris_form | null;
+  // @ManyToOne(type => hris_form, hris_form => hris_form.records, {
+  //   nullable: false,
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'formid' })
+  // form_: hris_form | null;
 
   @Column('character varying', {
     nullable: false,

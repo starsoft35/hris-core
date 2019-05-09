@@ -4,10 +4,11 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Field } from '../../../database/entities/hris_field';
 import { Record } from './record.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
-import { User } from 'src/modules/user/entities/user';
+import { User } from 'src/modules/user/entities/user.entity';
+import { UserTracker } from 'src/modules/user/entities/user-tracker';
 
 @Entity('recordvalue', { schema: 'public' })
-export class RecordValue extends TransactionDate {
+export class RecordValue extends UserTracker {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -50,6 +51,11 @@ export class RecordValue extends TransactionDate {
   })
   comment: string | null;
 
-  @JoinColumn({ name: 'userid' })
-  createdBy: User | null;
+  @Column("character varying", {
+    nullable: true,
+    length: 255,
+    default: () => "NULL::character varying",
+    name: "entitledpayment"
+  })
+  entitledPayment: string | null;
 }

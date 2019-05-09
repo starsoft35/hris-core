@@ -1,23 +1,21 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import { User } from '../../modules/user/entities/user';
+import { User } from './user.entity';
 
 
-@Entity('hris_usersettings', { schema: 'public' })
-@Index('uniq_3ab1c0dc539b0606', ['uid'], { unique: true })
-@Index('unique_usersettings_idx', ['user_'], { unique: true })
-export class hris_usersettings {
+@Entity('usersettings', { schema: 'public' })
+export class UserSettings {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'id',
+    name: 'usersettingsid',
   })
   id: number;
 
-    @OneToOne(type => User, User => User.hris_usersettings, {
+  @OneToOne(type => User, User => User.userSettings, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'user_id' })
-  user_: User | null;
+  @JoinColumn({ name: 'userid' })
+  user: User | null;
 
   @Column('character varying', {
     nullable: false,

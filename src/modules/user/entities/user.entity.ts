@@ -15,10 +15,11 @@ import { hris_message } from '../../../database/entities/hris_message';
 import { hris_message_metadata } from '../../../database/entities/hris_message_metadata';
 import { hris_message_thread } from '../../../database/entities/hris_message_thread';
 import { hris_message_thread_metadata } from '../../../database/entities/hris_message_thread_metadata';
-import { hris_user_group } from '../../../database/entities/hris_user_group';
-import { hris_usersettings } from '../../../database/entities/hris_usersettings';
+import { UserGroup } from './user-group.entity';
+import { UserSettings } from './user-settings.entity';
+import { UserRole } from './user-role.entity';
 
-@Entity('User', { schema: 'public' })
+@Entity('user', { schema: 'public' })
 export class User extends BaseEntity{
   @Column('integer', {
     nullable: false,
@@ -246,11 +247,11 @@ export class User extends BaseEntity{
   hris_message_thread_metadatas: hris_message_thread_metadata[];
 
   @OneToOne(
-    type => hris_usersettings,
-    hris_usersettings => hris_usersettings.user_,
+    type => UserSettings,
+    userSettings => userSettings.user,
     { onDelete: 'CASCADE' },
   )
-  hris_usersettings: hris_usersettings | null;
+  userSettings: UserSettings | null;
 
   @ManyToMany(type => hris_form, hris_form => hris_form.hris_users, {
     nullable: false,
@@ -259,10 +260,18 @@ export class User extends BaseEntity{
   hris_forms: hris_form[];
 
   @ManyToMany(
-    type => hris_user_group,
-    hris_user_group => hris_user_group.hris_users,
+    type => UserGroup,
+    userGroup => userGroup.users,
     { nullable: false },
   )
-  @JoinTable({ name: 'hris_user_group_members' })
-  hris_user_groups: hris_user_group[];
+  @JoinTable({ name: 'usergroupmembers' })
+  userGroups: UserGroup[];
+
+  @ManyToMany(
+    type => UserRole,
+    userRole => userRole.users,
+    { nullable: false },
+  )
+  @JoinTable({ name: 'userrolemembers' })
+  userRoles: UserRole[];
 }
