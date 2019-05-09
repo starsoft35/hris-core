@@ -6,6 +6,12 @@ Human Resource Information System 4 ...
 
 ## Installation
 
+Export the folder with hris configurations
+
+```bash
+$ export HRIS_HOME=/opt/hris
+```
+
 ```bash
 $ npm install
 ```

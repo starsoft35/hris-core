@@ -6,10 +6,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-unit.module';
+import { getDataBaseConfiguration, getAppsConfiguration } from './core/utilities/configuration';
 
+getAppsConfiguration();
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot(
+      getDataBaseConfiguration()
+    ),
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
