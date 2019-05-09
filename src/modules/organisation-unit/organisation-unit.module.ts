@@ -17,7 +17,6 @@ import { OrganisationUnitCompletenessService } from './services/organisation-uni
 import { OrganisationUnitLevel } from './entities/organisation-unit-level.entity';
 import { OrganisationUnitLevelController } from './controllers/organisation-unit-level.controller';
 import { OrganisationUnitLevelService } from './services/organisation-unit-level.service';
-import { OrganisationUnitResolver } from './resolvers/organisation-unit.resolver';
 
 @Module({
   imports: [
@@ -43,7 +42,6 @@ import { OrganisationUnitResolver } from './resolvers/organisation-unit.resolver
     OrganisationUnitGroupSetService,
     OrganisationUnitCompletenessService,
     OrganisationUnitLevelService,
-    OrganisationUnitResolver,
   ],
 })
 export class OrganisatinUnitModule {}
