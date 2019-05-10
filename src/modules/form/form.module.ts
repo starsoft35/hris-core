@@ -33,11 +33,44 @@ import { FormSectionController } from './controllers/form-section.controller';
 import { FormVisibleFieldsController } from './controllers/form-visible-fields.controller';
 import { FormController } from './controllers/form.controller';
 import { FormsectionFieldmembersController } from './controllers/formsection-fieldmembers.controller';
+import { FieldDataType } from './entities/field-datatype.entity';
+import { FieldGroup } from './entities/field-group.entity';
+import { FieldGroupSet } from './entities/field-groupset.entity';
+import { FieldInputType } from './entities/field-input-type.entity';
+import { FieldOptionChildren } from './entities/field-option-children.entity';
+import { FieldOptionGroup } from './entities/field-option-group.entity';
+import { FieldOptionGroupSet } from './entities/field-option-groupset.entity';
+import { FieldOptionMerge } from './entities/field-option-merge.entity';
+import { FieldOption } from './entities/field-option.entity';
+import { FieldRelation } from './entities/field-relation.entity';
+import { Field } from './entities/field.entity';
+import { FormFieldMember } from './entities/form-field-member.entity';
+import { FormSection } from './entities/form-section.entity';
+import { FormVisibleField } from './entities/form-visible-fields.entity';
+import { Form } from './entities/form.entity';
+import { FormSectionFieldMember } from './entities/formsection-fieldmembers.entity';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'basic', session: true }),
-    TypeOrmModule.forFeature([]),
+    TypeOrmModule.forFeature([
+      FieldDataType,
+      FieldGroup,
+      FieldGroupSet,
+      FieldInputType,
+      FieldOptionChildren,
+      FieldOptionGroup,
+      FieldOptionGroupSet,
+      FieldOptionMerge,
+      FieldOption,
+      FieldRelation,
+      Field,
+      FormFieldMember,
+      FormSection,
+      FormVisibleField,
+      Form,
+      FormSectionFieldMember,
+    ]),
   ],
   controllers: [
     FieldDatatypeController,

@@ -11,7 +11,7 @@ import { FieldDataType } from './field-datatype.entity';
 import { FieldGroup } from './field-group.entity';
 import { FieldInputType } from './field-input-type.entity';
 import { FieldOptionGroup } from './field-option-group.entity';
-import { FieldOptionMerge } from './field-option-merge';
+import { FieldOptionMerge } from './field-option-merge.entity';
 import { FieldOption } from './field-option.entity';
 import { FieldRelation } from './field-relation.entity';
 import { FormFieldMember } from './form-field-member.entity';

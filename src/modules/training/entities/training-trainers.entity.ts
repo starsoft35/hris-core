@@ -2,7 +2,7 @@ import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 import { Column, Entity } from 'typeorm';
 
 @Entity('trainingtrainer', { schema: 'public' })
-export class Trainer extends IdentifiableObject {
+export class TrainingTrainer extends IdentifiableObject {
   @Column('integer', {
     nullable: false,
     primary: true,

@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { RecordsController } from './controllers/record.controller';
-import { recordProviders } from './providers/record.providers';
+import { Record } from './entities/record.entity';
 import { RecordService } from './services/record.service';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'basic', session: true }),
+    TypeOrmModule.forFeature([Record]),
   ],
   controllers: [RecordsController],
-  providers: [...recordProviders, RecordService],
+  providers: [RecordService],
 })
 export class RecordModule {}

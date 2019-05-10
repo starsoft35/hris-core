@@ -12,8 +12,8 @@ export class AuthService {
   constructor(private readonly userService: UserService) {}
 
   async login(username, password): Promise<User> {
-    let user = await this.userService.findByUsername(username);
-    user.confirmation_token = this.encodePassword(password, user.salt);
+    const user = await this.userService.findByUsername(username);
+    user.confirmationToken = this.encodePassword(password, user.salt);
     this.userService.update(user.uid, user);
     return user;
   }
@@ -24,8 +24,8 @@ export class AuthService {
   }
 
   encodePassword(raw, salt) {
-    let salted = this.mergePasswordAndSalt(raw, salt);
-    let digest = this.hash(this.algorithm, salted, true);
+    const salted = this.mergePasswordAndSalt(raw, salt);
+    const digest = this.hash(this.algorithm, salted, true);
 
     // "stretch" hash
     /*for (let i = 1; i < this.iterations; i++) {
@@ -35,22 +35,20 @@ export class AuthService {
     return createHash('sha256', salt)
       .update(raw)
       .digest('hex');
-    //return this.encodeHashAsBase64 ? digest.toString() : this.bin2hex(digest);
+    // return this.encodeHashAsBase64 ? digest.toString() : this.bin2hex(digest);
   }
 
   hash(algorithm, data, ifTrue) {
-    //creating hash object
-    var hash = createHash(algorithm);
-    let d = hash.update(data);
-    console.log('hash.update:', hash.update(data));
-    //passing the data to be hashed
+    // creating hash object
+    const hash = createHash(algorithm);
+    const d = hash.update(data);
+    // passing the data to be hashed
     return hash.update(data);
-    //Creating the hash in the required format
-    //return data.digest('hex');
+    // Creating the hash in the required format
+    // return data.digest('hex');
   }
   bin2hex(data) {
-    let digest = data.digest('hex');
-    console.log('digest:', digest);
+    const digest = data.digest('hex');
     return digest;
   }
   /**

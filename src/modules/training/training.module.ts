@@ -15,8 +15,29 @@ import { TrainingSponsorService } from './services/training-sponsor.service';
 import { TrainingTrainersService } from './services/training-trainers.service';
 import { TrainingUnitService } from './services/training-unit.service';
 import { TrainingVenueService } from './services/training-venue.service';
+import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TrainingCurriculum } from './entities/training-curriculum.entity';
+import { TrainingMethod } from './entities/training-method.entity';
+import { TrainingSession } from './entities/training-session.entity';
+import { TrainingSponsor } from './entities/training-sponsor.entity';
+import { TrainingTrainer } from './entities/training-trainers.entity';
+import { TrainingUnit } from './entities/training-unit.entity';
+import { TrainingVenue } from './entities/training-venue.entity';
 
 @Module({
+  imports: [
+    PassportModule.register({ defaultStrategy: 'basic', session: true }),
+    TypeOrmModule.forFeature([
+      TrainingCurriculum,
+      TrainingMethod,
+      TrainingSession,
+      TrainingSponsor,
+      TrainingTrainer,
+      TrainingUnit,
+      TrainingVenue,
+    ]),
+  ],
   controllers: [
     TrainingCurriculumController,
     TrainingMethodController,

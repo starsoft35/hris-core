@@ -14,19 +14,21 @@ import { MessageModule } from './modules/message/message.module';
 import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-unit.module';
 import { ReportModule } from './modules/report/report.module';
 import { TrainingModule } from './modules/training/training.module';
+import { UserModule } from './modules/user/user.module';
+import { RecordModule } from './modules/record/record.module';
 
 getAppsConfiguration();
 @Module({
   imports: [
     TypeOrmModule.forRoot(dataBaseConfiguration),
-    // UserModule,
+    UserModule,
     OrganisatinUnitModule,
     FormModule,
     DashboardModule,
     ReportModule,
     TrainingModule,
     MessageModule,
-    // RecordModule,
+    RecordModule,
   ],
   controllers: [AppController],
   providers: [AppService],
