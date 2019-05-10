@@ -8,7 +8,7 @@ import {
   ManyToMany,
 } from 'typeorm';
 
-import { FieldOptionMerge } from './field-option-merge';
+import { FieldOptionMerge } from './field-option-merge.entity';
 import { Field } from './field.entity';
 import { FieldOptionGroup } from './field-option-group.entity';
 

@@ -5,16 +5,14 @@ const config = JSON.parse(
   fs.readFileSync(pathFolder + '/' + 'config.json', 'utf8'),
 );
 
-export function getDataBaseConfiguration() {
-  return {
-    ...config.database,
-    entities: ['src/**/*.entity{.ts,.js}'],
-    migrations: ['src/database/migration/*.ts'],
-    cli: {
-      migrationsDir: 'src/database/migration',
-    },
-  };
-}
+export const dataBaseConfiguration = {
+  ...config.database,
+  entities: ['src/**/*.entity{.ts,.js}'],
+  migrations: ['src/database/migration/*.ts'],
+  cli: {
+    migrationsDir: 'src/database/migration',
+  },
+};
 
 export function getAppsConfiguration() {
   const apps = config.apps || {};
