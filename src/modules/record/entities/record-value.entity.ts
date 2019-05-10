@@ -1,20 +1,17 @@
-import { TransactionDate } from '../../../core/entities/transaction-date.entity';
+import { TransactionDate } from 'src/core/entities/transaction-date.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Field } from '../../form/entities/field.entity';
 import { Record } from './record.entity';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
-import { User } from 'src/modules/user/entities/user.entity';
-import { UserTracker } from 'src/modules/user/entities/user-tracker';
 
 @Entity('recordvalue', { schema: 'public' })
-export class RecordValue extends UserTracker {
+export class RecordValue extends TransactionDate {
   @Column('integer', {
     nullable: false,
     primary: true,
     name: 'recordvalueid',
   })
-  recordValueId: number;
+  id: number;
 
   @ManyToOne(type => Record, record => record.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'recordid' })
@@ -30,32 +27,32 @@ export class RecordValue extends UserTracker {
   })
   value: string;
 
-  @Column("timestamp without time zone", {
+  @Column('timestamp without time zone', {
     nullable: false,
-    name: "startdate"
+    name: 'startdate',
   })
-  startdate: Date;
+  startDate: Date;
 
-  @Column("timestamp without time zone", {
+  @Column('timestamp without time zone', {
     nullable: true,
-    default: () => "NULL::timestamp without time zone",
-    name: "enddate"
+    default: () => 'NULL::timestamp without time zone',
+    name: 'enddate',
   })
-  enddate: Date | null;
+  endDate: Date | null;
 
-  @Column("character varying", {
+  @Column('character varying', {
     nullable: true,
     length: 255,
-    default: () => "NULL::character varying",
-    name: "comment"
+    default: () => 'NULL::character varying',
+    name: 'comment',
   })
   comment: string | null;
 
-  @Column("character varying", {
+  @Column('character varying', {
     nullable: true,
     length: 255,
-    default: () => "NULL::character varying",
-    name: "entitledpayment"
+    default: () => 'NULL::character varying',
+    name: 'entitledpayment',
   })
   entitledPayment: string | null;
 }

@@ -1,7 +1,12 @@
-import { CreateDateColumn, UpdateDateColumn, BaseEntity, BeforeInsert } from 'typeorm';
+import {
+  CreateDateColumn,
+  UpdateDateColumn,
+  BaseEntity,
+  BeforeInsert,
+} from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
 @ObjectType()
-export abstract class TransactionDate extends BaseEntity{
+export abstract class TransactionDate extends BaseEntity {
   @Field()
   @CreateDateColumn({
     type: 'timestamp',
@@ -26,7 +31,6 @@ export abstract class TransactionDate extends BaseEntity{
 
   @BeforeInsert()
   beforeUpdateTransaction() {
-    console.log('Updating Something');
     this.lastUpdated = new Date();
   }
 }

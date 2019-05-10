@@ -1,47 +1,28 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-} from 'typeorm';
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { OrganisationUnitCompleteness } from 'src/modules/organisation-unit/entities/organisation-unit-completeness.entity';
+import { User } from 'src/modules/user/entities/user.entity';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
+import { Record } from '../../record/entities/record.entity';
 import { Field } from './field.entity';
 import { FormFieldMember } from './form-field-member.entity';
-import { FormVisibleField } from './form-visible-fields.entity';
 import { FormSection } from './form-section.entity';
-import { Record } from '../../record/entities/record.entity';
-import { User } from 'src/modules/user/entities/user.entity';
+import { FormVisibleField } from './form-visible-fields.entity';
 
 @Entity('form', { schema: 'public' })
-export class Form {
+export class Form extends IdentifiableObject {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'id',
+    name: 'formid',
   })
   id: number;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 13,
-    name: 'uid',
-  })
-  uid: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'name',
-  })
-  name: string;
 
   @Column('text', {
     nullable: true,
     name: 'hypertext',
   })
-  hypertext: string | null;
+  hyperText: string | null;
 
   @Column('character varying', {
     nullable: true,
@@ -51,24 +32,9 @@ export class Form {
   })
   title: string | null;
 
-  @Column('timestamp without time zone', {
-    nullable: false,
-    name: 'datecreated',
+  @OneToMany(type => FormFieldMember, formFieldMember => formFieldMember.form, {
+    onDelete: 'CASCADE',
   })
-  datecreated: Date;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
-
-  @OneToMany(
-    type => FormFieldMember,
-    formFieldMember => formFieldMember.form,
-    { onDelete: 'CASCADE' },
-  )
   formFieldMembers: FormFieldMember[];
 
   @OneToMany(
@@ -78,21 +44,18 @@ export class Form {
   )
   formVisibleFields: FormVisibleField[];
 
-  @OneToMany(
-    type => FormSection,
-    formSection => formSection.form,
-    { onDelete: 'CASCADE' },
-  )
+  @OneToMany(type => FormSection, formSection => formSection.form, {
+    onDelete: 'CASCADE',
+  })
   formSections: FormSection[];
 
-  // @OneToMany(
-  //   type => hris_organisationunitcompleteness,
-  //   hris_organisationunitcompleteness =>
-  //     hris_organisationunitcompleteness.form_,
-  // )
-  // hris_organisationunitcompletenesss: hris_organisationunitcompleteness[];
+  @OneToMany(
+    type => OrganisationUnitCompleteness,
+    organisationUnitCompleteness => organisationUnitCompleteness.form,
+  )
+  organisationUnitCompletenesss: OrganisationUnitCompleteness[];
 
-  @OneToMany(type => Record, Record => Record.form, {
+  @OneToMany(type => Record, record => record.form, {
     onDelete: 'CASCADE',
   })
   records: Record[];
@@ -103,6 +66,6 @@ export class Form {
   @JoinTable({ name: 'formuniquerecordfields' })
   fields: Field[];
 
-  @ManyToMany(type => User, User => User.forms)
+  @ManyToMany(type => User, user => user.forms)
   users: User[];
 }

@@ -1,13 +1,11 @@
-import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {User} from "./user.entity";
-import IdentifiableObject from 'src/core/entities/identifiable-object';
-import { UserIdentifiableObject } from './user-identifiable-object';
-import { UserRole } from './user-role.entity';
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { Column, Entity, ManyToMany } from 'typeorm';
 
+import { UserRole } from './user-role.entity';
+import { User } from './user.entity';
 
 @Entity('usergroup', { schema: 'public' })
-export class UserGroup extends UserIdentifiableObject{
-
+export class UserGroup extends IdentifiableObject {
   @Column('text', {
     nullable: false,
     name: 'roles',

@@ -1,11 +1,10 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { Form } from 'src/modules/form/entities/form.entity';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { OrganisationUnit } from './organisation-unit.entity';
-import IdentifiableObject from '../../../core/entities/identifiable-object';
 
 @Entity('organisationunitcompleteness', { schema: 'public' })
-@Index('idx_e57d917183954d93', ['organisationUnitId'])
-@Index('uniq_e57d9171539b0606', ['uid'], { unique: true })
 export class OrganisationUnitCompleteness extends IdentifiableObject {
   @ManyToOne(
     type => OrganisationUnit,
@@ -15,13 +14,11 @@ export class OrganisationUnitCompleteness extends IdentifiableObject {
   @JoinColumn({ name: 'organisationunitid' })
   organisationUnitId: OrganisationUnit;
 
-  // @ManyToOne(
-  //   type => hris_form,
-  //   hris_form => hris_form.hris_organisationunitcompletenesss,
-  //   { nullable: false },
-  // )
-  // @JoinColumn({ name: 'form_id' })
-  // form_: hris_form | null;
+  @ManyToOne(type => Form, form => form.organisationUnitCompletenesss, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'formid' })
+  form: Form | null;
 
   @Column('integer', {
     nullable: true,

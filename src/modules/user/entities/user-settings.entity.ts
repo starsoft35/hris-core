@@ -1,9 +1,10 @@
-import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import { User } from './user.entity';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
+import { User } from './user.entity';
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 
 @Entity('usersettings', { schema: 'public' })
-export class UserSettings {
+export class UserSettings extends IdentifiableObject {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -11,53 +12,33 @@ export class UserSettings {
   })
   id: number;
 
-  @OneToOne(type => User, User => User.userSettings, {
+  @OneToOne(type => User, user => user.userSettings, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'userid' })
   user: User | null;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 13,
-    name: 'uid',
-  })
-  uid: string;
-
   @Column('boolean', {
     nullable: false,
     name: 'emailnotification',
   })
-  emailnotification: boolean;
+  emailNotification: boolean;
 
   @Column('boolean', {
     nullable: false,
     name: 'smsnotification',
   })
-  smsnotification: boolean;
+  smsNotification: boolean;
 
   @Column('boolean', {
     nullable: false,
     name: 'completenessalert',
   })
-  completenessalert: boolean;
+  completenessAlert: boolean;
 
   @Column('boolean', {
     nullable: false,
     name: 'qualitycheckalert',
   })
-  qualitycheckalert: boolean;
-
-  @Column('timestamp without time zone', {
-    nullable: false,
-    name: 'datecreated',
-  })
-  datecreated: Date;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
+  qualityCheckAlert: boolean;
 }

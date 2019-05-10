@@ -1,19 +1,22 @@
-import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {FieldOptionGroup} from "./field-option-group.entity";
-import { UserIdentifiableObject } from 'src/modules/user/entities/user-identifiable-object';
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
+import { FieldOptionGroup } from './field-option-group.entity';
 
-@Entity("fieldoptiongroupset",{schema:"public" } )
-export class FieldOptionGroupSet extends UserIdentifiableObject {
+@Entity('fieldoptiongroupset', { schema: 'public' })
+export class FieldOptionGroupSet extends IdentifiableObject {
+  @Column('integer', {
+    nullable: false,
+    primary: true,
+    name: 'fieldoptiongroupsetid',
+  })
+  id: number;
 
-    @Column("integer",{ 
-        nullable:false,
-        primary:true,
-        name:"fieldoptiongroupsetid"
-        })
-    id:number;
-    @ManyToMany(type => FieldOptionGroup, fieldOptionGroup => fieldOptionGroup.fieldOptionGroupSets,{  nullable:false, })
-    @JoinTable({ name:'fieldoptiongroupsetmembers'})
-    fieldOptionGroups: FieldOptionGroup[];
-    
+  @ManyToMany(
+    type => FieldOptionGroup,
+    fieldOptionGroup => fieldOptionGroup.fieldOptionGroupSets,
+    { nullable: false },
+  )
+  @JoinTable({ name: 'fieldoptiongroupsetmembers' })
+  fieldOptionGroups: FieldOptionGroup[];
 }

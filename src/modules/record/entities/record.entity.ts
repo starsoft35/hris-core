@@ -2,9 +2,10 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 
 @Entity('record', { schema: 'public' })
-export class Record extends TransactionDate{
+export class Record extends TransactionDate {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -12,17 +13,17 @@ export class Record extends TransactionDate{
   })
   id: number;
 
-  // @ManyToOne(
-  //   type => OrganisationUnit,
-  //   OrganisationUnit => OrganisationUnit.records,
-  //   { nullable: false, onDelete: 'CASCADE' },
-  // )
-  // @JoinColumn({ name: 'organisationunit_id' })
-  // organisationunit_: OrganisationUnit | null;
+  @ManyToOne(
+    type => OrganisationUnit,
+    organisationUnit => organisationUnit.records,
+    { nullable: false, onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'organisationunitid' })
+  organisationUnit: OrganisationUnit | null;
 
   @ManyToOne(type => Form, form => form.records, {
-     nullable: false,
-     onDelete: 'CASCADE',
+    nullable: false,
+    onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'formid' })
   form: Form | null;
@@ -63,13 +64,13 @@ export class Record extends TransactionDate{
     nullable: false,
     name: 'hashistory',
   })
-  hashistory: boolean;
+  hasHistory: boolean;
 
   @Column('boolean', {
     nullable: false,
     name: 'hastraining',
   })
-  hastraining: boolean;
+  hasTraining: boolean;
 
   @Column('character varying', {
     nullable: false,

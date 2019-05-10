@@ -1,19 +1,18 @@
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import {
   Column,
   Entity,
-  Index,
   JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
 } from 'typeorm';
 
-import { Form } from '../../form/entities/form.entity';
-import { Field } from '../../form/entities/field.entity';
 import { User } from '../../user/entities/user.entity';
 
 @Entity('dashboardchart', { schema: 'public' })
-export class DashboardChart {
+export class DashboardChart extends IdentifiableObject {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -24,35 +23,15 @@ export class DashboardChart {
   @ManyToOne(type => User, user => user.dashboardCharts, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'user_id' })
-  user_: User | null;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 13,
-    name: 'uid',
-  })
-  uid: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'name',
-  })
-  name: string;
-
-  @Column('text', {
-    nullable: true,
-    name: 'description',
-  })
-  description: string | null;
+  @JoinColumn({ name: 'userid' })
+  user: User | null;
 
   @Column('character varying', {
     nullable: false,
     length: 64,
     name: 'graphtype',
   })
-  graphtype: string;
+  graphType: string;
 
   @Column('boolean', {
     nullable: false,
@@ -64,26 +43,13 @@ export class DashboardChart {
     nullable: false,
     name: 'systemwide',
   })
-  systemwide: boolean;
+  systemWide: boolean;
 
-  @Column('timestamp without time zone', {
-    nullable: false,
-    name: 'datecreated',
-  })
-  datecreated: Date;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
-
-  // @ManyToMany(
-  //   type => hris_organisationunit,
-  //   hris_organisationunit => hris_organisationunit.hris_dashboardcharts,
-  //   { nullable: false },
-  // )
-  // @JoinTable({ name: 'hris_dashboardchart_organisationunitmembers' })
-  // hris_organisationunits: hris_organisationunit[];
+  @ManyToMany(
+    type => OrganisationUnit,
+    organisationUnit => organisationUnit.dashboardCharts,
+    { nullable: false },
+  )
+  @JoinTable({ name: 'dashboardchartorganisationunitmembers' })
+  organisationUnits: OrganisationUnit[];
 }
