@@ -9,8 +9,12 @@ import { Record } from '../entities/record.entity';
 export class RecordService extends BaseService<Record> {
   constructor(
     @InjectRepository(Record)
-    private readonly recordRepository: Repository<Record>,
+    recordRepository: Repository<Record>,
   ) {
     super(recordRepository);
+  }
+
+  get model() {
+    return Record;
   }
 }

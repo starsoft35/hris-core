@@ -1,11 +1,5 @@
-import { User } from 'src/modules/user/entities/user.entity';
 import { Field, ObjectType } from 'type-graphql';
-import {
-  BeforeInsert,
-  Column,
-  JoinColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 import { TransactionDate } from './transaction-date.entity';
 

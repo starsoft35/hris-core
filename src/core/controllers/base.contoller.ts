@@ -20,14 +20,12 @@ export class BaseController<T extends BaseEntity> {
     const [contents, totalCount]: [
       T[],
       number
-    ] = await this.baseService.findAndCount(query.fields, query.filter, pagerDetails.pageSize, pagerDetails.page - 1);
-    // })= await this.baseService.findAndCount({
-    //   select: getSelections(query),
-    //   relations: getRelations(query),
-    //   where: getWhereConditions(query),
-    //   take: pagerDetails.pageSize,
-    //   skip: pagerDetails.page - 1,
-    // });
+    ] = await this.baseService.findAndCount(
+      query.fields,
+      query.filter,
+      pagerDetails.pageSize,
+      pagerDetails.page - 1,
+    );
 
     return {
       pager: {
@@ -136,9 +134,5 @@ export class BaseController<T extends BaseEntity> {
   get plural() {
     throw Error('Plural Not set');
     return 'undefined';
-  }
-
-  getRelations(){
-
   }
 }
