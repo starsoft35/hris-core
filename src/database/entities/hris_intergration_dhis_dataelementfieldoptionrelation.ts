@@ -1,6 +1,6 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_intergration_dhis_dataconnection} from "./hris_intergration_dhis_dataconnection";
-import {hris_fieldoptiongroup} from "./hris_fieldoptiongroup";
+import {hris_fieldoptiongroup} from "../../modules/form/entities/field-option-group.entity";
 
 
 @Entity("hris_intergration_dhis_dataelementfieldoptionrelation",{schema:"public" } )

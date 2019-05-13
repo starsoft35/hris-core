@@ -1,8 +1,8 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_field_datatype} from "./hris_field_datatype";
-import {hris_field_inputtype} from "./hris_field_inputtype";
-import {hris_dashboardchart} from "./hris_dashboardchart";
-import {hris_field_relation} from "./hris_field_relation";
+import {hris_field_inputtype} from "../../modules/form/entities/hris_field_inputtype";
+import {hris_dashboardchart} from "../../modules/dashboard/entities/dashboard-chart.entity";
+import {hris_field_relation} from "../../modules/form/entities/hris_field_relation";
 import {hris_fieldoption} from "./hris_fieldoption";
 import {hris_fieldoptiongroup} from "./hris_fieldoptiongroup";
 import {hris_fieldoptionmerge} from "./hris_fieldoptionmerge";
@@ -15,7 +15,7 @@ import {hris_record_history_date} from "./hris_record_history_date";
 import {hris_relationalfilter} from "./hris_relationalfilter";
 import {hris_resourcetable_fieldmembers} from "./hris_resourcetable_fieldmembers";
 import {hris_fieldgroup} from "./hris_fieldgroup";
-import {hris_form} from "./form";
+import {Form} from "../../modules/form/entities/form";
 
 
 @Entity("hris_field",{schema:"public" } )
@@ -228,7 +228,7 @@ export class Field {
     
 
    
-    @ManyToMany(type=>hris_form, hris_form=>hris_form.hris_fields)
-    hris_forms:hris_form[];
+    @ManyToMany(type=>Form, form=>form.hris_fields)
+    hris_forms: Form[];
     
 }

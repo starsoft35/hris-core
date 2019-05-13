@@ -1,6 +1,6 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_resourcetable} from "./hris_resourcetable";
-import {Field} from "./hris_field";
+import {Field} from "../../modules/form/entities/field.entity";
 
 
 @Entity("hris_resourcetable_fieldmembers",{schema:"public" } )

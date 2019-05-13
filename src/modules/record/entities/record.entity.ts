@@ -1,10 +1,15 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, ManyToMany } from 'typeorm';
 
-import { hris_form } from '../../../database/entities/form';
+import { Form } from '../../form/entities/form.entity';
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 
 @Entity('record', { schema: 'public' })
-export class Record extends TransactionDate{
+export class Record extends TransactionDate {
+
+  static plural = 'records';
+  
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -12,20 +17,20 @@ export class Record extends TransactionDate{
   })
   id: number;
 
-  // @ManyToOne(
-  //   type => OrganisationUnit,
-  //   OrganisationUnit => OrganisationUnit.records,
-  //   { nullable: false, onDelete: 'CASCADE' },
-  // )
-  // @JoinColumn({ name: 'organisationunit_id' })
-  // organisationunit_: OrganisationUnit | null;
+  @ManyToOne(
+    type => OrganisationUnit,
+    organisationUnit => organisationUnit.records,
+    { nullable: false, onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'organisationunitid' })
+  organisationUnit: OrganisationUnit | null;
 
-  @ManyToOne(type => hris_form, hris_form => hris_form.records, {
+  @ManyToOne(type => Form, form => form.records, {
     nullable: false,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'formid' })
-  form_: hris_form | null;
+  form: Form | null;
 
   @Column('character varying', {
     nullable: false,
@@ -63,13 +68,13 @@ export class Record extends TransactionDate{
     nullable: false,
     name: 'hashistory',
   })
-  hashistory: boolean;
+  hasHistory: boolean;
 
   @Column('boolean', {
     nullable: false,
     name: 'hastraining',
   })
-  hastraining: boolean;
+  hasTraining: boolean;
 
   @Column('character varying', {
     nullable: false,
@@ -77,4 +82,10 @@ export class Record extends TransactionDate{
     name: 'username',
   })
   username: string;
+
+  @ManyToMany(
+    type => TrainingSession,
+    trainingSession => trainingSession.trainingMethods,
+  )
+  trainingSessions: TrainingSession[];
 }

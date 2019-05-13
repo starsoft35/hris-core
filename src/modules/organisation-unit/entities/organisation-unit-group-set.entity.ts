@@ -1,10 +1,13 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
-import IdentifiableObject from '../../../core/entities/identifiable-object';
+import { IdentifiableObject } from '../../../core/entities/identifiable-object';
 
 @Entity('organisationunitgroupset', { schema: 'public' })
 export class OrganisationUnitGroupSet extends IdentifiableObject {
+
+  static plural = 'organisationUnitGroupSets';
+
   @Column('character varying', {
     nullable: true,
     length: 11,

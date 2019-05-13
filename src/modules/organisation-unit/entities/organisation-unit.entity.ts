@@ -1,3 +1,8 @@
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
+import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
+import { User } from 'src/modules/user/entities/user.entity';
+import { Field, ObjectType } from 'type-graphql';
 import {
   Column,
   Entity,
@@ -6,15 +11,18 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Field, Int, ObjectType } from 'type-graphql';
 
 import { OrganisationUnitCompleteness } from './organisation-unit-completeness.entity';
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
-import IdentifiableObject from '../../../core/entities/identifiable-object';
+import { DashboardChart } from 'src/modules/dashboard/entities/dashboard-chart.entity';
+import { Record } from 'src/modules/record/entities/record.entity';
 
 @Entity('organisationunit', { schema: 'public' })
 @ObjectType()
 export class OrganisationUnit extends IdentifiableObject {
+
+  static plural = 'organisationUnits';
+  
   @Field()
   @ManyToOne(
     type => OrganisationUnit,
@@ -115,10 +123,10 @@ export class OrganisationUnit extends IdentifiableObject {
 
   @OneToMany(
     type => OrganisationUnit,
-    organisationUnit => organisationUnit.parent, 
-    { 
-      cascade: ["insert", "update"]
-    }
+    organisationUnit => organisationUnit.parent,
+    {
+      cascade: ['insert', 'update'],
+    },
   )
   children: OrganisationUnit[];
 
@@ -145,29 +153,29 @@ export class OrganisationUnit extends IdentifiableObject {
   )
   organisationUnitCompletenesses: OrganisationUnitCompleteness[];
 
-  // @OneToMany(type => Record, record => record.organisationunit_, {
-  //   onDelete: 'CASCADE',
-  // })
-  // records: Record[];
+  @OneToMany(type => Record, record => record.organisationUnit, {
+    onDelete: 'CASCADE',
+  })
+  records: Record[];
 
-  // @OneToMany(
-  //   type => hris_traininginstance,
-  //   hris_traininginstance => hris_traininginstance.district,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_traininginstances: hris_traininginstance[];
+  @OneToMany(
+    type => TrainingSession,
+    trainingSession => trainingSession.organisationUnit,
+    { onDelete: 'CASCADE' },
+  )
+  trainingSessions: TrainingSession[];
 
-  // @OneToMany(
-  //   type => hris_traininginstance,
-  //   hris_traininginstance => hris_traininginstance.region,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // hris_traininginstances2: hris_traininginstance[];
+  @OneToMany(
+    type => TrainingVenue,
+    trainingVenue => trainingVenue.organisationUnit,
+    { onDelete: 'CASCADE' },
+  )
+  trainingVenues: TrainingVenue[];
 
-  // @OneToMany(type => User, User => User.organisationunit_, {
-  //   onDelete: 'CASCADE',
-  // })
-  // hris_users: User[];
+  @OneToMany(type => User, user => user.organisationUnits, {
+    onDelete: 'CASCADE',
+  })
+  users: User[];
 
   @ManyToMany(
     type => OrganisationUnitGroup,
@@ -175,9 +183,9 @@ export class OrganisationUnit extends IdentifiableObject {
   )
   organisationUnitGroups: OrganisationUnitGroup[];
 
-  // @ManyToMany(
-  //   type => hris_dashboardchart,
-  //   hris_dashboardchart => hris_dashboardchart.hris_organisationunits,
-  // )
-  // hris_dashboardcharts: hris_dashboardchart[];
+  @ManyToMany(
+    type => DashboardChart,
+    dashboardChart => dashboardChart.organisationUnits,
+  )
+  dashboardCharts: DashboardChart[];
 }

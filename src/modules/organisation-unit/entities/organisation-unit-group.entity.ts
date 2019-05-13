@@ -1,4 +1,4 @@
-import IdentifiableObject from '../../../core/entities/identifiable-object';
+import { IdentifiableObject } from '../../../core/entities/identifiable-object';
 import {
   Column,
   Entity,
@@ -13,6 +13,9 @@ import { OrganisationUnit } from './organisation-unit.entity';
 
 @Entity('organisationunitgroup', { schema: 'public' })
 export class OrganisationUnitGroup extends IdentifiableObject {
+
+  static plural = 'organisationUnitGroups';
+
   @ManyToOne(
     type => OrganisationUnitGroupSet,
     organisationUnitGroupSet => organisationUnitGroupSet.organisationUnitGroups,

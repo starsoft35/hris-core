@@ -4,12 +4,9 @@ import { Record } from 'src/modules/record/entities/record.entity';
 
 import { RecordService } from '../services/record.service';
 
-@Controller('records')
+@Controller(Record.plural)
 export class RecordsController extends BaseController<Record> {
   constructor(private readonly recordService: RecordService) {
-    super(recordService);
-  }
-  get plural() {
-    return 'records';
+    super(recordService, Record);
   }
 }

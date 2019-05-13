@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {hris_fieldoptiongroup} from "./hris_fieldoptiongroup";
+import {hris_fieldoptiongroup} from "../../modules/form/entities/field-option-group.entity";
 import {hris_friendlyreportcategory} from "./hris_friendlyreportcategory";
 import {hris_arithmeticfilter} from "./hris_arithmeticfilter";
 import {hris_relationalfilter} from "./hris_relationalfilter";

@@ -1,6 +1,6 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {hris_intergration_tiis_data_connection} from "./hris_intergration_tiis_data_connection";
-import {Field} from "./hris_field";
+import {Field} from "../../modules/form/entities/field.entity";
 
 
 @Entity("hris_intergration_tiis_employee_fieldrelation",{schema:"public" } )

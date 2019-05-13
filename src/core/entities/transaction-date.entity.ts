@@ -1,7 +1,13 @@
-import { CreateDateColumn, UpdateDateColumn, BaseEntity, BeforeInsert } from 'typeorm';
+import {
+  CreateDateColumn,
+  UpdateDateColumn,
+  BaseEntity,
+  BeforeInsert,
+} from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
+import { HRISBaseEntity } from './base-entity';
 @ObjectType()
-export abstract class TransactionDate extends BaseEntity{
+export abstract class TransactionDate extends HRISBaseEntity {
   @Field()
   @CreateDateColumn({
     type: 'timestamp',
@@ -26,7 +32,6 @@ export abstract class TransactionDate extends BaseEntity{
 
   @BeforeInsert()
   beforeUpdateTransaction() {
-    console.log('Updating Something');
     this.lastUpdated = new Date();
   }
 }

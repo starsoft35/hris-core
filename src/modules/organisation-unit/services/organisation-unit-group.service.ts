@@ -12,6 +12,6 @@ export class OrganisationUnitGroupService extends BaseService<
     @InjectRepository(OrganisationUnitGroup)
     organisationUnitGroupRepository: Repository<OrganisationUnitGroup>,
   ) {
-    super(organisationUnitGroupRepository);
+    super(organisationUnitGroupRepository, OrganisationUnitGroup);
   }
 }

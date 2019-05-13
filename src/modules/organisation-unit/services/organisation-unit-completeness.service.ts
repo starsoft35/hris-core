@@ -14,6 +14,6 @@ export class OrganisationUnitCompletenessService extends BaseService<
       OrganisationUnitCompleteness
     >,
   ) {
-    super(organisationUnitCompletenessRepository);
+    super(organisationUnitCompletenessRepository, OrganisationUnitCompleteness);
   }
 }
