@@ -29,6 +29,7 @@ async function bootstrap() {
     }),
   );
   app.use(compression());
+  app.setGlobalPrefix('api');
   await app.listen(3000);
 }
 bootstrap();
