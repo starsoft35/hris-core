@@ -5,6 +5,9 @@ import { Field } from './field.entity';
 
 @Entity('fieldinputtype', { schema: 'public' })
 export class FieldInputType extends IdentifiableObject {
+
+  static plural = 'fieldInputTypes';
+
   @Column('integer', {
     nullable: false,
     primary: true,

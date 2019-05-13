@@ -1,4 +1,11 @@
 import { Controller } from '@nestjs/common';
+import { FormSection } from '../entities/form-section.entity';
+import { FormSectionService } from '../services/form-section.service';
+import { BaseController } from 'src/core/controllers/base.contoller';
 
-@Controller('form-section')
-export class FormSectionController {}
+@Controller(FormSection.plural)
+export class FormSectionController extends BaseController<FormSection> {
+    constructor(service: FormSectionService) {
+        super(service, FormSection);
+    }
+}

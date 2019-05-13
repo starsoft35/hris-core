@@ -11,6 +11,9 @@ import { FormVisibleField } from './form-visible-fields.entity';
 
 @Entity('form', { schema: 'public' })
 export class Form extends IdentifiableObject {
+
+  static plural = 'forms';
+
   @Column('integer', {
     nullable: false,
     primary: true,

@@ -22,6 +22,9 @@ import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 
 @Entity('field', { schema: 'public' })
 export class Field extends IdentifiableObject {
+
+  static plural = 'fields';
+
   @Column('integer', {
     nullable: false,
     primary: true,

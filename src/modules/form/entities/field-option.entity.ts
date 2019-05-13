@@ -14,6 +14,9 @@ import { FieldOptionGroup } from './field-option-group.entity';
 
 @Entity('fieldoption', { schema: 'public' })
 export class FieldOption extends IdentifiableObject {
+
+  static plural = 'fieldOptions';
+
   @Column('integer', {
     nullable: false,
     primary: true,

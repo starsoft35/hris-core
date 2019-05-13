@@ -6,6 +6,9 @@ import { FormSectionFieldMember } from './formsection-fieldmembers.entity';
 
 @Entity('formsection', { schema: 'public' })
 export class FormSection extends IdentifiableObject {
+
+  static plural = 'formSections';
+
   @Column('integer', {
     nullable: false,
     primary: true,

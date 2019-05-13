@@ -1,9 +1,13 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { FieldOption } from './field-option.entity';
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 
 @Entity('fieldoptionchildren', { schema: 'public' })
-export class FieldOptionChildren {
+export class FieldOptionChildren extends IdentifiableObject {
+
+  static plural = 'fieldOptionChildren';
+
   @ManyToOne(type => FieldOption, fieldOption => fieldOption.id, {
     primary: true,
     nullable: false,

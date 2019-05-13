@@ -6,6 +6,9 @@ import { Field } from './field.entity';
 
 @Entity('fieldoptionmerge', { schema: 'public' })
 export class FieldOptionMerge extends IdentifiableObject {
+
+  static plural = 'fieldOptionMerges';
+
   @Column('integer', {
     nullable: false,
     primary: true,

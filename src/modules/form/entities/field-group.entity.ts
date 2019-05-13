@@ -6,6 +6,9 @@ import { Field } from './field.entity';
 
 @Entity('fieldgroup', { schema: 'public' })
 export class FieldGroup extends IdentifiableObject {
+
+  static plural = 'fieldGroups';
+
   @Column('integer', {
     nullable: false,
     primary: true,

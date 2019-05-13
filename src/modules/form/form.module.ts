@@ -5,7 +5,7 @@ import { FieldService } from './services/field.service';
 import { FieldGroupService } from './services/field-group.service';
 import { FieldGroupsetService } from './services/field-groupset.service';
 import { FieldInputTypeService } from './services/field-input-type.service';
-import { FieldMemberService } from './services/field-member.service';
+import { FieldMemberService } from './services/field-data-type.service';
 import { FieldOptionService } from './services/field-option.service';
 import { FieldOptionChildrenService } from './services/field-option-children.service';
 import { FieldOptionGroupService } from './services/field-option-group.service';

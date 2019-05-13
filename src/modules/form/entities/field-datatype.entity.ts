@@ -5,6 +5,9 @@ import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 
 @Entity('fielddatatype', { schema: 'public' })
 export class FieldDataType extends IdentifiableObject {
+
+  static plural = 'fieldDataTypes';
+  
   @Column('integer', {
     nullable: false,
     primary: true,
