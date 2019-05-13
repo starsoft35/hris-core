@@ -1,4 +1,4 @@
-import { BaseService } from 'src/core/services/base.service';
+import { BaseService } from '../../../core/services/base.service';
 import { App } from '../entities/apps.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

@@ -5,8 +5,7 @@ import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import {
-  getDataBaseConfiguration,
-  getAppsConfiguration,
+  getDataBaseConfiguration
 } from './core/utilities/configuration';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { FormModule } from './modules/form/form.module';
