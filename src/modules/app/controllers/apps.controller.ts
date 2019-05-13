@@ -1,7 +1,7 @@
 import { BaseController } from '../../../core/controllers/base.contoller';
 import { App } from '../entities/apps.entity';
 import { AppsService } from '../services/apps.service';
-import { Controller, Get, Post, Body, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseInterceptors, UploadedFile, Param, Res } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import { getConfiguration } from 'src/core/utilities/configuration';
@@ -12,7 +12,7 @@ import { ApiResult } from 'src/core/interfaces';
 console.log('Plural:', App.plural);
 @Controller(App.plural)
 export class AppsController extends BaseController<App> {
-    constructor(service: AppsService) {
+    constructor(private service: AppsService) {
         super(service, App);
     }
 
@@ -82,6 +82,12 @@ export class AppsController extends BaseController<App> {
                 }
             });
         });
+    }
+
+    @Get(':id/*')
+    async loadFile(@Param() params, @Res() res) {
+        const result = await this.service.findOneById(params.id);
+        res.sendFile(getConfiguration().apps + '/' + result.name + '/' + params['0']);
     }
 
 }
