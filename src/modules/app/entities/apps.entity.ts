@@ -9,27 +9,27 @@ export class Apps extends IdentifiableObject {
     @Column('integer', {
         nullable: false,
         primary: true,
-        name: 'id',
+        name: 'appid',
     })
-    id: number;
+    appid: number;
 
     @Column('character varying', {
         nullable: false,
-        length: 13,
-        name: 'uid',
+        length: 50,
+        name: 'version',
     })
-    uid: string;
+    version: string;
 
     @Column('character varying', {
         nullable: false,
-        length: 100,
-        name: 'name',
+        length: 50,
+        name: 'launchpath',
     })
-    name: string;
+    launchpath: string;
 
     @Column('character varying', {
         nullable: false,
-        length: 100,
+        length: 50,
         name: 'appicon',
     })
     appicon: string;

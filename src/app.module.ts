@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-unit.module';
 import { getDataBaseConfiguration, getAppsConfiguration } from './core/utilities/configuration';
+import { AppsModule } from './modules/app/apps.module';
 
 getAppsConfiguration();
 @Module({
@@ -14,6 +15,7 @@ getAppsConfiguration();
       getDataBaseConfiguration()),
     // UserModule,
     OrganisatinUnitModule,
+    AppsModule,
     // RecordModule,
   ],
   controllers: [AppController],

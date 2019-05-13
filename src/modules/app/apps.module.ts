@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from "@nestjs/passport";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Apps } from './entities/apps.entity';
+import { AppsController } from './controllers/apps.controller';
+import { AppsService } from './services/apps.service';
 
 @Module({
     imports: [
@@ -10,7 +12,7 @@ import { Apps } from './entities/apps.entity';
         Apps,
       ]),
     ],
-    controllers: [],
-    providers: [],
+    controllers: [AppsController],
+    providers: [AppsService],
   })
 export class AppsModule {}
