@@ -17,9 +17,9 @@ export class RecordValue extends TransactionDate {
   @JoinColumn({ name: 'recordid' })
   record: Record | null;
 
-  @ManyToOne(type => Field, field => field.id, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'fieldid' })
-  field: Field | null;
+  // @ManyToOne(type => Field, field => field.id, { onDelete: 'CASCADE' })
+  // @JoinColumn({ name: 'fieldid' })
+  // field: Field | null;
 
   @Column('text', {
     nullable: false,

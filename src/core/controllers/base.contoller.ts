@@ -10,6 +10,7 @@ export class BaseController<T extends HRISBaseEntity> {
   constructor(private readonly baseService: BaseService<T>, private readonly Model: typeof HRISBaseEntity) {}
   @Get()
   async findAll(@Query() query): Promise<ApiResult> {
+    console.log('WHat');
     if (query.paging === 'false') {
       const allContents: T[] = await this.baseService.findAll();
       return { [this.Model.plural]: allContents };

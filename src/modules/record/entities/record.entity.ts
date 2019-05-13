@@ -9,7 +9,7 @@ import { TrainingSession } from 'src/modules/training/entities/training-session.
 export class Record extends TransactionDate {
 
   static plural = 'records';
-  
+
   @Column('integer', {
     nullable: false,
     primary: true,
