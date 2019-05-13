@@ -3,10 +3,17 @@ import { BaseEntity, DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 import { getWhereConditions } from '../utilities';
 import { getRelations, getSelections } from '../utilities/get-fields.utility';
+import { HRISBaseEntity } from '../entities/base-entity';
+
+class Factory {
+  create<T>(type: (new () => T)): T {
+    return new type();
+  }
+}
 
 @Injectable()
-export class BaseService<T extends BaseEntity> {
-  constructor(private readonly modelRepository: Repository<T>) {}
+export class BaseService<T extends HRISBaseEntity> {
+  constructor(private readonly modelRepository: Repository<T>, private readonly Model) {}
 
   async findAll(): Promise<T[]> {
     return await this.modelRepository.find();
@@ -14,7 +21,7 @@ export class BaseService<T extends BaseEntity> {
 
   async findAndCount(fields, filter, size, page): Promise<[T[], number]> {
     const metaData = this.modelRepository.manager.connection.getMetadata(
-      this.model,
+      this.Model,
     );
 
     return await this.modelRepository.findAndCount({
@@ -28,15 +35,10 @@ export class BaseService<T extends BaseEntity> {
   async findOneById(id: string): Promise<T> {
     return await this.modelRepository.findOne({ where: { uid: id } });
   }
-  // TODO: give descriptive name for this method
-  get model() {
-    throw Error('Plural Not set');
-    return null;
-  }
   saveEntity(data, modelTarget) {
     const model = new modelTarget();
     const metaData = this.modelRepository.manager.connection.getMetadata(
-      this.model,
+      this.Model,
     );
     const savedEntity = model.save();
     Object.keys(data).forEach(key => {
@@ -71,7 +73,7 @@ export class BaseService<T extends BaseEntity> {
   }
   async create(entity: any): Promise<any> {
     // return this.saveEntity(entity, this.model);
-    const model = new this.model();
+    const model = new this.Model();
     // var metaData = this.modelRepository.manager.connection.getMetadata(this.model);
     // var savedEntity = entity;
     // model = {...model, ...entity};

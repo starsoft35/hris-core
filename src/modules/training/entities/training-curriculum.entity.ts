@@ -57,6 +57,6 @@ export class TrainingCurriculum extends IdentifiableObject {
     trainingMethod => trainingMethod.trainingCurriculums,
     { nullable: false },
   )
-  @JoinTable({ name: 'curriculummethodsmembers' })
+  @JoinTable({ name: 'trainingcurriculummethodmember' })
   trainingMethods: TrainingMethod[];
 }

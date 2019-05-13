@@ -7,6 +7,9 @@ import { MessageThread } from './message-thread.entity';
 
 @Entity('message', { schema: 'public' })
 export class Message extends IdentifiableObject {
+
+  static plural = 'messages';
+  
   @Column('integer', {
     nullable: false,
     primary: true,

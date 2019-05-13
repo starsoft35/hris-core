@@ -6,6 +6,9 @@ import { Message } from './message.entity';
 
 @Entity('messagemetadata', { schema: 'public' })
 export class MessageMetadata extends IdentifiableObject {
+
+  static plural = 'messageMetadata';
+  
   @Column('integer', {
     nullable: false,
     primary: true,

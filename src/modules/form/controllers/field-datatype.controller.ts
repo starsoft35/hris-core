@@ -1,4 +1,4 @@
 import { Controller } from '@nestjs/common';
 
-@Controller('field-datatype')
+@Controller('fieldDataType')
 export class FieldDatatypeController {}

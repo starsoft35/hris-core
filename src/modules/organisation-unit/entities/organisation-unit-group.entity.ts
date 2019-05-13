@@ -13,6 +13,9 @@ import { OrganisationUnit } from './organisation-unit.entity';
 
 @Entity('organisationunitgroup', { schema: 'public' })
 export class OrganisationUnitGroup extends IdentifiableObject {
+
+  static plural = 'organisationUnitGroups';
+
   @ManyToOne(
     type => OrganisationUnitGroupSet,
     organisationUnitGroupSet => organisationUnitGroupSet.organisationUnitGroups,

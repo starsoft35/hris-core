@@ -5,8 +5,9 @@ import {
   BeforeInsert,
 } from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
+import { HRISBaseEntity } from './base-entity';
 @ObjectType()
-export abstract class TransactionDate extends BaseEntity {
+export abstract class TransactionDate extends HRISBaseEntity {
   @Field()
   @CreateDateColumn({
     type: 'timestamp',

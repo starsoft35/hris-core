@@ -12,6 +12,6 @@ export class MessageThreadMetadataService extends BaseService<
     @InjectRepository(MessageThreadMetadata)
     messageThreadMetadataService: Repository<MessageThreadMetadata>,
   ) {
-    super(messageThreadMetadataService);
+    super(messageThreadMetadataService, MessageThreadMetadata);
   }
 }

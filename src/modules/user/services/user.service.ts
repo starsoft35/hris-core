@@ -11,7 +11,7 @@ export class UserService extends BaseService<User> {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {
-    super(userRepository);
+    super(userRepository, User);
   }
 
   async findOneByToken(token): Promise<User> {

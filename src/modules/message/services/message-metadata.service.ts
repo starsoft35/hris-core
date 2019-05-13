@@ -10,6 +10,6 @@ export class MessageMetadataService extends BaseService<MessageMetadata> {
     @InjectRepository(MessageMetadata)
     messageMetadataService: Repository<MessageMetadata>,
   ) {
-    super(messageMetadataService);
+    super(messageMetadataService, MessageMetadata);
   }
 }

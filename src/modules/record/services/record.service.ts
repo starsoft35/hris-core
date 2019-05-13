@@ -11,10 +11,6 @@ export class RecordService extends BaseService<Record> {
     @InjectRepository(Record)
     recordRepository: Repository<Record>,
   ) {
-    super(recordRepository);
-  }
-
-  get model() {
-    return Record;
+    super(recordRepository, Record);
   }
 }

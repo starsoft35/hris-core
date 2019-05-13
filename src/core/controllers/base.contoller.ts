@@ -4,15 +4,15 @@ import { Pager, ApiResult } from '../interfaces';
 import { getPagerDetails, getWhereConditions } from '../utilities';
 import { BaseEntity } from 'typeorm';
 import { getSelections, getRelations } from '../utilities/get-fields.utility';
+import { HRISBaseEntity } from '../entities/base-entity';
 
-export class BaseController<T extends BaseEntity> {
-  constructor(private readonly baseService: BaseService<T>) {}
+export class BaseController<T extends HRISBaseEntity> {
+  constructor(private readonly baseService: BaseService<T>, private readonly Model: typeof HRISBaseEntity) {}
   @Get()
   async findAll(@Query() query): Promise<ApiResult> {
     if (query.paging === 'false') {
       const allContents: T[] = await this.baseService.findAll();
-
-      return { [this.plural]: allContents };
+      return { [this.Model.plural]: allContents };
     }
 
     const pagerDetails: Pager = getPagerDetails(query);
@@ -32,9 +32,9 @@ export class BaseController<T extends BaseEntity> {
         ...pagerDetails,
         pageCount: contents.length,
         total: totalCount,
-        nextPage: '/' + this.plural + '?page=' + (pagerDetails.page + 1),
+        nextPage: '/' + this.Model.plural + '?page=' + (pagerDetails.page + 1),
       },
-      [this.plural]: contents,
+      [this.Model.plural]: contents,
     };
   }
 

@@ -10,6 +10,6 @@ export class DashboardChartService extends BaseService<DashboardChart> {
     @InjectRepository(DashboardChart)
     dashboardChartRepository: Repository<DashboardChart>,
   ) {
-    super(dashboardChartRepository);
+    super(dashboardChartRepository, DashboardChart);
   }
 }

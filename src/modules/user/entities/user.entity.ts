@@ -18,9 +18,13 @@ import { Message } from '../../message/entities/message.entity';
 import { UserGroup } from './user-group.entity';
 import { UserRole } from './user-role.entity';
 import { UserSettings } from './user-settings.entity';
+import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 
 @Entity('user', { schema: 'public' })
-export class User extends BaseEntity {
+export class User extends IdentifiableObject {
+
+  static plural = 'users';
+  
   @Column('integer', {
     nullable: false,
     primary: true,

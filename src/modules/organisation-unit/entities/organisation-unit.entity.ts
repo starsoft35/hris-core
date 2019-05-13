@@ -20,6 +20,9 @@ import { Record } from 'src/modules/record/entities/record.entity';
 @Entity('organisationunit', { schema: 'public' })
 @ObjectType()
 export class OrganisationUnit extends IdentifiableObject {
+
+  static plural = 'organisationUnits';
+  
   @Field()
   @ManyToOne(
     type => OrganisationUnit,

@@ -15,6 +15,7 @@ import { TrainingSection } from './training-section.entity';
 import { TrainingSponsor } from './training-sponsor.entity';
 import { TrainingUnit } from './training-unit.entity';
 import { TrainingVenue } from './training-venue.entity';
+import { Record } from 'src/modules/record/entities/record.entity';
 
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends IdentifiableObject {
@@ -102,4 +103,12 @@ export class TrainingSession extends IdentifiableObject {
   )
   @JoinTable({ name: 'trainingsessionmethods' })
   trainingMethods: TrainingMethod[];
+
+  @ManyToMany(
+    type => Record,
+    record => record.trainingSessions,
+    { nullable: false },
+  )
+  @JoinTable({ name: 'recordtrainingsession' })
+  records: Record[];
 }

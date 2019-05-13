@@ -10,6 +10,6 @@ export class MessageService extends BaseService<Message> {
     @InjectRepository(Message)
     messageService: Repository<Message>,
   ) {
-    super(messageService);
+    super(messageService, Message);
   }
 }

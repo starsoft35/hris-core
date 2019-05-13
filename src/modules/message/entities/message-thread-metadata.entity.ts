@@ -19,6 +19,9 @@ import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 
 @Entity('messagethreadmetadata', { schema: 'public' })
 export class MessageThreadMetadata extends IdentifiableObject {
+
+  static plural = 'messageThreadMetadata';
+  
   @Column('integer', {
     nullable: false,
     primary: true,

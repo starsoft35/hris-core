@@ -5,6 +5,9 @@ import { IdentifiableObject } from '../../../core/entities/identifiable-object';
 
 @Entity('organisationunitgroupset', { schema: 'public' })
 export class OrganisationUnitGroupSet extends IdentifiableObject {
+
+  static plural = 'organisationUnitGroupSets';
+
   @Column('character varying', {
     nullable: true,
     length: 11,

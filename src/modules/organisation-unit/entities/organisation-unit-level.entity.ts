@@ -3,6 +3,9 @@ import { Column, Entity } from 'typeorm';
 
 @Entity('organisationunitlevel', { schema: 'public' })
 export class OrganisationUnitLevel extends IdentifiableObject {
+
+  static plural = 'organisationUnitLevels';
+
   @Column('integer', {
     nullable: false,
     name: 'level',

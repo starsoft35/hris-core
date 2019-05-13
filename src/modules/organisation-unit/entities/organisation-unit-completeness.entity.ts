@@ -6,6 +6,9 @@ import { OrganisationUnit } from './organisation-unit.entity';
 
 @Entity('organisationunitcompleteness', { schema: 'public' })
 export class OrganisationUnitCompleteness extends IdentifiableObject {
+
+  static plural = 'organisationUnitCompletenesses';
+
   @ManyToOne(
     type => OrganisationUnit,
     organisationUnit => organisationUnit.organisationUnitCompletenesses,

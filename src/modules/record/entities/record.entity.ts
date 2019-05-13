@@ -1,11 +1,15 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, ManyToMany } from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionDate {
+
+  static plural = 'records';
+  
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -78,4 +82,10 @@ export class Record extends TransactionDate {
     name: 'username',
   })
   username: string;
+
+  @ManyToMany(
+    type => TrainingSession,
+    trainingSession => trainingSession.trainingMethods,
+  )
+  trainingSessions: TrainingSession[];
 }

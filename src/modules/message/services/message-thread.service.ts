@@ -10,6 +10,6 @@ export class MessageThreadService extends BaseService<MessageThread> {
     @InjectRepository(MessageThread)
     messageThreadService: Repository<MessageThread>,
   ) {
-    super(messageThreadService);
+    super(messageThreadService, MessageThread);
   }
 }
