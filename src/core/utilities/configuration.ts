@@ -17,13 +17,19 @@ export function getDataBaseConfiguration(){
     },
   };
 }
-export function getAppsConfiguration() {
-  const apps = config.apps || {};
-  if (!apps.directory) {
-    apps.directory = pathFolder + '/' + 'apps';
+export function getConfiguration() {
+  const files = config.files || {};
+  if (!files.apps) {
+    files.apps = pathFolder + '/' + 'apps';
   }
-if (!fs.existsSync(apps.directory)) {
-    fs.mkdirSync(apps.directory);
+  if (!files.temp) {
+    files.temp = pathFolder + '/' + 'temp';
   }
-  return apps;
+  if (!fs.existsSync(files.apps)) {
+    fs.mkdirSync(files.apps);
+  }
+  if (!fs.existsSync(files.temp)) {
+    fs.mkdirSync(files.temp);
+  }
+  return files;
 }

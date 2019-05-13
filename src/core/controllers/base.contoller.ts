@@ -1,16 +1,13 @@
 import { Body, Get, Post, Put, Param, Delete, Query } from '@nestjs/common';
 import { BaseService } from '../services/base.service';
 import { Pager, ApiResult } from '../interfaces';
-import { getPagerDetails, getWhereConditions } from '../utilities';
-import { BaseEntity } from 'typeorm';
-import { getSelections, getRelations } from '../utilities/get-fields.utility';
+import { getPagerDetails } from '../utilities';
 import { HRISBaseEntity } from '../entities/base-entity';
 
 export class BaseController<T extends HRISBaseEntity> {
   constructor(private readonly baseService: BaseService<T>, private readonly Model: typeof HRISBaseEntity) {}
   @Get()
   async findAll(@Query() query): Promise<ApiResult> {
-    console.log('WHat');
     if (query.paging === 'false') {
       const allContents: T[] = await this.baseService.findAll();
       return { [this.Model.plural]: allContents };
@@ -41,6 +38,7 @@ export class BaseController<T extends HRISBaseEntity> {
 
   @Get(':id')
   async findOne(@Param() params): Promise<ApiResult> {
+    console.log('WHat');
     const result = await this.baseService.findOneById(params.id);
 
     if (result) {
