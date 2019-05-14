@@ -3,7 +3,7 @@ import { BaseController } from 'src/core/controllers/base.contoller';
 import { FieldInputType } from '../entities/field-input-type.entity';
 import { FieldInputTypeService } from '../services/field-input-type.service';
 
-@Controller(FieldInputType.plural)
+@Controller('api/' + FieldInputType.plural)
 export class FieldInputTypeController extends BaseController<
     FieldInputType
 > {

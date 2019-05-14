@@ -3,6 +3,8 @@ import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 import { TransactionDate } from './transaction-date.entity';
 
+import * as uuid from 'uuid/v1';
+
 @ObjectType()
 export class IdentifiableObject extends TransactionDate {
   @Field()
@@ -28,6 +30,8 @@ export class IdentifiableObject extends TransactionDate {
 
   @BeforeInsert()
   beforeInsertIdentifiable() {
-    this.uid = '1234567890123';
+    this.uid = uuid();
+    this.uid = this.uid.split('-').join('');
+    this.uid = this.uid.substr(0,13);
   }
 }

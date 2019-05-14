@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import {
   getDataBaseConfiguration
 } from './core/utilities/configuration';
@@ -16,6 +15,7 @@ import { TrainingModule } from './modules/training/training.module';
 import { UserModule } from './modules/user/user.module';
 import { RecordModule } from './modules/record/record.module';
 import { AppsModule } from './modules/app/apps.module';
+import { AppService } from './modules/app/services/apps.service';
 
 @Module({
   imports: [

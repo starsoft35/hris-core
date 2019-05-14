@@ -1,12 +1,17 @@
-import { Get, Controller, Render } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Get, Controller, Render, Req, Res, Param } from '@nestjs/common';
+import { AppService } from './modules/app/services/apps.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async index(@Req() request, @Res() response) {
+    if (request.session && request.session.user){
+
+    } else {
+      let app = await this.appService.getLoginApp();
+      response.redirect('/api/apps/' + app.uid + '/' + app.launchpath);
+    }
   }
 }
