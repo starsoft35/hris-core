@@ -7,8 +7,9 @@ import {
   ManyToMany,
   OneToMany,
   OneToOne,
+  BeforeInsert,
 } from 'typeorm';
-
+import { createHmac } from 'crypto';
 import { DashboardChart } from '../../dashboard/entities/dashboard-chart.entity';
 import { Form } from '../../form/entities/form.entity';
 import { MessageMetadata } from '../../message/entities/message-metadata.entity';
@@ -42,36 +43,15 @@ export class User extends IdentifiableObject {
   @Column('character varying', {
     nullable: false,
     length: 255,
-    name: 'usernamecanonical',
-  })
-  usernameCanonical: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
     name: 'email',
   })
   email: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
-    name: 'emailcanonical',
-  })
-  emailCanonical: string;
 
   @Column('boolean', {
     nullable: false,
     name: 'enabled',
   })
   enabled: boolean;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
-    name: 'salt',
-  })
-  salt: string;
 
   @Column('character varying', {
     nullable: false,
@@ -87,58 +67,20 @@ export class User extends IdentifiableObject {
   })
   lastLogin: Date | null;
 
-  @Column('boolean', {
-    nullable: false,
-    name: 'locked',
-  })
-  locked: boolean;
-
-  @Column('boolean', {
-    nullable: false,
-    name: 'expired',
-  })
-  expired: boolean;
-
   @Column('timestamp without time zone', {
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
-    name: 'expiresat',
+    name: 'expirydate',
   })
-  expiresAt: Date | null;
+  expirydate: Date | null;
 
   @Column('character varying', {
     nullable: true,
     length: 255,
     default: () => 'NULL::character varying',
-    name: 'confirmationtoken',
+    name: 'token',
   })
-  confirmationToken: string | null;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'passwordrequestedat',
-  })
-  passwordRequestedAt: Date | null;
-
-  @Column('text', {
-    nullable: false,
-    name: 'roles',
-  })
-  roles: string;
-
-  @Column('boolean', {
-    nullable: false,
-    name: 'credentialsexpired',
-  })
-  credentialsExpired: boolean;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'credentials_expire_at',
-  })
-  credentialsExpireAt: Date | null;
+  token: string | null;
 
   @Column('character varying', {
     nullable: true,
@@ -250,4 +192,28 @@ export class User extends IdentifiableObject {
   @ManyToMany(type => UserRole, userRole => userRole.users, { nullable: false })
   @JoinTable({ name: 'userrolemembers' })
   userRoles: UserRole[];
+
+  public static async authenticateUser(user: { username: string, password: string }): Promise<User> {
+    return this.authenticateUserByToken(User.getBase64(user.username, user.password));
+  }
+
+  public static async authenticateUserByToken(token: string): Promise<User> {
+    let u: User;
+    u = await User.findOne({
+      where: { token: token }
+    });
+    if (u) {
+      delete u.token;
+      return u;
+    }
+  }
+
+  public static getBase64(username, password) {
+    return Buffer.from(username + ":" + password).toString('base64')
+  }
+  @BeforeInsert()
+  createToken(){
+    this.token = User.getBase64(this.username, this.password);
+    this.enabled = true;
+  }
 }

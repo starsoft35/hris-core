@@ -1,10 +1,10 @@
 import { Entity, Column } from 'typeorm';
 import { ObjectType } from 'type-graphql';
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { NamedIdentifiableObject } from 'src/core/entities/named-identifiable-object';
 
 @Entity('app', {schema: 'public'})
 @ObjectType()
-export class App extends IdentifiableObject {
+export class App extends NamedIdentifiableObject {
 
     static plural = 'apps';
 

@@ -1,12 +1,14 @@
-import { Body, Get, Post, Put, Param, Delete, Query } from '@nestjs/common';
+import { Body, Get, Post, Put, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { BaseService } from '../services/base.service';
 import { Pager, ApiResult } from '../interfaces';
 import { getPagerDetails } from '../utilities';
 import { HRISBaseEntity } from '../entities/base-entity';
+import { SessionGuard } from 'src/modules/user/guards/session.guard';
 
 export class BaseController<T extends HRISBaseEntity> {
   constructor(private readonly baseService: BaseService<T>, private readonly Model: typeof HRISBaseEntity) {}
   @Get()
+  @UseGuards(SessionGuard)
   async findAll(@Query() query): Promise<ApiResult> {
     if (query.paging === 'false') {
       const allContents: T[] = await this.baseService.findAll();

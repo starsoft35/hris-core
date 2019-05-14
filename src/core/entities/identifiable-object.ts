@@ -18,28 +18,6 @@ export class IdentifiableObject extends TransactionDate {
   uid: string;
 
   @Field()
-  @Column('text', {
-    nullable: true,
-    name: 'description',
-  })
-  description: string | null;
-
-  @Field()
-  @Column('character varying', {
-    nullable: false,
-    name: 'name',
-  })
-  name: string;
-
-  @Field()
-  @Column('character varying', {
-    nullable: false,
-    length: 50,
-    name: 'shortname',
-  })
-  shortName: string;
-
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 25,
