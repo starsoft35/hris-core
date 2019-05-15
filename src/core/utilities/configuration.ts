@@ -1,12 +1,13 @@
 import * as fs from 'fs';
-const pathFolder = process.env.HRIS_HOME;
-if (pathFolder) {
+let pathFolder = process.env.HRIS_HOME;
+if (!pathFolder) {
   if (!fs.existsSync("./files")) {
     fs.mkdirSync("./files");
   }
   if (!fs.existsSync("./files/config.json")) {
     fs.writeFileSync("./files/config.json", fs.readFileSync("./config.example.json"))
   }
+  pathFolder = "./files";
 }
 const config = JSON.parse(
   fs.readFileSync(pathFolder + '/' + 'config.json', 'utf8'),
