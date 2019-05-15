@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppsController } from './controllers/apps.controller';
-import { AppsService } from './services/apps.service';
+import { AppService } from './services/apps.service';
 import { App } from './entities/apps.entity';
 
 @Module({
@@ -11,6 +11,6 @@ import { App } from './entities/apps.entity';
     TypeOrmModule.forFeature([App]),
   ],
   controllers: [AppsController],
-  providers: [AppsService],
+  providers: [AppService],
 })
 export class AppsModule {}

@@ -3,7 +3,7 @@ import { BaseController } from '../../../core/controllers/base.contoller';
 import { OrganisationUnitLevel } from '../entities/organisation-unit-level.entity';
 import { OrganisationUnitLevelService } from '../services/organisation-unit-level.service';
 
-@Controller(OrganisationUnitLevel.plural)
+@Controller('api/' + OrganisationUnitLevel.plural)
 export class OrganisationUnitLevelController extends BaseController<
   OrganisationUnitLevel
 > {

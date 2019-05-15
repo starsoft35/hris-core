@@ -4,7 +4,7 @@ import { Record } from 'src/modules/record/entities/record.entity';
 
 import { RecordService } from '../services/record.service';
 
-@Controller(Record.plural)
+@Controller('api/' + Record.plural)
 export class RecordsController extends BaseController<Record> {
   constructor(private readonly recordService: RecordService) {
     super(recordService, Record);

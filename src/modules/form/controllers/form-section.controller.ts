@@ -3,7 +3,7 @@ import { FormSection } from '../entities/form-section.entity';
 import { FormSectionService } from '../services/form-section.service';
 import { BaseController } from 'src/core/controllers/base.contoller';
 
-@Controller(FormSection.plural)
+@Controller('api/' + FormSection.plural)
 export class FormSectionController extends BaseController<FormSection> {
     constructor(service: FormSectionService) {
         super(service, FormSection);

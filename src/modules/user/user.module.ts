@@ -9,8 +9,8 @@ import { UserRole } from './entities/user-role.entity';
 import { UserSettings } from './entities/user-settings.entity';
 import { User } from './entities/user.entity';
 import { AuthService } from './services/auth.service';
-import { HttpStrategy } from './services/http.strategy';
 import { UserService } from './services/user.service';
+import { AppAuthGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
@@ -18,6 +18,6 @@ import { UserService } from './services/user.service';
     TypeOrmModule.forFeature([User, UserGroup, UserRole, UserSettings]),
   ],
   controllers: [AuthController, UsersController],
-  providers: [UserService, AuthService, HttpStrategy],
+  providers: [UserService, AuthService, AppAuthGuard],
 })
 export class UserModule {}

@@ -3,7 +3,7 @@ import { Form } from '../entities/form.entity';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { FormService } from '../services/form.service';
 
-@Controller(Form.plural)
+@Controller('api/' + Form.plural)
 export class FormController extends BaseController<Form> {
     constructor(service: FormService) {
         super(service, Form);

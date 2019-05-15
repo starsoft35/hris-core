@@ -1,6 +1,6 @@
 import { BaseController } from '../../../core/controllers/base.contoller';
 import { App } from '../entities/apps.entity';
-import { AppsService } from '../services/apps.service';
+import { AppService } from '../services/apps.service';
 import { Controller, Get, Post, Body, UseInterceptors, UploadedFile, Param, Res } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
@@ -10,9 +10,9 @@ import * as StreamZip from 'node-stream-zip';
 import { ApiResult } from 'src/core/interfaces';
 
 console.log('Plural:', App.plural);
-@Controller(App.plural)
+@Controller('api/' + App.plural)
 export class AppsController extends BaseController<App> {
-    constructor(private service: AppsService) {
+    constructor(private service: AppService) {
         super(service, App);
     }
 

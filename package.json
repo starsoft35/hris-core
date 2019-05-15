@@ -51,6 +51,7 @@
     "type-graphql": "^0.17.3",
     "typeorm": "^0.2.16",
     "unzipper": "^0.9.11",
+    "uuid": "^3.3.2",
     "zlib": "^1.0.5"
   },
   "devDependencies": {

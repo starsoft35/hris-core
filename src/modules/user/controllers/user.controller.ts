@@ -4,7 +4,7 @@ import { User } from 'src/modules/user/entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { BaseController } from 'src/core/controllers/base.contoller';
 
-@Controller(User.plural)
+@Controller('api/' + User.plural)
 //@UseGuards(AuthGuard())
 export class UsersController extends BaseController<User> {
   constructor(private readonly userService: UserService) {
