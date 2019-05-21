@@ -8,16 +8,10 @@ import { ApiResult } from 'src/core/interfaces';
 @Controller('api/me')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  // @Get('login')
-  // public async login(@Req() req: Request, @Res() res: Response, @Session() session) {
-  //   console.log('session:', req)
-  //   return res.status(HttpStatus.OK).send();
-  // }
   @Get()
   @UseGuards(SessionGuard)
   async me(@Req() request): Promise<ApiResult> {
     const result = await this.authService.getUserByUid(request.session.user.uid);
-    console.log('result', result);
     if (result) {
       return result;
     } else {
