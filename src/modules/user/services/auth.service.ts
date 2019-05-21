@@ -16,4 +16,8 @@ export class AuthService {
     //user.token = this.encodePassword(password, user.salt);
     return user;
   }
+
+  async getUserById(id: string): Promise<User> {
+    return await this.userService.findOneById(id);
+  }
 }
