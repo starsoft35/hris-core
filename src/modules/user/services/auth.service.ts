@@ -17,7 +17,7 @@ export class AuthService {
     return user;
   }
 
-  async getUserById(id: string): Promise<User> {
-    return await this.userService.findOneById(id);
+  async getUserByUid(uid: string): Promise<User> {
+    return await this.userService.findOneByUid(uid);
   }
 }

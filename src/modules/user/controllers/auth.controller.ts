@@ -16,9 +16,8 @@ export class AuthController {
   @Get()
   @UseGuards(SessionGuard)
   async me(@Req() request): Promise<ApiResult> {
-    console.log('WHat');
-    const result = await this.authService.getUserById(request.session.user.id);
-
+    const result = await this.authService.getUserByUid(request.session.user.uid);
+    console.log('result', result);
     if (result) {
       return result;
     } else {

@@ -16,6 +16,7 @@ export class IdentifiableObject extends TransactionDate {
     nullable: false,
     length: 13,
     name: 'uid',
+    unique: true,
   })
   uid: string;
 

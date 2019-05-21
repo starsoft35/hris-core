@@ -35,6 +35,7 @@ export class User extends IdentifiableObject {
 
   @Column('character varying', {
     nullable: false,
+    unique: true,
     length: 255,
     name: 'username',
   })
@@ -44,6 +45,7 @@ export class User extends IdentifiableObject {
     nullable: false,
     length: 255,
     name: 'email',
+    unique: true,
   })
   email: string;
 

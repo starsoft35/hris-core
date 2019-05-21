@@ -7,16 +7,14 @@ export class SessionGuard implements CanActivate {
         const httpContext = context.switchToHttp();
         const request = httpContext.getRequest();
         // console.log(request.headers)
-        console.log('Path:', request.path);
         try {
             if (request.session.user) {
                 request.session.previousPath = request.path;
                 return true;
             }
             if (request.headers['authorization']) {
-                console.log('Here');
                 let user = await User.authenticateUserByToken(request.headers['authorization'].replace('Basic ', ''));
-                //console.log('Here: ', user);
+                console.log('Here: ', user);
                 if (user) {
                     request.session.user = user;
                     return true;

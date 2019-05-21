@@ -41,7 +41,7 @@ export class BaseController<T extends HRISBaseEntity> {
   @Get(':id')
   async findOne(@Param() params): Promise<ApiResult> {
     console.log('WHat');
-    const result = await this.baseService.findOneById(params.id);
+    const result = await this.baseService.findOneByUid(params.id);
 
     if (result) {
       return result;
@@ -61,7 +61,7 @@ export class BaseController<T extends HRISBaseEntity> {
 
   @Get(':id/:relation')
   async findOneRelation(@Param() params): Promise<ApiResult> {
-    const result = await this.baseService.findOneById(params.id);
+    const result = await this.baseService.findOneByUid(params.id);
     if (result) {
       return { [params.relation]: result[params.relation] };
     } else {
@@ -85,7 +85,7 @@ export class BaseController<T extends HRISBaseEntity> {
 
   @Put(':id')
   async update(@Param() params, @Body() updateEntityDto): Promise<ApiResult> {
-    const result = await this.baseService.findOneById(params.id);
+    const result = await this.baseService.findOneByUid(params.id);
     if (result) {
       return await this.baseService.update(params.id, updateEntityDto);
     } else {

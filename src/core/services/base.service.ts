@@ -32,8 +32,8 @@ export class BaseService<T extends HRISBaseEntity> {
       skip: page,
     });
   }
-  async findOneById(id: string): Promise<T> {
-    return await this.modelRepository.findOne({ where: { uid: id } });
+  async findOneByUid(uid: string): Promise<T> {
+    return await this.modelRepository.findOne({ where: { uid: uid } });
   }
   saveEntity(data, modelTarget) {
     const model = new modelTarget();
