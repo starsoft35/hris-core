@@ -21,7 +21,7 @@ import { TrainingCurriculum } from './entities/training-curriculum.entity';
 import { TrainingMethod } from './entities/training-method.entity';
 import { TrainingSession } from './entities/training-session.entity';
 import { TrainingSponsor } from './entities/training-sponsor.entity';
-import { TrainingTrainer } from './entities/training-trainers.entity';
+import { TrainingTrainer } from './entities/training-trainer.entity';
 import { TrainingUnit } from './entities/training-unit.entity';
 import { TrainingVenue } from './entities/training-venue.entity';
 

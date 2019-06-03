@@ -18,11 +18,10 @@ const config = JSON.parse(
 export function getDataBaseConfiguration(){
   return {
     ...config.database,
+    synchronize: false,
+    migrationsRun: true,
     entities: ['src/**/*.entity{.ts,.js}'],
-    migrations: ['src/database/migration/*.ts'],
-    cli: {
-      migrationsDir: 'src/database/migration',
-    },
+    migrations: ['src/database/migration/*.ts']
   };
 }
 export function getConfiguration() {
