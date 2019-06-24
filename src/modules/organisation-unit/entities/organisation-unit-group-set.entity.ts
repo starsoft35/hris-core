@@ -1,4 +1,4 @@
-import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
 import { IdentifiableObject } from '../../../core/entities/identifiable-object';
@@ -7,6 +7,11 @@ import { IdentifiableObject } from '../../../core/entities/identifiable-object';
 export class OrganisationUnitGroupSet extends IdentifiableObject {
 
   static plural = 'organisationUnitGroupSets';
+
+  @PrimaryGeneratedColumn({
+    name: 'organisationunitgroupsetid',
+  })
+  id: number;
 
   @Column('character varying', {
     nullable: true,

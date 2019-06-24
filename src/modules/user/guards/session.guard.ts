@@ -14,7 +14,7 @@ export class SessionGuard implements CanActivate {
                 return true;
             }
             if (request.headers['authorization']) {
-                console.log('Here');
+                console.log('Here:', request.headers['authorization'].replace('Basic ', ''));
                 let user = await User.authenticateUserByToken(request.headers['authorization'].replace('Basic ', ''));
                 //console.log('Here: ', user);
                 if (user) {
@@ -23,6 +23,7 @@ export class SessionGuard implements CanActivate {
                 }
             }
         } catch (e) {
+            console.log(e.stack);
             throw new Error('Not In Session');
         }
     }

@@ -5,9 +5,10 @@ import { TransactionDate } from '../../../core/entities/transaction-date.entity'
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 import { UserIdentifiableObject } from 'src/modules/user/entities/user-identifiable-object';
+import { TransactionUser } from 'src/core/entities/transaction-user.entity';
 
 @Entity('record', { schema: 'public' })
-export class Record extends UserIdentifiableObject {
+export class Record extends TransactionUser {
 
   static plural = 'records';
 

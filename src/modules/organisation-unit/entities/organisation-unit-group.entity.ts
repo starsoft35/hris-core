@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { OrganisationUnitGroupSet } from './organisation-unit-group-set.entity';
@@ -15,6 +16,11 @@ import { OrganisationUnit } from './organisation-unit.entity';
 export class OrganisationUnitGroup extends IdentifiableObject {
 
   static plural = 'organisationUnitGroups';
+
+  @PrimaryGeneratedColumn({
+    name: 'organisationunitgroupid',
+  })
+  id: number;
 
   @ManyToOne(
     type => OrganisationUnitGroupSet,

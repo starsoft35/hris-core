@@ -7,9 +7,6 @@ import * as uuid from 'uuid/v1';
 
 @ObjectType()
 export class IdentifiableObject extends TransactionDate {
-  @Field()
-  @PrimaryGeneratedColumn()
-  id: number;
 
   @Field()
   @Column('character varying', {

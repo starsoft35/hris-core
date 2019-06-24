@@ -190,6 +190,7 @@ export class User extends UserIdentifiableObject {
     u = await User.findOne({
       where: { token: token }
     });
+    console.log('User:', u);
     if (u) {
       delete u.token;
       return u;

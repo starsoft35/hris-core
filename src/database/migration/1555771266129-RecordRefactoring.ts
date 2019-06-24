@@ -84,7 +84,8 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         });
       });
       //await queryRunner.manager.save(RecordValue, newObjects);
-      await this.updateData(queryRunner, newObjects)
+      await this.updateData(queryRunner, newObjects);
+      
     }
   }
 

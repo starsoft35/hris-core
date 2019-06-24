@@ -3,9 +3,10 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 import { Field } from '../../form/entities/field.entity';
 import { Record } from './record.entity';
+import { TransactionUser } from 'src/core/entities/transaction-user.entity';
 
 @Entity('recordvalue', { schema: 'public' })
-export class RecordValue extends TransactionDate {
+export class RecordValue extends TransactionUser {
   @PrimaryGeneratedColumn({
     name: 'recordvalueid',
   })
