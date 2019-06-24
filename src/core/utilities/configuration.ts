@@ -18,11 +18,15 @@ const config = JSON.parse(
 export function getDataBaseConfiguration(){
   return {
     ...config.database,
+    /*
+    synchronize: false,
+    migrationsRun: true,
+*/
+    synchronize: true,
+    migrationsRun: false,
+    database: 'hris4_new',
     entities: ['src/**/*.entity{.ts,.js}'],
-    migrations: ['src/database/migration/*.ts'],
-    cli: {
-      migrationsDir: 'src/database/migration',
-    },
+    migrations: ['src/database/migration/*.ts']
   };
 }
 export function getConfiguration() {

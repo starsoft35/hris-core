@@ -1,6 +1,6 @@
 import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 import { Form } from 'src/modules/form/entities/form.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { OrganisationUnit } from './organisation-unit.entity';
 
@@ -8,7 +8,10 @@ import { OrganisationUnit } from './organisation-unit.entity';
 export class OrganisationUnitCompleteness extends IdentifiableObject {
 
   static plural = 'organisationUnitCompletenesses';
-
+  @PrimaryGeneratedColumn({
+    name: 'organisationunitcompletenessid',
+  })
+  id: number;
   @ManyToOne(
     type => OrganisationUnit,
     organisationUnit => organisationUnit.organisationUnitCompletenesses,

@@ -1,14 +1,13 @@
 import { TransactionDate } from 'src/core/entities/transaction-date.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Field } from '../../form/entities/field.entity';
 import { Record } from './record.entity';
+import { TransactionUser } from 'src/core/entities/transaction-user.entity';
 
 @Entity('recordvalue', { schema: 'public' })
-export class RecordValue extends TransactionDate {
-  @Column('integer', {
-    nullable: false,
-    primary: true,
+export class RecordValue extends TransactionUser {
+  @PrimaryGeneratedColumn({
     name: 'recordvalueid',
   })
   id: number;

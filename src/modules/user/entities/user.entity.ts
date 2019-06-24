@@ -8,6 +8,7 @@ import {
   OneToMany,
   OneToOne,
   BeforeInsert,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { createHmac } from 'crypto';
 import { DashboardChart } from '../../dashboard/entities/dashboard-chart.entity';
@@ -19,16 +20,14 @@ import { Message } from '../../message/entities/message.entity';
 import { UserGroup } from './user-group.entity';
 import { UserRole } from './user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { UserIdentifiableObject } from './user-identifiable-object';
 
 @Entity('user', { schema: 'public' })
-export class User extends IdentifiableObject {
+export class User extends UserIdentifiableObject {
 
   static plural = 'users';
   
-  @Column('integer', {
-    nullable: false,
-    primary: true,
+  @PrimaryGeneratedColumn({
     name: 'userid',
   })
   id: number;
@@ -53,11 +52,6 @@ export class User extends IdentifiableObject {
   })
   enabled: boolean;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
-    name: 'password',
-  })
   password: string;
 
   @Column('timestamp without time zone', {
@@ -129,12 +123,6 @@ export class User extends IdentifiableObject {
   })
   deletedat: Date | null;
 
-  @Column('text', {
-    nullable: true,
-    name: 'description',
-  })
-  description: string | null;
-
   @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
     onDelete: 'CASCADE',
   })
@@ -202,6 +190,7 @@ export class User extends IdentifiableObject {
     u = await User.findOne({
       where: { token: token }
     });
+    console.log('User:', u);
     if (u) {
       delete u.token;
       return u;

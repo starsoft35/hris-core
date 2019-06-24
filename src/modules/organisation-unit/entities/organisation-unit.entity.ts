@@ -10,6 +10,7 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { OrganisationUnitCompleteness } from './organisation-unit-completeness.entity';
@@ -22,7 +23,11 @@ import { Record } from 'src/modules/record/entities/record.entity';
 export class OrganisationUnit extends IdentifiableObject {
 
   static plural = 'organisationUnits';
-  
+
+  @PrimaryGeneratedColumn({
+    name: 'organisationunitid',
+  })
+  id: number;
   @Field()
   @ManyToOne(
     type => OrganisationUnit,

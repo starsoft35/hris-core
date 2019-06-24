@@ -1,19 +1,19 @@
-import { Column, Entity, JoinColumn, ManyToOne, ManyToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
 import { TransactionDate } from '../../../core/entities/transaction-date.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
+import { UserIdentifiableObject } from 'src/modules/user/entities/user-identifiable-object';
+import { TransactionUser } from 'src/core/entities/transaction-user.entity';
 
 @Entity('record', { schema: 'public' })
-export class Record extends TransactionDate {
+export class Record extends TransactionUser {
 
   static plural = 'records';
 
-  @Column('integer', {
-    nullable: false,
-    primary: true,
-    name: 'id',
+  @PrimaryGeneratedColumn({
+    name: 'recordid',
   })
   id: number;
 
@@ -51,37 +51,6 @@ export class Record extends TransactionDate {
     name: 'value',
   })
   value: string;
-
-  @Column('boolean', {
-    nullable: false,
-    name: 'complete',
-  })
-  complete: boolean;
-
-  @Column('boolean', {
-    nullable: false,
-    name: 'correct',
-  })
-  correct: boolean;
-
-  @Column('boolean', {
-    nullable: false,
-    name: 'hashistory',
-  })
-  hasHistory: boolean;
-
-  @Column('boolean', {
-    nullable: false,
-    name: 'hastraining',
-  })
-  hasTraining: boolean;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'username',
-  })
-  username: string;
 
   @ManyToMany(
     type => TrainingSession,

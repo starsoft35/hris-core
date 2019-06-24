@@ -9,6 +9,6 @@ export class UserIdentifiableObject extends IdentifiableObject {
   @JoinColumn({ name: 'createdbyid' })
   createdBy: User;
 
-  @JoinColumn({ name: 'updatedbyid' })
+  @JoinColumn({ name: 'lastupdatedbyid' })
   lastUpdatedBy: User;
 }

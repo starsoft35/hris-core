@@ -1,13 +1,11 @@
-import { Column, Entity, ManyToMany, JoinTable } from 'typeorm';
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
+import { Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 import { UserGroup } from './user-group.entity';
+import { UserIdentifiableObject } from './user-identifiable-object';
 
 @Entity('userrole', { schema: 'public' })
-export class UserRole extends TransactionDate {
-  @Column('integer', {
-    nullable: false,
-    primary: true,
+export class UserRole extends UserIdentifiableObject {
+  @PrimaryGeneratedColumn({
     name: 'userroleid',
   })
   id: number;
