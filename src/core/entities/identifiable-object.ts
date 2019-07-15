@@ -13,6 +13,7 @@ export class IdentifiableObject extends TransactionDate {
     nullable: false,
     length: 13,
     name: 'uid',
+    unique: true,
   })
   uid: string;
 
@@ -29,6 +30,6 @@ export class IdentifiableObject extends TransactionDate {
   beforeInsertIdentifiable() {
     this.uid = uuid();
     this.uid = this.uid.split('-').join('');
-    this.uid = this.uid.substr(0,13);
+    this.uid = this.uid.substr(0, 13);
   }
 }
