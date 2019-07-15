@@ -2,6 +2,14 @@ import { EntityMetadata } from 'typeorm';
 
 export function getSelections(fields: any, metaData: EntityMetadata): any {
   if (fields) {
+    console.log(metaData.columns
+      .map(metadataColumn => {
+        return metadataColumn.propertyName;
+      }).join(','));
+    fields = fields.split("*").join(metaData.columns
+      .map(metadataColumn => {
+        return metadataColumn.propertyName;
+      }).join(','))
     return fields.split(',').filter(item => {
       return (
         item.indexOf('[') === -1 &&
@@ -10,10 +18,13 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
             return metadataColumn.propertyName;
           })
           .indexOf(item) > -1
-      );
+      ) ;
     });
   } else {
-    return [];
+    return metaData.columns
+      .map(metadataColumn => {
+        return metadataColumn.propertyName;
+      });
   }
 }
 

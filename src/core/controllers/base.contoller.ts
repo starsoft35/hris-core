@@ -40,7 +40,6 @@ export class BaseController<T extends HRISBaseEntity> {
 
   @Get(':id')
   async findOne(@Param() params): Promise<ApiResult> {
-    console.log('WHat');
     const result = await this.baseService.findOneById(params.id);
 
     if (result) {
