@@ -30,8 +30,15 @@ export class AppsController extends BaseController<App> {
     }))
     async upload(@UploadedFile() file): Promise<ApiResult>{
         try {
-            let result = await this.uploadFile(file);
-            return super.create(result);
+            let result: any = await this.uploadFile(file);
+            const apps: any[] = await this.service.findWhere({
+                name: result.name
+            })
+            if (apps.length === 0){
+                return super.create(result);
+            } else {
+                return this.service.update(apps[0].id, result);
+            }
         }catch(e){
             return e;
         }

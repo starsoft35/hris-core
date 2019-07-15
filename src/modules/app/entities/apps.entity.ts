@@ -1,4 +1,4 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { ObjectType } from 'type-graphql';
 import { NamedIdentifiableObject } from 'src/core/entities/named-identifiable-object';
 
@@ -8,9 +8,7 @@ export class App extends NamedIdentifiableObject {
 
     static plural = 'apps';
 
-    @Column('integer', {
-        nullable: false,
-        primary: true,
+    @PrimaryGeneratedColumn({
         name: 'appid',
     })
     id: number;

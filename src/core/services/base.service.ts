@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BaseEntity, DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { BaseEntity, DeleteResult, Repository, UpdateResult, FindConditions } from 'typeorm';
 
 import { getWhereConditions } from '../utilities';
 import { getRelations, getSelections } from '../utilities/get-fields.utility';
@@ -17,6 +17,10 @@ export class BaseService<T extends HRISBaseEntity> {
 
   async findAll(): Promise<T[]> {
     return await this.modelRepository.find();
+  }
+
+  async findWhere(where: FindConditions<T>): Promise<T[]> {
+    return await this.modelRepository.find({ where: where });
   }
 
   async findAndCount(fields, filter, size, page): Promise<[T[], number]> {
@@ -86,7 +90,9 @@ export class BaseService<T extends HRISBaseEntity> {
   }
   async update(id: string, model: any): Promise<UpdateResult> {
     const condition: any = { uid: id };
-    return this.modelRepository.update(condition, model);
+    let results = await this.modelRepository.update(condition, model);
+    console.log('Updating', results);
+    return await this.modelRepository.update(condition, model);
   }
   async delete(id: string): Promise<DeleteResult> {
     const condition: any = { uid: id };
