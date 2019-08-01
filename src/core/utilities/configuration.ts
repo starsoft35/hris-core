@@ -7,7 +7,7 @@ if (!pathFolder) {
   if (!fs.existsSync("./files/config.json")) {
     fs.writeFileSync("./files/config.json", fs.readFileSync("./config.example.json"))
   }
-  pathFolder = "./files";
+  pathFolder = __dirname.split("/src/core/utilities").join("") + "/files";
 }
 const config = JSON.parse(
   fs.readFileSync(pathFolder + '/' + 'config.json', 'utf8'),
