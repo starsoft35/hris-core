@@ -70,11 +70,11 @@ export class AppsController extends BaseController<App> {
                         });
                         stream.on('end', () => {
                             let manifest = JSON.parse(Buffer.concat(chunks).toString());
-                            let destination = getConfiguration().apps + '/' + manifest.name;
+                            let destination = getConfiguration().apps + '/' + manifest.name.toLowerCase().split(' ').join('');
                             if (!fs.existsSync(destination)) {
                                 fs.mkdirSync(destination);
                             }
-                            zip.extract(null, getConfiguration().apps + '/' + manifest.name, (err, count) => {
+                            zip.extract(null, getConfiguration().apps + '/' + manifest.name.toLowerCase().split(' ').join(''), (err, count) => {
                                 zip.close();
                                 resolve({
                                     name: manifest.name,
@@ -93,8 +93,8 @@ export class AppsController extends BaseController<App> {
 
     @Get(':id/*')
     async loadFile(@Param() params, @Res() res) {
-        const result = await this.service.findOneByUid(params.id);
-        res.sendFile(getConfiguration().apps + '/' + result.name + '/' + params['0']);
+        //const result = await this.service.findOneByUid(params.id);
+        res.sendFile(getConfiguration().apps + '/' + params.id + '/' + params['0']);
     }
 
 }

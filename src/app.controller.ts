@@ -11,7 +11,7 @@ export class AppController {
 
     } else {
       let app = await this.appService.getLoginApp();
-      response.redirect('/api/apps/' + app.uid + '/' + app.launchpath);
+      response.redirect('/api/apps/' + app.name.toLowerCase().split(' ').join('') + '/' + app.launchpath);
     }
   }
 }
