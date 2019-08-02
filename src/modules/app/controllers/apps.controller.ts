@@ -69,21 +69,33 @@ export class AppsController extends BaseController<App> {
                             chunks.push(chunk);
                         });
                         stream.on('end', () => {
-                            let manifest = JSON.parse(Buffer.concat(chunks).toString());
-                            let destination = getConfiguration().apps + '/' + manifest.name.toLowerCase().split(' ').join('');
-                            if (!fs.existsSync(destination)) {
-                                fs.mkdirSync(destination);
-                            }
-                            zip.extract(null, getConfiguration().apps + '/' + manifest.name.toLowerCase().split(' ').join(''), (err, count) => {
-                                zip.close();
-                                resolve({
-                                    name: manifest.name,
-                                    shortName: manifest.name,
-                                    version: manifest.version,
-                                    launchpath: manifest.launch_path,
-                                    appicon: manifest.icons['16'] || manifest.icons['48'] || manifest.icons['128']
+                            try{
+                                let manifest = JSON.parse(Buffer.concat(chunks).toString());
+                                let destination = getConfiguration().apps + '/' + manifest.name.toLowerCase().split(' ').join('');
+                                if (!fs.existsSync(destination)) {
+                                    fs.mkdirSync(destination);
+                                }
+                                zip.extract(null, getConfiguration().apps + '/' + manifest.name.toLowerCase().split(' ').join(''), (err, count) => {
+                                    zip.close();
+                                    resolve({
+                                        name: manifest.name,
+                                        shortName: manifest.name,
+                                        version: manifest.version,
+                                        launchpath: manifest.launch_path,
+                                        appicon: manifest.icons['16'] || manifest.icons['48'] || manifest.icons['128']
+                                    });
                                 });
-                            });
+                            }catch(e){
+                                if (e.message.indexOf('Unexpected string in JSON at position') > -1){
+                                    reject({
+                                        'error': 'Manifest File Invalid JSON'
+                                    });
+                                } else {
+                                    reject({
+                                        'error': e.message
+                                    });
+                                }
+                            }
                         });
                     });
                 }
