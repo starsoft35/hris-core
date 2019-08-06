@@ -23,6 +23,7 @@ export class SessionGuard implements CanActivate {
             console.log(e.stack);
             throw new Error('Not In Session');
         }
+        return true;
     }
 }
 export const SessionUser = createParamDecorator((data, req) => {

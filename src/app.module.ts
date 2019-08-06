@@ -16,6 +16,7 @@ import { UserModule } from './modules/user/user.module';
 import { RecordModule } from './modules/record/record.module';
 import { AppsModule } from './modules/app/apps.module';
 import { AppService } from './modules/app/services/apps.service';
+import { MetadataModule } from './modules/metadata/metadata.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AppService } from './modules/app/services/apps.service';
     FormModule,
     DashboardModule,
     ReportModule,
+    MetadataModule,
     TrainingModule,
     MessageModule,
     RecordModule,
