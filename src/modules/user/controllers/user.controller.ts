@@ -1,16 +1,13 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { UserService } from '../services/user.service';
-import { User } from 'src/database/entities/user';
+import { User } from 'src/modules/user/entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { ModelController } from 'src/core/model.contoller';
+import { BaseController } from 'src/core/controllers/base.contoller';
 
-@Controller('users')
+@Controller('api/' + User.plural)
 //@UseGuards(AuthGuard())
-export class UsersController extends ModelController<User> {
+export class UsersController extends BaseController<User> {
   constructor(private readonly userService: UserService) {
-    super(userService);
-  }
-  get plural() {
-    return 'users';
+    super(userService, User);
   }
 }

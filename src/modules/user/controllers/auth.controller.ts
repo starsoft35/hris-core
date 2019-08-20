@@ -1,16 +1,29 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
-import { User } from 'src/database/entities/user';
+import { Controller, Get, Req, Res, HttpStatus, Session, UseGuards } from '@nestjs/common';
+import { User } from 'src/modules/user/entities/user.entity';
 import { Request, Response } from 'express';
 import { AuthService } from '../services/auth.service';
+import { SessionGuard } from '../guards/session.guard';
+import { ApiResult } from 'src/core/interfaces';
 
-@Controller('auth')
+@Controller('api/me')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @Get('login')
-  async login(@Res() response: Response, @Req() request: Request): Promise<User> {
-    let user = await this.authService.login('vincentminde', 'minde2016');
-    response.header('Authorization', 'Bearer ' + user.confirmation_token);
-    response.send(user);
-    return user;
+  @Get()
+  @UseGuards(SessionGuard)
+  async me(@Req() request): Promise<ApiResult> {
+    const result = await this.authService.getUserByUid(request.session.user.uid);
+    if (result) {
+      return result;
+    } else {
+      return {
+        httpStatus: 'Not Found',
+        httpStatusCode: 404,
+        status: 'ERROR',
+        message: 'User was not found.',
+        response: {
+          responseType: 'ErrorReport'
+        },
+      };
+    }
   }
 }

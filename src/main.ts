@@ -19,7 +19,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);*/
   app.use(helmet());
-  app.use(session({ secret: 'nest is awesome' }));
+  app.use(session({
+    secret: 'secret-key',
+    name: 'sess-tutorial',
+    resave: false,
+    saveUninitialized: false
+  }));
+
   //app.use(csurf());
   app.use(
     rateLimit({
@@ -28,6 +34,7 @@ async function bootstrap() {
     }),
   );
   app.use(compression());
+  //app.setGlobalPrefix('api');
   await app.listen(3000);
 }
 bootstrap();

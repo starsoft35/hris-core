@@ -1,14 +1,8 @@
 {
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "postgres",
-  "password": "postgres",
-  "database": "symfony_hris3",
-  "entities": ["src/database/entities/*.ts"],
-  "migrations": ["src/database/migration/*.ts"],
-  "cli": {
-    "migrationsDir": "src/database/migration"
-  },
-  "synchronize": false
+    "migrations": [
+        "src/database/migration/*.ts"
+    ],
+    "cli": {
+        "migrationsDir": "src/database/migration"
+    }
 }
