@@ -1,24 +1,8 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  RelationId,
-} from 'typeorm';
-import { Record } from '../../modules/record/entities/record.entity';
-import { hris_traininginstance } from '../../modules/training/entities/training-session.entity';
+import { Column, Entity, Index } from 'typeorm';
 
 @Entity('hris_record_training', { schema: 'public' })
-//@Index("unique_recordtraining_idx",["record_","trainingsession_",],{unique:true})
-//@Index("idx_f3e7ab184dfd750c",["record_",])
+// @Index("unique_recordtraining_idx",["record_","trainingsession_",],{unique:true})
+// @Index("idx_f3e7ab184dfd750c",["record_",])
 @Index('uniq_f3e7ab18539b0606', ['uid'], { unique: true })
 export class hris_record_training {
   @Column('integer', {
@@ -88,11 +72,11 @@ export class hris_record_training {
   })
   lastupdated: Date | null;
 
-  @ManyToOne(
-    type => hris_traininginstance,
-    hris_traininginstance => hris_traininginstance.hris_record_trainings,
-    {},
-  )
-  @JoinColumn({ name: 'trainingsession_id' })
-  trainingsession_: hris_traininginstance | null;
+  // @ManyToOne(
+  //   type => hris_traininginstance,
+  //   hris_traininginstance => hris_traininginstance.hris_record_trainings,
+  //   {},
+  // )
+  // @JoinColumn({ name: 'trainingsession_id' })
+  // trainingsession_: hris_traininginstance | null;
 }

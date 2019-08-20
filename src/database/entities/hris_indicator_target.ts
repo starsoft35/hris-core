@@ -55,11 +55,11 @@ export class hris_indicator_target {
   })
   lastupdated: Date | null;
 
-  @OneToMany(
-    type => hris_indicator_targetfieldoption,
-    hris_indicator_targetfieldoption =>
-      hris_indicator_targetfieldoption.target_,
-    { onDelete: 'CASCADE' },
-  )
-  hris_indicator_targetfieldoptions: hris_indicator_targetfieldoption[];
+  // @OneToMany(
+  //   type => hris_indicator_targetfieldoption,
+  //   hris_indicator_targetfieldoption =>
+  //     hris_indicator_targetfieldoption.target_,
+  //   { onDelete: 'CASCADE' },
+  // )
+  // hris_indicator_targetfieldoptions: hris_indicator_targetfieldoption[];
 }
