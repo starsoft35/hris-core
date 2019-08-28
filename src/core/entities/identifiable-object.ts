@@ -1,14 +1,9 @@
-import { Field, ObjectType } from 'type-graphql';
-import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column } from 'typeorm';
+import * as uuid from 'uuid/v1';
 
 import { TransactionDate } from './transaction-date.entity';
 
-import * as uuid from 'uuid/v1';
-
-@ObjectType()
 export class IdentifiableObject extends TransactionDate {
-
-  @Field()
   @Column('character varying', {
     nullable: false,
     length: 13,
@@ -17,7 +12,6 @@ export class IdentifiableObject extends TransactionDate {
   })
   uid: string;
 
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 25,

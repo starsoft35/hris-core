@@ -1,8 +1,9 @@
 import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { DashboardChart } from 'src/modules/dashboard/entities/dashboard-chart.entity';
+import { Record } from 'src/modules/record/entities/record.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
 import { User } from 'src/modules/user/entities/user.entity';
-import { Field, ObjectType } from 'type-graphql';
 import {
   Column,
   Entity,
@@ -15,20 +16,16 @@ import {
 
 import { OrganisationUnitCompleteness } from './organisation-unit-completeness.entity';
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
-import { DashboardChart } from 'src/modules/dashboard/entities/dashboard-chart.entity';
-import { Record } from 'src/modules/record/entities/record.entity';
 
 @Entity('organisationunit', { schema: 'public' })
-@ObjectType()
 export class OrganisationUnit extends IdentifiableObject {
-
   static plural = 'organisationUnits';
 
   @PrimaryGeneratedColumn({
     name: 'organisationunitid',
   })
   id: number;
-  @Field()
+
   @ManyToOne(
     type => OrganisationUnit,
     organisationUnit => organisationUnit.organisationUnits,
@@ -37,7 +34,6 @@ export class OrganisationUnit extends IdentifiableObject {
   @JoinColumn({ name: 'parentid' })
   parent: OrganisationUnit | null;
 
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 11,
@@ -46,28 +42,24 @@ export class OrganisationUnit extends IdentifiableObject {
   })
   dhisuid: string | null;
 
-  @Field()
   @Column('boolean', {
     nullable: true,
     name: 'active',
   })
   active: boolean | null;
 
-  @Field()
   @Column('date', {
     nullable: true,
     name: 'openingdate',
   })
   openingDate: string | null;
 
-  @Field()
   @Column('date', {
     nullable: true,
     name: 'closingdate',
   })
   closingDate: string | null;
 
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 255,
@@ -76,14 +68,12 @@ export class OrganisationUnit extends IdentifiableObject {
   })
   geoCode: string | null;
 
-  @Field()
   @Column('text', {
     nullable: true,
     name: 'coordinates',
   })
   coordinates: string | null;
 
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 20,
@@ -92,14 +82,12 @@ export class OrganisationUnit extends IdentifiableObject {
   })
   featureType: string | null;
 
-  @Field()
   @Column('text', {
     nullable: true,
     name: 'address',
   })
   address: string | null;
 
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 150,
@@ -108,7 +96,6 @@ export class OrganisationUnit extends IdentifiableObject {
   })
   email: string | null;
 
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 150,
@@ -117,7 +104,6 @@ export class OrganisationUnit extends IdentifiableObject {
   })
   phoneNumber: string | null;
 
-  @Field()
   @Column('character varying', {
     nullable: true,
     length: 150,
