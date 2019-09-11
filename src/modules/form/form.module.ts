@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FieldService } from './services/field.service';
 import { FieldGroupService } from './services/field-group.service';
 import { FieldGroupSetService } from './services/field-groupset.service';
 import { FieldInputTypeService } from './services/field-input-type.service';
@@ -27,7 +26,6 @@ import { FieldOptionGroupSetController } from './controllers/field-option-groups
 import { FieldOptionMergeController } from './controllers/field-option-merge.controller';
 import { FieldOptionController } from './controllers/field-option.controller';
 import { FieldRelationController } from './controllers/field-relation.controller';
-import { FieldController } from './controllers/field.controller';
 import { FormFieldMemberController } from './controllers/form-field-member.controller';
 import { FormSectionController } from './controllers/form-section.controller';
 import { FormVisibleFieldController } from './controllers/form-visible-fields.controller';
@@ -43,7 +41,6 @@ import { FieldOptionGroupSet } from './entities/field-option-groupset.entity';
 import { FieldOptionMerge } from './entities/field-option-merge.entity';
 import { FieldOption } from './entities/field-option.entity';
 import { FieldRelation } from './entities/field-relation.entity';
-import { Field } from './entities/field.entity';
 import { FormFieldMember } from './entities/form-field-member.entity';
 import { FormSection } from './entities/form-section.entity';
 import { FormVisibleField } from './entities/form-visible-fields.entity';
@@ -64,7 +61,6 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
       FieldOptionMerge,
       FieldOption,
       FieldRelation,
-      Field,
       FormFieldMember,
       FormSection,
       FormVisibleField,
@@ -83,7 +79,6 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
     FieldOptionMergeController,
     FieldOptionController,
     FieldRelationController,
-    FieldController,
     FormFieldMemberController,
     FormSectionController,
     FormVisibleFieldController,
@@ -91,7 +86,6 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
     FormSectionFieldMemberController,
   ],
   providers: [
-    FieldService,
     FieldGroupService,
     FieldGroupSetService,
     FieldInputTypeService,

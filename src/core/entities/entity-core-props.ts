@@ -21,7 +21,7 @@ export class EntityCoreProps extends TransactionDate {
     code: string | null;
 
     @BeforeInsert()
-    beforeInsertIdentifiable() {
+    beforeInsertEntityCoreProps() {
         this.uid = uuid();
         this.uid = this.uid.split('-').join('');
         this.uid = this.uid.substr(0, 13);

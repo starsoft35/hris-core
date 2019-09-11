@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 
-import { Field } from './field.entity';
+import { Field } from '../../field/entities/field.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 

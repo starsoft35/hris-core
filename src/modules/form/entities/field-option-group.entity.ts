@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { FieldOption } from './field-option.entity';
-import { Field } from './field.entity';
+import { Field } from '../../field/entities/field.entity';
 import { FieldOptionGroupSet } from './field-option-groupset.entity';
 
 @Entity('fieldoptiongroup', { schema: 'public' })
