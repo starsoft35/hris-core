@@ -1,11 +1,11 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
 import { FieldGroupSet } from './field-groupset.entity';
 import { Field } from './field.entity';
 
 @Entity('fieldgroup', { schema: 'public' })
-export class FieldGroup extends IdentifiableObject {
+export class FieldGroup extends EntityCoreProps {
 
   static plural = 'fieldGroups';
 

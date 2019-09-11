@@ -18,17 +18,17 @@ import { FormFieldMember } from './form-field-member.entity';
 import { FormVisibleField } from './form-visible-fields.entity';
 import { Form } from './form.entity';
 import { FormSectionFieldMember } from './formsection-fieldmembers.entity';
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('field', { schema: 'public' })
-export class Field extends IdentifiableObject {
+export class Field extends EntityCoreProps {
 
   static plural = 'fields';
 
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'fieldid',
+    name: Field.plural + 'id',
   })
   id: number;
 

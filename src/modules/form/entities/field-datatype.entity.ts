@@ -1,13 +1,14 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import { Field } from './field.entity';
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+
 
 @Entity('fielddatatype', { schema: 'public' })
-export class FieldDataType extends IdentifiableObject {
+export class FieldDataType extends EntityCoreProps {
 
   static plural = 'fieldDataTypes';
-  
+
   @Column('integer', {
     nullable: false,
     primary: true,

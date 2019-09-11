@@ -1,11 +1,11 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { Form } from './form.entity';
 import { FormSectionFieldMember } from './formsection-fieldmembers.entity';
 
 @Entity('formsection', { schema: 'public' })
-export class FormSection extends IdentifiableObject {
+export class FormSection extends EntityCoreProps {
 
   static plural = 'formSections';
 

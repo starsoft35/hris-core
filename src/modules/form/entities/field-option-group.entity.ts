@@ -1,4 +1,4 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import {
   Column,
   Entity,
@@ -13,7 +13,7 @@ import { Field } from './field.entity';
 import { FieldOptionGroupSet } from './field-option-groupset.entity';
 
 @Entity('fieldoptiongroup', { schema: 'public' })
-export class FieldOptionGroup extends IdentifiableObject {
+export class FieldOptionGroup extends EntityCoreProps {
 
   static plural = 'fieldOptionGroups';
 

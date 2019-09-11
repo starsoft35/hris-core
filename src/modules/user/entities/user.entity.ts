@@ -26,7 +26,7 @@ import { UserIdentifiableObject } from './user-identifiable-object';
 export class User extends UserIdentifiableObject {
 
   static plural = 'users';
-  
+
   @PrimaryGeneratedColumn({
     name: 'userid',
   })
