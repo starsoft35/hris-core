@@ -6,9 +6,8 @@ import { Message } from './message.entity';
 
 @Entity('messagemetadata', { schema: 'public' })
 export class MessageMetadata extends EntityCoreProps {
-
   static plural = 'messageMetadata';
-  
+
   @Column('integer', {
     nullable: false,
     primary: true,
