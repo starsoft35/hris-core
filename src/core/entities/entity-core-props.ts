@@ -30,7 +30,7 @@ export class EntityCoreProps extends TransactionDate {
          *  2. You can generat UUID by prepending a context specific keyword i.e getUid('HRIS', 20)
          *      Example of UUID::: HRIS_8aydSxYBrrP
          */
-        this.uid = getUid('hris', 20);
+        this.uid = getUid('', 11);
 
         // ! Generating UUID is DEPRECATED
         // this.uid = uuid();
