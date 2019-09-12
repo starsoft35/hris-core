@@ -7,9 +7,8 @@ import { MessageThread } from './message-thread.entity';
 
 @Entity('message', { schema: 'public' })
 export class Message extends EntityCoreProps {
-
   static plural = 'messages';
-  
+
   @Column('integer', {
     nullable: false,
     primary: true,
