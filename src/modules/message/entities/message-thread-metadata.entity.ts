@@ -19,9 +19,8 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('messagethreadmetadata', { schema: 'public' })
 export class MessageThreadMetadata extends EntityCoreProps {
-
   static plural = 'messageThreadMetadata';
-  
+
   @Column('integer', {
     nullable: false,
     primary: true,

@@ -3,9 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
 import { AppController } from './app.controller';
-import {
-  getDataBaseConfiguration
-} from './core/utilities/configuration';
+import { getDataBaseConfiguration } from './core/utilities/configuration';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { FormModule } from './modules/form/form.module';
 import { MessageModule } from './modules/message/message.module';
