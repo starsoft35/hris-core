@@ -19,6 +19,7 @@ import { FormVisibleField } from '../../form/entities/form-visible-fields.entity
 import { Form } from '../../form/entities/form.entity';
 import { FormSectionFieldMember } from '../../form/entities/formsection-fieldmembers.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { TrimLastLetter } from 'src/core/utilities/string-utils';
 
 @Entity('field', { schema: 'public' })
 export class Field extends EntityCoreProps {
@@ -28,19 +29,21 @@ export class Field extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: Field.plural + 'id',
+    name: TrimLastLetter(Field.plural) + 'id',
   })
   id: number;
 
   @ManyToOne(type => FieldDataType, fieldDataType => fieldDataType.fields, {
     onDelete: 'CASCADE',
   })
+
   @JoinColumn({ name: 'datatypeid' })
   dataType: FieldDataType | null;
 
   @ManyToOne(type => FieldInputType, fieldInputType => fieldInputType.fields, {
     onDelete: 'CASCADE',
   })
+
   @JoinColumn({ name: 'inputtypeid' })
   inputType: FieldInputType | null;
 

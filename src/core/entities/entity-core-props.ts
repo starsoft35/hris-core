@@ -1,10 +1,11 @@
-import { BeforeInsert, Column } from 'typeorm';
+import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
 import * as uuid from 'uuid/v1';
 import { getUid } from '@iapps/utils/utils';
 
 import { TransactionDate } from './transaction-date.entity';
 
 export class EntityCoreProps extends TransactionDate {
+
     @Column('character varying', {
         nullable: false,
         length: 256,

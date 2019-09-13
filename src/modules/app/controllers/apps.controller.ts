@@ -30,11 +30,11 @@ export class AppsController extends BaseController<App> {
     }))
     async upload(@UploadedFile() file): Promise<ApiResult>{
         try {
-            let result: any = await this.uploadFile(file);
+            const result: any = await this.uploadFile(file);
             const apps: any[] = await this.service.findWhere({
-                name: result.name
+                name : result.name,
             })
-            if (apps.length === 0){
+            if (apps.length === 0) {
                 return super.create(result);
             } else {
                 return this.service.update(apps[0].id, result);
@@ -44,7 +44,7 @@ export class AppsController extends BaseController<App> {
         }
     }
 
-    uploadFile(file){
+    uploadFile(file) {
         return new Promise((resolve, reject) => {
             const zip = new StreamZip({
                 file: file.path,
