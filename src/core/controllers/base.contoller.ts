@@ -79,21 +79,21 @@ export class BaseController<T extends HRISBaseEntity> {
   }
 
   @Get(':id/:relation')
-  async findOneRelation(@Param() params): Promise<ApiResult> {
-    const result = await this.baseService.findOneByUid(params.id);
-    if (result) {
-      return { [params.relation]: result[params.relation] };
-    } else {
-      return {
-        httpStatus: 'Not Found',
-        httpStatusCode: 404,
-        status: 'ERROR',
-        message: 'User with id ' + params.id + ' could not be found.',
-        response: {
-          responseType: 'ErrorReport',
-          uid: params.id,
-        },
-      };
+  async findOneRelation(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Param() params,
+  ): Promise<ApiResult> {
+    try {
+      const isExist = await this.baseService.findOneByUid(params.id);
+      const getResponse = isExist;
+      if (isExist !== undefined) {
+        return { [params.relation]: getResponse[params.relation] };
+      } else {
+        return genericFailureResponse(req, res, params);
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   }
 
