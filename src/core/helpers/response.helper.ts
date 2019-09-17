@@ -20,8 +20,8 @@ export function getSuccessResponse(
             httpStatusCode: response.statusCode,
             status: 'success',
             response: {
-                uid: params.id,
-                Url: `http://${request.hostname}${request.url}`,
+                message: `Object with id ${params.id} deleted successfully`,
+                url: `http://${request.hostname}${request.url}`,
                 affectedRows: deleteResponse.affected,
                 raw: deleteResponse.raw,
             },
