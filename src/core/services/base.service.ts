@@ -1,5 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { BaseEntity, DeleteResult, Repository, UpdateResult, FindConditions } from 'typeorm';
+import {
+  BaseEntity,
+  DeleteResult,
+  Repository,
+  UpdateResult,
+  FindConditions,
+} from 'typeorm';
 
 import { getWhereConditions } from '../utilities';
 import { getRelations, getSelections } from '../utilities/get-fields.utility';
@@ -13,14 +19,17 @@ class Factory {
 
 @Injectable()
 export class BaseService<T extends HRISBaseEntity> {
-  constructor(private readonly modelRepository: Repository<T>, private readonly Model) {}
+  constructor(
+    private readonly modelRepository: Repository<T>,
+    private readonly Model,
+  ) {}
 
   async findAll(): Promise<T[]> {
     return await this.modelRepository.find();
   }
 
   async findWhere(where: FindConditions<T>): Promise<T[]> {
-    return await this.modelRepository.find({ where: where });
+    return await this.modelRepository.find({ where });
   }
 
   async findAndCount(fields, filter, size, page): Promise<[T[], number]> {
@@ -36,8 +45,8 @@ export class BaseService<T extends HRISBaseEntity> {
       skip: page,
     });
   }
-  async findOneByUid(uid: string): Promise<T> {
-    return await this.modelRepository.findOne({ where: { uid: uid } });
+  async findOneByUid(id: string): Promise<T> {
+    return await this.modelRepository.findOne({ where: { uid: id } });
   }
   saveEntity(data, modelTarget) {
     const model = new modelTarget();
@@ -76,7 +85,6 @@ export class BaseService<T extends HRISBaseEntity> {
     return savedEntity;
   }
   async create(entity: any): Promise<any> {
-    // return this.saveEntity(entity, this.model);
     const model = new this.Model();
     // var metaData = this.modelRepository.manager.connection.getMetadata(this.model);
     // var savedEntity = entity;
@@ -90,7 +98,7 @@ export class BaseService<T extends HRISBaseEntity> {
   }
   async update(id: string, model: any): Promise<UpdateResult> {
     const condition: any = { uid: id };
-    let results = await this.modelRepository.update(condition, model);
+    const results = await this.modelRepository.update(condition, model);
     console.log('Updating', results);
     return await this.modelRepository.update(condition, model);
   }

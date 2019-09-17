@@ -1,12 +1,32 @@
-import { Body, Get, Post, Put, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Get,
+  Post,
+  Put,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+  Res,
+  Req,
+} from '@nestjs/common';
 import { BaseService } from '../services/base.service';
 import { Pager, ApiResult } from '../interfaces';
 import { getPagerDetails } from '../utilities';
 import { HRISBaseEntity } from '../entities/base-entity';
 import { SessionGuard } from 'src/modules/user/guards/session.guard';
+import { Request, Response } from 'express';
+import { DeleteResponse } from '../interfaces/response/delete.interface';
+import {
+  getSuccessResponse,
+  getFailureResponse,
+} from '../helpers/response.helper';
 
 export class BaseController<T extends HRISBaseEntity> {
-  constructor(private readonly baseService: BaseService<T>, private readonly Model: typeof HRISBaseEntity) {}
+  constructor(
+    private readonly baseService: BaseService<T>,
+    private readonly Model: typeof HRISBaseEntity,
+  ) { }
   @Get()
   @UseGuards(SessionGuard)
   async findAll(@Query() query): Promise<ApiResult> {
@@ -19,7 +39,7 @@ export class BaseController<T extends HRISBaseEntity> {
 
     const [contents, totalCount]: [
       T[],
-      number
+      number,
     ] = await this.baseService.findAndCount(
       query.fields,
       query.filter,
@@ -39,7 +59,11 @@ export class BaseController<T extends HRISBaseEntity> {
   }
 
   @Get(':id')
-  async findOne(@Param() params): Promise<ApiResult> {
+  async findOne(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Param() params,
+  ): Promise<ApiResult> {
     const result = await this.baseService.findOneByUid(params.id);
 
     if (result) {
@@ -101,32 +125,30 @@ export class BaseController<T extends HRISBaseEntity> {
     }
   }
 
+  /**
+   *
+   * @param params
+   * @param req
+   * @param res
+   */
   @Delete(':id')
-  async delete(@Param() params): Promise<ApiResult> {
-    const results = await this.baseService.delete(params.id);
-    if (results.affected === 1) {
-      return {
-        httpStatus: 'OK',
-        httpStatusCode: 200,
-        status: 'OK',
-        response: {
-          responseType: 'ObjectReport',
-          uid: params.id,
-          klass: 'org.hisp.dhis.user.User',
-        },
-      };
-    } else {
-      return {
-        httpStatus: 'Not Found',
-        httpStatusCode: 404,
-        status: 'ERROR',
-        message: 'User with id ' + params.id + ' could not be found.',
-        response: {
-          responseType: 'ErrorReport',
-          uid: params.id,
-          klass: 'org.hisp.dhis.user.User',
-        },
-      };
+  async delete(
+    @Param() params,
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<ApiResult> {
+    try {
+      const isExist = await this.baseService.findOneByUid(params.id);
+      if (isExist !== undefined) {
+        const deleteResponse: DeleteResponse = await this.baseService.delete(
+          params.id,
+        );
+        return getSuccessResponse(req, res, params, deleteResponse);
+      } else {
+        return getFailureResponse(req, res, params);
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   }
 
