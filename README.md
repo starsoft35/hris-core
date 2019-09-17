@@ -1,4 +1,4 @@
-# Human Resource Information System 4(HRIS4)
+# Human Resource Information System v4 API
 ### A software for collection, collation, storage of Human resource for health Information.
 
 [![Build Status](https://travis-ci.org/hisptz/hris-restful-api-v4.svg?branch=master)](https://travis-ci.org/hisptz/hris-restful-api-v4)
