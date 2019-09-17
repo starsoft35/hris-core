@@ -8,7 +8,7 @@ import { UIDParams } from '../interfaces/response/params.interface';
  * @param params
  * @param deleteResponse
  */
-export function getSuccessResponse(
+export function deleteSuccessResponse(
     request: Request,
     response: Response,
     params: UIDParams,
@@ -23,7 +23,7 @@ export function getSuccessResponse(
                 message: `Object with id ${params.id} deleted successfully`,
                 url: `http://${request.hostname}${request.url}`,
                 affectedRows: deleteResponse.affected,
-                raw: deleteResponse.raw,
+                data: deleteResponse.raw,
             },
         });
     }
@@ -36,7 +36,7 @@ export function getSuccessResponse(
  * @param params
  * @param deleteResponse
  */
-export function getFailureResponse(
+export function genericFailureResponse(
     request: Request,
     response: Response,
     params: UIDParams,
@@ -47,4 +47,24 @@ export function getFailureResponse(
         status: 'ERROR',
         message: `IdentifiableObject with id ${params.id} could not be found.`,
     });
+}
+
+export function getSuccessResponse(
+    request: Request,
+    response: Response,
+    params: UIDParams,
+    getResponse: any,
+): Response {
+    if (getResponse !== undefined) {
+        return response.json({
+            httpStatus: response.statusCode === 200 ? 'OK' : 'Conflict',
+            httpStatusCode: response.statusCode,
+            status: 'success',
+            response: {
+                message: `Object with id ${params.id} found.`,
+                url: `http://${request.hostname}${request.url}`,
+                data: [getResponse],
+            },
+        });
+    }
 }

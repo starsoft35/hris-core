@@ -19,7 +19,8 @@ import { Request, Response } from 'express';
 import { DeleteResponse } from '../interfaces/response/delete.interface';
 import {
   getSuccessResponse,
-  getFailureResponse,
+  deleteSuccessResponse,
+  genericFailureResponse,
 } from '../helpers/response.helper';
 
 export class BaseController<T extends HRISBaseEntity> {
@@ -64,21 +65,16 @@ export class BaseController<T extends HRISBaseEntity> {
     @Res() res: Response,
     @Param() params,
   ): Promise<ApiResult> {
-    const result = await this.baseService.findOneByUid(params.id);
-
-    if (result) {
-      return result;
-    } else {
-      return {
-        httpStatus: 'Not Found',
-        httpStatusCode: 404,
-        status: 'ERROR',
-        message: 'User with id ' + params.id + ' could not be found.',
-        response: {
-          responseType: 'ErrorReport',
-          uid: params.id,
-        },
-      };
+    try {
+      const isExist = await this.baseService.findOneByUid(params.id);
+      const getResponse = isExist;
+      if (isExist !== undefined) {
+        return getSuccessResponse(req, res, params, getResponse);
+      } else {
+        return genericFailureResponse(req, res, params);
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   }
 
@@ -143,9 +139,9 @@ export class BaseController<T extends HRISBaseEntity> {
         const deleteResponse: DeleteResponse = await this.baseService.delete(
           params.id,
         );
-        return getSuccessResponse(req, res, params, deleteResponse);
+        return deleteSuccessResponse(req, res, params, deleteResponse);
       } else {
-        return getFailureResponse(req, res, params);
+        return genericFailureResponse(req, res, params);
       }
     } catch (error) {
       res.status(400).json({ error: error.message });
