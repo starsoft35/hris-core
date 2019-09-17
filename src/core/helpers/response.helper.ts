@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { UIDParams } from '../interfaces/response/params.interface';
-import { ApiResult } from 'dist/core/interfaces';
 
 /**
  *
