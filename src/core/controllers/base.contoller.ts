@@ -21,13 +21,25 @@ import {
   getSuccessResponse,
   deleteSuccessResponse,
   genericFailureResponse,
+  postSuccessResponse,
+  entityExistResponse,
 } from '../helpers/response.helper';
 
 export class BaseController<T extends HRISBaseEntity> {
+  /**
+   *
+   * @param baseService
+   * @param Model
+   */
   constructor(
     private readonly baseService: BaseService<T>,
     private readonly Model: typeof HRISBaseEntity,
   ) { }
+
+  /**
+   *
+   * @param query
+   */
   @Get()
   @UseGuards(SessionGuard)
   async findAll(@Query() query): Promise<ApiResult> {
@@ -59,6 +71,12 @@ export class BaseController<T extends HRISBaseEntity> {
     };
   }
 
+  /**
+   *
+   * @param req
+   * @param res
+   * @param params
+   */
   @Get(':id')
   async findOne(
     @Req() req: Request,
@@ -78,6 +96,12 @@ export class BaseController<T extends HRISBaseEntity> {
     }
   }
 
+  /**
+   *
+   * @param req
+   * @param res
+   * @param params
+   */
   @Get(':id/:relation')
   async findOneRelation(
     @Req() req: Request,
@@ -97,11 +121,41 @@ export class BaseController<T extends HRISBaseEntity> {
     }
   }
 
+  /**
+   *
+   * @param req
+   * @param res
+   * @param createEntityDto
+   */
   @Post()
-  async create(@Body() createEntityDto): Promise<ApiResult> {
-    return await this.baseService.create(createEntityDto);
+  async create(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Body() createEntityDto,
+  ): Promise<ApiResult> {
+    try {
+      const isIDExist = await this.baseService.findOneById(createEntityDto.uid);
+      if (isIDExist !== undefined) {
+        return entityExistResponse(req, res, isIDExist);
+      } else {
+        const isCreated = await this.baseService.create(createEntityDto);
+        const createdEntity = isCreated;
+        if (createdEntity !== undefined) {
+          return postSuccessResponse(req, res, createdEntity);
+        } else {
+          return genericFailureResponse(req, res);
+        }
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
 
+  /**
+   *
+   * @param params
+   * @param updateEntityDto
+   */
   @Put(':id')
   async update(@Param() params, @Body() updateEntityDto): Promise<ApiResult> {
     const result = await this.baseService.findOneByUid(params.id);

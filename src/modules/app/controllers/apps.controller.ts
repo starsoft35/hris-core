@@ -10,6 +10,7 @@ import {
     UploadedFile,
     Param,
     Res,
+    Req,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -17,9 +18,11 @@ import { getConfiguration } from 'src/core/utilities/configuration';
 import * as fs from 'fs';
 import * as StreamZip from 'node-stream-zip';
 import { ApiResult } from 'src/core/interfaces';
+import { Request, Response } from 'express';
 
 // tslint:disable-next-line: no-console
 console.log('Plural:', App.plural);
+
 @Controller('api/' + App.plural)
 export class AppsController extends BaseController<App> {
     constructor(private service: AppService) {
@@ -43,14 +46,18 @@ export class AppsController extends BaseController<App> {
             }),
         }),
     )
-    async upload(@UploadedFile() file): Promise<ApiResult> {
+    async upload(
+        @Req() req: Request,
+        @Res() res: Response,
+        @UploadedFile() file,
+    ): Promise<ApiResult> {
         try {
             const result: any = await this.uploadFile(file);
             const apps: any[] = await this.service.findWhere({
                 name: result.name,
             });
             if (apps.length === 0) {
-                return super.create(result);
+                return super.create(req, res, result);
             } else {
                 return this.service.update(apps[0].id, result);
             }
@@ -59,6 +66,10 @@ export class AppsController extends BaseController<App> {
         }
     }
 
+    /**
+     *
+     * @param file
+     */
     uploadFile(file) {
         return new Promise((resolve, reject) => {
             const zip = new StreamZip({
@@ -80,7 +91,7 @@ export class AppsController extends BaseController<App> {
                 } else {
                     zip.stream('manifest.webapp', (err, stream) => {
                         const chunks = [];
-                        stream.on('data', (chunk) => {
+                        stream.on('data', chunk => {
                             chunks.push(chunk);
                         });
                         stream.on('end', () => {
@@ -139,6 +150,11 @@ export class AppsController extends BaseController<App> {
         });
     }
 
+    /**
+     *
+     * @param params
+     * @param res
+     */
     @Get(':id/*')
     async loadFile(@Param() params, @Res() res) {
         // const result = await this.service.findOneByUid(params.id);
