@@ -6,6 +6,9 @@ import { TransactionTimestamp } from './transaction-timestamp.entity';
 
 export class EntityCoreProps extends TransactionTimestamp {
 
+    @PrimaryGeneratedColumn()
+    id: number;
+
     @Column('character varying', {
         nullable: false,
         length: 256,

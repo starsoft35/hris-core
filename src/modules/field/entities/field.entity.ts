@@ -19,19 +19,11 @@ import { FormVisibleField } from '../../form/entities/form-visible-fields.entity
 import { Form } from '../../form/entities/form.entity';
 import { FormSectionFieldMember } from '../../form/entities/formsection-fieldmembers.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { getSingularity } from 'src/core/utilities/string-utils';
 
 @Entity('field', { schema: 'public' })
 export class Field extends EntityCoreProps {
 
   static plural = 'fields';
-
-  @Column('integer', {
-    nullable: true,
-    primary: true,
-    name: getSingularity(Field.plural) + 'id',
-  })
-  id: number;
 
   @ManyToOne(type => FieldDataType, fieldDataType => fieldDataType.fields, {
     onDelete: 'CASCADE',
