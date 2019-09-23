@@ -89,7 +89,7 @@ export class BaseController<T extends HRISBaseEntity> {
       if (isExist !== undefined) {
         return getSuccessResponse(res, getResponse);
       } else {
-        return genericFailureResponse(req, res, params);
+        return genericFailureResponse(res, params);
       }
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -114,7 +114,7 @@ export class BaseController<T extends HRISBaseEntity> {
       if (isExist !== undefined) {
         return { [params.relation]: getResponse[params.relation] };
       } else {
-        return genericFailureResponse(req, res, params);
+        return genericFailureResponse(res, params);
       }
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -136,13 +136,13 @@ export class BaseController<T extends HRISBaseEntity> {
     try {
       const isIDExist = await this.baseService.findOneById(createEntityDto.uid);
       if (isIDExist !== undefined) {
-        return entityExistResponse(req, res, isIDExist);
+        return entityExistResponse(res, isIDExist);
       } else {
         const createdEntity = await this.baseService.create(createEntityDto);
         if (createdEntity !== undefined) {
-          return postSuccessResponse(req, res, createdEntity);
+          return postSuccessResponse(res, createdEntity);
         } else {
-          return genericFailureResponse(req, res);
+          return genericFailureResponse(res);
         }
       }
     } catch (error) {
@@ -156,15 +156,22 @@ export class BaseController<T extends HRISBaseEntity> {
    * @param updateEntityDto
    */
   @Put(':id')
-  async update(@Req() req: Request, @Res() res: Response, @Param() params, @Body() updateEntityDto): Promise<ApiResult> {
+  async update(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Param() params,
+    @Body() updateEntityDto,
+  ): Promise<ApiResult> {
     const updateEntity = await this.baseService.findOneByUid(params.id);
     if (updateEntity !== undefined) {
       const payload = await this.baseService.update(params.id, updateEntityDto);
       if (payload) {
-        return res.status(res.statusCode).json({ message: `Item with id ${params.id} updated successfully.`});
+        return res
+          .status(res.statusCode)
+          .json({ message: `Item with id ${params.id} updated successfully.` });
       }
     } else {
-      return genericFailureResponse(req, res, params);
+      return genericFailureResponse(res, params);
     }
   }
 
@@ -188,7 +195,7 @@ export class BaseController<T extends HRISBaseEntity> {
         );
         return deleteSuccessResponse(req, res, params, deleteResponse);
       } else {
-        return genericFailureResponse(req, res, params);
+        return genericFailureResponse(res, params);
       }
     } catch (error) {
       res.status(400).json({ error: error.message });

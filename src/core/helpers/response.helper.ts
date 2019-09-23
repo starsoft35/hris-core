@@ -16,17 +16,9 @@ export function deleteSuccessResponse(
     deleteResponse: any,
 ): Response {
     if (deleteResponse.affected === 1) {
-        return response.json({
-            httpStatus: response.statusCode === 200 ? 'OK' : 'Conflict',
-            httpStatusCode: response.statusCode,
-            status: 'success',
-            response: {
-                message: `Object with id ${params.id} deleted successfully`,
-                url: `http://${request.hostname}${request.url}`,
-                affectedRows: deleteResponse.affected,
-                data: deleteResponse.raw,
-            },
-        });
+        return response
+            .status(response.statusCode)
+            .json({ message: `Object with id ${params.id} deleted successfully` });
     }
 }
 
@@ -38,7 +30,6 @@ export function deleteSuccessResponse(
  * @param deleteResponse
  */
 export function genericFailureResponse(
-    request: Request,
     response: Response,
     params?: UIDParams,
 ): Response {
@@ -57,7 +48,6 @@ export function genericFailureResponse(
  * @param entity
  */
 export function entityExistResponse(
-    request: Request,
     response: Response,
     entity: any,
 ): Response {
@@ -95,7 +85,6 @@ export function getSuccessResponse(
  * @param postResponse
  */
 export function postSuccessResponse(
-    request: Request,
     response: Response,
     postResponse: any,
 ): Response {
