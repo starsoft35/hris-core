@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { UIDParams } from '../interfaces/response/params.interface';
+import { ENTITY_NOT_FOUND } from '../constants/statuscode.constant';
 
 /**
  *
@@ -41,9 +42,9 @@ export function genericFailureResponse(
     response: Response,
     params?: UIDParams,
 ): Response {
-    return response.json({
+    return response.status(ENTITY_NOT_FOUND).json({
         httpStatus: 'Not Found',
-        httpStatusCode: 404,
+        httpStatusCode: ENTITY_NOT_FOUND,
         status: 'ERROR',
         message: `IdentifiableObject with id ${params.id} could not be found.`,
     });
@@ -76,22 +77,14 @@ export function entityExistResponse(
  * @param getResponse
  */
 export function getSuccessResponse(
-    request: Request,
     response: Response,
-    params: UIDParams,
     getResponse: any,
 ): Response {
     if (getResponse !== undefined) {
-        return response.json({
-            httpStatus: response.statusCode === 200 ? 'OK' : 'Conflict',
-            httpStatusCode: response.statusCode,
-            status: 'success',
-            response: {
-                message: `Object with id ${params.id} found.`,
-                url: `http://${request.hostname}${request.url}`,
-                data: [getResponse],
-            },
-        });
+        const isPropExcluded = delete getResponse.id;
+        return isPropExcluded
+            ? response.status(response.statusCode).json(getResponse)
+            : response.status(response.statusCode).json(getResponse);
     }
 }
 

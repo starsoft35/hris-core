@@ -15,7 +15,7 @@ import { Pager, ApiResult } from '../interfaces';
 import { getPagerDetails } from '../utilities';
 import { HRISBaseEntity } from '../entities/base-entity';
 import { SessionGuard } from 'src/modules/user/guards/session.guard';
-import { Request, Response } from 'express';
+import { Request, Response, response } from 'express';
 import { DeleteResponse } from '../interfaces/response/delete.interface';
 import {
   getSuccessResponse,
@@ -87,7 +87,7 @@ export class BaseController<T extends HRISBaseEntity> {
       const isExist = await this.baseService.findOneByUid(params.id);
       const getResponse = isExist;
       if (isExist !== undefined) {
-        return getSuccessResponse(req, res, params, getResponse);
+        return getSuccessResponse(res, getResponse);
       } else {
         return genericFailureResponse(req, res, params);
       }
@@ -156,21 +156,15 @@ export class BaseController<T extends HRISBaseEntity> {
    * @param updateEntityDto
    */
   @Put(':id')
-  async update(@Param() params, @Body() updateEntityDto): Promise<ApiResult> {
-    const result = await this.baseService.findOneByUid(params.id);
-    if (result) {
-      return await this.baseService.update(params.id, updateEntityDto);
+  async update(@Req() req: Request, @Res() res: Response, @Param() params, @Body() updateEntityDto): Promise<ApiResult> {
+    const updateEntity = await this.baseService.findOneByUid(params.id);
+    if (updateEntity !== undefined) {
+      const payload = await this.baseService.update(params.id, updateEntityDto);
+      if (payload) {
+        return res.status(res.statusCode).json({ message: `Item with id ${params.id} updated successfully.`});
+      }
     } else {
-      return {
-        httpStatus: 'Not Found',
-        httpStatusCode: 404,
-        status: 'ERROR',
-        message: 'User with id ' + params.id + ' could not be found.',
-        response: {
-          responseType: 'ErrorReport',
-          uid: params.id,
-        },
-      };
+      return genericFailureResponse(req, res, params);
     }
   }
 
