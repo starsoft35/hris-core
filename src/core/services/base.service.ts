@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import {
-  BaseEntity,
   DeleteResult,
   Repository,
   UpdateResult,
@@ -10,7 +9,6 @@ import {
 import { getWhereConditions } from '../utilities';
 import { getRelations, getSelections } from '../utilities/get-fields.utility';
 import { HRISBaseEntity } from '../entities/base-entity';
-import { Request, Response } from 'express';
 
 // class Factory {
 //   create<T>(type: (new () => T)): T {

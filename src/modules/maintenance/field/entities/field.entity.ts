@@ -7,17 +7,17 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { FieldDataType } from '../../form/entities/field-datatype.entity';
-import { FieldGroup } from '../../form/entities/field-group.entity';
-import { FieldInputType } from '../../form/entities/field-input-type.entity';
-import { FieldOptionGroup } from '../../form/entities/field-option-group.entity';
-import { FieldOptionMerge } from '../../form/entities/field-option-merge.entity';
-import { FieldOption } from '../../form/entities/field-option.entity';
-import { FieldRelation } from '../../form/entities/field-relation.entity';
-import { FormFieldMember } from '../../form/entities/form-field-member.entity';
-import { FormVisibleField } from '../../form/entities/form-visible-fields.entity';
-import { Form } from '../../form/entities/form.entity';
-import { FormSectionFieldMember } from '../../form/entities/formsection-fieldmembers.entity';
+import { FieldDataType } from '../../../form/entities/field-datatype.entity';
+import { FieldGroup } from '../../../form/entities/field-group.entity';
+import { FieldInputType } from '../../../form/entities/field-input-type.entity';
+import { FieldOptionGroup } from '../../../form/entities/field-option-group.entity';
+import { FieldOptionMerge } from '../../../form/entities/field-option-merge.entity';
+import { FieldOption } from '../../../form/entities/field-option.entity';
+import { FieldRelation } from '../../../form/entities/field-relation.entity';
+import { FormFieldMember } from '../../../form/entities/form-field-member.entity';
+import { FormVisibleField } from '../../../form/entities/form-visible-fields.entity';
+import { Form } from '../../../form/entities/form.entity';
+import { FormSectionFieldMember } from '../../../form/entities/formsection-fieldmembers.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('field', { schema: 'public' })
