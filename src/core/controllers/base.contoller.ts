@@ -138,8 +138,7 @@ export class BaseController<T extends HRISBaseEntity> {
       if (isIDExist !== undefined) {
         return entityExistResponse(req, res, isIDExist);
       } else {
-        const isCreated = await this.baseService.create(createEntityDto);
-        const createdEntity = isCreated;
+        const createdEntity = await this.baseService.create(createEntityDto);
         if (createdEntity !== undefined) {
           return postSuccessResponse(req, res, createdEntity);
         } else {
