@@ -107,15 +107,6 @@ export function postSuccessResponse(
     postResponse: any,
 ): Response {
     if (postResponse !== undefined) {
-        return response.json({
-            httpStatus: response.statusCode === 201 ? 'OK' : 'Conflict',
-            httpStatusCode: response.statusCode,
-            status: 'success',
-            response: {
-                message: `Object with id ${postResponse.id} found.`,
-                url: `http://${request.hostname}${request.url}`,
-                data: [postResponse],
-            },
-        });
+        return response.status(response.statusCode).json(postResponse);
     }
 }
