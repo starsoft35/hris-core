@@ -1,7 +1,7 @@
 import { TransactionDate } from 'src/core/entities/transaction-date.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Field } from '../../form/entities/field.entity';
+import { Field } from '../../field/entities/field.entity';
 import { Record } from './record.entity';
 import { TransactionUser } from 'src/core/entities/transaction-user.entity';
 

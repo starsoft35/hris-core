@@ -7,40 +7,43 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { FieldDataType } from './field-datatype.entity';
-import { FieldGroup } from './field-group.entity';
-import { FieldInputType } from './field-input-type.entity';
-import { FieldOptionGroup } from './field-option-group.entity';
-import { FieldOptionMerge } from './field-option-merge.entity';
-import { FieldOption } from './field-option.entity';
-import { FieldRelation } from './field-relation.entity';
-import { FormFieldMember } from './form-field-member.entity';
-import { FormVisibleField } from './form-visible-fields.entity';
-import { Form } from './form.entity';
-import { FormSectionFieldMember } from './formsection-fieldmembers.entity';
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { FieldDataType } from '../../form/entities/field-datatype.entity';
+import { FieldGroup } from '../../form/entities/field-group.entity';
+import { FieldInputType } from '../../form/entities/field-input-type.entity';
+import { FieldOptionGroup } from '../../form/entities/field-option-group.entity';
+import { FieldOptionMerge } from '../../form/entities/field-option-merge.entity';
+import { FieldOption } from '../../form/entities/field-option.entity';
+import { FieldRelation } from '../../form/entities/field-relation.entity';
+import { FormFieldMember } from '../../form/entities/form-field-member.entity';
+import { FormVisibleField } from '../../form/entities/form-visible-fields.entity';
+import { Form } from '../../form/entities/form.entity';
+import { FormSectionFieldMember } from '../../form/entities/formsection-fieldmembers.entity';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { TrimLastLetter } from 'src/core/utilities/string-utils';
 
 @Entity('field', { schema: 'public' })
-export class Field extends IdentifiableObject {
+export class Field extends EntityCoreProps {
 
   static plural = 'fields';
 
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'fieldid',
+    name: TrimLastLetter(Field.plural) + 'id',
   })
   id: number;
 
   @ManyToOne(type => FieldDataType, fieldDataType => fieldDataType.fields, {
     onDelete: 'CASCADE',
   })
+
   @JoinColumn({ name: 'datatypeid' })
   dataType: FieldDataType | null;
 
   @ManyToOne(type => FieldInputType, fieldInputType => fieldInputType.fields, {
     onDelete: 'CASCADE',
   })
+
   @JoinColumn({ name: 'inputtypeid' })
   inputType: FieldInputType | null;
 
