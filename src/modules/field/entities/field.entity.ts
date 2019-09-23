@@ -19,7 +19,7 @@ import { FormVisibleField } from '../../form/entities/form-visible-fields.entity
 import { Form } from '../../form/entities/form.entity';
 import { FormSectionFieldMember } from '../../form/entities/formsection-fieldmembers.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { TrimLastLetter } from 'src/core/utilities/string-utils';
+import { getSingularity } from 'src/core/utilities/string-utils';
 
 @Entity('field', { schema: 'public' })
 export class Field extends EntityCoreProps {
@@ -27,9 +27,9 @@ export class Field extends EntityCoreProps {
   static plural = 'fields';
 
   @Column('integer', {
-    nullable: false,
+    nullable: true,
     primary: true,
-    name: TrimLastLetter(Field.plural) + 'id',
+    name: getSingularity(Field.plural) + 'id',
   })
   id: number;
 

@@ -2,9 +2,9 @@ import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
 import * as uuid from 'uuid/v1';
 import { getUid } from '@iapps/utils/utils';
 
-import { TransactionDate } from './transaction-date.entity';
+import { TransactionTimestamp } from './transaction-timestamp.entity';
 
-export class EntityCoreProps extends TransactionDate {
+export class EntityCoreProps extends TransactionTimestamp {
 
     @Column('character varying', {
         nullable: false,
@@ -21,6 +21,13 @@ export class EntityCoreProps extends TransactionDate {
         name: 'code',
     })
     code: string | null;
+
+    @Column('character varying', {
+        nullable: false,
+        length: 256,
+        name: 'name',
+    })
+    name: string;
 
     @BeforeInsert()
     beforeInsertEntityCoreProps() {

@@ -1,4 +1,4 @@
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
+import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Field } from '../../field/entities/field.entity';
