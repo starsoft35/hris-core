@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FieldGroupService } from './services/field-group.service';
+import { FieldGroupService } from '../maintenance/field-group/services/field-group.service';
 import { FieldGroupSetService } from './services/field-groupset.service';
 import { FieldInputTypeService } from './services/field-input-type.service';
 import { FieldDataTypeService } from './services/field-data-type.service';
@@ -17,7 +17,7 @@ import { FormSectionService } from './services/form-section.service';
 import { FormVisibleFieldService } from './services/form-visible-fields.service';
 import { FormSectionFieldMemberService } from './services/formsection-fieldmembers.service';
 import { FieldDatatypeController } from './controllers/field-datatype.controller';
-import { FieldGroupController } from './controllers/field-group.controller';
+import { FieldGroupController } from '../maintenance/field-group/controllers/field-group.controller';
 import { FieldGroupSetController } from './controllers/field-groupset.controller';
 import { FieldInputTypeController } from './controllers/field-input-type.controller';
 import { FieldOptionChildrenController } from './controllers/field-option-children.controller';
@@ -32,7 +32,7 @@ import { FormVisibleFieldController } from './controllers/form-visible-fields.co
 import { FormController } from './controllers/form.controller';
 import { FormSectionFieldMemberController } from './controllers/formsection-fieldmembers.controller';
 import { FieldDataType } from './entities/field-datatype.entity';
-import { FieldGroup } from './entities/field-group.entity';
+import { FieldGroup } from '../maintenance/field-group/entities/field-group.entity';
 import { FieldGroupSet } from './entities/field-groupset.entity';
 import { FieldInputType } from './entities/field-input-type.entity';
 import { FieldOptionChildren } from './entities/field-option-children.entity';

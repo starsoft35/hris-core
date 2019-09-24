@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { FieldDataType } from '../../../form/entities/field-datatype.entity';
-import { FieldGroup } from '../../../form/entities/field-group.entity';
+import { FieldGroup } from '../../field-group/entities/field-group.entity';
 import { FieldInputType } from '../../../form/entities/field-input-type.entity';
 import { FieldOptionGroup } from '../../../form/entities/field-option-group.entity';
 import { FieldOptionMerge } from '../../../form/entities/field-option-merge.entity';

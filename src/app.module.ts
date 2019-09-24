@@ -15,6 +15,7 @@ import { RecordModule } from './modules/record/record.module';
 import { AppsModule } from './modules/app/apps.module';
 import { AppService } from './modules/app/services/apps.service';
 import { FieldModule } from './modules/maintenance/field/field.module';
+import { FieldGroupModule } from './modules/maintenance/field-group/field-group.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { FieldModule } from './modules/maintenance/field/field.module';
     OrganisatinUnitModule,
     FormModule,
     FieldModule,
+    FieldGroupModule,
     DashboardModule,
     ReportModule,
     TrainingModule,
