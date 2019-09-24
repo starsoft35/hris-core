@@ -65,7 +65,7 @@ export class BaseController<T extends HRISBaseEntity> {
         ...pagerDetails,
         pageCount: contents.length,
         total: totalCount,
-        nextPage: '/' + this.Model.plural + '?page=' + (pagerDetails.page + 1),
+        nextPage: '/api' + this.Model.plural + '?page=' + (pagerDetails.page + 1),
       },
       [this.Model.plural]: contents,
     };
