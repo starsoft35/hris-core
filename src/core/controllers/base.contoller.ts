@@ -78,6 +78,7 @@ export class BaseController<T extends HRISBaseEntity> {
    * @param params
    */
   @Get(':id')
+  @UseGuards(SessionGuard)
   async findOne(
     @Req() req: Request,
     @Res() res: Response,
@@ -103,6 +104,7 @@ export class BaseController<T extends HRISBaseEntity> {
    * @param params
    */
   @Get(':id/:relation')
+  @UseGuards(SessionGuard)
   async findOneRelation(
     @Req() req: Request,
     @Res() res: Response,
@@ -128,6 +130,7 @@ export class BaseController<T extends HRISBaseEntity> {
    * @param createEntityDto
    */
   @Post()
+  @UseGuards(SessionGuard)
   async create(
     @Req() req: Request,
     @Res() res: Response,
@@ -156,6 +159,7 @@ export class BaseController<T extends HRISBaseEntity> {
    * @param updateEntityDto
    */
   @Put(':id')
+  @UseGuards(SessionGuard)
   async update(
     @Req() req: Request,
     @Res() res: Response,
@@ -182,6 +186,7 @@ export class BaseController<T extends HRISBaseEntity> {
    * @param res
    */
   @Delete(':id')
+  @UseGuards(SessionGuard)
   async delete(
     @Param() params,
     @Req() req: Request,
