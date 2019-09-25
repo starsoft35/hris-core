@@ -3,7 +3,7 @@ import { JoinColumn } from 'typeorm';
 
 import { User } from './user.entity';
 
-export class UserIdentifiableObject extends EntityCoreProps {
+export class UserIdentification extends EntityCoreProps {
   @JoinColumn({ name: 'createdbyid' })
   createdBy: User;
 

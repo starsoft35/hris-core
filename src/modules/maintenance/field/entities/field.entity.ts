@@ -22,83 +22,60 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('field', { schema: 'public' })
 export class Field extends EntityCoreProps {
-
   static plural = 'fields';
+
+  @Column({ type: 'varchar', length: 64 })
+  caption: string;
+
+  @Column({ type: 'boolean', nullable: true })
+  compulsory: boolean | null;
+
+  @Column({ type: 'boolean', nullable: true })
+  isUnique: boolean | null;
+
+  @Column({ type: 'boolean', nullable: true })
+  isCalculated: boolean | null;
+
+  @Column({ type: 'text', nullable: true })
+  description: string | null;
+
+  @Column({ type: 'text', nullable: true })
+  calculatedExpression: string | null;
+
+  @Column({ type: 'boolean', nullable: true })
+  hasHistory: boolean | null;
+
+  @Column({ type: 'boolean', nullable: true })
+  hasTarget: boolean | null;
+
+  @Column({ type: 'boolean', nullable: true, name: 'fieldrelation' })
+  fieldRelation: boolean | null;
+
+  @Column({ type: 'boolean', nullable: true, name: 'skipinreport' })
+  skipInReport: boolean | null;
+
+  /*
+  * Field and Field Group Relation
+  */
+  @ManyToMany(type => FieldGroup, fieldGroup => fieldGroup.fields, {
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  fieldGroups: FieldGroup[];
 
   @ManyToOne(type => FieldDataType, fieldDataType => fieldDataType.fields, {
     onDelete: 'CASCADE',
   })
-
   @JoinColumn({ name: 'datatypeid' })
   dataType: FieldDataType | null;
 
   @ManyToOne(type => FieldInputType, fieldInputType => fieldInputType.fields, {
     onDelete: 'CASCADE',
   })
-
   @JoinColumn({ name: 'inputtypeid' })
   inputType: FieldInputType | null;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'caption',
-  })
-  caption: string;
-
-  @Column('boolean', {
-    nullable: true,
-    name: 'compulsory',
-  })
-  compulsory: boolean | null;
-
-  @Column('boolean', {
-    nullable: true,
-    name: 'isunique',
-  })
-  isUnique: boolean | null;
-
-  @Column('boolean', {
-    nullable: true,
-    name: 'iscalculated',
-  })
-  isCalculated: boolean | null;
-
-  @Column('text', {
-    nullable: true,
-    name: 'description',
-  })
-  description: string | null;
-
-  @Column('text', {
-    nullable: true,
-    name: 'calculatedexpression',
-  })
-  calculatedExpression: string | null;
-
-  @Column('boolean', {
-    nullable: true,
-    name: 'hashistory',
-  })
-  hasHistory: boolean | null;
-
-  @Column('boolean', {
-    nullable: true,
-    name: 'hastarget',
-  })
-  hasTarget: boolean | null;
-
-  @Column('boolean', {
-    nullable: true,
-    name: 'fieldrelation',
-  })
-  fieldRelation: boolean | null;
-
-  @Column('boolean', {
-    nullable: true,
-    name: 'skipinreport',
-  })
-  skipInReport: boolean | null;
 
   @OneToMany(type => FieldRelation, fieldRelation => fieldRelation.childField, {
     onDelete: 'CASCADE',
@@ -151,9 +128,6 @@ export class Field extends EntityCoreProps {
     { onDelete: 'CASCADE' },
   )
   formSectionFieldMembers: FormSectionFieldMember[];
-
-  @ManyToMany(type => FieldGroup, fieldGroup => fieldGroup.fields)
-  fieldGroups: FieldGroup[];
 
   @ManyToMany(type => Form, form => form.fields)
   forms: Form[];

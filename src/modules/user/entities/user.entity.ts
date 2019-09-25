@@ -9,8 +9,8 @@ import {
   OneToOne,
   BeforeInsert,
   PrimaryGeneratedColumn,
+  JoinColumn,
 } from 'typeorm';
-import { createHmac } from 'crypto';
 import { DashboardChart } from '../../dashboard/entities/dashboard-chart.entity';
 import { Form } from '../../form/entities/form.entity';
 import { MessageMetadata } from '../../message/entities/message-metadata.entity';
@@ -20,110 +20,102 @@ import { Message } from '../../message/entities/message.entity';
 import { UserGroup } from './user-group.entity';
 import { UserRole } from './user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { UserIdentifiableObject } from './user-identifiable-object';
+import { UserIdentification } from './user-identification';
 
 @Entity('user', { schema: 'public' })
-export class User extends UserIdentifiableObject {
+export class User extends UserIdentification {
   static plural = 'users';
 
-  @PrimaryGeneratedColumn({
-    name: 'userid',
-  })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('character varying', {
-    nullable: false,
-    unique: true,
-    length: 255,
-    name: 'username',
-  })
+  @Column({ type: 'varchar', unique: true, length: 255 })
   username: string;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
-    name: 'email',
-    unique: true,
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    length: 64,
+    default: () => 'NULL::varchar',
   })
+  firstname: string | null;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    length: 64,
+    default: () => 'NULL::varchar',
+  })
+  middlename: string | null;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    length: 64,
+    default: () => 'NULL::varchar',
+  })
+  surname: string | null;
+
+  @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
-  @Column('boolean', {
-    nullable: false,
-    name: 'enabled',
-  })
+  @Column({ type: 'boolean', nullable: false })
   enabled: boolean;
 
   password: string;
 
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastlogin',
-  })
-  lastLogin: Date | null;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'expirydate',
-  })
-  expirydate: Date | null;
-
-  @Column('character varying', {
+  @Column({
+    type: 'varchar',
     nullable: true,
     length: 255,
-    default: () => 'NULL::character varying',
-    name: 'token',
+    default: () => 'NULL::varchar',
   })
   token: string | null;
 
-  @Column('character varying', {
+  @Column({
+    type: 'varchar',
     nullable: true,
     length: 64,
-    default: () => 'NULL::character varying',
-    name: 'phonenumber',
+    default: () => 'NULL::varchar',
   })
   phonenumber: string | null;
 
-  @Column('character varying', {
+  @Column({
+    type: 'varchar',
     nullable: true,
     length: 64,
-    default: () => 'NULL::character varying',
-    name: 'jobtitle',
+    default: () => 'NULL::varchar',
   })
   jobtitle: string | null;
 
-  @Column('character varying', {
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::character varying',
-    name: 'firstname',
-  })
-  firstname: string | null;
-
-  @Column('character varying', {
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::character varying',
-    name: 'middlename',
-  })
-  middlename: string | null;
-
-  @Column('character varying', {
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::character varying',
-    name: 'surname',
-  })
-  surname: string | null;
-
-  @Column('timestamp without time zone', {
+  @Column({
+    type: 'timestamp without time zone',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
-    name: 'deletedat',
   })
-  deletedat: Date | null;
+  lastlogin: Date | null;
 
+  @Column({
+    type: 'timestamp without time zone',
+    nullable: true,
+    default: () => 'NULL::timestamp without time zone',
+  })
+  expirydate: Date | null;
+
+  @Column({
+    type: 'timestamp without time zone',
+    nullable: true,
+    default: () => 'NULL::timestamp without time zone',
+  })
+  deleteddate: Date | null;
+
+  @JoinColumn({ name: 'createdbyid' })
+  createdby: User;
+
+  @JoinColumn({ name: 'lastupdatedbyid' })
+  lastupdatedby: User;
+
+  // User Relations
   @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
     onDelete: 'CASCADE',
   })
@@ -196,7 +188,6 @@ export class User extends UserIdentifiableObject {
     u = await User.findOne({
       where: { token },
     });
-    console.log('User:', u);
     if (u) {
       delete u.token;
       return u;
