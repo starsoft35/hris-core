@@ -2,7 +2,7 @@ import { BeforeInsert, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 import { HRISBaseEntity } from './base-entity';
 
-export abstract class TransactionDate extends HRISBaseEntity {
+export abstract class TransactionTimestamp extends HRISBaseEntity {
   @CreateDateColumn({
     type: 'timestamp',
     name: 'created',
