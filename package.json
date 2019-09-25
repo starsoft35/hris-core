@@ -1,7 +1,7 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "hris-restful-api",
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "description": "HRIS System Restful API",
   "license": "MIT",
   "scripts": {
     "build": "rm -r dist && tsc -p tsconfig.build.json",
