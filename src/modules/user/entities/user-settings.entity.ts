@@ -1,10 +1,10 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 import { User } from './user.entity';
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('usersettings', { schema: 'public' })
-export class UserSettings extends IdentifiableObject {
+export class UserSettings extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,

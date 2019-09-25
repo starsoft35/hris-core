@@ -1,4 +1,4 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { TrainingCurriculum } from './training-curriculum.entity';
@@ -6,7 +6,7 @@ import { TrainingSection } from './training-section.entity';
 import { TrainingSession } from './training-session.entity';
 
 @Entity('trainingunit', { schema: 'public' })
-export class TrainingUnit extends IdentifiableObject {
+export class TrainingUnit extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
