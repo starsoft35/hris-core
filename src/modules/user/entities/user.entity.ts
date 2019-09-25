@@ -115,6 +115,11 @@ export class User extends UserIdentification {
   @JoinColumn({ name: 'lastupdatedbyid' })
   lastupdatedby: User;
 
+  // User & User Role Relationship: Many To Many Relationship
+  @ManyToMany(type => UserRole, userRole => userRole.users, { nullable: false })
+  @JoinTable({ name: 'userrolemembers' })
+  userRoles: UserRole[];
+
   // User Relations
   @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
     onDelete: 'CASCADE',
@@ -169,10 +174,6 @@ export class User extends UserIdentification {
   })
   @JoinTable({ name: 'usergroupmembers' })
   userGroups: UserGroup[];
-
-  @ManyToMany(type => UserRole, userRole => userRole.users, { nullable: false })
-  @JoinTable({ name: 'userrolemembers' })
-  userRoles: UserRole[];
 
   public static async authenticateUser(user: {
     username: string;
