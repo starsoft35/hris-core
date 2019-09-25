@@ -17,7 +17,13 @@ export class UserRole extends UserIdentification {
   @Column({ type: 'varchar', nullable: false, length: 64 })
   name: string;
 
-  @ManyToMany(type => User, user => user.userRoles)
+  // User & User Role Relationship: Many-Many Relationship
+  @ManyToMany(type => User, user => user.userRoles, {
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   users: User[];
 
   @ManyToMany(type => UserGroup, userGroup => userGroup.userRoles, {
