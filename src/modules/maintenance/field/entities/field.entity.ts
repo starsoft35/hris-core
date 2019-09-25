@@ -54,8 +54,15 @@ export class Field extends EntityCoreProps {
   @Column({ type: 'boolean', nullable: true, name: 'skipinreport' })
   skipInReport: boolean | null;
 
-  // Field and Field Group Relation
-  @ManyToMany(type => FieldGroup, fieldGroup => fieldGroup.fields)
+  /*
+  * Field and Field Group Relation
+  */
+  @ManyToMany(type => FieldGroup, fieldGroup => fieldGroup.fields, {
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   fieldGroups: FieldGroup[];
 
   @ManyToOne(type => FieldDataType, fieldDataType => fieldDataType.fields, {
