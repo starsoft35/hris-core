@@ -1,9 +1,9 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { JoinColumn } from 'typeorm';
 
 import { User } from './user.entity';
 
-export class UserIdentifiableObject extends IdentifiableObject {
+export class UserIdentification extends EntityCoreProps {
   @JoinColumn({ name: 'createdbyid' })
   createdBy: User;
 

@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { Field } from './field.entity';
+import { Field } from '../../maintenance/field/entities/field.entity';
 import { FormSection } from './form-section.entity';
 import { HRISBaseEntity } from 'src/core/entities/base-entity';
 

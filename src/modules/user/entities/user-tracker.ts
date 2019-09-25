@@ -1,9 +1,9 @@
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
+import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';
 import { JoinColumn } from 'typeorm';
 
 import { User } from './user.entity';
 
-export abstract class UserTracker extends TransactionDate {
+export abstract class UserTracker extends TransactionTimestamp {
   @JoinColumn({ name: 'createbyid' })
   createdBy: User;
 

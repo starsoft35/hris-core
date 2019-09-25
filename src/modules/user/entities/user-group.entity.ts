@@ -1,11 +1,11 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { UserRole } from './user-role.entity';
 import { User } from './user.entity';
 
 @Entity('usergroup', { schema: 'public' })
-export class UserGroup extends IdentifiableObject {
+export class UserGroup extends EntityCoreProps {
 
   @PrimaryGeneratedColumn({
     name: 'usergroupid',
