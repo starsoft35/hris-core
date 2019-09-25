@@ -20,9 +20,6 @@ import * as StreamZip from 'node-stream-zip';
 import { ApiResult } from 'src/core/interfaces';
 import { Request, Response } from 'express';
 
-// tslint:disable-next-line: no-console
-console.log('Plural:', App.plural);
-
 @Controller('api/' + App.plural)
 export class AppsController extends BaseController<App> {
     constructor(private service: AppService) {

@@ -5,31 +5,21 @@ import { getUid } from '@iapps/utils/utils';
 import { TransactionTimestamp } from './transaction-timestamp.entity';
 
 export class EntityCoreProps extends TransactionTimestamp {
-
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('character varying', {
-        nullable: false,
-        length: 256,
-        name: 'uid',
-        unique: true,
-    })
+    @Column({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
-    @Column('character varying', {
+    @Column({
+        type: 'varchar',
         nullable: true,
         length: 25,
-        default: () => 'NULL::character varying',
-        name: 'code',
+        default: () => 'NULL::varchar',
     })
     code: string | null;
 
-    @Column('character varying', {
-        nullable: false,
-        length: 256,
-        name: 'name',
-    })
+    @Column({ type: 'varchar', length: 256 })
     name: string;
 
     @BeforeInsert()
