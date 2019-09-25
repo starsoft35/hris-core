@@ -1,8 +1,8 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity } from 'typeorm';
 
 @Entity('trainingtrainer', { schema: 'public' })
-export class TrainingTrainer extends IdentifiableObject {
+export class TrainingTrainer extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,

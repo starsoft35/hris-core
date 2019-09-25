@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FieldService } from './services/field.service';
-import { FieldGroupService } from './services/field-group.service';
+import { FieldGroupService } from '../maintenance/field-group/services/field-group.service';
 import { FieldGroupSetService } from './services/field-groupset.service';
 import { FieldInputTypeService } from './services/field-input-type.service';
 import { FieldDataTypeService } from './services/field-data-type.service';
@@ -18,7 +17,7 @@ import { FormSectionService } from './services/form-section.service';
 import { FormVisibleFieldService } from './services/form-visible-fields.service';
 import { FormSectionFieldMemberService } from './services/formsection-fieldmembers.service';
 import { FieldDatatypeController } from './controllers/field-datatype.controller';
-import { FieldGroupController } from './controllers/field-group.controller';
+import { FieldGroupController } from '../maintenance/field-group/controllers/field-group.controller';
 import { FieldGroupSetController } from './controllers/field-groupset.controller';
 import { FieldInputTypeController } from './controllers/field-input-type.controller';
 import { FieldOptionChildrenController } from './controllers/field-option-children.controller';
@@ -27,14 +26,13 @@ import { FieldOptionGroupSetController } from './controllers/field-option-groups
 import { FieldOptionMergeController } from './controllers/field-option-merge.controller';
 import { FieldOptionController } from './controllers/field-option.controller';
 import { FieldRelationController } from './controllers/field-relation.controller';
-import { FieldController } from './controllers/field.controller';
 import { FormFieldMemberController } from './controllers/form-field-member.controller';
 import { FormSectionController } from './controllers/form-section.controller';
 import { FormVisibleFieldController } from './controllers/form-visible-fields.controller';
 import { FormController } from './controllers/form.controller';
 import { FormSectionFieldMemberController } from './controllers/formsection-fieldmembers.controller';
 import { FieldDataType } from './entities/field-datatype.entity';
-import { FieldGroup } from './entities/field-group.entity';
+import { FieldGroup } from '../maintenance/field-group/entities/field-group.entity';
 import { FieldGroupSet } from './entities/field-groupset.entity';
 import { FieldInputType } from './entities/field-input-type.entity';
 import { FieldOptionChildren } from './entities/field-option-children.entity';
@@ -43,7 +41,6 @@ import { FieldOptionGroupSet } from './entities/field-option-groupset.entity';
 import { FieldOptionMerge } from './entities/field-option-merge.entity';
 import { FieldOption } from './entities/field-option.entity';
 import { FieldRelation } from './entities/field-relation.entity';
-import { Field } from './entities/field.entity';
 import { FormFieldMember } from './entities/form-field-member.entity';
 import { FormSection } from './entities/form-section.entity';
 import { FormVisibleField } from './entities/form-visible-fields.entity';
@@ -64,7 +61,6 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
       FieldOptionMerge,
       FieldOption,
       FieldRelation,
-      Field,
       FormFieldMember,
       FormSection,
       FormVisibleField,
@@ -83,7 +79,6 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
     FieldOptionMergeController,
     FieldOptionController,
     FieldRelationController,
-    FieldController,
     FormFieldMemberController,
     FormSectionController,
     FormVisibleFieldController,
@@ -91,7 +86,6 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
     FormSectionFieldMemberController,
   ],
   providers: [
-    FieldService,
     FieldGroupService,
     FieldGroupSetService,
     FieldInputTypeService,

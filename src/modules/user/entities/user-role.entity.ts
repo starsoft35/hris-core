@@ -1,23 +1,29 @@
-import { Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  JoinTable,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 import { UserGroup } from './user-group.entity';
-import { UserIdentifiableObject } from './user-identifiable-object';
+import { UserIdentification } from './user-identification';
 
 @Entity('userrole', { schema: 'public' })
-export class UserRole extends UserIdentifiableObject {
-  @PrimaryGeneratedColumn({
-    name: 'userroleid',
-  })
+export class UserRole extends UserIdentification {
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'name',
-  })
+  @Column({ type: 'varchar', nullable: false, length: 64 })
   name: string;
 
-  @ManyToMany(type => User, user => user.userRoles)
+  // User & User Role Relationship: Many-Many Relationship
+  @ManyToMany(type => User, user => user.userRoles, {
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   users: User[];
 
   @ManyToMany(type => UserGroup, userGroup => userGroup.userRoles, {
