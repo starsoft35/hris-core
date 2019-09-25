@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 import { UserGroup } from './user-group.entity';
-import { UserIdentification } from './user-identification-object';
+import { UserIdentification } from './user-identification';
 
 @Entity('userrole', { schema: 'public' })
 export class UserRole extends UserIdentification {

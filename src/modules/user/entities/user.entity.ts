@@ -20,7 +20,7 @@ import { Message } from '../../message/entities/message.entity';
 import { UserGroup } from './user-group.entity';
 import { UserRole } from './user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { UserIdentification } from './user-identification-object';
+import { UserIdentification } from './user-identification';
 
 @Entity('user', { schema: 'public' })
 export class User extends UserIdentification {
