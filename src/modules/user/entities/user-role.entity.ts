@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 import { UserGroup } from './user-group.entity';
-import { UserIdentifiableObject } from './user-identifiable-object';
+import { UserIdentification } from './user-identification-object';
 
 @Entity('userrole', { schema: 'public' })
-export class UserRole extends UserIdentifiableObject {
+export class UserRole extends UserIdentification {
   @PrimaryGeneratedColumn({
     name: 'userroleid',
   })
