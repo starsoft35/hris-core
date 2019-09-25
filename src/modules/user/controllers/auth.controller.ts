@@ -1,4 +1,12 @@
-import { Controller, Get, Req, Res, HttpStatus, Session, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Req,
+  Res,
+  HttpStatus,
+  Session,
+  UseGuards,
+} from '@nestjs/common';
 import { User } from 'src/modules/user/entities/user.entity';
 import { Request, Response } from 'express';
 import { AuthService } from '../services/auth.service';
@@ -11,7 +19,9 @@ export class AuthController {
   @Get()
   @UseGuards(SessionGuard)
   async me(@Req() request): Promise<ApiResult> {
-    const result = await this.authService.getUserByUid(request.session.user.uid);
+    const result = await this.authService.getUserByUid(
+      request.session.user.uid,
+    );
     if (result) {
       return result;
     } else {
@@ -21,7 +31,7 @@ export class AuthController {
         status: 'ERROR',
         message: 'User was not found.',
         response: {
-          responseType: 'ErrorReport'
+          responseType: 'ErrorReport',
         },
       };
     }

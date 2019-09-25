@@ -3,9 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
 import { AppController } from './app.controller';
-import {
-  getDataBaseConfiguration
-} from './core/utilities/configuration';
+import { getDataBaseConfiguration } from './core/utilities/configuration';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { FormModule } from './modules/form/form.module';
 import { MessageModule } from './modules/message/message.module';
@@ -16,6 +14,8 @@ import { UserModule } from './modules/user/user.module';
 import { RecordModule } from './modules/record/record.module';
 import { AppsModule } from './modules/app/apps.module';
 import { AppService } from './modules/app/services/apps.service';
+import { FieldModule } from './modules/maintenance/field/field.module';
+import { FieldGroupModule } from './modules/maintenance/field-group/field-group.module';
 
 @Module({
   imports: [
@@ -23,6 +23,8 @@ import { AppService } from './modules/app/services/apps.service';
     UserModule,
     OrganisatinUnitModule,
     FormModule,
+    FieldModule,
+    FieldGroupModule,
     DashboardModule,
     ReportModule,
     TrainingModule,

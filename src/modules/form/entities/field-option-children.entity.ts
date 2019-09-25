@@ -1,10 +1,10 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { FieldOption } from './field-option.entity';
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('fieldoptionchildren', { schema: 'public' })
-export class FieldOptionChildren extends IdentifiableObject {
+export class FieldOptionChildren extends EntityCoreProps {
 
   static plural = 'fieldOptionChildren';
 
