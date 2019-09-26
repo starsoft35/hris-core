@@ -6,6 +6,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/43300df82d8d93167ff1/maintainability)](https://codeclimate.com/github/hisptz/hris-restful-api-v4/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/43300df82d8d93167ff1/test_coverage)](https://codeclimate.com/github/hisptz/hris-restful-api-v4/test_coverage)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) 
+![GitHub](https://img.shields.io/github/license/hisptz/hris-restful-api-v1?color=%234CB80A&label=licence&logoColor=%23ffffff)
 
 ## Introduction
 
