@@ -3,7 +3,7 @@ import { DashboardChart } from 'src/modules/dashboard/entities/dashboard-chart.e
 import { Record } from 'src/modules/record/entities/record.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
-import { User } from 'src/modules/user/entities/user.entity';
+import { User } from 'src/modules/system/user/entities/user.entity';
 import {
   Column,
   Entity,

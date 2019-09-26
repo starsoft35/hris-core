@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../system/user/entities/user.entity';
 
 @Entity('dashboardchart', { schema: 'public' })
 export class DashboardChart extends EntityCoreProps {

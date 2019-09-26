@@ -1,7 +1,7 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../system/user/entities/user.entity';
 import { MessageThreadMetadata } from './message-thread-metadata.entity';
 import { Message } from './message.entity';
 
