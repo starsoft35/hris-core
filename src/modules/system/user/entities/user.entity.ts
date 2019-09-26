@@ -22,7 +22,7 @@ import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
 import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
 
-@Entity('user', { schema: 'public' })
+@Entity('systemuser', { schema: 'public' })
 export class User extends UserCoreProps {
   static plural = 'users';
 
