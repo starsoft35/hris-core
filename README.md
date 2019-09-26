@@ -1,8 +1,7 @@
 # Human Resource Information System v4 API
 ### A software for collection, collation, storage of Human resource for health Information.
 
-[![Build Status](https://travis-ci.org/hisptz/hris-restful-api-v4.svg?branch=master)](https://travis-ci.org/hisptz/hris-restful-api-v4)
-[![Greenkeeper badge](https://badges.greenkeeper.io/hisptz/hris-restful-api-v4.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/hisptz/hris-restful-api-v1.svg?branch=master)](https://travis-ci.org/hisptz/hris-restful-api-v1)
 [![Maintainability](https://api.codeclimate.com/v1/badges/43300df82d8d93167ff1/maintainability)](https://codeclimate.com/github/hisptz/hris-restful-api-v4/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/43300df82d8d93167ff1/test_coverage)](https://codeclimate.com/github/hisptz/hris-restful-api-v4/test_coverage)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) 
