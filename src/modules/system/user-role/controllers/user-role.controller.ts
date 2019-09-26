@@ -1,13 +1,12 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { UserService } from '../../user/services/user.service';
-import { User } from 'src/modules/system/user/entities/user.entity';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { UserRole } from '../entities/user-role.entity';
+import { UserRoleService } from '../services/user-role.service';
 
 @Controller('api/' + UserRole.plural)
 // @UseGuards(AuthGuard())
-export class UserRoleController extends BaseController<User> {
-    constructor(private readonly userService: UserService) {
-        super(userService, User);
+export class UserRoleController extends BaseController<UserRole> {
+    constructor(private readonly userRoleService: UserRoleService) {
+        super(userRoleService, UserRole);
     }
 }
