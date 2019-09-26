@@ -5,8 +5,8 @@ import {
     JoinColumn,
 } from 'typeorm';
 import { getUid } from '@iapps/utils/utils';
-import { User } from '../../modules/user/entities/user.entity';
-import { TransactionTimestamp } from './transaction-timestamp.entity';
+import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';
+import { User } from 'src/modules/system/user/entities/user.entity';
 
 export class UserCoreProps extends TransactionTimestamp {
     @PrimaryGeneratedColumn()

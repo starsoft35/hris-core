@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, ManyToMany, PrimaryGeneratedColu
 import { Form } from '../../form/entities/form.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
-import { UserIdentification } from 'src/modules/user/entities/user-identification';
+import { UserIdentification } from 'src/modules/system/user/entities/user-identification';
 
 @Entity('datastore', { schema: 'public' })
 export class DataStore extends UserIdentification {

@@ -11,19 +11,19 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
 } from 'typeorm';
-import { DashboardChart } from '../../dashboard/entities/dashboard-chart.entity';
-import { Form } from '../../form/entities/form.entity';
-import { MessageMetadata } from '../../message/entities/message-metadata.entity';
-import { MessageThreadMetadata } from '../../message/entities/message-thread-metadata.entity';
-import { MessageThread } from '../../message/entities/message-thread.entity';
-import { Message } from '../../message/entities/message.entity';
-import { UserGroup } from './user-group.entity';
-import { UserRole } from './user-role.entity';
+import { DashboardChart } from '../../../dashboard/entities/dashboard-chart.entity';
+import { Form } from '../../../form/entities/form.entity';
+import { MessageMetadata } from '../../../message/entities/message-metadata.entity';
+import { MessageThreadMetadata } from '../../../message/entities/message-thread-metadata.entity';
+import { MessageThread } from '../../../message/entities/message-thread.entity';
+import { Message } from '../../../message/entities/message.entity';
+import { UserGroup } from '../../user-group/entities/user-group.entity';
+import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { UserIdentification } from './user-identification';
+import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
 
 @Entity('user', { schema: 'public' })
-export class User extends UserIdentification {
+export class User extends UserCoreProps {
   static plural = 'users';
 
   @PrimaryGeneratedColumn()
@@ -59,18 +59,7 @@ export class User extends UserIdentification {
   @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
-  @Column({ type: 'boolean', nullable: false })
-  enabled: boolean;
-
   password: string;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 255,
-    default: () => 'NULL::varchar',
-  })
-  token: string | null;
 
   @Column({
     type: 'varchar',
@@ -108,6 +97,17 @@ export class User extends UserIdentification {
     default: () => 'NULL::timestamp without time zone',
   })
   deleteddate: Date | null;
+
+  @Column({ type: 'boolean', nullable: false })
+  enabled: boolean;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    length: 255,
+    default: () => 'NULL::varchar',
+  })
+  token: string | null;
 
   @JoinColumn({ name: 'createdbyid' })
   createdby: User;

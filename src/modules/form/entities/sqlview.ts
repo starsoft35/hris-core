@@ -13,7 +13,7 @@ import {
     PrimaryGeneratedColumn,
     RelationId,
 } from 'typeorm';
-import { UserIdentification } from 'src/modules/user/entities/user-identification';
+import { UserIdentification } from 'src/modules/system/user/entities/user-identification';
 
 @Entity('sqlview', { schema: 'public' })
 @Index('sqlview_query_key', ['query'], { unique: true })

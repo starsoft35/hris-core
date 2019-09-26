@@ -14,7 +14,7 @@ import {
   RelationId,
 } from 'typeorm';
 import { MessageThread } from './message-thread.entity';
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../system/user/entities/user.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('messagethreadmetadata', { schema: 'public' })
