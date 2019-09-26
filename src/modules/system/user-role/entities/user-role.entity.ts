@@ -24,12 +24,7 @@ export class UserRole extends UserIdentification {
   description: string | null;
 
   // User & User Role Relationship: Many-Many Relationship
-  @ManyToMany(type => User, user => user.userRoles, {
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(type => User, user => user.userRoles, { nullable: false })
   users: User[];
 
   @ManyToMany(type => UserGroup, userGroup => userGroup.userRoles, {

@@ -116,9 +116,26 @@ export class User extends UserCoreProps {
   lastupdatedby: User;
 
   // User & User Role Relationship: Many To Many Relationship
-  @ManyToMany(type => UserRole, userRole => userRole.users, { nullable: false })
+  @ManyToMany(type => UserRole, userRole => userRole.users, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   @JoinTable({ name: 'userrolemembers' })
   userRoles: UserRole[];
+
+  // User and User Group Relationship Many To Many
+  @ManyToMany(type => UserGroup, userGroup => userGroup.users, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  @JoinTable({ name: 'usergroupmembers' })
+  userGroups: UserGroup[];
 
   // User Relations
   @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
@@ -168,12 +185,6 @@ export class User extends UserCoreProps {
   )
   @JoinTable({ name: 'organisationunitmembers' })
   organisationUnits: OrganisationUnit[];
-
-  @ManyToMany(type => UserGroup, userGroup => userGroup.users, {
-    nullable: false,
-  })
-  @JoinTable({ name: 'usergroupmembers' })
-  userGroups: UserGroup[];
 
   public static async authenticateUser(user: {
     username: string;
