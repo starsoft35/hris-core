@@ -26,5 +26,7 @@ notifications:
   email:
     recipients:
       - rajeyw@gmail.com
+      - waltervfaustine@gmail.com
+
     on_failure: always
     on_success: always
