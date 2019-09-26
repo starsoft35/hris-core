@@ -19,7 +19,6 @@ import { FieldGroupModule } from './modules/maintenance/field-group/field-group.
 import { UserRoleModule } from './modules/system/user-role/user-role.module';
 import { UserGroupModule } from './modules/system/user-group/user-group.module';
 
-
 @Module({
   imports: [
     TypeOrmModule.forRoot(getDataBaseConfiguration()),
