@@ -2,7 +2,7 @@
   "name": "hris-restful-api",
   "version": "1.0.0",
   "description": "HRIS System Restful API",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "build": "rm -r dist && tsc -p tsconfig.build.json",
     "build:travis": "tsc -p tsconfig.build.json",
