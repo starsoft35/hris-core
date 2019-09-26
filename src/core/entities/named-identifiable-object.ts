@@ -1,8 +1,8 @@
 import { Column } from 'typeorm';
 
-import { IdentifiableObject } from './identifiable-object';
+import { EntityCoreProps } from './entity-core-props';
 
-export class NamedIdentifiableObject extends IdentifiableObject {
+export class NamedIdentifiableObject extends EntityCoreProps {
   @Column('text', {
     nullable: true,
     name: 'description',

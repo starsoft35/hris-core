@@ -1,11 +1,11 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { TrainingSession } from './training-session.entity';
 
 @Entity('trainingvenue', { schema: 'public' })
-export class TrainingVenue extends IdentifiableObject {
+export class TrainingVenue extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,

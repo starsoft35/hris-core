@@ -1,10 +1,10 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
 import { FieldOptionGroup } from './field-option-group.entity';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('fieldoptiongroupset', { schema: 'public' })
-export class FieldOptionGroupSet extends IdentifiableObject {
+export class FieldOptionGroupSet extends EntityCoreProps {
 
   static plural = 'fieldOptionGroupSets';
 

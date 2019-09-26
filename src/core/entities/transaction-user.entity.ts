@@ -2,9 +2,9 @@ import {
     JoinColumn
 } from 'typeorm';
 import { User } from 'src/modules/user/entities/user.entity';
-import { TransactionDate } from './transaction-date.entity';
+import { TransactionTimestamp } from './transaction-timestamp.entity';
 
-export abstract class TransactionUser extends TransactionDate {
+export abstract class TransactionUser extends TransactionTimestamp {
     @JoinColumn({ name: 'createdbyid' })
     createdBy: User;
 
