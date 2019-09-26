@@ -14,7 +14,7 @@ import { BaseService } from '../services/base.service';
 import { Pager, ApiResult } from '../interfaces';
 import { getPagerDetails } from '../utilities';
 import { HRISBaseEntity } from '../entities/base-entity';
-import { SessionGuard } from 'src/modules/user/guards/session.guard';
+import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 import { Request, Response, response } from 'express';
 import { DeleteResponse } from '../interfaces/response/delete.interface';
 import {
