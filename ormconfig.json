@@ -4,5 +4,7 @@
     ],
     "cli": {
         "migrationsDir": "src/database/migration"
-    }
+    },
+"synchronize": false,
+"migrationsRun": true
 }
