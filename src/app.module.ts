@@ -16,6 +16,9 @@ import { AppsModule } from './modules/app/apps.module';
 import { AppService } from './modules/app/services/apps.service';
 import { FieldModule } from './modules/maintenance/field/field.module';
 import { FieldGroupModule } from './modules/maintenance/field-group/field-group.module';
+import { UserRoleModule } from './modules/system/user-role/user-role.module';
+import { UserGroupModule } from './modules/system/user-group/user-group.module';
+
 
 @Module({
   imports: [
@@ -25,6 +28,9 @@ import { FieldGroupModule } from './modules/maintenance/field-group/field-group.
     FormModule,
     FieldModule,
     FieldGroupModule,
+    UserModule,
+    UserRoleModule,
+    UserGroupModule,
     DashboardModule,
     ReportModule,
     TrainingModule,
