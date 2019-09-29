@@ -16,6 +16,7 @@ import { UserModule } from './modules/user/user.module';
 import { RecordModule } from './modules/record/record.module';
 import { AppsModule } from './modules/app/apps.module';
 import { AppService } from './modules/app/services/apps.service';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AppService } from './modules/app/services/apps.service';
     MessageModule,
     RecordModule,
     AppsModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
