@@ -1,10 +1,42 @@
-{
-    "migrations": [
-        "src/database/migration/*.ts"
-    ],
-    "cli": {
-        "migrationsDir": "src/database/migration"
+[
+    {
+      "name": "development",
+      "type": "postgres",
+      "host": "localhost",
+      "port": 5432,
+      "username": "postgres",
+      "password": "postgres",
+      "database": "hrisdb",
+      "synchronize": true,
+      "logging": true,
+      "entities": ["src/modules/entities/**/*.ts"],
+      "migrations": ["src/database/migration/**/*.ts"],
+      "subscribers": ["src/subscriber/**/*.ts"],
+      "cli": {
+        "entitiesDir": "output",
+        "migrationsDir": "src/migration",
+        "subscribersDir": "src/subscriber"
+      }
     },
-"synchronize": false,
-"migrationsRun": true
-}
+    {
+      "name": "test",
+      "type": "postgres",
+      "host": "localhost",
+      "port": 5432,
+      "username": "postgres",
+      "password": "postgres",
+      "database": "test",
+      "synchronize": true,
+      "logging": false,
+      "dropSchema": true,
+      "entities": ["src/modules/entities/**/*.ts"],
+      "migrations": ["src/database/migration/**/*.ts"],
+      "subscribers": ["src/subscriber/**/*.ts"],
+      "cli": {
+        "entitiesDir": "src/modules/entities",
+        "migrationsDir": "src/migration",
+        "subscribersDir": "src/subscriber"
+      }
+    }
+  ]
+  
