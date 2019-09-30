@@ -17,7 +17,7 @@ export class UserRole extends UserIdentification {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: false, length: 64 })
+  @Column({ type: 'varchar', length: 64 })
   name: string;
 
   @Column({ type: 'text', nullable: true })
@@ -39,6 +39,10 @@ export class UserRole extends UserIdentification {
   @ManyToMany(type => UserGroup, userGroup => userGroup.userRoles, {
     nullable: false,
   })
-  @JoinTable({ name: 'userrolegroupmembers' })
+  @JoinTable({
+    name: 'userrolegroupmembers',
+    joinColumn: { name: 'userrole_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'usergroup_id', referencedColumnName: 'id' },
+  })
   userGroups: UserGroup[];
 }

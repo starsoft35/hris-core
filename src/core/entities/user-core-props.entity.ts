@@ -3,6 +3,7 @@ import {
     Column,
     PrimaryGeneratedColumn,
     JoinColumn,
+    PrimaryColumn,
 } from 'typeorm';
 import { getUid } from '@iapps/utils/utils';
 import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';

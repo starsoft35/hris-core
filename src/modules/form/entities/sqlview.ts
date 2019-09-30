@@ -21,16 +21,9 @@ import { UserIdentification } from 'src/modules/system/user/entities/user-identi
 export class SqlView extends UserIdentification {
     static plural = 'sqlViews';
 
-    @PrimaryGeneratedColumn({
-        type: 'integer',
-        name: 'sqlviewid',
-    })
+    @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('text', {
-        nullable: false,
-        unique: true,
-        name: 'query',
-    })
+    @Column({ type: 'text', unique: true })
     query: string;
 }

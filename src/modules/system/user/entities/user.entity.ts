@@ -29,7 +29,7 @@ export class User extends UserCoreProps {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', unique: true, length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   username: string;
 
   @Column({
@@ -123,7 +123,11 @@ export class User extends UserCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinTable({ name: 'userrolemembers' })
+  @JoinTable({
+    name: 'userrolemembers',
+    joinColumn: { name: 'systemuserId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'userroleId', referencedColumnName: 'id' },
+  })
   userRoles: UserRole[];
 
   // User and User Group Relationship Many To Many
@@ -134,17 +138,46 @@ export class User extends UserCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinTable({ name: 'usergroupmembers' })
+  @JoinTable({
+    name: 'usergroupmembers',
+    joinColumn: { name: 'systemuserId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'usergroupId', referencedColumnName: 'id' },
+  })
   userGroups: UserGroup[];
 
-  // User Relations
-  @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
+  // @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
+  //   onDelete: 'CASCADE',
+  // })
+  // dashboardCharts: DashboardChart[];
+
+  @ManyToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
+  })
+  @JoinTable({
+    name: 'userdashboardchartmembers',
   })
   dashboardCharts: DashboardChart[];
 
-  @OneToMany(type => Message, message => message.user, {
+  // ! Deprecated
+  // @OneToMany(type => Message, message => message.user, {
+  //   onDelete: 'CASCADE',
+  // })
+  // messages: Message[];
+  // ! Deprecated
+
+  @ManyToMany(type => Message, message => message.user, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
+  })
+  @JoinTable({
+    name: 'usermessagemembers',
   })
   messages: Message[];
 
@@ -167,10 +200,22 @@ export class User extends UserCoreProps {
   )
   messageThreadMetadatas: MessageThreadMetadata[];
 
+  // ! Deprecated
+  // @OneToOne(type => UserSettings, userSettings => userSettings.user, {
+  //   onDelete: 'CASCADE',
+  // })
+  // userSettings: UserSettings | null;
+  // ! Deprecated
+
   @OneToOne(type => UserSettings, userSettings => userSettings.user, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  userSettings: UserSettings | null;
+  @JoinColumn({ name: 'usersettingsmembers' })
+  userSettings: UserSettings;
 
   @ManyToMany(type => Form, form => form.users, {
     nullable: false,
