@@ -21,7 +21,7 @@ export class BaseService<T extends HRISBaseEntity> {
   constructor(
     private readonly modelRepository: Repository<T>,
     private readonly Model,
-  ) { }
+  ) {}
 
   async findAll(): Promise<T[]> {
     return await this.modelRepository.find();
@@ -126,22 +126,36 @@ export class BaseService<T extends HRISBaseEntity> {
 
   /**
    *
-   * @param id
+   * @param condType
+   * @param condValue
    * @param model
    */
-  async update(id: string, model: any): Promise<UpdateResult> {
-    const condition: any = { uid: id };
-    const results = await this.modelRepository.update(condition, model);
-    console.log('Updating', results);
-    return await this.modelRepository.update(condition, model);
+  // ToDO: To Be Tested And Further Reseached For Expected Results
+  async updateByUID(uid: string, model: any): Promise<UpdateResult> {
+    const condition: any = { uid };
+    if (condition) {
+      return await this.modelRepository.update(condition, model);
+    }
   }
 
   /**
    *
-   * @param id
+   * @param dataModel
    */
-  async delete(id: string): Promise<DeleteResult> {
-    const condition: any = { uid: id };
-    return this.modelRepository.delete(condition);
+  async update(dataModel: any): Promise<UpdateResult> {
+    if (dataModel) {
+      return await this.modelRepository.save(dataModel);
+    }
+  }
+
+  /**
+   *
+   * @param uid
+   */
+  async delete(uid: string): Promise<DeleteResult> {
+    const condition: any = { uid };
+    if (condition) {
+      return this.modelRepository.delete(condition);
+    }
   }
 }
