@@ -34,7 +34,7 @@ export class BaseController<T extends HRISBaseEntity> {
   constructor(
     private readonly baseService: BaseService<T>,
     private readonly Model: typeof HRISBaseEntity,
-  ) { }
+  ) {}
 
   /**
    *
@@ -168,7 +168,10 @@ export class BaseController<T extends HRISBaseEntity> {
   ): Promise<ApiResult> {
     const updateEntity = await this.baseService.findOneByUid(params.id);
     if (updateEntity !== undefined) {
-      const payload = await this.baseService.update(params.id, updateEntityDto);
+      // ! Removed Update Based By UID params and update automatically
+      // ! By following the criteria if the uid exist the it will update
+      // ! The item but if it is new then it will create new item
+      const payload = await this.baseService.update(updateEntityDto);
       if (payload) {
         return res
           .status(res.statusCode)
