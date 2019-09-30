@@ -10,9 +10,7 @@ export class DataStore extends UserIdentification {
 
     static plural = 'dataStore';
 
-    @PrimaryGeneratedColumn({
-        name: 'datastoreid',
-    })
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column('character varying', {

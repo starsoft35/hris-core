@@ -23,7 +23,13 @@ export class UserAuthority extends UserCoreProps {
     // User & User Role Relationship: Many To Many Relationship
     @ManyToMany(type => UserRole, userRole => userRole.userAuthorities, {
         nullable: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
     })
-    @JoinTable({ name: 'userauthoritymembers' })
+    @JoinTable({
+        name: 'userauthoritymembers',
+        joinColumn: { name: 'userauthority_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'userrole_id', referencedColumnName: 'id' },
+    })
     userRoles: UserRole[];
 }

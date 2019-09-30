@@ -1,22 +1,31 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { User } from './user.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('usersettings', { schema: 'public' })
 export class UserSettings extends EntityCoreProps {
-  @Column('integer', {
-    nullable: false,
-    primary: true,
-    name: 'usersettingsid',
-  })
+  @PrimaryGeneratedColumn()
   id: number;
+
+  // ! Deprecated
+  // @OneToOne(type => User, user => user.userSettings, {
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'userid' })
+  // user: User | null;
+  // ! Deprecated
 
   @OneToOne(type => User, user => user.userSettings, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'userid' })
-  user: User | null;
+  user: User;
 
   @Column('boolean', {
     nullable: false,

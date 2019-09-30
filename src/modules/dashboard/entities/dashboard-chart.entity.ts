@@ -20,11 +20,16 @@ export class DashboardChart extends EntityCoreProps {
   })
   id: number;
 
-  @ManyToOne(type => User, user => user.dashboardCharts, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'userid' })
-  user: User | null;
+  // ! Deprecated
+  // @ManyToOne(type => User, user => user.dashboardCharts, {
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'userid' })
+  // user: User | null;
+  // ! Deprecated
+
+  @ManyToMany(type => User, user => user.dashboardCharts)
+  user: User;
 
   @Column('character varying', {
     nullable: false,
