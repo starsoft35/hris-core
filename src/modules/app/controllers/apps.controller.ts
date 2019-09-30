@@ -56,7 +56,7 @@ export class AppsController extends BaseController<App> {
             if (apps.length === 0) {
                 return super.create(req, res, result);
             } else {
-                return this.service.update(apps[0].id, result);
+                return this.service.updateByUID(apps[0].id, result);
             }
         } catch (e) {
             return e;
