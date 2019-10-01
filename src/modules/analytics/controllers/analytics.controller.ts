@@ -15,6 +15,6 @@ export class AnalyticsController{
     }
     @Get('generate')
     async fetchAnalyticsGenerate() {
-        return await this.analyticsService.generatePeriodStructureTables();
+        return await this.analyticsService.generateOrganisationUnitStructureTables();
     }
 }

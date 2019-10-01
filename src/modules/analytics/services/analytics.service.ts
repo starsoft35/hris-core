@@ -38,8 +38,7 @@ export class AnalyticsService{
                 + additionalInsertColumns + ')' +
                 'SELECT r.created,r.lastupdated,r.uid,r.instance,r.organisationunitid,r.formid,' 
                 + fields.map((field,index)=>'r'+index+'.value').join(',') 
-                + ' FROM record r ' + additionalQueries;
-            console.log('Insert Query:', insertQuery);
+                + ' FROM record r ' + additionalQueries + '; SELECT COUNT(*) FROM _temp_resource_table_' + form.uid + ';';
             let results = await this.connetion.manager.query(insertQuery);
             console.log(results);
             results = await this.connetion.manager.query('DROP TABLE IF EXISTS _resource_table_' + form.uid +';ALTER TABLE _temp_resource_table_' + form.uid +' RENAME TO _resource_table_' + form.uid +';');
@@ -49,47 +48,34 @@ export class AnalyticsService{
         return forms;
     }
     async generateOrganisationUnitStructureTables() {
+        await this.connetion.manager.query('DROP TABLE IF EXISTS _orgunitstructure');
+        await this.connetion.manager.query('CREATE TABLE _orgunitstructure(' +
+            'organisationunitid integer NOT NULL,' +
+            'organisationunituid character(30) COLLATE pg_catalog."default", ' +
+            'level integer, ' +
+            'idlevel1 integer, ' +
+            'uidlevel1 character(30) COLLATE pg_catalog."default", ' +
+            'namelevel1 text COLLATE pg_catalog."default", ' +
+            'CONSTRAINT _orgunitstructure_temp_pkey PRIMARY KEY(organisationunitid)' +
+            ')');
+        let level = 1;
+        let count: any;
+        do{
+
+            await this.connetion.manager.query('INSERT INTO _orgunitstructure(' +
+                'organisationunitid, organisationunituid, level, idlevel1, uidlevel1)' +
+            ' SELECT organisationunitid, uid,' +level+ ', organisationunitid,uid FROM organisationunit ' +
+            ';');
+            count = await this.connetion.manager.query('SELECT COUNT(ous.*)<>COUNT(ou.*) as istransfered FROM _orgunitstructure ous INNER JOIN organisationunit ou ON(true)');
+            console.log(count);
+        } while (count[0].istransfered)
         let forms: any = await this.connetion.manager.query('SELECT formid,uid,title FROM form');
-        console.log('Forms:', forms);
-        for (const form of forms) {
-            await this.connetion.manager.query('DROP TABLE IF EXISTS _temp_resource_table_' + form.uid);
-            let fields = await this.connetion.manager.query('SELECT field.uid FROM field INNER JOIN formfieldmember USING(fieldid) INNER JOIN form ON(form.formid = formfieldmember.fieldid AND form.formid =\'' + form.formid + '\');');
-            let additionalColumns = '';
-            let additionalInsertColumns = '';
-            let additionalQueries = '';
-            fields.forEach((field, index) => {
-                additionalColumns += ',"' + field.uid + '" varchar';
-                additionalInsertColumns += ',"' + field.uid + '"';
-                additionalQueries += ' LEFT JOIN recordvalue r' + index + ' ON (r' + index + '.recordid = r.recordid)';
-            })
-            await this.connetion.manager.query('CREATE TABLE _temp_resource_table_' + form.uid + '(' +
-                'created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
-                'lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
-                //'recordid integer NOT NULL DEFAULT nextval(\'record_recordid_seq\':: regclass)(INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1),'+
-                'uid character varying(13) COLLATE pg_catalog."default" NOT NULL,' +
-                'instance character varying(64) COLLATE pg_catalog."default" NOT NULL,' +
-                'ou varchar NOT NULL,' +
-                'formid integer NOT NULL' + additionalColumns +
-                ',PRIMARY KEY(instance))');
-            console.log('Created Form Table for:', form.uid);
-            let insertQuery = 'INSERT INTO _temp_resource_table_' + form.uid + '(' +
-                'created,lastupdated,uid,instance,organisationunitid,formid'
-                + additionalInsertColumns + ')' +
-                'SELECT r.created,r.lastupdated,r.uid,r.instance,r.organisationunitid,r.formid,'
-                + fields.map((field, index) => 'r' + index + '.value').join(',')
-                + ' FROM record r ' + additionalQueries;
-            console.log('Insert Query:', insertQuery);
-            let results = await this.connetion.manager.query(insertQuery);
-            console.log(results);
-            results = await this.connetion.manager.query('DROP TABLE IF EXISTS _resource_table_' + form.uid + ';ALTER TABLE _temp_resource_table_' + form.uid + ' RENAME TO _resource_table_' + form.uid + ';');
-            console.log(results);
-        }
-        forms.forEach
+        
         return forms;
     }
     async generatePeriodStructureTables() {
         await this.connetion.manager.query('DROP TABLE IF EXISTS _periodstructure');
-        let forms: any = await this.connetion.manager.query('CREATE TABLE _periodstructure' +
+        await this.connetion.manager.query('CREATE TABLE _periodstructure' +
             '(' +
             'iso character varying(15) COLLATE pg_catalog."default" NOT NULL,' +
             'daysno integer NOT NULL, ' +
@@ -114,7 +100,7 @@ export class AnalyticsService{
         //Weekly
             '(\'' + date.getFullYear() + 'W' + format(date, "ww") + '\',7, \'' + startOfWeek(date).toISOString() + '\', \'' + endOfWeek(date).toISOString() + '\')'
         );
-        return forms;
+        return [];
     }
     async getAnalyticsRecords(formid){
         let analytics =  { "headers": 
