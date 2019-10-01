@@ -1,7 +1,7 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { FieldOption } from './field-option.entity';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('fieldoptionchildren', { schema: 'public' })
 export class FieldOptionChildren extends EntityCoreProps {

@@ -1,6 +1,6 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { OrganisationUnitCompleteness } from 'src/modules/organisation-unit/entities/organisation-unit-completeness.entity';
-import { User } from 'src/modules/user/entities/user.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { OrganisationUnitCompleteness } from '../../organisation-unit/entities/organisation-unit-completeness.entity';
+import { User } from '../../user/entities/user.entity';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 import { Record } from '../../record/entities/record.entity';

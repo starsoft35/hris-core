@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 import { Field } from '../../maintenance/field/entities/field.entity';
 import { Record } from './record.entity';
-import { TransactionUser } from 'src/core/entities/transaction-user.entity';
+import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {

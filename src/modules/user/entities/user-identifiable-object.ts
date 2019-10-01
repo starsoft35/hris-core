@@ -1,4 +1,4 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { JoinColumn } from 'typeorm';
 
 import { User } from './user.entity';

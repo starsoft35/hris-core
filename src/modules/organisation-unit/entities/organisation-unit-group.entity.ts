@@ -10,7 +10,7 @@ import {
 
 import { OrganisationUnitGroupSet } from './organisation-unit-group-set.entity';
 import { OrganisationUnit } from './organisation-unit.entity';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('organisationunitgroup', { schema: 'public' })
 export class OrganisationUnitGroup extends EntityCoreProps {
