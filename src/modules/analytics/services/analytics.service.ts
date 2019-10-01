@@ -66,7 +66,7 @@ export class AnalyticsService{
                 //'recordid integer NOT NULL DEFAULT nextval(\'record_recordid_seq\':: regclass)(INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1),'+
                 'uid character varying(13) COLLATE pg_catalog."default" NOT NULL,' +
                 'instance character varying(64) COLLATE pg_catalog."default" NOT NULL,' +
-                'organisationunitid integer NOT NULL,' +
+                'ou varchar NOT NULL,' +
                 'formid integer NOT NULL' + additionalColumns +
                 ',PRIMARY KEY(instance))');
             console.log('Created Form Table for:', form.uid);
@@ -104,7 +104,38 @@ export class AnalyticsService{
             "dimensions": { "pe": [], "ou": ["m0frOspS7JY"], "JDaH0BmEXvj": [] } }, 
             "rows": [], 
             "height": 0, 
-            "width": 0 }
-        return await this.connetion.manager.query('SELECT * FROM _resource_table_' + formid)
+            "width": 0 };
+        let headers = await this.connetion.manager.query('SELECT columns.table_name,columns.column_name,'+
+            'columns.data_type, columns.column_default, columns.is_nullable FROM information_schema.columns' +
+            ' WHERE table_name = \'_resource_table_' + formid +'\'');
+        analytics.headers = headers.map((header)=>{
+            return {
+                name:header.column_name,
+                column: header.column_name,
+                valueType: this.getGenericType(header.data_type),
+            }
+        });
+        analytics.width = analytics.headers.length;
+        let rows = await this.connetion.manager.query('SELECT * FROM _resource_table_' + formid +' data');
+        analytics.height = rows.length;
+        analytics.rows = rows.map((row) => {
+            let newRow = [];
+            analytics.headers.forEach((header,index) => {
+                newRow[index] = row[header.name]
+            })
+            return newRow;
+        });
+        return analytics;
+    }
+    getGenericType(type){
+        if (type === 'timestamp without time zone'){
+            return 'DATETIME'
+        } else if (type === 'character varying') {
+            return 'TEXT'
+        } else if (type === 'integer') {
+            return 'INTEGER'
+        }else{
+            return type
+        }
     }
 }
