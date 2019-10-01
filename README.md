@@ -73,7 +73,7 @@ $ npm run test:cov
 ```
 
 ## Usage
-* [User Module](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USER_MODULE.md)
+* [User Module](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERMODULE.md)
 * [Dashboard Module](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/DASHBOARDMODULE.md)
 * [Maintenance Module](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/MAINTENANCEMODULE.md)
 
