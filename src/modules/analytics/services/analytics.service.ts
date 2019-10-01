@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { BaseEntity, DeleteResult, Repository, UpdateResult, FindConditions, Connection } from 'typeorm';
+import { Connection } from 'typeorm';
+import { format, endOfMonth, startOfMonth, getDaysInMonth, endOfQuarter, startOfQuarter, differenceInDays,
+    getDaysInYear, startOfYear, endOfWeek, startOfWeek, endOfYear} from 'date-fns';
 
 
 @Injectable()
@@ -83,6 +85,35 @@ export class AnalyticsService{
             console.log(results);
         }
         forms.forEach
+        return forms;
+    }
+    async generatePeriodStructureTables() {
+        await this.connetion.manager.query('DROP TABLE IF EXISTS _periodstructure');
+        let forms: any = await this.connetion.manager.query('CREATE TABLE _periodstructure' +
+            '(' +
+            'iso character varying(15) COLLATE pg_catalog."default" NOT NULL,' +
+            'daysno integer NOT NULL, ' +
+            'startdate date NOT NULL, ' +
+            'enddate date NOT NULL, ' +
+            'CONSTRAINT _periodstructure_temp_pkey PRIMARY KEY(iso)' +
+            ')');
+        let date = new Date();
+        console.log('Format:', format(date, "'Today is a' Q"));
+        console.log('Format:', format(date, "'Today is a' I"));
+        await this.connetion.manager.query('INSERT INTO _periodstructure(iso, daysno, startdate, enddate)VALUES'+
+        //Monthly
+            '(\'' + date.getFullYear() + '' + format(date, "MM") + '\', ' + getDaysInMonth(date) + ', \'' + startOfMonth(date).toISOString() + '\', \'' + endOfMonth(date).toISOString()+ '\'),' +
+        //Bi-Monthly
+            '(\'' + date.getFullYear() + '0' + Math.ceil(parseInt(format(date, "MM")) / 2) + 'B\', ' + getDaysInMonth(date) + ', \'' 
+            + (date.getMonth() % 2 === 0 ? startOfMonth(date).toISOString() : startOfMonth(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate())).toISOString()) + '\', \'' 
+            + (date.getMonth() % 2 === 0 ? endOfMonth(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate())).toISOString() : endOfMonth(date).toISOString()) + '\'),' +
+        //Quarterly
+            '(\'' + date.getFullYear() + 'Q' + format(date, "Q") + '\', ' + differenceInDays(endOfQuarter(date), startOfQuarter(date)) + ', \'' + startOfQuarter(date).toISOString() + '\', \'' + endOfQuarter(date).toISOString() + '\'),' +
+        //Yearly
+            '(\'' + date.getFullYear() + '\', ' + getDaysInYear(date) + ', \'' + startOfYear(date).toISOString() + '\', \'' + endOfYear(date).toISOString() + '\'),' +
+        //Weekly
+            '(\'' + date.getFullYear() + 'W' + format(date, "ww") + '\',7, \'' + startOfWeek(date).toISOString() + '\', \'' + endOfWeek(date).toISOString() + '\')'
+        );
         return forms;
     }
     async getAnalyticsRecords(formid){
