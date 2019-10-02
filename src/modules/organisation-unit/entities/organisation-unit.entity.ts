@@ -1,9 +1,9 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { DashboardChart } from 'src/modules/dashboard/entities/dashboard-chart.entity';
 import { Record } from 'src/modules/record/entities/record.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
-import { User } from 'src/modules/user/entities/user.entity';
+import { User } from 'src/modules/system/user/entities/user.entity';
 import {
   Column,
   Entity,
@@ -18,7 +18,7 @@ import { OrganisationUnitCompleteness } from './organisation-unit-completeness.e
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
 
 @Entity('organisationunit', { schema: 'public' })
-export class OrganisationUnit extends IdentifiableObject {
+export class OrganisationUnit extends EntityCoreProps {
   static plural = 'organisationUnits';
 
   @PrimaryGeneratedColumn({

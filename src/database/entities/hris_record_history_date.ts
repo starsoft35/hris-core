@@ -13,7 +13,7 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
-import { Field } from '../../modules/form/entities/field.entity';
+import { Field } from '../../modules/maintenance/field/entities/field.entity';
 
 @Entity('hris_record_history_date', { schema: 'public' })
 @Index('idx_37522c9443707b0', ['field_'])

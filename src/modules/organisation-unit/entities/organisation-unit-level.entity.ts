@@ -1,8 +1,8 @@
-import { IdentifiableObject } from '../../../core/entities/identifiable-object';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('organisationunitlevel', { schema: 'public' })
-export class OrganisationUnitLevel extends IdentifiableObject {
+export class OrganisationUnitLevel extends EntityCoreProps {
 
   static plural = 'organisationUnitLevels';
 
