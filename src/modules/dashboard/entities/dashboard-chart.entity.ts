@@ -1,4 +1,4 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import {
   Column,
@@ -9,10 +9,10 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../system/user/entities/user.entity';
 
 @Entity('dashboardchart', { schema: 'public' })
-export class DashboardChart extends IdentifiableObject {
+export class DashboardChart extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -20,11 +20,16 @@ export class DashboardChart extends IdentifiableObject {
   })
   id: number;
 
-  @ManyToOne(type => User, user => user.dashboardCharts, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'userid' })
-  user: User | null;
+  // ! Deprecated
+  // @ManyToOne(type => User, user => user.dashboardCharts, {
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'userid' })
+  // user: User | null;
+  // ! Deprecated
+
+  @ManyToMany(type => User, user => user.dashboardCharts)
+  user: User;
 
   @Column('character varying', {
     nullable: false,
