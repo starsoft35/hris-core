@@ -1,0 +1,1 @@
+{"version":3,"file":"transaction-user.entity.js","sourceRoot":"","sources":["transaction-user.entity.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,qCAEiB;AACjB,yEAA+D;AAC/D,iFAAsE;AAEtE,MAAsB,eAAgB,SAAQ,mDAAoB;CAMjE;AAJG;IADC,oBAAU,CAAC,EAAE,IAAI,EAAE,aAAa,EAAE,CAAC;8BACzB,kBAAI;kDAAC;AAGhB;IADC,oBAAU,CAAC,EAAE,IAAI,EAAE,iBAAiB,EAAE,CAAC;8BACzB,kBAAI;sDAAC;AALxB,0CAMC"}
