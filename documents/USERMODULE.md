@@ -1,4 +1,4 @@
-# HRIS Users 
+# `HRIS Users`
 
 * [What contains in `HRIS Users`?](#what-is-hris-users)
 * [User `Entity`](#entity-columns)
@@ -108,9 +108,12 @@ export class User extends UserCoreProps {
     `Local URL: localhost:3000/api/users/`
 
     `If you have a registered domain: http://www.example.com/api/users/`
-    * `Entity POST`
+    * **`Entity POST`**
 
         `URL: localhost:3000/api/users/`
+
+        * **`Entity POST PAYLOAD`**
+
         ```typescript
             {
                 "firstName":    "John",
@@ -121,30 +124,33 @@ export class User extends UserCoreProps {
             }
         ```
 
-        * `Entity POST RESPONSE`
+        * **`Entity POST RESPONSE`**
 
         ```typescript
             {
-                "firstName": "John",
-                "middleName": "Bob",
-                "surname": "Doe",
-                "username": "John Bob Doe",
-                "email": "johnbobdoe@example.com",
-                "created": "2019-10-03T13:03:53.403Z",
-                "lastUpdated": "2019-10-03T13:03:53.403Z",
-                "uid": "JaXlPhzMIiH",
-                "token": "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
-                "enabled": true,
-                "phoneNumber": null,
-                "jobTitle": null,
-                "lastLogin": null,
-                "expiryDate": null,
-                "deletedDate": null
+                "firstName":    "John",
+                "middleName":   "Bob",
+                "surname":      "Doe",
+                "username":     "John Bob Doe",
+                "email":        "johnbobdoe@example.com",
+                "created":      "2019-10-03T13:03:53.403Z",
+                "lastUpdated":  "2019-10-03T13:03:53.403Z",
+                "uid":          "JaXlPhzMIiH",
+                "token":        "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
+                "enabled":      true,
+                "phoneNumber":  null,
+                "jobTitle":     null,
+                "lastLogin":    null,
+                "expiryDate":   null,
+                "deletedDate":  null
             }
         ```
-    * `Entity PUT`
+    * **`Entity PUT`**
 
         `URL: localhost:3000/api/users/JaXlPhzMIiH`
+
+        * **`Entity UPDATE PAYLOAD`**
+
         ```typescript
             {
                 "firstName":    "John",
@@ -152,40 +158,41 @@ export class User extends UserCoreProps {
                 "surname":      "Doe",
                 "username":     "John Doe",
                 "email":        "johnbobdoe@example.com",
-                "uid": "JaXlPhzMIiH"
+                "uid":          "JaXlPhzMIiH"
             }
         ```
-        * `Entity UPDATE RESPONSE`
+        * **`Entity UPDATE RESPONSE`**
 
         ```typescript
             {
                 "message": "Object with id JaXlPhzMIiH updated successfully."
             }
         ```
-    * `Entity GET`
+    * **`Entity GET`**
     
         `URL: localhost:3000/api/users/{INSERT ENTITY UID}`
 
         `Example::: localhost:3000/api/users/JaXlPhzMIiH`
 
-        * `Entity GET RESPONSE`
+        * **`Entity GET RESPONSE`**
+    
         ```typescript
             {
-                "created": "2019-10-03T13:03:53.403Z",
-                "lastUpdated": "2019-10-03T13:03:53.403Z",
-                "uid": "JaXlPhzMIiH",
-                "username": "John Bob Doe",
-                "firstName": "John",
-                "middleName": "Bob",
-                "surname": "Doe",
-                "email": "johnbobdoe@example.com",
-                "phoneNumber": null,
-                "jobTitle": null,
-                "lastLogin": null,
-                "expiryDate": null,
-                "deletedDate": null,
-                "enabled": true,
-                "token": "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
+                "created":      "2019-10-03T13:03:53.403Z",
+                "lastUpdated":  "2019-10-03T13:03:53.403Z",
+                "uid":          "JaXlPhzMIiH",
+                "username":     "John Bob Doe",
+                "firstName":    "John",
+                "middleName":   "Bob",
+                "surname":      "Doe",
+                "email":        "johnbobdoe@example.com",
+                "phoneNumber":  null,
+                "jobTitle":     null,
+                "lastLogin":    null,
+                "expiryDate":   null,
+                "deletedDate":  null,
+                "enabled":      true,
+                "token":        "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
                 "userRoles": [
 
                 ],
@@ -207,13 +214,13 @@ export class User extends UserCoreProps {
                 "userSettings": null
             }
         ```
-    * `Entity DELETE`
+    * **`Entity DELETE`**
     
         `URL: localhost:3000/api/users/{INSERT ENTITY UID}`
 
         `Example::: localhost:3000/api/users/JaXlPhzMIiH`
 
-        * `Entity DELETE RESPONSE`
+        * **`Entity DELETE RESPONSE`**
         ```typescript
             {
                 "message": "Object with id JaXlPhzMIiH deleted successfully"
