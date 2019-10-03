@@ -1,4 +1,4 @@
-# `HRIS Users`
+# `HRIS User Groups`
 
 * [What contains in `HRIS Users Group`?](#what-is-hris-users-group)
 * [User Group `Entity`](#entity-columns)
