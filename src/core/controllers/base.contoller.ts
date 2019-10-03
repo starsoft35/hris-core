@@ -17,6 +17,7 @@ import { HRISBaseEntity } from '../entities/base-entity';
 import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 import { Request, Response, response } from 'express';
 import { DeleteResponse } from '../interfaces/response/delete.interface';
+import * as _ from 'lodash';
 import {
   getSuccessResponse,
   deleteSuccessResponse,
@@ -34,7 +35,7 @@ export class BaseController<T extends HRISBaseEntity> {
   constructor(
     private readonly baseService: BaseService<T>,
     private readonly Model: typeof HRISBaseEntity,
-  ) {}
+  ) { }
 
   /**
    *
@@ -50,7 +51,7 @@ export class BaseController<T extends HRISBaseEntity> {
 
     const pagerDetails: Pager = getPagerDetails(query);
 
-    const [contents, totalCount]: [
+    const [entityRes, totalCount]: [
       T[],
       number,
     ] = await this.baseService.findAndCount(
@@ -63,11 +64,14 @@ export class BaseController<T extends HRISBaseEntity> {
     return {
       pager: {
         ...pagerDetails,
-        pageCount: contents.length,
+        pageCount: entityRes.length,
         total: totalCount,
         nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
       },
-      [this.Model.plural]: contents,
+      [this.Model.plural]: _.map(entityRes, (content: any) => {
+        delete content.id;
+        return content;
+      }),
     };
   }
 
@@ -143,6 +147,7 @@ export class BaseController<T extends HRISBaseEntity> {
       } else {
         const createdEntity = await this.baseService.create(createEntityDto);
         if (createdEntity !== undefined) {
+          delete createdEntity.id;
           return postSuccessResponse(res, createdEntity);
         } else {
           return genericFailureResponse(res);

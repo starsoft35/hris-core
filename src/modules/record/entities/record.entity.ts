@@ -1,4 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  ManyToMany,
+  Generated,
+  PrimaryColumn,
+} from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
@@ -7,13 +15,14 @@ import { TransactionUser } from 'src/core/entities/transaction-user.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {
-
   static plural = 'records';
 
-  @PrimaryGeneratedColumn({
-    name: 'recordid',
-  })
+  @Column({ select: false })
+  @Generated('increment')
   id: number;
+
+  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+  uid: string;
 
   @ManyToOne(
     type => OrganisationUnit,
@@ -29,13 +38,6 @@ export class Record extends TransactionUser {
   })
   @JoinColumn({ name: 'formid' })
   form: Form | null;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 13,
-    name: 'uid',
-  })
-  uid: string;
 
   @Column('character varying', {
     nullable: false,

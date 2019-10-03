@@ -1,5 +1,4 @@
-import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
@@ -7,11 +6,6 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 export class OrganisationUnitGroupSet extends EntityCoreProps {
 
   static plural = 'organisationUnitGroupSets';
-
-  @PrimaryGeneratedColumn({
-    name: 'organisationunitgroupsetid',
-  })
-  id: number;
 
   @Column('character varying', {
     nullable: true,

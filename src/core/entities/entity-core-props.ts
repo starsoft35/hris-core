@@ -1,14 +1,13 @@
-import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
-import * as uuid from 'uuid/v1';
+import { BeforeInsert, Column, PrimaryColumn, Generated } from 'typeorm';
 import { getUid } from '@iapps/utils/utils';
-
 import { TransactionTimestamp } from './transaction-timestamp.entity';
 
 export class EntityCoreProps extends TransactionTimestamp {
-    @PrimaryGeneratedColumn()
+    @Column({ select: false })
+    @Generated('increment')
     id: number;
 
-    @Column({ type: 'varchar', length: 256, unique: true })
+    @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
     @Column({
@@ -32,11 +31,5 @@ export class EntityCoreProps extends TransactionTimestamp {
          *      Example of UUID::: HRIS_8aydSxYBrrP
          */
         this.uid = getUid('', 11);
-
-        // ! Generating UUID is DEPRECATED
-        // this.uid = uuid();
-        // this.uid = this.uid.split('-').join('');
-        // this.uid = this.uid.substr(0, 13);
-        // ! Generating UUID is DEPRECATED
     }
 }

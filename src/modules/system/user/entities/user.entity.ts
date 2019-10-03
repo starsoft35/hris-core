@@ -1,6 +1,4 @@
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import {
-  BaseEntity,
   Column,
   Entity,
   JoinTable,
@@ -8,7 +6,6 @@ import {
   OneToMany,
   OneToOne,
   BeforeInsert,
-  PrimaryGeneratedColumn,
   JoinColumn,
 } from 'typeorm';
 import { DashboardChart } from '../../../dashboard/entities/dashboard-chart.entity';
@@ -21,13 +18,11 @@ import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
 import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 
 @Entity('systemuser', { schema: 'public' })
 export class User extends UserCoreProps {
   static plural = 'users';
-
-  @PrimaryGeneratedColumn()
-  id: number;
 
   @Column({ type: 'varchar', length: 255 })
   username: string;
@@ -125,8 +120,8 @@ export class User extends UserCoreProps {
   })
   @JoinTable({
     name: 'userrolemembers',
-    joinColumn: { name: 'systemuserId', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'userroleId', referencedColumnName: 'id' },
+    joinColumn: { referencedColumnName: 'uid' },
+    inverseJoinColumn: { referencedColumnName: 'uid' },
   })
   userRoles: UserRole[];
 
@@ -140,8 +135,8 @@ export class User extends UserCoreProps {
   })
   @JoinTable({
     name: 'usergroupmembers',
-    joinColumn: { name: 'systemuserId', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'usergroupId', referencedColumnName: 'id' },
+    joinColumn: { referencedColumnName: 'uid' },
+    inverseJoinColumn: { referencedColumnName: 'uid' },
   })
   userGroups: UserGroup[];
 

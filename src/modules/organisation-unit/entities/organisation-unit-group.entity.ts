@@ -5,7 +5,6 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { OrganisationUnitGroupSet } from './organisation-unit-group-set.entity';
@@ -16,11 +15,6 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 export class OrganisationUnitGroup extends EntityCoreProps {
 
   static plural = 'organisationUnitGroups';
-
-  @PrimaryGeneratedColumn({
-    name: 'organisationunitgroupid',
-  })
-  id: number;
 
   @ManyToOne(
     type => OrganisationUnitGroupSet,

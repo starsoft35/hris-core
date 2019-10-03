@@ -14,10 +14,10 @@ export class UserAuthority extends UserCoreProps {
     @Column({ type: 'text', nullable: true })
     description: string | null;
 
-    @JoinColumn({ name: 'createdbyid' })
+    @JoinColumn({ referencedColumnName: 'uid' })
     createdby: User;
 
-    @JoinColumn({ name: 'lastupdatedbyid' })
+    @JoinColumn({ referencedColumnName: 'uid' })
     lastupdatedby: User;
 
     // User & User Role Relationship: Many To Many Relationship
@@ -28,8 +28,8 @@ export class UserAuthority extends UserCoreProps {
     })
     @JoinTable({
         name: 'userauthoritymembers',
-        joinColumn: { name: 'userauthority_id', referencedColumnName: 'id' },
-        inverseJoinColumn: { name: 'userrole_id', referencedColumnName: 'id' },
+        joinColumn: { referencedColumnName: 'uid' },
+        inverseJoinColumn: { referencedColumnName: 'uid' },
     })
     userRoles: UserRole[];
 }
