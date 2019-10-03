@@ -79,6 +79,35 @@ export class training1570105584725 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "region" text');
         await queryRunner.query('ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "district" text');
 
+        await queryRunner.query('ALTER TABLE "hris_curriculum_methods_members" RENAME TO "curriculummethodsmembers"');
+        await queryRunner.query('ALTER TABLE "curriculummethodsmembers" RENAME COLUMN "curriculum_id" TO "curriculumid"');
+        await queryRunner.query('ALTER TABLE "curriculummethodsmembers" RENAME COLUMN "method_id" TO "methodid"');
+
+        await queryRunner.query('ALTER TABLE "hris_traininginstance" RENAME TO "traininginstance"');
+        await queryRunner.query('ALTER TABLE "traininginstance" RENAME COLUMN "id" TO "traininginstanceid"');
+        await queryRunner.query('ALTER TABLE "traininginstance" RENAME COLUMN "section_id" TO "sectionid"');
+        await queryRunner.query('ALTER TABLE "traininginstance" RENAME COLUMN "unit_id" TO "unitid"');
+        await queryRunner.query('ALTER TABLE "traininginstance" RENAME COLUMN "curriculum_id" TO "curriculumid"');
+        await queryRunner.query('ALTER TABLE "traininginstance" RENAME COLUMN "training_id" TO "trainingid"');
+        await queryRunner.query('ALTER TABLE "traininginstance" RENAME COLUMN "datecreated" TO "createdAt"');
+        await queryRunner.query('ALTER TABLE "traininginstance" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "name" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "uid" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "venuename" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "region" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "district" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "venue" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "sponsor" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "organiser" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "createdby" text');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "startdate" timestamp without time zone');
+        await queryRunner.query('ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "enddate" timestamp without time zone');  
+
+        await queryRunner.query('ALTER TABLE "hris_traininginstance_methods" RENAME TO "traininginstancemethods"');
+        await queryRunner.query('ALTER TABLE "traininginstancemethods" RENAME COLUMN "traininginstance_id" TO "traininginstanceid"');
+        await queryRunner.query('ALTER TABLE "traininginstancemethods" RENAME COLUMN "method_id" TO "methodid"');
+ 
+
 
     }
 }
