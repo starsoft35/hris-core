@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  JoinTable,
-  Generated,
-  PrimaryColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, JoinTable } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserIdentification } from '../../user/entities/user-identification';
@@ -14,13 +7,6 @@ import { UserAuthority } from '../../user-authority/entities/user-authority.enti
 @Entity('userrole', { schema: 'public' })
 export class UserRole extends UserIdentification {
   static plural = 'userRoles';
-
-  @Column({ select: false })
-  @Generated('increment')
-  id: number;
-
-  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
-  uid: string;
 
   @Column({ type: 'varchar', length: 64 })
   name: string;

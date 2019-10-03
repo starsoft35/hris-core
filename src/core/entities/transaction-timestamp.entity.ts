@@ -3,18 +3,10 @@ import { BeforeInsert, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { HRISBaseEntity } from './base-entity';
 
 export abstract class TransactionTimestamp extends HRISBaseEntity {
-  @CreateDateColumn({
-    type: 'timestamp',
-    name: 'created',
-    default: () => 'LOCALTIMESTAMP',
-  })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'LOCALTIMESTAMP' })
   created: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamp',
-    name: 'lastupdated',
-    default: () => 'LOCALTIMESTAMP',
-  })
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'LOCALTIMESTAMP' })
   lastUpdated: Date;
 
   @BeforeInsert()
