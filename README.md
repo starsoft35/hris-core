@@ -73,9 +73,11 @@ $ npm run test:cov
 ```
 
 ## Usage
-* [User Module](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERMODULE.md)
-* [Dashboard Module](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/DASHBOARDMODULE.md)
-* [Maintenance Module](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/MAINTENANCEMODULE.md)
+* **`USER`**
+    * [**`User Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERMODULE.md)
+    * [**`User Group Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERGROUPMODULE.md)
+    * [**`User Role Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERROLEMODULE.md)
+    * [**`User Authority Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERAUTHORITYMODULE.md)
 
 
 ## Roadmap
