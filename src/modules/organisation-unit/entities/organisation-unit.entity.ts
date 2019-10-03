@@ -1,9 +1,9 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { DashboardChart } from 'src/modules/dashboard/entities/dashboard-chart.entity';
-import { Record } from 'src/modules/record/entities/record.entity';
-import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
-import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
-import { User } from 'src/modules/user/entities/user.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { DashboardChart } from '../../dashboard/entities/dashboard-chart.entity';
+import { Record } from '../../record/entities/record.entity';
+import { TrainingSession } from '../../training/entities/training-session.entity';
+import { TrainingVenue } from '../../training/entities/training-venue.entity';
+import { User } from '../../user/entities/user.entity';
 import {
   Column,
   Entity,

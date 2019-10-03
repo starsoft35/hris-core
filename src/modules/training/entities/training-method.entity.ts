@@ -1,4 +1,4 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { Column, Entity, ManyToMany } from 'typeorm';
 
 import { TrainingCurriculum } from './training-curriculum.entity';

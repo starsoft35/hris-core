@@ -1,4 +1,4 @@
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import {
   BaseEntity,
   Column,
