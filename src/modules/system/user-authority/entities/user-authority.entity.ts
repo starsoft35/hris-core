@@ -12,7 +12,9 @@ export class UserAuthority extends UserCoreProps {
     @Column({ type: 'text', nullable: true })
     description: string | null;
 
-    // User & User Role Relationship: Many To Many Relationship
+    /**
+     * Many To Many Relationship: UserAuthorities and UserRole Entities
+     */
     @ManyToMany(type => UserRole, userRole => userRole.userAuthorities, {
         nullable: false,
         onDelete: 'CASCADE',
