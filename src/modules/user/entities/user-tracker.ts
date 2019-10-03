@@ -1,11 +1,9 @@
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
-import { ObjectType } from 'type-graphql';
+import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import { JoinColumn } from 'typeorm';
 
 import { User } from './user.entity';
 
-@ObjectType()
-export abstract class UserTracker extends TransactionDate {
+export abstract class UserTracker extends TransactionTimestamp {
   @JoinColumn({ name: 'createbyid' })
   createdBy: User;
 

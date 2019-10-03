@@ -1,9 +1,9 @@
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
+import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Field } from '../../form/entities/field.entity';
+import { Field } from '../../maintenance/field/entities/field.entity';
 import { Record } from './record.entity';
-import { TransactionUser } from 'src/core/entities/transaction-user.entity';
+import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {

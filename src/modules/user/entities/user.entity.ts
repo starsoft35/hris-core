@@ -1,4 +1,4 @@
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import {
   BaseEntity,
   Column,
@@ -24,9 +24,8 @@ import { UserIdentifiableObject } from './user-identifiable-object';
 
 @Entity('user', { schema: 'public' })
 export class User extends UserIdentifiableObject {
-
   static plural = 'users';
-  
+
   @PrimaryGeneratedColumn({
     name: 'userid',
   })
@@ -183,14 +182,19 @@ export class User extends UserIdentifiableObject {
   @JoinTable({ name: 'userrolemembers' })
   userRoles: UserRole[];
 
-  public static async authenticateUser(user: { username: string, password: string }): Promise<User> {
-    return this.authenticateUserByToken(User.getBase64(user.username, user.password));
+  public static async authenticateUser(user: {
+    username: string;
+    password: string;
+  }): Promise<User> {
+    return this.authenticateUserByToken(
+      User.getBase64(user.username, user.password),
+    );
   }
 
   public static async authenticateUserByToken(token: string): Promise<User> {
     let u: User;
     u = await User.findOne({
-      where: { token: token }
+      where: { token },
     });
     console.log('User:', u);
     if (u) {
@@ -200,10 +204,10 @@ export class User extends UserIdentifiableObject {
   }
 
   public static getBase64(username, password) {
-    return Buffer.from(username + ":" + password).toString('base64')
+    return Buffer.from(username + ':' + password).toString('base64');
   }
   @BeforeInsert()
-  createToken(){
+  createToken() {
     this.token = User.getBase64(this.username, this.password);
     this.enabled = true;
   }

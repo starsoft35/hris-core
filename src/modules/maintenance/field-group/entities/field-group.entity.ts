@@ -1,20 +1,13 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
-import { FieldGroupSet } from './field-groupset.entity';
-import { Field } from './field.entity';
+import { FieldGroupSet } from '../../../form/entities/field-groupset.entity';
+import { Field } from '../../field/entities/field.entity';
 
 @Entity('fieldgroup', { schema: 'public' })
-export class FieldGroup extends IdentifiableObject {
+export class FieldGroup extends EntityCoreProps {
 
   static plural = 'fieldGroups';
-
-  @Column('integer', {
-    nullable: false,
-    primary: true,
-    name: 'fieldgroupid',
-  })
-  id: number;
 
   @ManyToMany(type => Field, field => field.fieldGroups, { nullable: false })
   @JoinTable({ name: 'fieldgroupmembers' })

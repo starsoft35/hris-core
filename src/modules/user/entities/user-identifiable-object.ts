@@ -1,11 +1,9 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
-import { ObjectType } from 'type-graphql';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { JoinColumn } from 'typeorm';
 
 import { User } from './user.entity';
 
-@ObjectType()
-export class UserIdentifiableObject extends IdentifiableObject {
+export class UserIdentifiableObject extends EntityCoreProps {
   @JoinColumn({ name: 'createdbyid' })
   createdBy: User;
 

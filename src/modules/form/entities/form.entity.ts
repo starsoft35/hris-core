@@ -1,16 +1,16 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
-import { OrganisationUnitCompleteness } from 'src/modules/organisation-unit/entities/organisation-unit-completeness.entity';
-import { User } from 'src/modules/user/entities/user.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { OrganisationUnitCompleteness } from '../../organisation-unit/entities/organisation-unit-completeness.entity';
+import { User } from '../../user/entities/user.entity';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 import { Record } from '../../record/entities/record.entity';
-import { Field } from './field.entity';
+import { Field } from '../../maintenance/field/entities/field.entity';
 import { FormFieldMember } from './form-field-member.entity';
 import { FormSection } from './form-section.entity';
 import { FormVisibleField } from './form-visible-fields.entity';
 
 @Entity('form', { schema: 'public' })
-export class Form extends IdentifiableObject {
+export class Form extends EntityCoreProps {
 
   static plural = 'forms';
 

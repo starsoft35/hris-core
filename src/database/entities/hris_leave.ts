@@ -19,8 +19,8 @@ import { hris_leave_relative } from './hris_leave_relative';
 
 @Entity('hris_leave', { schema: 'public' })
 @Index('idx_4d817b688313f474', ['leave_type_'])
-//@Index("unique_leave_idx",["leave_type_","record_","startdate",],{unique:true})
-//@Index("idx_4d817b684dfd750c",["record_",])
+// @Index("unique_leave_idx",["leave_type_","record_","startdate",],{unique:true})
+// @Index("idx_4d817b684dfd750c",["record_",])
 export class hris_leave {
   @Column('integer', {
     nullable: false,
@@ -29,13 +29,13 @@ export class hris_leave {
   })
   id: number;
 
-  @ManyToOne(
-    type => hris_leave_type,
-    hris_leave_type => hris_leave_type.hris_leaves,
-    { onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'leave_type_id' })
-  leave_type_: hris_leave_type | null;
+  // @ManyToOne(
+  //   type => hris_leave_type,
+  //   hris_leave_type => hris_leave_type.hris_leaves,
+  //   { onDelete: 'CASCADE' },
+  // )
+  // @JoinColumn({ name: 'leave_type_id' })
+  // leave_type_: hris_leave_type | null;
 
   @Column('character varying', {
     nullable: false,
@@ -138,10 +138,10 @@ export class hris_leave {
   })
   lastupdated: Date | null;
 
-  @OneToMany(
-    type => hris_leave_relative,
-    hris_leave_relative => hris_leave_relative.leave_,
-    { onDelete: 'CASCADE' },
-  )
-  hris_leave_relatives: hris_leave_relative[];
+  // @OneToMany(
+  //   type => hris_leave_relative,
+  //   hris_leave_relative => hris_leave_relative.leave_,
+  //   { onDelete: 'CASCADE' },
+  // )
+  // hris_leave_relatives: hris_leave_relative[];
 }

@@ -1,4 +1,4 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import {
   Column,
   Entity,
@@ -15,7 +15,7 @@ import { TrainingSession } from './training-session.entity';
 import { TrainingUnit } from './training-unit.entity';
 
 @Entity('trainingcurriculum', { schema: 'public' })
-export class TrainingCurriculum extends IdentifiableObject {
+export class TrainingCurriculum extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,

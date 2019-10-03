@@ -1,6 +1,6 @@
 {
   "apps": {
-    "directory":""
+    "directory": ""
   },
   "database": {
     "type": "postgres",
@@ -9,6 +9,6 @@
     "username": "postgres",
     "password": "postgres",
     "database": "hris4",
-    "synchronize": true
+    "synchronize": false
   }
 }

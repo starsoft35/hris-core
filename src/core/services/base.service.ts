@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { BaseEntity, DeleteResult, Repository, UpdateResult, FindConditions } from 'typeorm';
+import {
+  DeleteResult,
+  Repository,
+  UpdateResult,
+  FindConditions,
+} from 'typeorm';
 
 import { getWhereConditions } from '../utilities';
 import { getRelations, getSelections } from '../utilities/get-fields.utility';
 import { HRISBaseEntity } from '../entities/base-entity';
 
-class Factory {
-  create<T>(type: (new () => T)): T {
-    return new type();
-  }
-}
+// class Factory {
+//   create<T>(type: (new () => T)): T {
+//     return new type();
+//   }
+// }
 
 @Injectable()
 export class BaseService<T extends HRISBaseEntity> {
-  constructor(private readonly modelRepository: Repository<T>, private readonly Model) {}
+  constructor(
+    private readonly modelRepository: Repository<T>,
+    private readonly Model,
+  ) { }
 
   async findAll(): Promise<T[]> {
     return await this.modelRepository.find();
   }
 
+  /**
+   *
+   * @param where
+   */
   async findWhere(where: FindConditions<T>): Promise<T[]> {
-    return await this.modelRepository.find({ where: where });
+    return await this.modelRepository.find({ where });
   }
 
   async findAndCount(fields, filter, size, page): Promise<[T[], number]> {
@@ -36,9 +48,28 @@ export class BaseService<T extends HRISBaseEntity> {
       skip: page,
     });
   }
-  async findOneByUid(uid: string): Promise<T> {
-    return await this.modelRepository.findOne({ where: { uid: uid } });
+
+  /**
+   *
+   * @param id
+   */
+  async findOneByUid(id: string): Promise<T> {
+    return await this.modelRepository.findOne({ where: { uid: id } });
   }
+
+  /**
+   *
+   * @param id
+   */
+  async findOneById(id: string): Promise<T> {
+    return await this.modelRepository.findOne({ where: { id } });
+  }
+
+  /**
+   *
+   * @param data
+   * @param modelTarget
+   */
   saveEntity(data, modelTarget) {
     const model = new modelTarget();
     const metaData = this.modelRepository.manager.connection.getMetadata(
@@ -75,8 +106,12 @@ export class BaseService<T extends HRISBaseEntity> {
     });
     return savedEntity;
   }
+
+  /**
+   *
+   * @param entity
+   */
   async create(entity: any): Promise<any> {
-    // return this.saveEntity(entity, this.model);
     const model = new this.Model();
     // var metaData = this.modelRepository.manager.connection.getMetadata(this.model);
     // var savedEntity = entity;
@@ -88,12 +123,23 @@ export class BaseService<T extends HRISBaseEntity> {
     // return model.save();
     return await this.modelRepository.save(model);
   }
+
+  /**
+   *
+   * @param id
+   * @param model
+   */
   async update(id: string, model: any): Promise<UpdateResult> {
     const condition: any = { uid: id };
-    let results = await this.modelRepository.update(condition, model);
+    const results = await this.modelRepository.update(condition, model);
     console.log('Updating', results);
     return await this.modelRepository.update(condition, model);
   }
+
+  /**
+   *
+   * @param id
+   */
   async delete(id: string): Promise<DeleteResult> {
     const condition: any = { uid: id };
     return this.modelRepository.delete(condition);

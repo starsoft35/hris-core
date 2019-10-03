@@ -1,4 +1,4 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { User } from '../../user/entities/user.entity';
@@ -6,10 +6,9 @@ import { MessageThreadMetadata } from './message-thread-metadata.entity';
 import { Message } from './message.entity';
 
 @Entity('messagethread', { schema: 'public' })
-export class MessageThread extends IdentifiableObject {
-
+export class MessageThread extends EntityCoreProps {
   static plural = 'messageThreads';
-  
+
   @Column('integer', {
     nullable: false,
     primary: true,

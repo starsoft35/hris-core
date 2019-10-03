@@ -1,5 +1,5 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import { UserIdentifiableObject } from 'src/modules/user/entities/user-identifiable-object';
+import { UserIdentifiableObject } from '../../user/entities/user-identifiable-object';
 
 
 @Entity("sqlview",{schema:"public" } )

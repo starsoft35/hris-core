@@ -1,11 +1,11 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
-import { Form } from 'src/modules/form/entities/form.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { Form } from '../../form/entities/form.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { OrganisationUnit } from './organisation-unit.entity';
 
 @Entity('organisationunitcompleteness', { schema: 'public' })
-export class OrganisationUnitCompleteness extends IdentifiableObject {
+export class OrganisationUnitCompleteness extends EntityCoreProps {
 
   static plural = 'organisationUnitCompletenesses';
   @PrimaryGeneratedColumn({

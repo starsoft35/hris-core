@@ -1,10 +1,10 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { Column, Entity, OneToMany } from 'typeorm';
 
-import { Field } from './field.entity';
+import { Field } from '../../maintenance/field/entities/field.entity';
 
 @Entity('fieldinputtype', { schema: 'public' })
-export class FieldInputType extends IdentifiableObject {
+export class FieldInputType extends EntityCoreProps {
 
   static plural = 'fieldInputTypes';
 

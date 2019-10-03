@@ -1,10 +1,10 @@
 import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
-import { IdentifiableObject } from '../../../core/entities/identifiable-object';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('organisationunitgroupset', { schema: 'public' })
-export class OrganisationUnitGroupSet extends IdentifiableObject {
+export class OrganisationUnitGroupSet extends EntityCoreProps {
 
   static plural = 'organisationUnitGroupSets';
 
