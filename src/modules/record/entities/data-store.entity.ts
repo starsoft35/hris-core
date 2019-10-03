@@ -2,8 +2,8 @@ import { Column, Entity, JoinColumn, ManyToOne, ManyToMany, PrimaryGeneratedColu
 
 import { Form } from '../../form/entities/form.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
-import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
+import { OrganisationUnit } from '../../../modules/organisation-unit/entities/organisation-unit.entity';
+import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
 import { UserIdentifiableObject } from '../../user/entities/user-identifiable-object';
 import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 
