@@ -111,7 +111,7 @@ export class User extends UserCoreProps {
     * `Entity POST`
 
         `URL: localhost:3000/api/users/`
-        ```json
+        ```typescript
             {
                 "firstName":    "John",
                 "middleName":   "Bob",
@@ -120,30 +120,32 @@ export class User extends UserCoreProps {
                 "email":        "johnbobdoe@example.com",
             }
         ```
+
         * `Entity POST RESPONSE`
-            ```json
-                {
-                    "firstName": "John",
-                    "middleName": "Bob",
-                    "surname": "Doe",
-                    "username": "John Bob Doe",
-                    "email": "johnbobdoe@example.com",
-                    "created": "2019-10-03T13:03:53.403Z",
-                    "lastUpdated": "2019-10-03T13:03:53.403Z",
-                    "uid": "JaXlPhzMIiH",
-                    "token": "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
-                    "enabled": true,
-                    "phoneNumber": null,
-                    "jobTitle": null,
-                    "lastLogin": null,
-                    "expiryDate": null,
-                    "deletedDate": null
-                }
-            ```
+
+        ```typescript
+            {
+                "firstName": "John",
+                "middleName": "Bob",
+                "surname": "Doe",
+                "username": "John Bob Doe",
+                "email": "johnbobdoe@example.com",
+                "created": "2019-10-03T13:03:53.403Z",
+                "lastUpdated": "2019-10-03T13:03:53.403Z",
+                "uid": "JaXlPhzMIiH",
+                "token": "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
+                "enabled": true,
+                "phoneNumber": null,
+                "jobTitle": null,
+                "lastLogin": null,
+                "expiryDate": null,
+                "deletedDate": null
+            }
+        ```
     * `Entity PUT`
 
         `URL: localhost:3000/api/users/JaXlPhzMIiH`
-        ```json
+        ```typescript
             {
                 "firstName":    "John",
                 "middleName":   "Bob",
@@ -153,12 +155,13 @@ export class User extends UserCoreProps {
                 "uid": "JaXlPhzMIiH"
             }
         ```
-        * `Entity POST RESPONSE`
-            ```json
-                {
-                    "message": "Object with id JaXlPhzMIiH updated successfully."
-                }
-            ```
+        * `Entity UPDATE RESPONSE`
+
+        ```typescript
+            {
+                "message": "Object with id JaXlPhzMIiH updated successfully."
+            }
+        ```
     * `Entity GET`
     
         `URL: localhost:3000/api/users/{INSERT ENTITY UID}`
@@ -166,44 +169,44 @@ export class User extends UserCoreProps {
         `Example::: localhost:3000/api/users/JaXlPhzMIiH`
 
         * `Entity GET RESPONSE`
-            ```json
-                {
-                    "created": "2019-10-03T13:03:53.403Z",
-                    "lastUpdated": "2019-10-03T13:03:53.403Z",
-                    "uid": "JaXlPhzMIiH",
-                    "username": "John Bob Doe",
-                    "firstName": "John",
-                    "middleName": "Bob",
-                    "surname": "Doe",
-                    "email": "johnbobdoe@example.com",
-                    "phoneNumber": null,
-                    "jobTitle": null,
-                    "lastLogin": null,
-                    "expiryDate": null,
-                    "deletedDate": null,
-                    "enabled": true,
-                    "token": "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
-                    "userRoles": [
+        ```typescript
+            {
+                "created": "2019-10-03T13:03:53.403Z",
+                "lastUpdated": "2019-10-03T13:03:53.403Z",
+                "uid": "JaXlPhzMIiH",
+                "username": "John Bob Doe",
+                "firstName": "John",
+                "middleName": "Bob",
+                "surname": "Doe",
+                "email": "johnbobdoe@example.com",
+                "phoneNumber": null,
+                "jobTitle": null,
+                "lastLogin": null,
+                "expiryDate": null,
+                "deletedDate": null,
+                "enabled": true,
+                "token": "Sm9obiBCb2IgRG9lOnVuZGVmaW5lZA==",
+                "userRoles": [
 
-                    ],
-                    "userGroups": [
+                ],
+                "userGroups": [
 
-                    ],
-                    "dashboardCharts": [
+                ],
+                "dashboardCharts": [
 
-                    ],
-                    "messages": [
+                ],
+                "messages": [
 
-                    ],
-                    "forms": [
+                ],
+                "forms": [
 
-                    ],
-                    "organisationUnits": [
+                ],
+                "organisationUnits": [
 
-                    ],
-                    "userSettings": null
-                }
-            ```
+                ],
+                "userSettings": null
+            }
+        ```
     * `Entity DELETE`
     
         `URL: localhost:3000/api/users/{INSERT ENTITY UID}`
@@ -211,9 +214,8 @@ export class User extends UserCoreProps {
         `Example::: localhost:3000/api/users/JaXlPhzMIiH`
 
         * `Entity DELETE RESPONSE`
-
-            ```json
-                {
-                    "message": "Object with id JaXlPhzMIiH deleted successfully"
-                }
-            ```
+        ```typescript
+            {
+                "message": "Object with id JaXlPhzMIiH deleted successfully"
+            }
+        ```
