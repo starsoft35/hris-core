@@ -33,7 +33,7 @@ export class User extends UserCoreProps {
     length: 64,
     default: () => 'NULL::varchar',
   })
-  firstname: string | null;
+  firstName: string | null;
 
   @Column({
     type: 'varchar',
@@ -62,7 +62,7 @@ export class User extends UserCoreProps {
     length: 64,
     default: () => 'NULL::varchar',
   })
-  phonenumber: string | null;
+  phoneNumber: string | null;
 
   @Column({
     type: 'varchar',
@@ -70,28 +70,28 @@ export class User extends UserCoreProps {
     length: 64,
     default: () => 'NULL::varchar',
   })
-  jobtitle: string | null;
+  jobTitle: string | null;
 
   @Column({
     type: 'timestamp without time zone',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
-  lastlogin: Date | null;
+  lastLogin: Date | null;
 
   @Column({
     type: 'timestamp without time zone',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
-  expirydate: Date | null;
+  expiryDate: Date | null;
 
   @Column({
     type: 'timestamp without time zone',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
-  deleteddate: Date | null;
+  deletedDate: Date | null;
 
   @Column({ type: 'boolean', nullable: false })
   enabled: boolean;
@@ -104,13 +104,9 @@ export class User extends UserCoreProps {
   })
   token: string | null;
 
-  @JoinColumn({ name: 'createdbyid' })
-  createdby: User;
-
-  @JoinColumn({ name: 'lastupdatedbyid' })
-  lastupdatedby: User;
-
-  // User & User Role Relationship: Many To Many Relationship
+  /**
+   * Many To Many Relationship: User and UserRole Entities
+   */
   @ManyToMany(type => UserRole, userRole => userRole.users, {
     nullable: false,
     eager: true,
@@ -125,7 +121,9 @@ export class User extends UserCoreProps {
   })
   userRoles: UserRole[];
 
-  // User and User Group Relationship Many To Many
+  /**
+   * Many To Many Relationship: User and UserGroup Entities
+   */
   @ManyToMany(type => UserGroup, userGroup => userGroup.users, {
     nullable: false,
     eager: true,
@@ -145,6 +143,9 @@ export class User extends UserCoreProps {
   // })
   // dashboardCharts: DashboardChart[];
 
+  /**
+   * Many To Many Relationship: User and DashboardChart Entities
+   */
   @ManyToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
     nullable: false,
     eager: true,
@@ -154,6 +155,8 @@ export class User extends UserCoreProps {
   })
   @JoinTable({
     name: 'userdashboardchartmembers',
+    joinColumn: { referencedColumnName: 'uid' },
+    inverseJoinColumn: { referencedColumnName: 'uid' },
   })
   dashboardCharts: DashboardChart[];
 
@@ -164,6 +167,9 @@ export class User extends UserCoreProps {
   // messages: Message[];
   // ! Deprecated
 
+  /**
+   * Many To Many Relationship: User and Message Entities
+   */
   @ManyToMany(type => Message, message => message.user, {
     nullable: false,
     eager: true,
@@ -176,6 +182,9 @@ export class User extends UserCoreProps {
   })
   messages: Message[];
 
+  /**
+   * One To Many Relationship: User and MessageMetadata Entities
+   */
   @OneToMany(
     type => MessageMetadata,
     messageMetadata => messageMetadata.participant,
@@ -183,11 +192,17 @@ export class User extends UserCoreProps {
   )
   messageMetadatas: MessageMetadata[];
 
+  /**
+   * One To Many Relationship: User and MessageThread Entities
+   */
   @OneToMany(type => MessageThread, messageThread => messageThread.createdBy, {
     onDelete: 'CASCADE',
   })
   messageThreads: MessageThread[];
 
+  /**
+   * One To Many Relationship: User and MessageThreadMetadata Entities
+   */
   @OneToMany(
     type => MessageThreadMetadata,
     messageThreadMetadata => messageThreadMetadata.participant,
@@ -202,6 +217,9 @@ export class User extends UserCoreProps {
   // userSettings: UserSettings | null;
   // ! Deprecated
 
+  /**
+   * One To One Relationship: User and UserSettings Entities
+   */
   @OneToOne(type => UserSettings, userSettings => userSettings.user, {
     nullable: false,
     eager: true,
@@ -209,21 +227,45 @@ export class User extends UserCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'usersettingsmembers' })
+  @JoinColumn({ referencedColumnName: 'uid' })
   userSettings: UserSettings;
 
+  /**
+   * Many To Many Relationship: User and Form Entities
+   */
   @ManyToMany(type => Form, form => form.users, {
     nullable: false,
+    cascade: true,
+    eager: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   })
-  @JoinTable({ name: 'userformmembers' })
+  @JoinTable({
+    name: 'userformmembers',
+    joinColumn: { referencedColumnName: 'uid' },
+    inverseJoinColumn: { referencedColumnName: 'uid' },
+  })
   forms: Form[];
 
+  /**
+   * Many To Many Relationship: User and OrganizationUnit Entities
+   */
   @ManyToMany(
     type => OrganisationUnit,
     organisationUnit => organisationUnit.users,
-    { nullable: false },
+    {
+      nullable: false,
+      cascade: true,
+      eager: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
   )
-  @JoinTable({ name: 'organisationunitmembers' })
+  @JoinTable({
+    name: 'organisationunitmembers',
+    joinColumn: { referencedColumnName: 'uid' },
+    inverseJoinColumn: { referencedColumnName: 'uid' },
+  })
   organisationUnits: OrganisationUnit[];
 
   public static async authenticateUser(user: {
