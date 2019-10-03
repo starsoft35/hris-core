@@ -51,27 +51,47 @@ export class AnalyticsService{
         await this.connetion.manager.query('DROP TABLE IF EXISTS _orgunitstructure');
         await this.connetion.manager.query('CREATE TABLE _orgunitstructure(' +
             'organisationunitid integer NOT NULL,' +
-            'organisationunituid character(30) COLLATE pg_catalog."default", ' +
+            'uid character(30) COLLATE pg_catalog."default", ' +
             'level integer, ' +
-            'idlevel1 integer, ' +
-            'uidlevel1 character(30) COLLATE pg_catalog."default", ' +
-            'namelevel1 text COLLATE pg_catalog."default", ' +
+            //'idlevel1 integer, ' +
+            //'uidlevel1 character(30) COLLATE pg_catalog."default", ' +
+            //'namelevel1 text COLLATE pg_catalog."default", ' +
             'CONSTRAINT _orgunitstructure_temp_pkey PRIMARY KEY(organisationunitid)' +
             ')');
         let level = 1;
         let count: any;
+        let countstructure: any;
         do{
-
-            await this.connetion.manager.query('INSERT INTO _orgunitstructure(' +
-                'organisationunitid, organisationunituid, level, idlevel1, uidlevel1)' +
-            ' SELECT organisationunitid, uid,' +level+ ', organisationunitid,uid FROM organisationunit ' +
-            ';');
-            count = await this.connetion.manager.query('SELECT COUNT(ous.*)<>COUNT(ou.*) as istransfered FROM _orgunitstructure ous INNER JOIN organisationunit ou ON(true)');
-            console.log(count);
-        } while (count[0].istransfered)
-        let forms: any = await this.connetion.manager.query('SELECT formid,uid,title FROM form');
-        
-        return forms;
+            let INSERTFIELD = '';
+            let FIELD = '';
+            let WHERE = `oulevel${level} `;
+            await this.connetion.manager.query('ALTER TABLE _orgunitstructure ADD COLUMN idlevel' + level + ' integer');
+            await this.connetion.manager.query('ALTER TABLE _orgunitstructure ADD COLUMN uidlevel' + level + ' character(30) COLLATE pg_catalog."default"');
+            await this.connetion.manager.query('ALTER TABLE _orgunitstructure ADD COLUMN namelevel' + level + ' text COLLATE pg_catalog."default"');
+            for (let i = 1; i <= level; i++) {
+                INSERTFIELD += `, idlevel${i},uidlevel${i},namelevel${i}`;
+                FIELD += `, oulevel${i}.organisationunitid,oulevel${i}.uid,oulevel${i}.longname`;
+                if (i == 1) {
+                    if (i === level) {
+                        WHERE += ' WHERE parentid IS NULL';
+                    } else {
+                        WHERE += ` INNER JOIN organisationunit oulevel${level - 1} ON(oulevel${level - (i - 1)}.parentid =oulevel${level - 1}.organisationunitid AND oulevel${level - 1}.organisationunitid IN (SELECT organisationunitid FROM _orgunitstructure WHERE level = ${level - 1}))`;
+                    }
+                } else if (i != level) {
+                    WHERE += ` INNER JOIN organisationunit oulevel${level - i} ON(oulevel${level - (i - 1)}.parentid =oulevel${level - i}.organisationunitid)`;
+                }
+            }
+            let query = 'INSERT INTO _orgunitstructure(' +
+                'organisationunitid, uid, level' + INSERTFIELD +')' +
+                ' SELECT oulevel' + level + '.organisationunitid, oulevel' + level + '.uid,' + level + FIELD + ' FROM organisationunit ' +
+                WHERE +
+                ';';
+            await this.connetion.manager.query(query);
+            countstructure = await this.connetion.manager.query('SELECT COUNT(*) FROM _orgunitstructure');
+            count = await this.connetion.manager.query('SELECT COUNT(*) FROM organisationunit');
+            level++;
+        } while (count[0].count !== countstructure[0].count)
+        return true;
     }
     async generatePeriodStructureTables() {
         await this.connetion.manager.query('DROP TABLE IF EXISTS _periodstructure');
