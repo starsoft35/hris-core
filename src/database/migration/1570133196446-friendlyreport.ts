@@ -29,6 +29,15 @@ export class friendlyreport1570133196446 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "friendlyreportcategory" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupid"');
         await queryRunner.query('ALTER TABLE "friendlyreportcategory" ADD COLUMN IF NOT EXISTS "sort" integer');
 
+        await queryRunner.query('ALTER TABLE "hris_friendlyreport_arithmeticfilter" RENAME TO "friendlyreportarithmeticfilter"');
+        await queryRunner.query('ALTER TABLE "friendlyreportarithmeticfilter" RENAME COLUMN "friendlyreport_id" TO "friendlyreportid"');
+        await queryRunner.query('ALTER TABLE "friendlyreportarithmeticfilter" RENAME COLUMN "arithmeticfilter_id" TO "arithmeticfilterid"');
+
+        await queryRunner.query('ALTER TABLE "hris_friendlyreport_relationalfilter" RENAME TO "friendlyreportrelationalfilter"');
+        await queryRunner.query('ALTER TABLE "friendlyreportrelationalfilter" RENAME COLUMN "friendlyreport_id" TO "friendlyreportid"');
+        await queryRunner.query('ALTER TABLE "friendlyreportrelationalfilter" RENAME COLUMN "relationalfilter_id" TO "relationalfilterid"');
+
+
     }
 }
 public async down(queryRunner: QueryRunner): Promise<any> {
