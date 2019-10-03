@@ -11,7 +11,6 @@ export class dashboard1570022532917 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "dashboardchart" RENAME COLUMN "fieldone_id" TO "fieldoneid"');
         await queryRunner.query('ALTER TABLE "dashboardchart" RENAME COLUMN "fieldtwo_id" TO "fieldtwoid"');
         await queryRunner.query('ALTER TABLE "dashboardchart" RENAME COLUMN "user_id" TO "userid"');
-        await queryRunner.query('ALTER TABLE "dashboardchart" RENAME COLUMN "uid" TO "dashboardchartuid"');
         await queryRunner.query('ALTER TABLE "dashboardchart" RENAME COLUMN "datecreated" TO "createdAt"');
         await queryRunner.query('ALTER TABLE "dashboardchart" RENAME COLUMN "lastupdated" TO "updatedAt"');
         await queryRunner.query('ALTER TABLE "dashboardchart" ADD COLUMN IF NOT EXISTS "name" text');
@@ -19,6 +18,8 @@ export class dashboard1570022532917 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "dashboardchart" ADD COLUMN IF NOT EXISTS "graphtype" text');
         await queryRunner.query('ALTER TABLE "dashboardchart" ADD COLUMN IF NOT EXISTS "lowerlevels" boolean');
         await queryRunner.query('ALTER TABLE "dashboardchart" ADD COLUMN IF NOT EXISTS "systemwide" boolean');
+        await queryRunner.query('ALTER TABLE "dashboardchart" ADD COLUMN IF NOT EXISTS "uid" text');
+
         
         await queryRunner.query('ALTER TABLE "hris_dashboardchart_formmembers" RENAME TO "dashboardchartformmembers"');
         await queryRunner.query('ALTER TABLE "dashboardchartformmembers" RENAME COLUMN "dashboardchart_id" TO "dashboardchartid"');
