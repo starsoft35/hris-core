@@ -33,7 +33,6 @@ export class AnalyticsService{
                 'ou character varying(13) NOT NULL,' +
                 'formid integer NOT NULL' + additionalColumns +
                 ',PRIMARY KEY(instance))');
-            console.log('Created Form Table for:', form.uid, ((fields.length > 0) ? ',' : ''));
             let insertQuery = 'INSERT INTO _temp_resource_table_' + form.uid + '(' +
                 'created,lastupdated,uid,instance,ou,formid'
                 + additionalInsertColumns + ')' +
@@ -41,11 +40,8 @@ export class AnalyticsService{
                 //+ ((fields.length > 0)?',':'')+
                 + fields.map((field, index) => (index ===0?',':'') +'r'+index+'.value').join(',') 
                 + ' FROM record r INNER JOIN organisationunit ou USING(organisationunitid) ' + additionalQueries + ' WHERE r.formid=' + form.formid + ';';// SELECT COUNT(*) FROM _temp_resource_table_' + form.uid + ';';
-            console.log('Insert Query:', insertQuery);
             let results = await this.connetion.manager.query(insertQuery);
-            console.log(results);
             results = await this.connetion.manager.query('DROP TABLE IF EXISTS _resource_table_' + form.uid +';ALTER TABLE _temp_resource_table_' + form.uid +' RENAME TO _resource_table_' + form.uid +';');
-            console.log(results);
         }
         forms.forEach
         return forms;
@@ -103,7 +99,32 @@ export class AnalyticsService{
             'enddate date NOT NULL, ' +
             'CONSTRAINT _periodstructure_temp_pkey PRIMARY KEY(iso)' +
             ')');
-        let date = new Date();
+        let query = "SELECT value FROM recordvalue INNER JOIN field f USING(fieldid) INNER JOIN fielddatatype dt ON(dt.fielddatatypeid = f.datatypeid AND dt.name = 'Date') GROUP BY value";
+        console.log('Field Query:', query);
+        let fields = await this.connetion.manager.query(query);
+        console.log(fields[0].value, new Date(fields[0].value));
+        for(let field of fields){
+            let dateValue = Date.parse(field.value)
+            if (!isNaN(dateValue)){
+                let date = new Date(dateValue);
+                await this.connetion.manager.query('INSERT INTO _periodstructure(iso, daysno, startdate, enddate)VALUES' +
+                    //Monthly
+                    '(\'' + date.getFullYear() + '' + format(date, "MM") + '\', ' + getDaysInMonth(date) + ', \'' + startOfMonth(date).toISOString() + '\', \'' + endOfMonth(date).toISOString() + '\'),' +
+                    //Bi-Monthly
+                    '(\'' + date.getFullYear() + '0' + Math.ceil(parseInt(format(date, "MM")) / 2) + 'B\', ' + getDaysInMonth(date) + ', \''
+                    + (date.getMonth() % 2 === 0 ? startOfMonth(date).toISOString() : startOfMonth(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate())).toISOString()) + '\', \''
+                    + (date.getMonth() % 2 === 0 ? endOfMonth(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate())).toISOString() : endOfMonth(date).toISOString()) + '\'),' +
+                    //Quarterly
+                    '(\'' + date.getFullYear() + 'Q' + format(date, "Q") + '\', ' + differenceInDays(endOfQuarter(date), startOfQuarter(date)) + ', \'' + startOfQuarter(date).toISOString() + '\', \'' + endOfQuarter(date).toISOString() + '\'),' +
+                    //Yearly
+                    '(\'' + date.getFullYear() + '\', ' + getDaysInYear(date) + ', \'' + startOfYear(date).toISOString() + '\', \'' + endOfYear(date).toISOString() + '\'),' +
+                    //Weekly
+                    '(\'' + date.getFullYear() + 'W' + format(date, "ww") + '\',7, \'' + startOfWeek(date).toISOString() + '\', \'' + endOfWeek(date).toISOString() + '\')' +
+                    ' ON CONFLICT ON CONSTRAINT _periodstructure_temp_pkey DO NOTHING;'
+                );
+            }
+        }
+        /*let date = new Date();
         console.log('Format:', format(date, "'Today is a' Q"));
         console.log('Format:', format(date, "'Today is a' I"));
         await this.connetion.manager.query('INSERT INTO _periodstructure(iso, daysno, startdate, enddate)VALUES'+
@@ -120,7 +141,7 @@ export class AnalyticsService{
         //Weekly
             '(\'' + date.getFullYear() + 'W' + format(date, "ww") + '\',7, \'' + startOfWeek(date).toISOString() + '\', \'' + endOfWeek(date).toISOString() + '\')' +
             ' ON CONFLICT ON CONSTRAINT _periodstructure_temp_pkey DO NOTHING;'
-        );
+        );*/
         return [];
     }
     async getAnalyticsRecords(formid){
