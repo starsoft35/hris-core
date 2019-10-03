@@ -34,8 +34,8 @@ import { FieldGroupModule } from './modules/maintenance/field-group/field-group.
     AppsModule,
     AnalyticsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) {}

@@ -48,7 +48,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       await queryRunner.query(query);
 
       const results = await queryRunner.manager.query(
-        'SELECT * FROM record LIMIT 1000',
+        "SELECT * FROM record",
       );
       const fields = await queryRunner.manager.query('SELECT * FROM hris_field');
       const fieldsObject = {};
@@ -95,24 +95,50 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
   }
 
   async updateData(queryRunner, data){
-    let batch = 200;
+    let batch = 1000;
     /*console.log(data[0]);
     let query = "INSERT INTO public.recordvalue(created, lastupdated, value, recordid, fieldid) VALUES"
     query += `(now(),now(),'${data[0].value}',${data[0].recordid},${data[0].fieldid ?data[0].fieldid:null})`;
     await queryRunner.manager.query(query);
     return;*/
-    //do{
+    do{
       console.log(data.length);
-      let query = "INSERT INTO public.recordvalue(created, lastupdated, value, recordid, fieldid)VALUES"
-      data.splice(0, batch).forEach((recordValue,index)=>{
-        if(index > 0){
-          query += ',';  
+      let query = "INSERT INTO public.recordvalue(created, lastupdated, value, recordid, fieldid)VALUES";
+      let index = 0;
+      data.splice(0, batch).forEach((recordValue)=>{
+        let value = recordValue.value;
+        if(typeof value !== 'string'){
+          if (typeof value === 'number'){
+            value = '' + value;
+          } else if (typeof value === 'boolean') {
+            value = '' + value;
+          } else if(typeof value === 'object'){
+            if(value){
+              if(Object.keys(value).length === 0){
+                value = null;
+              }else{
+                console.log('Error Value Object:', value);
+                process.exit();
+              }
+            }
+          }else {
+            console.log('Error Value Object:', typeof value, value);
+            process.exit();
+          }
+        } else {
+          value = value.split("'").join("''")
         }
-        query += "(now(),now(),'"+recordValue.value +"'," + recordValue.recordid +","+recordValue.fieldid +")";
+        if (recordValue.fieldid && value){
+          if (index > 0) {
+            query += ',';
+          }
+          query += "(now(),now(),'" + value + "'," + recordValue.recordid + "," + recordValue.fieldid + ")";
+          index++;
+        }
       })
       await queryRunner.manager.query(query);
       console.log('Finished Batch');
-    //} while (data.length > 0)
+    } while (data.length > 0)
   }
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }

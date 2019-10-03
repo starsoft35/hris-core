@@ -14,14 +14,15 @@ export class AnalyticsService{
         console.log('Forms:', forms);
         for(const form of forms){
             await this.connetion.manager.query('DROP TABLE IF EXISTS _temp_resource_table_' + form.uid);
-            let fields = await this.connetion.manager.query('SELECT field.uid FROM field INNER JOIN formfieldmember USING(fieldid) INNER JOIN form ON(form.formid = formfieldmember.fieldid AND form.formid =\'' +form.formid+ '\');');
+            let query = 'SELECT field.fieldid,field.uid,field.name FROM field INNER JOIN formfieldmembers USING(fieldid) INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.formid =' + form.formid + ');';
+            let fields = await this.connetion.manager.query(query);
             let additionalColumns = '';
             let additionalInsertColumns = '';
             let additionalQueries = '';
             fields.forEach((field, index)=> {
                 additionalColumns += ',"' + field.uid + '" varchar';
                 additionalInsertColumns += ',"' + field.uid + '"';
-                additionalQueries += ' LEFT JOIN recordvalue r' + index + ' ON (r' + index + '.recordid = r.recordid)';
+                additionalQueries += ' LEFT JOIN recordvalue r' + index + ' ON (r' + index + '.recordid = r.recordid AND r' + index + '.fieldid = ' + field.fieldid + ')';
             })
             await this.connetion.manager.query('CREATE TABLE _temp_resource_table_' + form.uid + '(' +
                 'created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
@@ -29,16 +30,18 @@ export class AnalyticsService{
                 //'recordid integer NOT NULL DEFAULT nextval(\'record_recordid_seq\':: regclass)(INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1),'+
                 'uid character varying(13) COLLATE pg_catalog."default" NOT NULL,'+
                 'instance character varying(64) COLLATE pg_catalog."default" NOT NULL,' +
-                'organisationunitid integer NOT NULL,' +
+                'ou character varying(13) NOT NULL,' +
                 'formid integer NOT NULL' + additionalColumns +
                 ',PRIMARY KEY(instance))');
-            console.log('Created Form Table for:', form.uid);
+            console.log('Created Form Table for:', form.uid, ((fields.length > 0) ? ',' : ''));
             let insertQuery = 'INSERT INTO _temp_resource_table_' + form.uid + '(' +
-                'created,lastupdated,uid,instance,organisationunitid,formid'
+                'created,lastupdated,uid,instance,ou,formid'
                 + additionalInsertColumns + ')' +
-                'SELECT r.created,r.lastupdated,r.uid,r.instance,r.organisationunitid,r.formid,' 
-                + fields.map((field,index)=>'r'+index+'.value').join(',') 
-                + ' FROM record r ' + additionalQueries + '; SELECT COUNT(*) FROM _temp_resource_table_' + form.uid + ';';
+                'SELECT r.created,r.lastupdated,r.uid,r.instance,ou.uid,r.formid' 
+                //+ ((fields.length > 0)?',':'')+
+                + fields.map((field, index) => (index ===0?',':'') +'r'+index+'.value').join(',') 
+                + ' FROM record r INNER JOIN organisationunit ou USING(organisationunitid) ' + additionalQueries + ' WHERE r.formid=' + form.formid + ';';// SELECT COUNT(*) FROM _temp_resource_table_' + form.uid + ';';
+            console.log('Insert Query:', insertQuery);
             let results = await this.connetion.manager.query(insertQuery);
             console.log(results);
             results = await this.connetion.manager.query('DROP TABLE IF EXISTS _resource_table_' + form.uid +';ALTER TABLE _temp_resource_table_' + form.uid +' RENAME TO _resource_table_' + form.uid +';');
@@ -53,9 +56,6 @@ export class AnalyticsService{
             'organisationunitid integer NOT NULL,' +
             'uid character(30) COLLATE pg_catalog."default", ' +
             'level integer, ' +
-            //'idlevel1 integer, ' +
-            //'uidlevel1 character(30) COLLATE pg_catalog."default", ' +
-            //'namelevel1 text COLLATE pg_catalog."default", ' +
             'CONSTRAINT _orgunitstructure_temp_pkey PRIMARY KEY(organisationunitid)' +
             ')');
         let level = 1;
@@ -118,7 +118,8 @@ export class AnalyticsService{
         //Yearly
             '(\'' + date.getFullYear() + '\', ' + getDaysInYear(date) + ', \'' + startOfYear(date).toISOString() + '\', \'' + endOfYear(date).toISOString() + '\'),' +
         //Weekly
-            '(\'' + date.getFullYear() + 'W' + format(date, "ww") + '\',7, \'' + startOfWeek(date).toISOString() + '\', \'' + endOfWeek(date).toISOString() + '\')'
+            '(\'' + date.getFullYear() + 'W' + format(date, "ww") + '\',7, \'' + startOfWeek(date).toISOString() + '\', \'' + endOfWeek(date).toISOString() + '\')' +
+            ' ON CONFLICT ON CONSTRAINT _periodstructure_temp_pkey DO NOTHING;'
         );
         return [];
     }
