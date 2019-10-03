@@ -118,6 +118,25 @@ export class form1570024564943 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "description" text');
         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "name" text');
         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "uid" text');
+
+        await queryRunner.query('ALTER TABLE "hris_fieldgroup_members" RENAME TO "fieldgroupmembers"');
+        await queryRunner.query('ALTER TABLE "fieldgroupmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"');
+        await queryRunner.query('ALTER TABLE "fieldgroupmembers" RENAME COLUMN "field_id" TO "fieldid"');
+
+        await queryRunner.query('ALTER TABLE "hris_fieldgroupset_members" RENAME TO "fieldgroupsetmembers"');
+        await queryRunner.query('ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroupset_id" TO "fieldgroupsetid"');
+        await queryRunner.query('ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"');
+
+        await queryRunner.query('ALTER TABLE "hris_fieldoptiongroup_members" RENAME TO "fieldoptiongroupmembers"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupid"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO "fieldoptionid"'); 
+        
+        await queryRunner.query('ALTER TABLE "hris_fieldoptiongroupset_members" RENAME TO "fieldoptiongroupsetmembers"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroupset_id" TO "fieldoptiongroupsetid"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupid"');  
+
+        
+
  
     }
 }
