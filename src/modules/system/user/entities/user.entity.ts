@@ -41,7 +41,7 @@ export class User extends UserCoreProps {
     length: 64,
     default: () => 'NULL::varchar',
   })
-  middlename: string | null;
+  middleName: string | null;
 
   @Column({
     type: 'varchar',
@@ -93,7 +93,7 @@ export class User extends UserCoreProps {
   })
   deletedDate: Date | null;
 
-  @Column({ type: 'boolean', nullable: false })
+  @Column({ type: 'boolean', nullable: true })
   enabled: boolean;
 
   @Column({
@@ -218,19 +218,6 @@ export class User extends UserCoreProps {
   // ! Deprecated
 
   /**
-   * One To One Relationship: User and UserSettings Entities
-   */
-  @OneToOne(type => UserSettings, userSettings => userSettings.user, {
-    nullable: false,
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ referencedColumnName: 'uid' })
-  userSettings: UserSettings;
-
-  /**
    * Many To Many Relationship: User and Form Entities
    */
   @ManyToMany(type => Form, form => form.users, {
@@ -267,6 +254,18 @@ export class User extends UserCoreProps {
     inverseJoinColumn: { referencedColumnName: 'uid' },
   })
   organisationUnits: OrganisationUnit[];
+
+  /**
+   * One To One Relationship: User and UserSettings Entities
+   */
+  @OneToOne(type => UserSettings, userSettings => userSettings.user, {
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ referencedColumnName: 'uid' })
+  userSettings: UserSettings;
 
   public static async authenticateUser(user: {
     username: string;

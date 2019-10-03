@@ -1,44 +1,25 @@
 import { Column, Entity, OneToOne } from 'typeorm';
-
 import { User } from './user.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('usersettings', { schema: 'public' })
 export class UserSettings extends EntityCoreProps {
-  // ! Deprecated
-  // @OneToOne(type => User, user => user.userSettings, {
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'userid' })
-  // user: User | null;
-  // ! Deprecated
 
-  @OneToOne(type => User, user => user.userSettings, {
-    onDelete: 'CASCADE',
-  })
-  user: User;
+  @Column({ type: 'text', nullable: true })
+  description: string | null;
 
-  @Column('boolean', {
-    nullable: false,
-    name: 'emailnotification',
-  })
+  @Column({ type: 'boolean', nullable: false })
   emailNotification: boolean;
 
-  @Column('boolean', {
-    nullable: false,
-    name: 'smsnotification',
-  })
+  @Column({ type: 'boolean', nullable: false })
   smsNotification: boolean;
 
-  @Column('boolean', {
-    nullable: false,
-    name: 'completenessalert',
-  })
+  @Column({ type: 'boolean', nullable: false })
   completenessAlert: boolean;
 
-  @Column('boolean', {
-    nullable: false,
-    name: 'qualitycheckalert',
-  })
+  @Column({ type: 'boolean', nullable: false })
   qualityCheckAlert: boolean;
+
+  @OneToOne(type => User, user => user.userSettings)
+  user: User;
 }
