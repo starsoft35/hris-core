@@ -14,10 +14,15 @@ export class UserRole extends UserIdentification {
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
-  // User & User Role Relationship: Many-Many Relationship
+  /**
+   * Many To Many Relationship: UserRole and User Entities
+   */
   @ManyToMany(type => User, user => user.userRoles, { nullable: false })
   users: User[];
 
+  /**
+   * Many To Many Relationship: UserAuthorities and UserRole Entities
+   */
   @ManyToMany(type => UserAuthority, userAuthority => userAuthority.userRoles, {
     nullable: false,
     eager: true,
@@ -27,6 +32,9 @@ export class UserRole extends UserIdentification {
   })
   userAuthorities: UserAuthority[];
 
+  /**
+   * Many To Many Relationship: UserAuthorities and UserRole Entities
+   */
   @ManyToMany(type => UserGroup, userGroup => userGroup.userRoles, {
     nullable: false,
   })
