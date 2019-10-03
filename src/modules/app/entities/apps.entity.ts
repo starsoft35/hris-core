@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { NamedIdentifiableObject } from 'src/core/entities/named-identifiable-object';
+import { NamedIdentifiableObject } from '../../../core/entities/named-identifiable-object';
 
 @Entity('app', { schema: 'public' })
 export class App extends NamedIdentifiableObject {

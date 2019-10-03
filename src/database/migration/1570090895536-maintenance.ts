@@ -10,10 +10,10 @@ export class maintenance1570090895536 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "id" TO "fieldid"');
         await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "datatype_id" TO "datatypeid"');
         await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "inputtype_id" TO "inputtypeid"');
-        await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "uid" TO "fielduid"');
         await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "datecreated" TO "createdAt"');
         await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "lastupdated" TO "updatedAt"');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "name" text');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "uid" text');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "description" text');        
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "caption" text');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "iscalculated" boolean');
@@ -27,11 +27,12 @@ export class maintenance1570090895536 implements MigrationInterface {
         
         await queryRunner.query('ALTER TABLE "hris_fieldgroup" RENAME TO "fieldgroup"');
         await queryRunner.query('ALTER TABLE "fieldgroup" RENAME COLUMN "id" TO "fieldgroupid"');
-        await queryRunner.query('ALTER TABLE "fieldgroup" RENAME COLUMN "uid" TO "fieldgroupuid"');
         await queryRunner.query('ALTER TABLE "fieldgroup" RENAME COLUMN "datecreated" TO "createdAt"');
         await queryRunner.query('ALTER TABLE "fieldgroup" RENAME COLUMN "lastupdated" TO "updatedAt"');
         await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "name" text');
-        await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "description" text');        
+        await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "description" text'); 
+        await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "uid" text');
+       
 
     }
 }
@@ -40,3 +41,5 @@ public async down(queryRunner: QueryRunner): Promise<any> {
 }
 
 }
+
+

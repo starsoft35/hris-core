@@ -5,7 +5,7 @@ import { TransactionTimestamp } from '../../../core/entities/transaction-timesta
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 import { UserIdentifiableObject } from '../../user/entities/user-identifiable-object';
-import { TransactionUser } from 'src/core/entities/transaction-user.entity';
+import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 
 @Entity('datastore', { schema: 'public' })
 export class DataStore extends UserIdentifiableObject {
