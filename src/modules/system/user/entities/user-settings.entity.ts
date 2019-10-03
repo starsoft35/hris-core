@@ -1,19 +1,10 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToOne } from 'typeorm';
 
 import { User } from './user.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('usersettings', { schema: 'public' })
 export class UserSettings extends EntityCoreProps {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   // ! Deprecated
   // @OneToOne(type => User, user => user.userSettings, {
   //   onDelete: 'CASCADE',

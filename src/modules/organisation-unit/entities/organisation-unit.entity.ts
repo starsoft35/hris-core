@@ -11,7 +11,6 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { OrganisationUnitCompleteness } from './organisation-unit-completeness.entity';
@@ -20,11 +19,6 @@ import { OrganisationUnitGroup } from './organisation-unit-group.entity';
 @Entity('organisationunit', { schema: 'public' })
 export class OrganisationUnit extends EntityCoreProps {
   static plural = 'organisationUnits';
-
-  @PrimaryGeneratedColumn({
-    name: 'organisationunitid',
-  })
-  id: number;
 
   @ManyToOne(
     type => OrganisationUnit,

@@ -1,14 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { NamedIdentifiableObject } from 'src/core/entities/named-identifiable-object';
 
 @Entity('app', { schema: 'public' })
 export class App extends NamedIdentifiableObject {
   static plural = 'apps';
-
-  @PrimaryGeneratedColumn({
-    name: 'appid',
-  })
-  id: number;
 
   @Column('character varying', {
     nullable: false,

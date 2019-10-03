@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FormFieldMemberController } from './form-field-member.controller';
+import { FormFieldMemberController } from 'src/modules/form/controllers/form-field-member.controller';
 
 describe('FormFieldMember Controller', () => {
   let controller: FormFieldMemberController;

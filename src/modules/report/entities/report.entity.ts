@@ -1,5 +1,5 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity('report', { schema: 'public' })
 export class Report extends EntityCoreProps {

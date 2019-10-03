@@ -3,7 +3,8 @@ import {
   Entity,
   ManyToMany,
   JoinTable,
-  PrimaryGeneratedColumn,
+  Generated,
+  PrimaryColumn,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
@@ -14,8 +15,12 @@ import { UserAuthority } from '../../user-authority/entities/user-authority.enti
 export class UserRole extends UserIdentification {
   static plural = 'userRoles';
 
-  @PrimaryGeneratedColumn()
+  @Column({ select: false })
+  @Generated('increment')
   id: number;
+
+  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+  uid: string;
 
   @Column({ type: 'varchar', length: 64 })
   name: string;
@@ -41,8 +46,8 @@ export class UserRole extends UserIdentification {
   })
   @JoinTable({
     name: 'userrolegroupmembers',
-    joinColumn: { name: 'userrole_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'usergroup_id', referencedColumnName: 'id' },
+    joinColumn: { referencedColumnName: 'uid' },
+    inverseJoinColumn: { referencedColumnName: 'uid' },
   })
   userGroups: UserGroup[];
 }

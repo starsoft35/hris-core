@@ -1,17 +1,8 @@
 import {
-  BaseEntity,
   Column,
   Entity,
-  Index,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  RelationId,
 } from 'typeorm';
 import { MessageThread } from './message-thread.entity';
 import { User } from '../../system/user/entities/user.entity';
@@ -20,13 +11,6 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 @Entity('messagethreadmetadata', { schema: 'public' })
 export class MessageThreadMetadata extends EntityCoreProps {
   static plural = 'messageThreadMetadata';
-
-  @Column('integer', {
-    nullable: false,
-    primary: true,
-    name: 'id',
-  })
-  id: number;
 
   @ManyToOne(
     type => MessageThread,
