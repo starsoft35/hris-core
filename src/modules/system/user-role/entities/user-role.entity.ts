@@ -32,16 +32,16 @@ export class UserRole extends UserIdentification {
   })
   userAuthorities: UserAuthority[];
 
-  /**
-   * Many To Many Relationship: UserAuthorities and UserRole Entities
-   */
-  @ManyToMany(type => UserGroup, userGroup => userGroup.userRoles, {
-    nullable: false,
-  })
-  @JoinTable({
-    name: 'userrolegroupmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
-  })
-  userGroups: UserGroup[];
+  // /**
+  //  * Many To Many Relationship: UserAuthorities and UserRole Entities
+  //  */
+  // @ManyToMany(type => UserGroup, userGroup => userGroup.userRoles, {
+  //   nullable: false,
+  // })
+  // @JoinTable({
+  //   name: 'userrolegroupmembers',
+  //   joinColumn: { referencedColumnName: 'uid' },
+  //   inverseJoinColumn: { referencedColumnName: 'uid' },
+  // })
+  // userGroups: UserGroup[];
 }
