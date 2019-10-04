@@ -12,96 +12,139 @@
 ### What is HRIS Users?
 [HRHIS](http://hrhis.moh.go.tz/login) User is the system user for the [HRHIS](http://hrhis.moh.go.tz/login) system. In the [HRHIS](http://hrhis.moh.go.tz/login) system there are four `Entities` associated with user operation:-
 
-* User `Entity`
-* User Role `Entity`
-* User Authority `Entity`
-* User Group `Entity`
-
 ### User `Entity`
 * #### `Entity` class definition
 ```typescript
-export class User extends UserCoreProps {
-  static plural = 'users';
+    export abstract class TransactionTimestamp extends HRISBaseEntity {
+        @CreateDateColumn({ type: 'timestamp', default: () => 'LOCALTIMESTAMP' })
+        created: Date;
 
-  @Column({ type: 'varchar', length: 255 })
-  username: string;
+        @UpdateDateColumn({ type: 'timestamp', default: () => 'LOCALTIMESTAMP' })
+        lastUpdated: Date;
 
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::varchar',
-  })
-  firstName: string | null;
+        @BeforeInsert()
+        beforeInsertTransaction() {
+            this.created = new Date();
+            this.lastUpdated = new Date();
+        }
 
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::varchar',
-  })
-  middleName: string | null;
+        @BeforeInsert()
+        beforeUpdateTransaction() {
+            this.lastUpdated = new Date();
+        }
+    }
 
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::varchar',
-  })
-  surname: string | null;
 
-  @Column({ type: 'varchar', length: 255, unique: true })
-  email: string;
+    export class UserCoreProps extends TransactionTimestamp {
+        @Column({ select: false })
+        @Generated('increment')
+        id: number;
 
-  password: string;
+        @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+        uid: string;
 
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::varchar',
-  })
-  phoneNumber: string | null;
+        @JoinColumn({ referencedColumnName: 'uid' })
+        createdBy: User;
 
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 64,
-    default: () => 'NULL::varchar',
-  })
-  jobTitle: string | null;
+        @JoinColumn({ referencedColumnName: 'uid' })
+        lastUpdatedBy: User;
 
-  @Column({
-    type: 'timestamp without time zone',
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-  })
-  lastLogin: Date | null;
+        @BeforeInsert()
+        beforeInsertEntityCoreProps() {
+            /**
+             *  You can generate UUID in different ways
+             *  1. You can generate uuid of any length: i.e getUid('', 20)
+             *      Example of UUID::: 8aydSxYBrrP
+             *  2. You can generate UUID by prepending a context specific keyword i.e getUid('HRIS', 20)
+             *      Example of UUID::: HRIS_8aydSxYBrrP
+             */
+            this.uid = getUid('', 11);
+        }
+    }
 
-  @Column({
-    type: 'timestamp without time zone',
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-  })
-  expiryDate: Date | null;
 
-  @Column({
-    type: 'timestamp without time zone',
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-  })
-  deletedDate: Date | null;
+    export class User extends UserCoreProps {
+      static plural = 'users';
 
-  @Column({ type: 'boolean', nullable: true })
-  enabled: boolean;
+      @Column({ type: 'varchar', length: 255 })
+      username: string;
 
-  @Column({
-    type: 'varchar',
-    nullable: true,
-    length: 255,
-    default: () => 'NULL::varchar',
-  })
-  token: string | null;
+      @Column({
+        type: 'varchar',
+        nullable: true,
+        length: 64,
+        default: () => 'NULL::varchar',
+      })
+      firstName: string | null;
+
+      @Column({
+        type: 'varchar',
+        nullable: true,
+        length: 64,
+        default: () => 'NULL::varchar',
+      })
+      middleName: string | null;
+
+      @Column({
+        type: 'varchar',
+        nullable: true,
+        length: 64,
+        default: () => 'NULL::varchar',
+      })
+      surname: string | null;
+
+      @Column({ type: 'varchar', length: 255, unique: true })
+      email: string;
+
+      password: string;
+
+      @Column({
+        type: 'varchar',
+        nullable: true,
+        length: 64,
+        default: () => 'NULL::varchar',
+      })
+      phoneNumber: string | null;
+
+      @Column({
+        type: 'varchar',
+        nullable: true,
+        length: 64,
+        default: () => 'NULL::varchar',
+      })
+      jobTitle: string | null;
+
+      @Column({
+        type: 'timestamp without time zone',
+        nullable: true,
+        default: () => 'NULL::timestamp without time zone',
+      })
+      lastLogin: Date | null;
+
+      @Column({
+        type: 'timestamp without time zone',
+        nullable: true,
+        default: () => 'NULL::timestamp without time zone',
+      })
+      expiryDate: Date | null;
+
+      @Column({
+        type: 'timestamp without time zone',
+        nullable: true,
+        default: () => 'NULL::timestamp without time zone',
+      })
+      deletedDate: Date | null;
+
+      @Column({ type: 'boolean', nullable: true })
+      enabled: boolean;
+
+      @Column({
+        type: 'varchar',
+        nullable: true,
+        length: 255,
+        default: () => 'NULL::varchar',
+      })
+      token: string | null;
 ```
 
 * #### `Entity` CRUD Operation
