@@ -11,16 +11,18 @@ export class AnalyticsService{
     }
     async generateAnalyticsTables(){
         let forms:any = await this.connetion.manager.query('SELECT formid,uid,title FROM form');
-        console.log('Forms:', forms);
         for(const form of forms){
             await this.connetion.manager.query('DROP TABLE IF EXISTS _temp_resource_table_' + form.uid);
-            let query = 'SELECT field.fieldid,field.uid,field.name FROM field INNER JOIN formfieldmembers USING(fieldid) INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.formid =' + form.formid + ');';
+            let query = 'SELECT field.fieldid,field.uid,field.name,fdt.name as type FROM field ' +
+                'INNER JOIN fielddatatype fdt ON(fdt.fielddatatypeid = field.datatypeid) ' + 
+            'INNER JOIN formfieldmembers USING(fieldid) ' + 
+            'INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.formid =' + form.formid + ');';
             let fields = await this.connetion.manager.query(query);
             let additionalColumns = '';
             let additionalInsertColumns = '';
             let additionalQueries = '';
             fields.forEach((field, index)=> {
-                additionalColumns += ',"' + field.uid + '" varchar';
+                additionalColumns += ',"' + field.uid + '" ' + this.getDatabaseType(field.type);
                 additionalInsertColumns += ',"' + field.uid + '"';
                 additionalQueries += ' LEFT JOIN recordvalue r' + index + ' ON (r' + index + '.recordid = r.recordid AND r' + index + '.fieldid = ' + field.fieldid + ')';
             })
@@ -38,13 +40,37 @@ export class AnalyticsService{
                 + additionalInsertColumns + ')' +
                 'SELECT r.created,r.lastupdated,r.uid,r.instance,ou.uid,r.formid' 
                 //+ ((fields.length > 0)?',':'')+
-                + fields.map((field, index) => (index ===0?',':'') +'r'+index+'.value').join(',') 
-                + ' FROM record r INNER JOIN organisationunit ou USING(organisationunitid) ' + additionalQueries + ' WHERE r.formid=' + form.formid + ';';// SELECT COUNT(*) FROM _temp_resource_table_' + form.uid + ';';
-            let results = await this.connetion.manager.query(insertQuery);
-            results = await this.connetion.manager.query('DROP TABLE IF EXISTS _resource_table_' + form.uid +';ALTER TABLE _temp_resource_table_' + form.uid +' RENAME TO _resource_table_' + form.uid +';');
+                + fields.map((field, index) => {
+                    let results = (index === 0 ? ',' : '');
+                    if(field.type === 'Date'){
+                        //results += "TO_DATE(r" + index + ".value,'YYYY-MM-DD')";
+                        results += "CASE " +
+                            "WHEN r" + index + ".value like '%/%/%' THEN " +
+                            "TO_DATE(r" + index + ".value,'DD/MM/YYYY') " +
+                            "ELSE TO_DATE(r" + index + ".value,'YYYY-MM-DD') " +
+                            "END"
+                    } else if (field.type === 'Integer') {
+                        results += "CASE " +
+                            "WHEN REPLACE(REPLACE(r" + index + ".value, ',', '' ), '-', '' )  ~ '^(-?\d+\.\d+)$|^(-?\d+)$' THEN " +
+                            "REPLACE(REPLACE(r" + index + ".value, ',', '' ), '-', '' )::INTEGER " +
+                        "ELSE NULL " +
+                        "END"
+                    } else if (field.type === 'Double') {
+                        results += "CASE " +
+                            "WHEN REPLACE(REPLACE(r" + index + ".value, ',', '' ), '-', '' )  ~ '^(-?\d+\.\d+)$|^(-?\d+)$' THEN " +
+                            "CAST (REPLACE(REPLACE(r" + index + ".value, ',', '' ), '-', '' ) AS DOUBLE PRECISION) " +
+                            "ELSE NULL " +
+                            "END"
+                    }else{
+                        results += 'r' + index + '.value' 
+                    }
+                    return results;
+                }).join(',') 
+                + ' FROM record r INNER JOIN organisationunit ou USING(organisationunitid) ' + additionalQueries + ' WHERE r.formid=' + form.formid + ';';
+            await this.connetion.manager.query(insertQuery);
+            await this.connetion.manager.query('DROP TABLE IF EXISTS _resource_table_' + form.uid +';ALTER TABLE _temp_resource_table_' + form.uid +' RENAME TO _resource_table_' + form.uid +';');
         }
-        forms.forEach
-        return forms;
+        return true;
     }
     async generateOrganisationUnitStructureTables() {
         await this.connetion.manager.query('DROP TABLE IF EXISTS _orgunitstructure');
@@ -144,7 +170,7 @@ export class AnalyticsService{
         );*/
         return [];
     }
-    async getAnalyticsRecords(formid){
+    async getAnalyticsRecords(formid, ou, pe){
         let analytics =  { "headers": 
         [
             { "name": "psi", "column": "Event", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, 
@@ -158,16 +184,26 @@ export class AnalyticsService{
             { "name": "JDaH0BmEXvj", "column": "Infant Mortality Rate", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": true }], 
             "metaData": { "pager": { "page": 1, "total": 0, "pageSize": 100, "pageCount": 1 }, 
             "items": { "ou": { "name": "Organisation unit" }, "mlDzRw3ibhE": { "name": "Single-Event Death Registry" }, 
-            "m0frOspS7JY": { "name": "MOH - Tanzania" }, "JDaH0BmEXvj": { "name": "Infant Mortality Rate" }, 
-            "Mvc0jfU9Ua2": { "name": "Death Registry" } }, 
+            "m0frOspS7JY": { "name": "MOH - Tanzania" } }, 
             "dimensions": { "pe": [], "ou": ["m0frOspS7JY"], "JDaH0BmEXvj": [] } }, 
             "rows": [], 
             "height": 0, 
             "width": 0 };
+        let query = 'SELECT field.uid,field.name FROM field INNER JOIN formfieldmembers USING(fieldid) INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.uid =\'' + formid + '\');';
+        let fields = await this.connetion.manager.query(query);
+        fields.forEach((field)=> {
+            
+            analytics.metaData.items[field.uid] = {"name":field.name};
+        })
+        // Dealing with headers
         let headers = await this.connetion.manager.query('SELECT columns.table_name,columns.column_name,'+
             'columns.data_type, columns.column_default, columns.is_nullable FROM information_schema.columns' +
             ' WHERE table_name = \'_resource_table_' + formid +'\'');
-        analytics.headers = headers.map((header)=>{
+        let allowedColumns = ['uid','ou']
+        analytics.headers = headers.filter((header)=>{
+            return allowedColumns.indexOf(header.column_name) > -1
+        })
+        .map((header)=>{
             return {
                 name:header.column_name,
                 column: header.column_name,
@@ -175,7 +211,21 @@ export class AnalyticsService{
             }
         });
         analytics.width = analytics.headers.length;
-        let rows = await this.connetion.manager.query('SELECT * FROM _resource_table_' + formid +' data');
+
+        query = 'SELECT level FROM organisationunitlevel';
+        let orglevels = await this.connetion.manager.query(query);
+        let levelquery = orglevels.map((orglevel) => "ous.uidlevel" + orglevel.level+ " IN ('" + ou.join("','")+ "')");
+
+        let periodquery = pe.map((p) =>{
+
+            let split = p.split('-');
+            return '(data."' + split[0] + '"  BETWEEN pes.startdate AND pes.enddate AND pes.iso=\'' + split[1] +'\')';
+        })
+        query = "SELECT data.* FROM _resource_table_" + formid + " data " +
+            "INNER JOIN _orgunitstructure ous ON(ous.uid = data.ou AND " + levelquery.join(" OR ")+") " +
+            'INNER JOIN _periodstructure pes ON(' + periodquery.join(' OR ') +')';
+        console.log(query);
+        let rows = await this.connetion.manager.query(query);
         analytics.height = rows.length;
         analytics.rows = rows.map((row) => {
             let newRow = [];
@@ -195,6 +245,18 @@ export class AnalyticsService{
             return 'INTEGER'
         }else{
             return type
+        }
+    }
+    getDatabaseType(type){
+        console.log(type);
+        if(type === 'Date'){
+            return 'timestamp(0) without time zone';
+        } else if (type === 'Integer'){
+            return 'integer';
+        } else if (type === 'Double') {
+            return 'DOUBLE PRECISION';
+        } else {
+            return 'varchar'
         }
     }
 }
