@@ -106,6 +106,19 @@ export class training1570105584725 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "hris_traininginstance_methods" RENAME TO "traininginstancemethods"');
         await queryRunner.query('ALTER TABLE "traininginstancemethods" RENAME COLUMN "traininginstance_id" TO "traininginstanceid"');
         await queryRunner.query('ALTER TABLE "traininginstancemethods" RENAME COLUMN "method_id" TO "methodid"');
+
+
+        await queryRunner.query('ALTER TABLE "hris_trainings" RENAME TO "training"');
+        await queryRunner.query('ALTER TABLE "training" RENAME COLUMN "id" TO "trainingid"');
+        await queryRunner.query('ALTER TABLE "training" RENAME COLUMN "datecreated" TO "createdAt"');
+        await queryRunner.query('ALTER TABLE "training" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "training" ADD COLUMN IF NOT EXISTS "uid" text');
+        await queryRunner.query('ALTER TABLE "training" ADD COLUMN IF NOT EXISTS "coursename" text');
+        await queryRunner.query('ALTER TABLE "training" ADD COLUMN IF NOT EXISTS "traininginstruction" text');
+        await queryRunner.query('ALTER TABLE "training" ADD COLUMN IF NOT EXISTS "trainingcategory" text');
+        await queryRunner.query('ALTER TABLE "training" ADD COLUMN IF NOT EXISTS "curiculum" text');
+
+
  
 
 
@@ -116,5 +129,4 @@ public async down(queryRunner: QueryRunner): Promise<any> {
 }
 
 }
-    
-
+     
