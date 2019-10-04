@@ -78,7 +78,7 @@ $ npm run test:cov
     * [**`User Group Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERGROUPMODULE.md)
     * [**`User Role Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERROLEMODULE.md)
     * [**`User Authority Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERAUTHORITYMODULE.md)
-    * [**`Updating User Modules Relationships`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/UPDATEENTITYMODULE.md)
+    * [**`Updating Entities Normal Properties and Relationships`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/UPDATEENTITYMODULE.md)
 
 
 ## Roadmap
