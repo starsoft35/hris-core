@@ -8,6 +8,7 @@ import { Field } from '../../maintenance/field/entities/field.entity';
 import { FormFieldMember } from './form-field-member.entity';
 import { FormSection } from './form-section.entity';
 import { FormVisibleField } from './form-visible-fields.entity';
+import { Indicator } from 'src/modules/indicator/entities/indicator.entity';
 
 @Entity('form', { schema: 'public' })
 export class Form extends EntityCoreProps {
@@ -71,4 +72,7 @@ export class Form extends EntityCoreProps {
 
   @ManyToMany(type => User, user => user.forms)
   users: User[];
+
+  @OneToMany(() => Indicator, (indicator: Indicator) => indicator.form)
+  indicators: Indicator[];
 }

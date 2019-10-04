@@ -17,6 +17,7 @@ import { AppService } from './modules/app/services/apps.service';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { FieldModule } from './modules/maintenance/field/field.module';
 import { FieldGroupModule } from './modules/maintenance/field-group/field-group.module';
+import { IndicatorModule } from './modules/indicator/indicator.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { FieldGroupModule } from './modules/maintenance/field-group/field-group.
     MessageModule,
     RecordModule,
     AppsModule,
+    IndicatorModule,
     AnalyticsModule,
   ],
   controllers: [],
