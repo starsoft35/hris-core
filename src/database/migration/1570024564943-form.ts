@@ -15,10 +15,10 @@ export class form1570024564943 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "hypertext" text'); 
         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "uid" text');
        
-        await queryRunner.query('ALTER TABLE "hris_formsection_fieldmembers" RENAME TO "formsectionfieldmembers"');
-        await queryRunner.query('ALTER TABLE "formsectionfieldmembers" RENAME COLUMN "formsection_id" TO "formsectionid"');
-        await queryRunner.query('ALTER TABLE "formsectionfieldmembers" RENAME COLUMN "field_id" TO "fieldid"');
-        await queryRunner.query('ALTER TABLE "formsectionfieldmembers" ADD COLUMN IF NOT EXISTS "sort" integer');
+        await queryRunner.query('ALTER TABLE "hris_formsection_fieldmembers" RENAME TO "formsectionfieldmember"');
+        await queryRunner.query('ALTER TABLE "formsectionfieldmember" RENAME COLUMN "formsection_id" TO "formsectionid"');
+        await queryRunner.query('ALTER TABLE "formsectionfieldmember" RENAME COLUMN "field_id" TO "fieldid"');
+        await queryRunner.query('ALTER TABLE "formsectionfieldmember" ADD COLUMN IF NOT EXISTS "sort" integer');
 
         await queryRunner.query('ALTER TABLE "hris_form_uniquerecordfields" RENAME TO "formuniquerecordfields"');
         await queryRunner.query('ALTER TABLE "formuniquerecordfields" RENAME COLUMN "form_id" TO "formid"');
@@ -44,10 +44,10 @@ export class form1570024564943 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childfield"');
         await queryRunner.query('ALTER TABLE "fieldrelation" ADD COLUMN IF NOT EXISTS "sort" integer');
 
-        await queryRunner.query('ALTER TABLE "hris_form_fieldmembers" RENAME TO "formfieldmembers"');
-        await queryRunner.query('ALTER TABLE "formfieldmembers" RENAME COLUMN "form_id" TO "formid"');
-        await queryRunner.query('ALTER TABLE "formfieldmembers" RENAME COLUMN "field_id" TO "fieldid"');
-        await queryRunner.query('ALTER TABLE "formfieldmembers" ADD COLUMN IF NOT EXISTS "sort" integer');
+        await queryRunner.query('ALTER TABLE "hris_form_fieldmembers" RENAME TO "formfieldmember"');
+        await queryRunner.query('ALTER TABLE "formfieldmember" RENAME COLUMN "form_id" TO "formid"');
+        await queryRunner.query('ALTER TABLE "formfieldmember" RENAME COLUMN "field_id" TO "fieldid"');
+        await queryRunner.query('ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "sort" integer');
 
         await queryRunner.query('ALTER TABLE "hris_fieldoption" RENAME TO "fieldoption"');
         await queryRunner.query('ALTER TABLE "fieldoption" RENAME COLUMN "id" TO "formid"');
@@ -118,6 +118,25 @@ export class form1570024564943 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "description" text');
         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "name" text');
         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "uid" text');
+
+        await queryRunner.query('ALTER TABLE "hris_fieldgroup_members" RENAME TO "fieldgroupmembers"');
+        await queryRunner.query('ALTER TABLE "fieldgroupmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"');
+        await queryRunner.query('ALTER TABLE "fieldgroupmembers" RENAME COLUMN "field_id" TO "fieldid"');
+
+        await queryRunner.query('ALTER TABLE "hris_fieldgroupset_members" RENAME TO "fieldgroupsetmembers"');
+        await queryRunner.query('ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroupset_id" TO "fieldgroupsetid"');
+        await queryRunner.query('ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"');
+
+        await queryRunner.query('ALTER TABLE "hris_fieldoptiongroup_members" RENAME TO "fieldoptiongroupmembers"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupid"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO "fieldoptionid"'); 
+        
+        await queryRunner.query('ALTER TABLE "hris_fieldoptiongroupset_members" RENAME TO "fieldoptiongroupsetmembers"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroupset_id" TO "fieldoptiongroupsetid"');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupid"');  
+
+        
+
  
     }
 }
