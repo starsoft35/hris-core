@@ -1,7 +1,7 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import { Form } from 'src/modules/form/entities/form.entity';
+import { Form } from '../../form/entities/form.entity';
 import { IndicatorGroup } from './indicatorgroup.entity';
-import { HRISBaseEntity } from 'src/core/entities/base-entity';
+import { HRISBaseEntity } from '../../../core/entities/base-entity';
 
 
 @Entity("indicator" ,{schema:"public" } )

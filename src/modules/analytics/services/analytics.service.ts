@@ -9,6 +9,27 @@ export class AnalyticsService{
     constructor(private connetion:Connection){
 
     }
+    async fetchAnalytics(dx: any, pe: any, ou: any) {
+        console.log(dx, pe, ou);
+        let analytics = { "headers": [{ "name": "dx", "column": "Data", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, { "name": "pe", "column": "Period", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, { "name": "value", "column": "Value", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "numerator", "column": "Numerator", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "denominator", "column": "Denominator", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "factor", "column": "Factor", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "multiplier", "column": "Multiplier", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "divisor", "column": "Divisor", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }], "rows": [["tZB19wNXPl1", "201811", "23706.0", "", "", "", "", ""], ["tZB19wNXPl1", "201812", "23706.0", "", "", "", "", ""], ["tZB19wNXPl1", "201810", "23706.0", "", "", "", "", ""]], "height": 3, "width": 8 };
+        for (let id of dx){
+            let [formuid, indicatoruid] = id.split('.');
+            let query = 'SELECT * FROM indicator WHERE uid =\'' + indicatoruid + '\';';
+            let indicators = await this.connetion.manager.query(query);
+
+            query = 'SELECT level FROM organisationunitlevel';
+            let orglevels = await this.connetion.manager.query(query);
+            let levelquery = orglevels.map((orglevel) => "ous.uidlevel" + orglevel.level + " IN ('" + ou.join("','") + "')");
+
+
+            query = "SELECT " + indicators[0].expression + " FROM _resource_table_" + formuid + " data " +
+                "INNER JOIN _orgunitstructure ous ON(ous.uid = data.ou AND (" + levelquery.join(" OR ") + ")) " 
+                //+ 'INNER JOIN _periodstructure pes ON(' + periodquery.join(' OR ') + ')';
+                console.log(query);
+            return await this.connetion.manager.query(query);
+        }
+        throw new Error('Method not implemented.');
+    }
     async generateAnalyticsTables(){
         let forms:any = await this.connetion.manager.query('SELECT formid,uid,title FROM form');
         for(const form of forms){
@@ -150,56 +171,30 @@ export class AnalyticsService{
                 );
             }
         }
-        /*let date = new Date();
-        console.log('Format:', format(date, "'Today is a' Q"));
-        console.log('Format:', format(date, "'Today is a' I"));
-        await this.connetion.manager.query('INSERT INTO _periodstructure(iso, daysno, startdate, enddate)VALUES'+
-        //Monthly
-            '(\'' + date.getFullYear() + '' + format(date, "MM") + '\', ' + getDaysInMonth(date) + ', \'' + startOfMonth(date).toISOString() + '\', \'' + endOfMonth(date).toISOString()+ '\'),' +
-        //Bi-Monthly
-            '(\'' + date.getFullYear() + '0' + Math.ceil(parseInt(format(date, "MM")) / 2) + 'B\', ' + getDaysInMonth(date) + ', \'' 
-            + (date.getMonth() % 2 === 0 ? startOfMonth(date).toISOString() : startOfMonth(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate())).toISOString()) + '\', \'' 
-            + (date.getMonth() % 2 === 0 ? endOfMonth(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate())).toISOString() : endOfMonth(date).toISOString()) + '\'),' +
-        //Quarterly
-            '(\'' + date.getFullYear() + 'Q' + format(date, "Q") + '\', ' + differenceInDays(endOfQuarter(date), startOfQuarter(date)) + ', \'' + startOfQuarter(date).toISOString() + '\', \'' + endOfQuarter(date).toISOString() + '\'),' +
-        //Yearly
-            '(\'' + date.getFullYear() + '\', ' + getDaysInYear(date) + ', \'' + startOfYear(date).toISOString() + '\', \'' + endOfYear(date).toISOString() + '\'),' +
-        //Weekly
-            '(\'' + date.getFullYear() + 'W' + format(date, "ww") + '\',7, \'' + startOfWeek(date).toISOString() + '\', \'' + endOfWeek(date).toISOString() + '\')' +
-            ' ON CONFLICT ON CONSTRAINT _periodstructure_temp_pkey DO NOTHING;'
-        );*/
         return [];
     }
-    async getAnalyticsRecords(formid, ou, pe){
-        let analytics =  { "headers": 
-        [
-            { "name": "psi", "column": "Event", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, 
-            { "name": "ps", "column": "Program stage", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, 
-            { "name": "eventdate", "column": "Event date", "valueType": "DATE", "type": "java.util.Date", "hidden": false, "meta": true }, 
-            { "name": "longitude", "column": "Longitude", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": true }, 
-            { "name": "latitude", "column": "Latitude", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": true }, 
-            { "name": "ouname", "column": "Organisation unit name", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, 
-            { "name": "oucode", "column": "Organisation unit code", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, 
-            { "name": "ou", "column": "Organisation unit", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, 
-            { "name": "JDaH0BmEXvj", "column": "Infant Mortality Rate", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": true }], 
-            "metaData": { "pager": { "page": 1, "total": 0, "pageSize": 100, "pageCount": 1 }, 
-            "items": { "ou": { "name": "Organisation unit" }, "mlDzRw3ibhE": { "name": "Single-Event Death Registry" }, 
-            "m0frOspS7JY": { "name": "MOH - Tanzania" } }, 
-            "dimensions": { "pe": [], "ou": ["m0frOspS7JY"], "JDaH0BmEXvj": [] } }, 
+    async getAnalyticsRecords(formid, ou, pe, otherDimensions){
+        let analytics =  { "headers":[], 
+            "metaData": {
+                "items": {
+                    "ou": { "name": "Organisation unit" }, "pe": { "name": "Period" },}, 
+            "dimensions": { "pe": [], "ou": [] } }, 
             "rows": [], 
             "height": 0, 
             "width": 0 };
-        let query = 'SELECT field.uid,field.name FROM field INNER JOIN formfieldmembers USING(fieldid) INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.uid =\'' + formid + '\');';
+        let query = 'SELECT field.uid,field.caption FROM field INNER JOIN formfieldmembers USING(fieldid) INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.uid =\'' + formid + '\');';
         let fields = await this.connetion.manager.query(query);
         fields.forEach((field)=> {
-            
-            analytics.metaData.items[field.uid] = {"name":field.name};
+            //console.log(field);
+            if (Object.keys(otherDimensions).indexOf(field.uid) > -1){
+                analytics.metaData.items[field.uid] = { "name": field.caption };
+            }
         })
         // Dealing with headers
         let headers = await this.connetion.manager.query('SELECT columns.table_name,columns.column_name,'+
             'columns.data_type, columns.column_default, columns.is_nullable FROM information_schema.columns' +
             ' WHERE table_name = \'_resource_table_' + formid +'\'');
-        let allowedColumns = ['uid','ou']
+        let allowedColumns = ['uid', 'ou'].concat(Object.keys(otherDimensions));
         analytics.headers = headers.filter((header)=>{
             return allowedColumns.indexOf(header.column_name) > -1
         })
@@ -219,9 +214,10 @@ export class AnalyticsService{
         let periodquery = pe.map((p) =>{
 
             let split = p.split('-');
+            analytics.metaData.dimensions.pe.push(split[1]);
             return '(data."' + split[0] + '"  BETWEEN pes.startdate AND pes.enddate AND pes.iso=\'' + split[1] +'\')';
         })
-        query = "SELECT data.* FROM _resource_table_" + formid + " data " +
+        query = "SELECT " + allowedColumns.map((column)=>'data."' + column + '"')+ " FROM _resource_table_" + formid + " data " +
             "INNER JOIN _orgunitstructure ous ON(ous.uid = data.ou AND " + levelquery.join(" OR ")+") " +
             'INNER JOIN _periodstructure pes ON(' + periodquery.join(' OR ') +')';
         console.log(query);
@@ -234,6 +230,14 @@ export class AnalyticsService{
             })
             return newRow;
         });
+        query = "SELECT ou.uid,ou.longname FROM  organisationunit ou WHERE (" + ou.map((o) => "ou.uid = '" +o+ "'").join(" OR ") + ") ";
+        console.log(query);
+        let organisationunits = await this.connetion.manager.query(query);
+        organisationunits.forEach((orgUnit) => {
+            analytics.metaData.items[orgUnit.uid] = orgUnit.longname;
+            analytics.metaData.dimensions.ou.push(orgUnit.uid);
+        })
+        console.log('organisationunits:', organisationunits);
         return analytics;
     }
     getGenericType(type){
