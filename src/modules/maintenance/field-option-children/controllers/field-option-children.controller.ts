@@ -5,9 +5,9 @@ import { BaseController } from 'src/core/controllers/base.contoller';
 
 @Controller('api/' + FieldOptionChildren.plural)
 export class FieldOptionChildrenController extends BaseController<
-    FieldOptionChildren
+FieldOptionChildren
 > {
-    constructor(service: FieldOptionChildrenService) {
-        super(service, FieldOptionChildren);
+    constructor(fieldOptionChildrenService: FieldOptionChildrenService) {
+        super(fieldOptionChildrenService, FieldOptionChildren);
     }
 }
