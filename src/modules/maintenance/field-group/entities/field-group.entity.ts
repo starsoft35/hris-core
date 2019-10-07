@@ -6,11 +6,14 @@ import { Field } from '../../field/entities/field.entity';
 
 @Entity('fieldgroup', { schema: 'public' })
 export class FieldGroup extends EntityCoreProps {
-
   static plural = 'fieldGroups';
 
   @ManyToMany(type => Field, field => field.fieldGroups, { nullable: false })
-  @JoinTable({ name: 'fieldgroupmembers' })
+  @JoinTable({
+    name: 'fieldgroupmembers',
+    joinColumn: { referencedColumnName: 'uid' },
+    inverseJoinColumn: { referencedColumnName: 'uid' },
+  })
   fields: Field[];
 
   @ManyToMany(type => FieldGroupSet, fieldGroupSet => fieldGroupSet.fieldGroups)

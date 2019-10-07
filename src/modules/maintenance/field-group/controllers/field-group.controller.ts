@@ -4,10 +4,8 @@ import { FieldGroupService } from '../services/field-group.service';
 import { BaseController } from 'src/core/controllers/base.contoller';
 
 @Controller('api/' + FieldGroup.plural)
-export class FieldGroupController extends BaseController<
-    FieldGroup
-> {
-    constructor(service: FieldGroupService) {
-        super(service, FieldGroup);
+export class FieldGroupController extends BaseController<FieldGroup> {
+    constructor(fieldGroupService: FieldGroupService) {
+        super(fieldGroupService, FieldGroup);
     }
 }

@@ -5,7 +5,7 @@ import { Field } from '../entities/field.entity';
 
 @Controller('api/' + Field.plural)
 export class FieldController extends BaseController<Field> {
-    constructor(service: FieldService) {
-        super(service, Field);
+    constructor(fieldService: FieldService) {
+        super(fieldService, Field);
     }
 }
