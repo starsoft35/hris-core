@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class FieldInputTypeService extends BaseService<FieldInputType> {
     constructor(
         @InjectRepository(FieldInputType)
-        repository: Repository<FieldInputType>,
+        fieldInputTypeRepository: Repository<FieldInputType>,
     ) {
-        super(repository, FieldInputType);
+        super(fieldInputTypeRepository, FieldInputType);
     }
 }

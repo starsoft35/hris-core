@@ -4,11 +4,8 @@ import { FieldInputType } from '../entities/field-input-type.entity';
 import { FieldInputTypeService } from '../services/field-input-type.service';
 
 @Controller('api/' + FieldInputType.plural)
-export class FieldInputTypeController extends BaseController<
-    FieldInputType
-> {
-    constructor(service: FieldInputTypeService) {
-        super(service, FieldInputType);
+export class FieldInputTypeController extends BaseController<FieldInputType> {
+    constructor(fieldInputTypeService: FieldInputTypeService) {
+        super(fieldInputTypeService, FieldInputType);
     }
 }
-

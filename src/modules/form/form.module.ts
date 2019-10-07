@@ -3,7 +3,7 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FieldGroupService } from '../maintenance/field-group/services/field-group.service';
 import { FieldGroupSetService } from './services/field-groupset.service';
-import { FieldInputTypeService } from './services/field-input-type.service';
+import { FieldInputTypeService } from '../maintenance/field-input-type/services/field-input-type.service';
 import { FieldDataTypeService } from './services/field-data-type.service';
 import { FieldOptionService } from '../maintenance/field-option/services/field-option.service';
 import { FieldOptionChildrenService } from './services/field-option-children.service';
@@ -19,7 +19,7 @@ import { FormSectionFieldMemberService } from './services/formsection-fieldmembe
 import { FieldDatatypeController } from './controllers/field-datatype.controller';
 import { FieldGroupController } from '../maintenance/field-group/controllers/field-group.controller';
 import { FieldGroupSetController } from './controllers/field-groupset.controller';
-import { FieldInputTypeController } from './controllers/field-input-type.controller';
+import { FieldInputTypeController } from '../maintenance/field-input-type/controllers/field-input-type.controller';
 import { FieldOptionChildrenController } from './controllers/field-option-children.controller';
 import { FieldOptionGroupController } from './controllers/field-option-group.controller';
 import { FieldOptionGroupSetController } from './controllers/field-option-groupset.controller';
@@ -34,7 +34,7 @@ import { FormSectionFieldMemberController } from './controllers/formsection-fiel
 import { FieldDataType } from './entities/field-datatype.entity';
 import { FieldGroup } from '../maintenance/field-group/entities/field-group.entity';
 import { FieldGroupSet } from './entities/field-groupset.entity';
-import { FieldInputType } from './entities/field-input-type.entity';
+import { FieldInputType } from '../maintenance/field-input-type/entities/field-input-type.entity';
 import { FieldOptionChildren } from './entities/field-option-children.entity';
 import { FieldOptionGroup } from './entities/field-option-group.entity';
 import { FieldOptionGroupSet } from './entities/field-option-groupset.entity';
@@ -54,12 +54,10 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
       FieldDataType,
       FieldGroup,
       FieldGroupSet,
-      FieldInputType,
       FieldOptionChildren,
       FieldOptionGroup,
       FieldOptionGroupSet,
       FieldOptionMerge,
-      FieldOption,
       FieldRelation,
       FormFieldMember,
       FormSection,
@@ -72,7 +70,6 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
     FieldDatatypeController,
     FieldGroupController,
     FieldGroupSetController,
-    FieldInputTypeController,
     FieldOptionChildrenController,
     FieldOptionGroupController,
     FieldOptionGroupSetController,
