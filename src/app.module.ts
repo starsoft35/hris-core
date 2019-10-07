@@ -24,6 +24,10 @@ import { FieldInputTypeModule } from './modules/maintenance/field-input-type/fie
 import { FieldDataTypeModule } from './modules/maintenance/field-data-type/field-data-type.module';
 import { FieldGroupSetModule } from './modules/maintenance/field-group-set/field-group-set.module';
 import { FieldOptionGroupModule } from './modules/maintenance/field-option-group/field-option-group.module';
+import { FieldOptionMergeModule } from './modules/maintenance/field-option-merge/field-option-merge.module';
+import { FieldOptionChildrenModule } from './modules/maintenance/field-option-children/field-option-children.module';
+import { FieldOptionGroupSetModule } from './modules/maintenance/field-option-group-set/field-option-group-set.module';
+import { FieldRelationModule } from './modules/maintenance/field-relation/field-relation.module';
 
 @Module({
   imports: [
@@ -33,12 +37,17 @@ import { FieldOptionGroupModule } from './modules/maintenance/field-option-group
 
     // START: Field Modules
     FieldModule,
-    FieldOptionModule,
     FieldDataTypeModule,
+    FieldGroupModule,
     FieldGroupSetModule,
     FieldInputTypeModule,
+    FieldOptionModule,
+    FieldOptionChildrenModule,
     FieldOptionGroupModule,
-    FieldGroupModule,
+    FieldOptionGroupSetModule,
+    FieldOptionMergeModule,
+    FieldRelationModule
+    ,
     // END: Field Modules
 
     // START: User Modules

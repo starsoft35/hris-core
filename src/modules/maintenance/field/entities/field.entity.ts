@@ -13,7 +13,7 @@ import { FieldInputType } from '../../field-input-type/entities/field-input-type
 import { FieldOptionGroup } from '../../field-option-group/entities/field-option-group.entity';
 import { FieldOptionMerge } from '../../field-option-merge/entities/field-option-merge.entity';
 import { FieldOption } from '../../field-option/entities/field-option.entity';
-import { FieldRelation } from '../../../form/entities/field-relation.entity';
+import { FieldRelation } from '../../field-relation/entities/field-relation.entity';
 import { FormFieldMember } from '../../../form/entities/form-field-member.entity';
 import { FormVisibleField } from '../../../form/entities/form-visible-fields.entity';
 import { Form } from '../../../form/entities/form.entity';
