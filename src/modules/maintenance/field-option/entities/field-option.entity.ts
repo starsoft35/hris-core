@@ -16,7 +16,7 @@ import { FieldOptionGroup } from '../../../form/entities/field-option-group.enti
 export class FieldOption extends EntityCoreProps {
   static plural = 'fieldOptions';
 
-  @Column({ type: 'varchar', length: 64 })
+  @Column({ type: 'varchar', length: 64, nullable: true })
   value: string;
 
   @Column({ type: 'boolean', nullable: true })

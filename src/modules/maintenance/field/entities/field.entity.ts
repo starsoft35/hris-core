@@ -45,6 +45,9 @@ export class Field extends EntityCoreProps {
   @Column({ type: 'boolean', nullable: true })
   hasHistory: boolean | null;
 
+  @Column({ type: 'boolean', nullable: false, default: false })
+  hasOptions: boolean | null;
+
   @Column({ type: 'boolean', nullable: true })
   hasTarget: boolean | null;
 
