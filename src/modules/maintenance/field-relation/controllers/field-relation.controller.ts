@@ -5,7 +5,7 @@ import { FieldRelationService } from '../services/field-relation.service';
 
 @Controller('api/' + FieldRelation.plural)
 export class FieldRelationController extends BaseController<FieldRelation> {
-    constructor(service: FieldRelationService) {
-        super(service, FieldRelation);
+    constructor(fieldRelationService: FieldRelationService) {
+        super(fieldRelationService, FieldRelation);
     }
 }

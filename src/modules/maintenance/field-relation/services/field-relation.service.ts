@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class FieldRelationService extends BaseService<FieldRelation> {
     constructor(
         @InjectRepository(FieldRelation)
-        repository: Repository<FieldRelation>,
+        fieldRelationRepository: Repository<FieldRelation>,
     ) {
-        super(repository, FieldRelation);
+        super(fieldRelationRepository, FieldRelation);
     }
 }
