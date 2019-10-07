@@ -9,7 +9,7 @@ import {
 
 import { FieldDataType } from '../../../form/entities/field-datatype.entity';
 import { FieldGroup } from '../../field-group/entities/field-group.entity';
-import { FieldInputType } from '../../../form/entities/field-input-type.entity';
+import { FieldInputType } from '../../field-input-type/entities/field-input-type.entity';
 import { FieldOptionGroup } from '../../../form/entities/field-option-group.entity';
 import { FieldOptionMerge } from '../../../form/entities/field-option-merge.entity';
 import { FieldOption } from '../../field-option/entities/field-option.entity';
@@ -71,12 +71,6 @@ export class Field extends EntityCoreProps {
   @JoinColumn({ name: 'datatypeid' })
   dataType: FieldDataType | null;
 
-  @ManyToOne(type => FieldInputType, fieldInputType => fieldInputType.fields, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'inputtypeid' })
-  inputType: FieldInputType | null;
-
   @OneToMany(type => FieldRelation, fieldRelation => fieldRelation.childField, {
     onDelete: 'CASCADE',
   })
@@ -99,6 +93,18 @@ export class Field extends EntityCoreProps {
     onDelete: 'CASCADE',
   })
   fieldOptions: FieldOption[];
+
+  /**
+   * Many To One Relationship: Field and FieldInputType
+   */
+  @ManyToOne(type => FieldInputType, fieldInputType => fieldInputType.fields, {
+    cascade: true,
+    eager: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ referencedColumnName: 'uid' })
+  fieldInputType: FieldInputType;
 
   @OneToMany(
     type => FieldOptionGroup,

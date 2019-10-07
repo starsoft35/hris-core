@@ -20,16 +20,18 @@ import { UserGroupModule } from './modules/system/user-group/user-group.module';
 import { UserAuthorityModule } from './modules/system/user-authority/user-authority.module';
 import { UserModule } from './modules/system/user/user.module';
 import { FieldOptionModule } from './modules/maintenance/field-option/field-option.module';
+import { FieldInputTypeModule } from './modules/maintenance/field-input-type/field-input-type.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(getDataBaseConfiguration()),
     OrganisatinUnitModule,
-    FormModule,
+    // FormModule,
 
     // START: Field Modules
     FieldModule,
     FieldOptionModule,
+    FieldInputTypeModule,
     FieldGroupModule,
     // END: Field Modules
 
