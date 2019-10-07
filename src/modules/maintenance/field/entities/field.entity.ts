@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { FieldDataType } from '../../../form/entities/field-datatype.entity';
+import { FieldDataType } from '../../field-data-type/entities/field-datatype.entity';
 import { FieldGroup } from '../../field-group/entities/field-group.entity';
 import { FieldInputType } from '../../field-input-type/entities/field-input-type.entity';
 import { FieldOptionGroup } from '../../../form/entities/field-option-group.entity';
@@ -68,11 +68,17 @@ export class Field extends EntityCoreProps {
   })
   fieldGroups: FieldGroup[];
 
+  /**
+   * Many To One Relationship: Field and FieldGroup
+   */
   @ManyToOne(type => FieldDataType, fieldDataType => fieldDataType.fields, {
+    cascade: true,
+    eager: true,
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'datatypeid' })
-  dataType: FieldDataType | null;
+  @JoinColumn({ referencedColumnName: 'uid' })
+  dataType: FieldDataType;
 
   @OneToMany(type => FieldRelation, fieldRelation => fieldRelation.childField, {
     onDelete: 'CASCADE',

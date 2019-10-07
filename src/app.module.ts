@@ -21,6 +21,7 @@ import { UserAuthorityModule } from './modules/system/user-authority/user-author
 import { UserModule } from './modules/system/user/user.module';
 import { FieldOptionModule } from './modules/maintenance/field-option/field-option.module';
 import { FieldInputTypeModule } from './modules/maintenance/field-input-type/field-input-type.module';
+import { FieldDataTypeModule } from './modules/maintenance/field-data-type/field-data-type.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { FieldInputTypeModule } from './modules/maintenance/field-input-type/fie
     // START: Field Modules
     FieldModule,
     FieldOptionModule,
+    FieldDataTypeModule,
     FieldInputTypeModule,
     FieldGroupModule,
     // END: Field Modules
