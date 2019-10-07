@@ -8,8 +8,8 @@ import { FieldDataType } from '../entities/field-datatype.entity';
 export class FieldDataTypeService extends BaseService<FieldDataType> {
     constructor(
         @InjectRepository(FieldDataType)
-        repository: Repository<FieldDataType>,
+        fieldDataTypeRepository: Repository<FieldDataType>,
     ) {
-        super(repository, FieldDataType);
+        super(fieldDataTypeRepository, FieldDataType);
     }
 }
