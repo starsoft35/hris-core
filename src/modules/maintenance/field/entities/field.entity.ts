@@ -55,8 +55,8 @@ export class Field extends EntityCoreProps {
   skipInReport: boolean | null;
 
   /*
-  * Field and Field Group Relation
-  */
+   * Field and Field Group Relation
+   */
   @ManyToMany(type => FieldGroup, fieldGroup => fieldGroup.fields, {
     eager: true,
     cascade: true,
@@ -89,7 +89,13 @@ export class Field extends EntityCoreProps {
   )
   parentFieldRelations: FieldRelation[];
 
+  /**
+   * One To Many Relationship: Field and FieldOption
+   */
   @OneToMany(type => FieldOption, fieldOption => fieldOption.field, {
+    cascade: true,
+    eager: true,
+    onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
   fieldOptions: FieldOption[];

@@ -16,37 +16,24 @@ import { FieldOptionGroup } from '../../../form/entities/field-option-group.enti
 export class FieldOption extends EntityCoreProps {
   static plural = 'fieldOptions';
 
-  @ManyToOne(type => Field, field => field.fieldOptions, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ referencedColumnName: 'uid' })
-  field: Field | null;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'value',
-  })
+  @Column({ type: 'varchar', length: 64 })
   value: string;
 
-  @Column('boolean', {
-    nullable: true,
-    name: 'skipinreport',
-  })
-  skipInReport: boolean | null;
+  @Column({ type: 'boolean', nullable: true })
+  skipInReport: boolean;
 
-  @Column('integer', {
-    nullable: true,
-    name: 'sort',
-  })
-  sort: number | null;
+  @Column({ type: 'int', nullable: true, name: 'sort' })
+  sort: number;
 
-  @Column('boolean', {
-    nullable: true,
-    name: 'hastraining',
-  })
+  @Column({ type: 'boolean', nullable: true })
   hasTraining: boolean | null;
+
+  /**
+   * One To Many Relationship: Field and FieldOption
+   */
+  @ManyToOne(type => Field, field => field.fieldOptions)
+  @JoinColumn({ referencedColumnName: 'uid' })
+  field: Field;
 
   @OneToMany(
     type => FieldOptionMerge,
