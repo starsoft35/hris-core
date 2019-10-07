@@ -8,8 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class FieldGroupSetService extends BaseService<FieldGroupSet> {
     constructor(
         @InjectRepository(FieldGroupSet)
-        repository: Repository<FieldGroupSet>,
+        fieldGroupSetRepository: Repository<FieldGroupSet>,
     ) {
-        super(repository, FieldGroupSet);
+        super(fieldGroupSetRepository, FieldGroupSet);
     }
 }
