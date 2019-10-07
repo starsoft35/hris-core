@@ -10,7 +10,6 @@ import { MessageModule } from './modules/message/message.module';
 import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-unit.module';
 import { ReportModule } from './modules/report/report.module';
 import { TrainingModule } from './modules/training/training.module';
-import { UserModule } from './modules/user/user.module';
 import { RecordModule } from './modules/record/record.module';
 import { AppsModule } from './modules/app/apps.module';
 import { AppService } from './modules/app/services/apps.service';
@@ -19,16 +18,18 @@ import { FieldGroupModule } from './modules/maintenance/field-group/field-group.
 import { UserRoleModule } from './modules/system/user-role/user-role.module';
 import { UserGroupModule } from './modules/system/user-group/user-group.module';
 import { UserAuthorityModule } from './modules/system/user-authority/user-authority.module';
+import { UserModule } from './modules/system/user/user.module';
+import { FieldOptionModule } from './modules/maintenance/field-option/field-option.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(getDataBaseConfiguration()),
-    UserModule,
     OrganisatinUnitModule,
     FormModule,
 
     // START: Field Modules
     FieldModule,
+    FieldOptionModule,
     FieldGroupModule,
     // END: Field Modules
 

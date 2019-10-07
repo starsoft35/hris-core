@@ -8,27 +8,19 @@ import {
   ManyToMany,
 } from 'typeorm';
 
-import { FieldOptionMerge } from './field-option-merge.entity';
-import { Field } from '../../maintenance/field/entities/field.entity';
-import { FieldOptionGroup } from './field-option-group.entity';
+import { FieldOptionMerge } from '../../../form/entities/field-option-merge.entity';
+import { Field } from '../../field/entities/field.entity';
+import { FieldOptionGroup } from '../../../form/entities/field-option-group.entity';
 
 @Entity('fieldoption', { schema: 'public' })
 export class FieldOption extends EntityCoreProps {
-
   static plural = 'fieldOptions';
-
-  @Column('integer', {
-    nullable: false,
-    primary: true,
-    name: 'fieldoptionid',
-  })
-  id: number;
 
   @ManyToOne(type => Field, field => field.fieldOptions, {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'fieldid' })
+  @JoinColumn({ referencedColumnName: 'uid' })
   field: Field | null;
 
   @Column('character varying', {

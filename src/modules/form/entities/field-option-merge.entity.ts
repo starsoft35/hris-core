@@ -1,7 +1,7 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { FieldOption } from './field-option.entity';
+import { FieldOption } from '../../maintenance/field-option/entities/field-option.entity';
 import { Field } from '../../maintenance/field/entities/field.entity';
 
 @Entity('fieldoptionmerge', { schema: 'public' })
