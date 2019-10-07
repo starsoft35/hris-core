@@ -1,11 +1,10 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { FieldOption } from '../../maintenance/field-option/entities/field-option.entity';
+import { FieldOption } from '../../field-option/entities/field-option.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('fieldoptionchildren', { schema: 'public' })
 export class FieldOptionChildren extends EntityCoreProps {
-
   static plural = 'fieldOptionChildren';
 
   @ManyToOne(type => FieldOption, fieldOption => fieldOption.id, {
@@ -13,14 +12,14 @@ export class FieldOptionChildren extends EntityCoreProps {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'parentfieldoption' })
-  fieldOption: FieldOption | null;
+  @JoinColumn({ referencedColumnName: 'uid' })
+  parentFieldOption: FieldOption;
 
   @ManyToOne(type => FieldOption, fieldOption => fieldOption.id, {
     primary: true,
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'childfieldoption' })
-  childFieldOption: FieldOption | null;
+  @JoinColumn({ referencedColumnName: 'uid' })
+  childFieldOption: FieldOption;
 }
