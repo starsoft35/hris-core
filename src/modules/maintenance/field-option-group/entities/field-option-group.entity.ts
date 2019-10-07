@@ -10,7 +10,7 @@ import {
 
 import { FieldOption } from '../../field-option/entities/field-option.entity';
 import { Field } from '../../field/entities/field.entity';
-import { FieldOptionGroupSet } from '../../../form/entities/field-option-groupset.entity';
+import { FieldOptionGroupSet } from '../../field-option-group-set/entities/field-option-group-set.entity';
 
 @Entity('fieldoptiongroup', { schema: 'public' })
 export class FieldOptionGroup extends EntityCoreProps {
