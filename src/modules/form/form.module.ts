@@ -7,7 +7,7 @@ import { FieldInputTypeService } from '../maintenance/field-input-type/services/
 import { FieldDataTypeService } from '../maintenance/field-data-type/services/field-datatype.service';
 import { FieldOptionService } from '../maintenance/field-option/services/field-option.service';
 import { FieldOptionChildrenService } from './services/field-option-children.service';
-import { FieldOptionGroupService } from './services/field-option-group.service';
+import { FieldOptionGroupService } from '../maintenance/field-option-group/services/field-option-group.service';
 import { FieldOptionGroupSetService } from './services/field-option-groupset.service';
 import { FieldOptionMergeService } from './services/field-option-merge.service';
 import { FieldRelationService } from './services/field-relation.service';
@@ -21,7 +21,7 @@ import { FieldGroupController } from '../maintenance/field-group/controllers/fie
 import { FieldGroupSetController } from '../maintenance/field-group-set/controllers/field-groupset.controller';
 import { FieldInputTypeController } from '../maintenance/field-input-type/controllers/field-input-type.controller';
 import { FieldOptionChildrenController } from './controllers/field-option-children.controller';
-import { FieldOptionGroupController } from './controllers/field-option-group.controller';
+import { FieldOptionGroupController } from '../maintenance/field-option-group/controllers/field-option-group.controller';
 import { FieldOptionGroupSetController } from './controllers/field-option-groupset.controller';
 import { FieldOptionMergeController } from './controllers/field-option-merge.controller';
 import { FieldOptionController } from '../maintenance/field-option/controllers/field-option.controller';
@@ -36,7 +36,7 @@ import { FieldGroup } from '../maintenance/field-group/entities/field-group.enti
 import { FieldGroupSet } from '../maintenance/field-group-set/entities/field-groupset.entity';
 import { FieldInputType } from '../maintenance/field-input-type/entities/field-input-type.entity';
 import { FieldOptionChildren } from './entities/field-option-children.entity';
-import { FieldOptionGroup } from './entities/field-option-group.entity';
+import { FieldOptionGroup } from '../maintenance/field-option-group/entities/field-option-group.entity';
 import { FieldOptionGroupSet } from './entities/field-option-groupset.entity';
 import { FieldOptionMerge } from './entities/field-option-merge.entity';
 import { FieldOption } from '../maintenance/field-option/entities/field-option.entity';

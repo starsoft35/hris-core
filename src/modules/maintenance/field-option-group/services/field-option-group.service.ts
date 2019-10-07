@@ -8,8 +8,8 @@ import { Repository } from 'typeorm';
 export class FieldOptionGroupService extends BaseService<FieldOptionGroup> {
     constructor(
         @InjectRepository(FieldOptionGroup)
-        repository: Repository<FieldOptionGroup>,
+        fieldOptionGroupRepository: Repository<FieldOptionGroup>,
     ) {
-        super(repository, FieldOptionGroup);
+        super(fieldOptionGroupRepository, FieldOptionGroup);
     }
 }
