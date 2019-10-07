@@ -8,7 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { FieldOption } from './field-option.entity';
+import { FieldOption } from '../../maintenance/field-option/entities/field-option.entity';
 import { Field } from '../../maintenance/field/entities/field.entity';
 import { FieldOptionGroupSet } from './field-option-groupset.entity';
 

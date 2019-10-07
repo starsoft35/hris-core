@@ -19,6 +19,7 @@ import { UserRoleModule } from './modules/system/user-role/user-role.module';
 import { UserGroupModule } from './modules/system/user-group/user-group.module';
 import { UserAuthorityModule } from './modules/system/user-authority/user-authority.module';
 import { UserModule } from './modules/system/user/user.module';
+import { FieldOptionModule } from './modules/maintenance/field-option/field-option.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UserModule } from './modules/system/user/user.module';
 
     // START: Field Modules
     FieldModule,
+    FieldOptionModule,
     FieldGroupModule,
     // END: Field Modules
 

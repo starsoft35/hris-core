@@ -5,7 +5,7 @@ import { FieldGroupService } from '../maintenance/field-group/services/field-gro
 import { FieldGroupSetService } from './services/field-groupset.service';
 import { FieldInputTypeService } from './services/field-input-type.service';
 import { FieldDataTypeService } from './services/field-data-type.service';
-import { FieldOptionService } from './services/field-option.service';
+import { FieldOptionService } from '../maintenance/field-option/services/field-option.service';
 import { FieldOptionChildrenService } from './services/field-option-children.service';
 import { FieldOptionGroupService } from './services/field-option-group.service';
 import { FieldOptionGroupSetService } from './services/field-option-groupset.service';
@@ -24,7 +24,7 @@ import { FieldOptionChildrenController } from './controllers/field-option-childr
 import { FieldOptionGroupController } from './controllers/field-option-group.controller';
 import { FieldOptionGroupSetController } from './controllers/field-option-groupset.controller';
 import { FieldOptionMergeController } from './controllers/field-option-merge.controller';
-import { FieldOptionController } from './controllers/field-option.controller';
+import { FieldOptionController } from '../maintenance/field-option/controllers/field-option.controller';
 import { FieldRelationController } from './controllers/field-relation.controller';
 import { FormFieldMemberController } from './controllers/form-field-member.controller';
 import { FormSectionController } from './controllers/form-section.controller';
@@ -39,7 +39,7 @@ import { FieldOptionChildren } from './entities/field-option-children.entity';
 import { FieldOptionGroup } from './entities/field-option-group.entity';
 import { FieldOptionGroupSet } from './entities/field-option-groupset.entity';
 import { FieldOptionMerge } from './entities/field-option-merge.entity';
-import { FieldOption } from './entities/field-option.entity';
+import { FieldOption } from '../maintenance/field-option/entities/field-option.entity';
 import { FieldRelation } from './entities/field-relation.entity';
 import { FormFieldMember } from './entities/form-field-member.entity';
 import { FormSection } from './entities/form-section.entity';

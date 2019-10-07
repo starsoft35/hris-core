@@ -4,9 +4,7 @@ import { FieldOption } from '../entities/field-option.entity';
 import { FieldOptionService } from '../services/field-option.service';
 
 @Controller('api/' + FieldOption.plural)
-export class FieldOptionController extends BaseController<
-    FieldOption
-> {
+export class FieldOptionController extends BaseController<FieldOption> {
     constructor(service: FieldOptionService) {
         super(service, FieldOption);
     }
