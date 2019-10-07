@@ -5,9 +5,9 @@ import { BaseController } from 'src/core/controllers/base.contoller';
 
 @Controller('api/' + FieldOptionMerge.plural)
 export class FieldOptionMergeController extends BaseController<
-    FieldOptionMerge
+FieldOptionMerge
 > {
-    constructor(service: FieldOptionMergeService) {
-        super(service, FieldOptionMerge);
+    constructor(fieldOptionMergeService: FieldOptionMergeService) {
+        super(fieldOptionMergeService, FieldOptionMerge);
     }
 }
