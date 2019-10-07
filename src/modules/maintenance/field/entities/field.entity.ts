@@ -54,8 +54,8 @@ export class Field extends EntityCoreProps {
   @Column({ type: 'boolean', nullable: true, name: 'skipinreport' })
   skipInReport: boolean | null;
 
-  /*
-   * Field and Field Group Relation
+  /**
+   * Many To Many Relationship: Field and FieldGroup
    */
   @ManyToMany(type => FieldGroup, fieldGroup => fieldGroup.fields, {
     eager: true,
