@@ -10,7 +10,7 @@ import {
 
 import { FieldOptionMerge } from '../../../form/entities/field-option-merge.entity';
 import { Field } from '../../field/entities/field.entity';
-import { FieldOptionGroup } from '../../../form/entities/field-option-group.entity';
+import { FieldOptionGroup } from '../../field-option-group/entities/field-option-group.entity';
 
 @Entity('fieldoption', { schema: 'public' })
 export class FieldOption extends EntityCoreProps {
@@ -42,9 +42,13 @@ export class FieldOption extends EntityCoreProps {
   )
   fieldOptionMerges: FieldOptionMerge[];
 
+  /**
+   * One To Many Relationship: FieldOption and FieldOptionGroup
+   */
   @ManyToMany(
     type => FieldOptionGroup,
     fieldOptionGroup => fieldOptionGroup.fieldOptions,
+    { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
   )
   fieldOptionGroups: FieldOptionGroup[];
 }

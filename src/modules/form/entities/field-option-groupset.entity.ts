@@ -1,6 +1,6 @@
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
-import { FieldOptionGroup } from './field-option-group.entity';
+import { FieldOptionGroup } from '../../maintenance/field-option-group/entities/field-option-group.entity';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('fieldoptiongroupset', { schema: 'public' })

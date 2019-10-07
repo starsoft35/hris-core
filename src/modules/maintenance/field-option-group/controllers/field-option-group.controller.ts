@@ -5,9 +5,9 @@ import { FieldOptionGroupService } from '../services/field-option-group.service'
 
 @Controller('api/' + FieldOptionGroup.plural)
 export class FieldOptionGroupController extends BaseController<
-    FieldOptionGroup
+FieldOptionGroup
 > {
-    constructor(service: FieldOptionGroupService) {
-        super(service, FieldOptionGroup);
+    constructor(fieldOptionGroupService: FieldOptionGroupService) {
+        super(fieldOptionGroupService, FieldOptionGroup);
     }
 }

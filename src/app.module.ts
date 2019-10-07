@@ -22,6 +22,8 @@ import { UserModule } from './modules/system/user/user.module';
 import { FieldOptionModule } from './modules/maintenance/field-option/field-option.module';
 import { FieldInputTypeModule } from './modules/maintenance/field-input-type/field-input-type.module';
 import { FieldDataTypeModule } from './modules/maintenance/field-data-type/field-data-type.module';
+import { FieldGroupSetModule } from './modules/maintenance/field-group-set/field-group-set.module';
+import { FieldOptionGroupModule } from './modules/maintenance/field-option-group/field-option-group.module';
 
 @Module({
   imports: [
@@ -33,7 +35,9 @@ import { FieldDataTypeModule } from './modules/maintenance/field-data-type/field
     FieldModule,
     FieldOptionModule,
     FieldDataTypeModule,
+    FieldGroupSetModule,
     FieldInputTypeModule,
+    FieldOptionGroupModule,
     FieldGroupModule,
     // END: Field Modules
 
