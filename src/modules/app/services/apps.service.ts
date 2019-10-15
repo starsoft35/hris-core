@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService extends BaseService<App> {
+export class AppsService extends BaseService<App> {
     constructor(
         @InjectRepository(App)
         public appsRepository: Repository<App>,

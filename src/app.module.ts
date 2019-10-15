@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Connection } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 
 import { AppController } from './app.controller';
 import { getDataBaseConfiguration } from './core/utilities/configuration';
@@ -27,12 +27,14 @@ import { FieldOptionChildrenModule } from './modules/maintenance/field-option-ch
 import { FieldOptionGroupSetModule } from './modules/maintenance/field-option-group-set/field-option-group-set.module';
 import { FieldRelationModule } from './modules/maintenance/field-relation/field-relation.module';
 import { AppsModule } from './modules/app/apps.module';
-import { AppService } from './modules/app/services/apps.service';
+import { AppsService } from './modules/app/services/apps.service';
+import { AppsController } from './modules/app/controllers/apps.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(getDataBaseConfiguration()),
     AppsModule,
+    Repository,
+    TypeOrmModule.forRoot(getDataBaseConfiguration()),
     OrganisatinUnitModule,
     // FormModule,
 
@@ -64,8 +66,8 @@ import { AppService } from './modules/app/services/apps.service';
     MessageModule,
     RecordModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AppsController],
+  providers: [AppsService],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) {}
