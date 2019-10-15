@@ -1,6 +1,6 @@
 import { BaseController } from '../../../core/controllers/base.contoller';
 import { App } from '../entities/apps.entity';
-import { AppsService } from '../services/apps.service';
+import { AppService } from '../services/apps.service';
 import {
     Controller,
     Get,
@@ -22,7 +22,7 @@ import { Request, Response } from 'express';
 
 @Controller('api/' + App.plural)
 export class AppsController extends BaseController<App> {
-    constructor(private service: AppsService) {
+    constructor(private service: AppService) {
         super(service, App);
     }
 

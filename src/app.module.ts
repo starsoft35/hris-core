@@ -27,6 +27,7 @@ import { FieldOptionChildrenModule } from './modules/maintenance/field-option-ch
 import { FieldOptionGroupSetModule } from './modules/maintenance/field-option-group-set/field-option-group-set.module';
 import { FieldRelationModule } from './modules/maintenance/field-relation/field-relation.module';
 import { AppsModule } from './modules/app/apps.module';
+import { AppService } from './modules/app/services/apps.service';
 
 @Module({
   imports: [
@@ -64,9 +65,7 @@ import { AppsModule } from './modules/app/apps.module';
     RecordModule,
   ],
   controllers: [AppController],
-  // ToDo: Verify AppService import correctness
-  // providers: [AppService],
-  providers: [],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) {}
