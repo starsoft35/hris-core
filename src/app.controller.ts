@@ -1,5 +1,5 @@
 import { Get, Controller, Render, Req, Res, Param } from '@nestjs/common';
-import { AppsService } from './modules/app/services/apps.service';
+import { AppService } from './modules/app/services/apps.service';
 
 @Controller()
 export class AppController {
@@ -8,7 +8,7 @@ export class AppController {
    *
    * @param appService
    */
-  constructor(private readonly appService: AppsService) {}
+  constructor(private readonly appService: AppService) {}
 
   /**
    *
