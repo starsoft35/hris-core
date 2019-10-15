@@ -11,7 +11,6 @@ import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-
 import { ReportModule } from './modules/report/report.module';
 import { TrainingModule } from './modules/training/training.module';
 import { RecordModule } from './modules/record/record.module';
-import { AppsModule } from './modules/app/apps.module';
 import { AppService } from './modules/app/services/apps.service';
 import { FieldModule } from './modules/maintenance/field/field.module';
 import { FieldGroupModule } from './modules/maintenance/field-group/field-group.module';
@@ -28,6 +27,7 @@ import { FieldOptionMergeModule } from './modules/maintenance/field-option-merge
 import { FieldOptionChildrenModule } from './modules/maintenance/field-option-children/field-option-children.module';
 import { FieldOptionGroupSetModule } from './modules/maintenance/field-option-group-set/field-option-group-set.module';
 import { FieldRelationModule } from './modules/maintenance/field-relation/field-relation.module';
+import { AppsModule } from './modules/app/apps.module';
 
 @Module({
   imports: [
@@ -65,7 +65,9 @@ import { FieldRelationModule } from './modules/maintenance/field-relation/field-
     RecordModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  // ToDo: Verify if this import is correct
+  // providers: [AppService],
+  providers: [],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) {}
