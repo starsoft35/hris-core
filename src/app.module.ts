@@ -32,6 +32,7 @@ import { FieldRelationModule } from './modules/maintenance/field-relation/field-
 @Module({
   imports: [
     TypeOrmModule.forRoot(getDataBaseConfiguration()),
+    AppsModule,
     OrganisatinUnitModule,
     // FormModule,
 
@@ -62,7 +63,6 @@ import { FieldRelationModule } from './modules/maintenance/field-relation/field-
     TrainingModule,
     MessageModule,
     RecordModule,
-    AppsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
