@@ -50,8 +50,7 @@ import { AppService } from './app.service';
     FieldOptionGroupModule,
     FieldOptionGroupSetModule,
     FieldOptionMergeModule,
-    FieldRelationModule
-    ,
+    FieldRelationModule,
     // END: Field Modules
 
     // START: User Modules
@@ -67,9 +66,12 @@ import { AppService } from './app.service';
     MessageModule,
     RecordModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  // ToDO: Re-check these import statement
+  // controllers: [AppController],
+  // providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) {}
+  constructor(private readonly connection: Connection) { }
 }
