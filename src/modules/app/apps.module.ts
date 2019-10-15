@@ -10,7 +10,7 @@ import { AppsService } from './services/apps.service';
     PassportModule.register({ defaultStrategy: 'basic', session: true }),
     TypeOrmModule.forFeature([App]),
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppsController],
+  providers: [AppsService],
 })
 export class AppsModule {}

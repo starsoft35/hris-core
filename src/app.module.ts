@@ -29,6 +29,7 @@ import { FieldRelationModule } from './modules/maintenance/field-relation/field-
 import { AppsModule } from './modules/app/apps.module';
 import { AppsService } from './modules/app/services/apps.service';
 import { AppsController } from './modules/app/controllers/apps.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -66,8 +67,8 @@ import { AppsController } from './modules/app/controllers/apps.controller';
     MessageModule,
     RecordModule,
   ],
-  controllers: [AppController, AppsController],
-  providers: [AppsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) {}
