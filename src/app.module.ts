@@ -11,7 +11,6 @@ import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-
 import { ReportModule } from './modules/report/report.module';
 import { TrainingModule } from './modules/training/training.module';
 import { RecordModule } from './modules/record/record.module';
-import { AppService } from './modules/app/services/apps.service';
 import { FieldModule } from './modules/maintenance/field/field.module';
 import { FieldGroupModule } from './modules/maintenance/field-group/field-group.module';
 import { UserRoleModule } from './modules/system/user-role/user-role.module';
@@ -65,7 +64,7 @@ import { AppsModule } from './modules/app/apps.module';
     RecordModule,
   ],
   controllers: [AppController],
-  // ToDo: Verify if this import is correct
+  // ToDo: Verify AppService import correctness
   // providers: [AppService],
   providers: [],
 })
