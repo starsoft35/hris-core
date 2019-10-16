@@ -3,22 +3,12 @@ import { Column } from 'typeorm';
 import { EntityCoreProps } from './entity-core-props';
 
 export class NamedIdentifiableObject extends EntityCoreProps {
-  @Column('text', {
-    nullable: true,
-    name: 'description',
-  })
+  @Column({ type: 'text', nullable: true })
   description: string | null;
 
-  @Column('character varying', {
-    nullable: false,
-    name: 'name',
-  })
+  @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 50,
-    name: 'shortname',
-  })
+  @Column({ type: 'varchar', nullable: true, length: 50 })
   shortName: string;
 }

@@ -5,24 +5,12 @@ import { NamedIdentifiableObject } from 'src/core/entities/named-identifiable-ob
 export class App extends NamedIdentifiableObject {
   static plural = 'apps';
 
-  @Column('character varying', {
-    nullable: false,
-    length: 50,
-    name: 'version',
-  })
+  @Column({ type: 'varchar', length: 255 })
   version: string;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 50,
-    name: 'launchpath',
-  })
+  @Column({ type: 'varchar', length: 255 })
   launchpath: string;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 50,
-    name: 'appicon',
-  })
+  @Column({ type: 'varchar', length: 128 })
   appicon: string;
 }
