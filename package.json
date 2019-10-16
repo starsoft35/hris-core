@@ -54,7 +54,7 @@
     "swagger-ui-express": "^4.0.2",
     "typeorm": "^0.2.16",
     "unzipper": "^0.10.5",
-    "uuid": "^3.3.2",
+    "uuid": "^3.3.3",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
