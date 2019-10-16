@@ -67,10 +67,8 @@ import { AppService } from './app.service';
     RecordModule,
   ],
   // ToDO: Re-check these import statement
-  // controllers: [AppController],
-  // providers: [AppService],
-  controllers: [AppsController],
-  providers: [AppsService, AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) { }
