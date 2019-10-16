@@ -53,7 +53,7 @@
     "rxjs": "6.5.2",
     "swagger-ui-express": "^4.0.2",
     "typeorm": "^0.2.16",
-    "unzipper": "^0.10.3",
+    "unzipper": "^0.10.5",
     "uuid": "^3.3.2",
     "zlib": "^1.0.5"
   },
