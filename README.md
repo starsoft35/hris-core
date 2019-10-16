@@ -93,6 +93,9 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+## Contributors
+[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/0)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/0)[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/1)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/1)[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/2)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/2)[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/3)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/3)[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/4)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/4)[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/5)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/5)[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/6)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/6)[![](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/images/7)](https://sourcerer.io/fame/waltervfaustine/hisptz/hris-restful-api-v1/links/7)
+
 ## License
 Distributed under the LGPL-3.0 License. See `LICENSE` for more information.
 
