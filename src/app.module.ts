@@ -67,8 +67,6 @@ import { AppService } from './app.service';
     RecordModule,
   ],
   // ToDO: Re-check these import statement
-  // controllers: [AppController],
-  // providers: [AppService],
   controllers: [],
   providers: [],
 })
