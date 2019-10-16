@@ -18,7 +18,7 @@ import { FormFieldMember } from '../../../form/entities/form-field-member.entity
 import { FormVisibleField } from '../../../form/entities/form-visible-fields.entity';
 import { Form } from '../../../form/entities/form.entity';
 import { FormSectionFieldMember } from '../../../form/entities/formsection-fieldmembers.entity';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 
 @Entity('field', { schema: 'public' })
 export class Field extends EntityCoreProps {

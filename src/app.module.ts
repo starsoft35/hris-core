@@ -30,6 +30,8 @@ import { AppsModule } from './modules/app/apps.module';
 import { AppsService } from './modules/app/services/apps.service';
 import { AppsController } from './modules/app/controllers/apps.controller';
 import { AppService } from './app.service';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { IndicatorModule } from './modules/indicator/indicator.module';
 
 @Module({
   imports: [
@@ -65,13 +67,17 @@ import { AppService } from './app.service';
     TrainingModule,
     MessageModule,
     RecordModule,
+
+    // Analytics and Indicator Modules
+    IndicatorModule,
+    AnalyticsModule,
   ],
   // ToDO: Re-check these import statement
   // controllers: [AppController],
   // providers: [AppService],
-  controllers: [AppsController],
-  providers: [AppsService, AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) { }
+  constructor(private readonly connection: Connection) {}
 }

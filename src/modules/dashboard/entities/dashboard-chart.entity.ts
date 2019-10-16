@@ -1,5 +1,5 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import {
   Column,
   Entity,

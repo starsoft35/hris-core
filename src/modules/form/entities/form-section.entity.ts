@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { Form } from './form.entity';
 import { FormSectionFieldMember } from './formsection-fieldmembers.entity';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('formsection', { schema: 'public' })
 export class FormSection extends EntityCoreProps {

@@ -1,5 +1,5 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import {
   Column,
   Entity,
@@ -15,7 +15,7 @@ import { TrainingSection } from './training-section.entity';
 import { TrainingSponsor } from './training-sponsor.entity';
 import { TrainingUnit } from './training-unit.entity';
 import { TrainingVenue } from './training-venue.entity';
-import { Record } from 'src/modules/record/entities/record.entity';
+import { Record } from '../../record/entities/record.entity';
 
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends EntityCoreProps {
