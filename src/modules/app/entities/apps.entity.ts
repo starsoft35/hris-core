@@ -1,36 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { ObjectType } from 'type-graphql';
+import { Entity, Column } from 'typeorm';
 import { NamedIdentifiableObject } from 'src/core/entities/named-identifiable-object';
 
-@Entity('app', {schema: 'public'})
-@ObjectType()
+@Entity('app', { schema: 'public' })
 export class App extends NamedIdentifiableObject {
+  static plural = 'apps';
 
-    static plural = 'apps';
+  @Column({ type: 'varchar', length: 255 })
+  version: string;
 
-    @PrimaryGeneratedColumn({
-        name: 'appid',
-    })
-    id: number;
+  @Column({ type: 'varchar', length: 255 })
+  launchpath: string;
 
-    @Column('character varying', {
-        nullable: false,
-        length: 50,
-        name: 'version',
-    })
-    version: string;
-
-    @Column('character varying', {
-        nullable: false,
-        length: 50,
-        name: 'launchpath',
-    })
-    launchpath: string;
-
-    @Column('character varying', {
-        nullable: false,
-        length: 50,
-        name: 'appicon',
-    })
-    appicon: string;
+  @Column({ type: 'varchar', length: 128 })
+  appicon: string;
 }

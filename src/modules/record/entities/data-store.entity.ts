@@ -1,21 +1,17 @@
-import { Column, Entity, JoinColumn, ManyToOne, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-
-import { Form } from '../../form/entities/form.entity';
-import { TransactionDate } from '../../../core/entities/transaction-date.entity';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
-import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
-import { UserIdentifiableObject } from 'src/modules/user/entities/user-identifiable-object';
-import { TransactionUser } from 'src/core/entities/transaction-user.entity';
+import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
+import { UserIdentification } from 'src/modules/system/user/entities/user-identification';
 
 @Entity('datastore', { schema: 'public' })
-export class DataStore extends UserIdentifiableObject {
+export class DataStore extends UserIdentification {
 
     static plural = 'dataStore';
 
-    @PrimaryGeneratedColumn({
-        name: 'datastoreid',
-    })
+    @Column({ select: false })
+    @Generated('increment')
     id: number;
+
+    @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+    uid: string;
 
     @Column('character varying', {
         nullable: false,

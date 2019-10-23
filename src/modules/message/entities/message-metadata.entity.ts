@@ -1,14 +1,13 @@
-import { IdentifiableObject } from 'src/core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
+import { User } from '../../system/user/entities/user.entity';
 import { Message } from './message.entity';
 
 @Entity('messagemetadata', { schema: 'public' })
-export class MessageMetadata extends IdentifiableObject {
-
+export class MessageMetadata extends EntityCoreProps {
   static plural = 'messageMetadata';
-  
+
   @Column('integer', {
     nullable: false,
     primary: true,

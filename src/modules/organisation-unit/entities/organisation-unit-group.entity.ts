@@ -1,4 +1,3 @@
-import { IdentifiableObject } from '../../../core/entities/identifiable-object';
 import {
   Column,
   Entity,
@@ -6,21 +5,16 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { OrganisationUnitGroupSet } from './organisation-unit-group-set.entity';
 import { OrganisationUnit } from './organisation-unit.entity';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('organisationunitgroup', { schema: 'public' })
-export class OrganisationUnitGroup extends IdentifiableObject {
+export class OrganisationUnitGroup extends EntityCoreProps {
 
   static plural = 'organisationUnitGroups';
-
-  @PrimaryGeneratedColumn({
-    name: 'organisationunitgroupid',
-  })
-  id: number;
 
   @ManyToOne(
     type => OrganisationUnitGroupSet,

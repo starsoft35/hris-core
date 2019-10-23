@@ -1,30 +1,14 @@
-import { Field, ObjectType } from 'type-graphql';
-import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column } from 'typeorm';
 
-import { IdentifiableObject } from './identifiable-object';
+import { EntityCoreProps } from './entity-core-props';
 
-@ObjectType()
-export class NamedIdentifiableObject extends IdentifiableObject {
+export class NamedIdentifiableObject extends EntityCoreProps {
+  @Column({ type: 'text', nullable: true })
+  description: string | null;
 
-    @Field()
-    @Column('text', {
-        nullable: true,
-        name: 'description',
-    })
-    description: string | null;
+  @Column({ type: 'varchar', nullable: false })
+  name: string;
 
-    @Field()
-    @Column('character varying', {
-        nullable: false,
-        name: 'name',
-    })
-    name: string;
-
-    @Field()
-    @Column('character varying', {
-        nullable: false,
-        length: 50,
-        name: 'shortname',
-    })
-    shortName: string;
+  @Column({ type: 'varchar', nullable: true, length: 50 })
+  shortName: string;
 }

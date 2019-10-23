@@ -163,11 +163,11 @@ export class hris_intergration_tiis_data_connection {
   })
   lastupdated: Date | null;
 
-  @OneToOne(
-    type => hris_intergration_tiis_employee_fieldrelation,
-    hris_intergration_tiis_employee_fieldrelation =>
-      hris_intergration_tiis_employee_fieldrelation.tiis_data_connection_,
-    { onDelete: 'CASCADE' },
-  )
-  hris_intergration_tiis_employee_fieldrelation: hris_intergration_tiis_employee_fieldrelation | null;
+  // @OneToOne(
+  //   type => hris_intergration_tiis_employee_fieldrelation,
+  //   hris_intergration_tiis_employee_fieldrelation =>
+  //     hris_intergration_tiis_employee_fieldrelation.tiis_data_connection_,
+  //   { onDelete: 'CASCADE' },
+  // )
+  // hris_intergration_tiis_employee_fieldrelation: hris_intergration_tiis_employee_fieldrelation | null;
 }

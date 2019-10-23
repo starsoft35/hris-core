@@ -1,17 +1,11 @@
-import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
-import { IdentifiableObject } from '../../../core/entities/identifiable-object';
+import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('organisationunitgroupset', { schema: 'public' })
-export class OrganisationUnitGroupSet extends IdentifiableObject {
+export class OrganisationUnitGroupSet extends EntityCoreProps {
 
   static plural = 'organisationUnitGroupSets';
-
-  @PrimaryGeneratedColumn({
-    name: 'organisationunitgroupsetid',
-  })
-  id: number;
 
   @Column('character varying', {
     nullable: true,

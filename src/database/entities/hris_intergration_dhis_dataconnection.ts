@@ -1,14 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-} from 'typeorm';
-
-import { hris_fieldoptiongroupset } from '../../modules/form/entities/field-option-groupset.entity';
-import { hris_intergration_dhis_dataelementfieldoptionrelation } from './hris_intergration_dhis_dataelementfieldoptionrelation';
+import { Column, Entity, Index } from 'typeorm';
 
 @Entity('hris_intergration_dhis_dataconnection', { schema: 'public' })
 @Index('unique_serverdatasetname_idx', ['dataset_name', 'host_url'], {
@@ -99,20 +89,20 @@ export class hris_intergration_dhis_dataconnection {
   })
   lastupdated: Date | null;
 
-  @OneToMany(
-    type => hris_intergration_dhis_dataelementfieldoptionrelation,
-    hris_intergration_dhis_dataelementfieldoptionrelation =>
-      hris_intergration_dhis_dataelementfieldoptionrelation.dhis_data_connection_,
-    { onDelete: 'CASCADE' },
-  )
-  hris_intergration_dhis_dataelementfieldoptionrelations: hris_intergration_dhis_dataelementfieldoptionrelation[];
+  // @OneToMany(
+  //   type => hris_intergration_dhis_dataelementfieldoptionrelation,
+  //   hris_intergration_dhis_dataelementfieldoptionrelation =>
+  //     hris_intergration_dhis_dataelementfieldoptionrelation.dhis_data_connection_,
+  //   { onDelete: 'CASCADE' },
+  // )
+  // hris_intergration_dhis_dataelementfieldoptionrelations: hris_intergration_dhis_dataelementfieldoptionrelation[];
 
-  @ManyToMany(
-    type => hris_fieldoptiongroupset,
-    hris_fieldoptiongroupset =>
-      hris_fieldoptiongroupset.hris_intergration_dhis_dataconnections,
-    { nullable: false },
-  )
-  @JoinTable({ name: 'hris_intergration_dhis_fieldoptiongroupsetmember' })
-  hris_fieldoptiongroupsets: hris_fieldoptiongroupset[];
+  // @ManyToMany(
+  //   type => hris_fieldoptiongroupset,
+  //   hris_fieldoptiongroupset =>
+  //     hris_fieldoptiongroupset.hris_intergration_dhis_dataconnections,
+  //   { nullable: false },
+  // )
+  // @JoinTable({ name: 'hris_intergration_dhis_fieldoptiongroupsetmember' })
+  // hris_fieldoptiongroupsets: hris_fieldoptiongroupset[];
 }

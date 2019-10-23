@@ -1,16 +1,24 @@
-import { TransactionDate } from 'src/core/entities/transaction-date.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  Generated,
+  PrimaryColumn,
+} from 'typeorm';
 
-import { Field } from '../../form/entities/field.entity';
 import { Record } from './record.entity';
 import { TransactionUser } from 'src/core/entities/transaction-user.entity';
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {
-  @PrimaryGeneratedColumn({
-    name: 'recordvalueid',
-  })
+  @Column({ select: false })
+  @Generated('increment')
   id: number;
+
+  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+  uid: string;
 
   @ManyToOne(type => Record, record => record.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'recordid' })
