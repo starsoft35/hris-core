@@ -19,6 +19,7 @@ import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
 import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { Dashboard } from 'src/modules/dashboard/entities/dashboard.entity';
 
 @Entity('systemuser', { schema: 'public' })
 export class User extends UserCoreProps {
@@ -266,6 +267,9 @@ export class User extends UserCoreProps {
   })
   @JoinColumn({ referencedColumnName: 'uid' })
   userSettings: UserSettings;
+
+  @OneToMany(() => Dashboard, (dashboard: Dashboard) => dashboard.user)
+  dashboards: Dashboard[];
 
   public static async authenticateUser(user: {
     username: string;
