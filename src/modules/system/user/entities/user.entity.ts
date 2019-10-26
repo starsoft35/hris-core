@@ -22,7 +22,7 @@ import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
 import { Chart } from 'src/modules/dashboard/entities/chart.entity';
 
-@Entity('systemuser', { schema: 'public' })
+@Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {
   static plural = 'users';
 
@@ -31,6 +31,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'firstname',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -39,6 +40,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'middlename',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -60,6 +62,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'phonenumber',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -68,6 +71,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'jobtitle',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -76,6 +80,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'timestamp without time zone',
+    name: 'lastlogin',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
@@ -83,6 +88,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'timestamp without time zone',
+    name: 'expirydate',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
@@ -90,6 +96,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'timestamp without time zone',
+    name: 'deleteddate',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
@@ -244,7 +251,7 @@ export class User extends UserCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'uid', name: 'usersettingsid' })
   userSettings: UserSettings;
 
   @OneToMany(() => Dashboard, (dashboard: Dashboard) => dashboard.user)
