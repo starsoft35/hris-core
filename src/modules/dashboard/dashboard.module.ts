@@ -1,17 +1,25 @@
 import { Module } from '@nestjs/common';
-import { DashboardChartController } from './controllers/dashboard-chart.controller';
-import { DashboardChartService } from './services/dashboard-chart.service';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DashboardChart } from './entities/dashboard-chart.entity';
+
+import { DashboardItem } from './entities/dashboard-item.entity';
 import { Dashboard } from './entities/dashboard.entity';
+import { FavoriteDimensionItem } from './entities/favorite-dimension-item.entity';
+import { FavoriteDimension } from './entities/favorite-dimension.entity';
+import { Chart } from './entities/chart.entity';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'basic', session: true }),
-    TypeOrmModule.forFeature([Dashboard, DashboardChart]),
+    TypeOrmModule.forFeature([
+      Dashboard,
+      DashboardItem,
+      Chart,
+      FavoriteDimension,
+      FavoriteDimensionItem,
+    ]),
   ],
-  controllers: [DashboardChartController],
-  providers: [DashboardChartService],
+  controllers: [],
+  providers: [],
 })
 export class DashboardModule {}

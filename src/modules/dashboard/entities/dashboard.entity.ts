@@ -1,6 +1,7 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { User } from 'src/modules/system/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { DashboardItem } from './dashboard-item.entity';
 
 @Entity('dashboard', { schema: 'public' })
 export class Dashboard extends EntityCoreProps {
@@ -33,39 +34,15 @@ export class Dashboard extends EntityCoreProps {
   })
   favorites: object | null;
 
-  // @OneToMany(
-  //   () => dashboard_items,
-  //   (dashboard_items: dashboard_items) => dashboard_items.dashboard,
-  // )
-  // dashboardItems: dashboard_items[];
+  @OneToMany(
+    () => DashboardItem,
+    (dashboardItem: DashboardItem) => dashboardItem.dashboard,
+  )
+  dashboardItems: DashboardItem[];
 
   // @OneToMany(
   //   () => pushanalysis,
   //   (pushanalysis: pushanalysis) => pushanalysis.dashboard,
   // )
   // pushAnalysis: pushanalysis[];
-
-  // @ManyToMany(
-  //   () => objecttranslation,
-  //   (objecttranslation: objecttranslation) => objecttranslation.dashboards,
-  //   { nullable: false },
-  // )
-  // @JoinTable({ name: 'dashboardtranslations' })
-  // objectTranslations: objecttranslation[];
-
-  // @ManyToMany(
-  //   () => useraccess,
-  //   (useraccess: useraccess) => useraccess.dashboards,
-  //   { nullable: false },
-  // )
-  // @JoinTable({ name: 'dashboarduseraccesses' })
-  // userAccess: useraccess[];
-
-  // @ManyToMany(
-  //   () => usergroupaccess,
-  //   (usergroupaccess: usergroupaccess) => usergroupaccess.dashboards,
-  //   { nullable: false },
-  // )
-  // @JoinTable({ name: 'dashboardusergroupaccesses' })
-  // userGroupAccess: usergroupaccess[];
 }

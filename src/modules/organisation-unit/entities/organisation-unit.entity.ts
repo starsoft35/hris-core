@@ -1,9 +1,8 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { DashboardChart } from 'src/modules/dashboard/entities/dashboard-chart.entity';
 import { Record } from 'src/modules/record/entities/record.entity';
+import { User } from 'src/modules/system/user/entities/user.entity';
 import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
 import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
-import { User } from 'src/modules/system/user/entities/user.entity';
 import {
   Column,
   Entity,
@@ -167,10 +166,4 @@ export class OrganisationUnit extends EntityCoreProps {
     organisationUnitGroup => organisationUnitGroup.organisationUnits,
   )
   organisationUnitGroups: OrganisationUnitGroup[];
-
-  @ManyToMany(
-    type => DashboardChart,
-    dashboardChart => dashboardChart.organisationUnits,
-  )
-  dashboardCharts: DashboardChart[];
 }
