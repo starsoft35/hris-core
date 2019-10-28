@@ -40,7 +40,7 @@
     "express-rate-limit": "^5.0.0",
     "express-session": "^1.17.0",
     "extract-zip": "^1.6.7",
-    "handlebars": "^4.4.5",
+    "handlebars": "^4.5.0",
     "helmet": "^3.21.2",
     "lodash": "^4.17.15",
     "node-stream-zip": "^1.8.2",
