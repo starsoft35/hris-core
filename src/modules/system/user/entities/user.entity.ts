@@ -21,6 +21,8 @@ import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
 import { Chart } from 'src/modules/dashboard/entities/chart.entity';
+import { Map } from 'src/modules/dashboard/entities/map.entity';
+import { ReportTable } from 'src/modules/dashboard/entities/report-table.entity';
 
 @Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {
@@ -259,6 +261,12 @@ export class User extends UserCoreProps {
 
   @OneToMany(() => Chart, (chart: Chart) => chart.user)
   charts: Chart[];
+
+  @OneToMany(() => Map, (map: Map) => map.user)
+  maps: Map[];
+
+  @OneToMany(() => ReportTable, (reportTable: ReportTable) => reportTable.user)
+  reportTable: ReportTable[];
 
   public static async authenticateUser(user: {
     username: string;

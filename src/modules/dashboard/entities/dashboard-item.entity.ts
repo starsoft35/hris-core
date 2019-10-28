@@ -1,9 +1,21 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
 
 import { Dashboard } from './dashboard.entity';
 import { Chart } from './chart.entity';
 import { ReportTable } from './report-table.entity';
+import { Map } from './map.entity';
+import { DashboardItemChart } from './dashboard-item-chart.entity';
+import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
+import { DashboardItemMap } from './dashboard-item-map.entity';
 
 @Entity('dashboarditem', { schema: 'public' })
 export class DashboardItem extends EntityCoreProps {
@@ -52,19 +64,23 @@ export class DashboardItem extends EntityCoreProps {
   @JoinColumn({ name: 'dashboardid' })
   dashboard: Dashboard;
 
-  @ManyToOne(() => Chart, (chart: Chart) => chart.dashboardItems)
-  @JoinColumn({ name: 'chartid' })
-  chart: Chart | null;
-
-  //   @ManyToOne(() => map, (map: map) => map.dashboarditems, {})
-  //   @JoinColumn({ name: 'mapid' })
-  //   map: map | null;
-
-  @ManyToOne(
-    () => ReportTable,
-    (reportTable: ReportTable) => reportTable.dashboardItems,
-    {},
+  @OneToMany(
+    () => DashboardItemChart,
+    (dashboardItemChart: DashboardItemChart) =>
+      dashboardItemChart.dashboardItem,
   )
-  @JoinColumn({ name: 'reporttable' })
-  reportTable: ReportTable | null;
+  dashboardItemCharts: DashboardItemChart[];
+
+  @OneToMany(
+    () => DashboardItemReportTable,
+    (dashboardItemReportTable: DashboardItemReportTable) =>
+      dashboardItemReportTable.dashboardItem,
+  )
+  dashboardItemReportTables: DashboardItemReportTable[];
+
+  @OneToMany(
+    () => DashboardItemMap,
+    (dashboardItemMap: DashboardItemMap) => dashboardItemMap.dashboardItem,
+  )
+  dashboardItemMaps: DashboardItemMap[];
 }

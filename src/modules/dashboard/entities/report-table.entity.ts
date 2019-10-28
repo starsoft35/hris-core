@@ -1,9 +1,11 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 
 import { DashboardItem } from './dashboard-item.entity';
 import { FavoriteDimension } from './favorite-dimension.entity';
 import { ReportTableDimension } from './report-table-dimension.entity';
+import { User } from 'src/modules/system/user/entities/user.entity';
+import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
 
 @Entity('reporttable', { schema: 'public' })
 export class ReportTable extends EntityCoreProps {
@@ -182,10 +184,11 @@ export class ReportTable extends EntityCoreProps {
   skipRounding: boolean | null;
 
   @OneToMany(
-    () => DashboardItem,
-    (dashboardItem: DashboardItem) => dashboardItem.reportTable,
+    () => DashboardItemReportTable,
+    (dashboardItemReportTable: DashboardItemReportTable) =>
+      dashboardItemReportTable.reportTable,
   )
-  dashboardItems: DashboardItem[];
+  dashboardItemReportTables: DashboardItemReportTable[];
 
   @OneToMany(
     () => ReportTableDimension,
@@ -193,4 +196,8 @@ export class ReportTable extends EntityCoreProps {
       reportTableDimension.reportTable,
   )
   reportTableDimensions: ReportTableDimension[];
+
+  @ManyToOne(() => User, (user: User) => user.charts)
+  @JoinColumn({ name: 'userid' })
+  user: User | null;
 }

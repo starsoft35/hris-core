@@ -4,6 +4,8 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { ChartDimension } from './chart-dimension.entity';
 import { DashboardItem } from './dashboard-item.entity';
+import { DashboardItemChart } from './dashboard-item-chart.entity';
+import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
 
 @Entity('chart', { schema: 'public' })
 export class Chart extends EntityCoreProps {
@@ -195,14 +197,14 @@ export class Chart extends EntityCoreProps {
   user: User | null;
 
   @OneToMany(
-    () => DashboardItem,
-    (dashboardItem: DashboardItem) => dashboardItem.chart,
-  )
-  dashboardItems: DashboardItem[];
-
-  @OneToMany(
     () => ChartDimension,
     (chartDimension: ChartDimension) => chartDimension.chart,
   )
   chartDimensions: ChartDimension[];
+
+  @OneToMany(
+    () => DashboardItemChart,
+    (dashboardItemChart: DashboardItemChart) => dashboardItemChart.chart,
+  )
+  dashboardItemCharts: DashboardItemChart[];
 }

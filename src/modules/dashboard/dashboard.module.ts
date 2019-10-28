@@ -10,6 +10,13 @@ import { Dashboard } from './entities/dashboard.entity';
 import { ReportTableDimension } from './entities/report-table-dimension.entity';
 import { ReportTable } from './entities/report-table.entity';
 import { ReportTableDimensionItem } from './entities/report-table-dimension-item.entity';
+import { MapView } from './entities/map-view.entity';
+import { Map } from './entities/map.entity';
+import { MapViewDimension } from './entities/map-view-dimension.entity';
+import { MapViewDimensionItem } from './entities/map-view-dimension-item.entity';
+import { DashboardItemChart } from './entities/dashboard-item-chart.entity';
+import { DashboardItemReportTable } from './entities/dashboard-item-report-table.entity';
+import { DashboardItemMap } from './entities/dashboard-item-map.entity';
 
 @Module({
   imports: [
@@ -23,6 +30,13 @@ import { ReportTableDimensionItem } from './entities/report-table-dimension-item
       ReportTable,
       ReportTableDimension,
       ReportTableDimensionItem,
+      Map,
+      MapView,
+      MapViewDimension,
+      MapViewDimensionItem,
+      DashboardItemChart,
+      DashboardItemReportTable,
+      DashboardItemMap,
     ]),
   ],
   controllers: [],
