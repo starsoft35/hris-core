@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Dashboard } from './dashboard.entity';
 import { Chart } from './chart.entity';
+import { ReportTable } from './report-table.entity';
 
 @Entity('dashboarditem', { schema: 'public' })
 export class DashboardItem extends EntityCoreProps {
@@ -55,31 +56,15 @@ export class DashboardItem extends EntityCoreProps {
   @JoinColumn({ name: 'chartid' })
   chart: Chart | null;
 
-  //   @ManyToOne(
-  //     () => eventchart,
-  //     (eventchart: eventchart) => eventchart.dashboarditems,
-  //     {},
-  //   )
-  //   @JoinColumn({ name: 'eventchartid' })
-  //   eventchart: eventchart | null;
-
   //   @ManyToOne(() => map, (map: map) => map.dashboarditems, {})
   //   @JoinColumn({ name: 'mapid' })
   //   map: map | null;
 
-  //   @ManyToOne(
-  //     () => reporttable,
-  //     (reporttable: reporttable) => reporttable.dashboarditems,
-  //     {},
-  //   )
-  //   @JoinColumn({ name: 'reporttable' })
-  //   reporttable: reporttable | null;
-
-  //   @ManyToOne(
-  //     () => eventreport,
-  //     (eventreport: eventreport) => eventreport.dashboarditems,
-  //     {},
-  //   )
-  //   @JoinColumn({ name: 'eventreport' })
-  //   eventreport: eventreport | null;
+  @ManyToOne(
+    () => ReportTable,
+    (reportTable: ReportTable) => reportTable.dashboardItems,
+    {},
+  )
+  @JoinColumn({ name: 'reporttable' })
+  reportTable: ReportTable | null;
 }

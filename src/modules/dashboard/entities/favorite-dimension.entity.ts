@@ -9,8 +9,8 @@ import {
 
 import { FavoriteDimensionItem } from './favorite-dimension-item.entity';
 import { Chart } from './chart.entity';
+import { ReportTable } from './report-table.entity';
 
-@Entity('favoritedimension', { schema: 'public' })
 export class FavoriteDimension {
   @PrimaryGeneratedColumn('increment')
   id: number;
@@ -20,15 +20,4 @@ export class FavoriteDimension {
 
   @Column()
   layout: string;
-
-  @OneToMany(
-    () => FavoriteDimensionItem,
-    (favoriteDimensionItem: FavoriteDimensionItem) =>
-      favoriteDimensionItem.favoriteDimension,
-  )
-  items: FavoriteDimensionItem[];
-
-  @ManyToOne(() => Chart, (chart: Chart) => chart.favoriteDimensions)
-  @JoinColumn({ name: 'chartid' })
-  chart: Chart;
 }
