@@ -1,24 +1,14 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  ManyToMany,
-  JoinTable,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { Dashboard } from './dashboard.entity';
-import { Chart } from './chart.entity';
-import { ReportTable } from './report-table.entity';
-import { Map } from './map.entity';
 import { DashboardItemChart } from './dashboard-item-chart.entity';
-import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
 import { DashboardItemMap } from './dashboard-item-map.entity';
+import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
+import { Dashboard } from './dashboard.entity';
 
 @Entity('dashboarditem', { schema: 'public' })
 export class DashboardItem extends EntityCoreProps {
+  static plural = 'dashboardItems';
   @Column('character varying', {
     nullable: true,
     length: 255,

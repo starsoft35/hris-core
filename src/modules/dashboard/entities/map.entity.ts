@@ -1,12 +1,13 @@
-import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { User } from 'src/modules/system/user/entities/user.entity';
-import { DashboardItem } from './dashboard-item.entity';
-import { MapView } from './map-view.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+
 import { DashboardItemMap } from './dashboard-item-map.entity';
+import { MapView } from './map-view.entity';
 
 @Entity('map', { schema: 'public' })
 export class Map extends EntityCoreProps {
+  static plural = 'maps';
   @Column('double precision', {
     nullable: true,
     name: 'longitude',

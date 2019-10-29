@@ -3,9 +3,7 @@ import { User } from 'src/modules/system/user/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { ChartDimension } from './chart-dimension.entity';
-import { DashboardItem } from './dashboard-item.entity';
 import { DashboardItemChart } from './dashboard-item-chart.entity';
-import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
 
 @Entity('chart', { schema: 'public' })
 export class Chart extends EntityCoreProps {
