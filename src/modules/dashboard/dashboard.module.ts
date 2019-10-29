@@ -22,6 +22,11 @@ import { DashboardItemService } from './services/dashboard-item.service';
 import { ChartService } from './services/chart.service';
 import { ReportTableService } from './services/report-table.service';
 import { MapService } from './services/map.service';
+import { DashboardItemController } from './controllers/dashboard-item.controller';
+import { ChartController } from './controllers/chart.controller';
+import { ReportTableController } from './controllers/report-table.controller';
+import { MapController } from './controllers/map.controller';
+import { DashboardController } from './controllers/dashboard.controller';
 
 @Module({
   imports: [
@@ -44,7 +49,13 @@ import { MapService } from './services/map.service';
       DashboardItemMap,
     ]),
   ],
-  controllers: [],
+  controllers: [
+    DashboardController,
+    DashboardItemController,
+    ChartController,
+    ReportTableController,
+    MapController,
+  ],
   providers: [
     DashboardService,
     DashboardItemService,

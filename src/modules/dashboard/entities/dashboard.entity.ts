@@ -5,6 +5,7 @@ import { DashboardItem } from './dashboard-item.entity';
 
 @Entity('dashboard', { schema: 'public' })
 export class Dashboard extends EntityCoreProps {
+  static plural = 'dashboards';
   @Column('text', {
     nullable: true,
     name: 'description',

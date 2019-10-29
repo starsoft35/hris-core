@@ -1,14 +1,13 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { Column, Entity, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
-
-import { DashboardItem } from './dashboard-item.entity';
-import { FavoriteDimension } from './favorite-dimension.entity';
-import { ReportTableDimension } from './report-table-dimension.entity';
 import { User } from 'src/modules/system/user/entities/user.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+
 import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
+import { ReportTableDimension } from './report-table-dimension.entity';
 
 @Entity('reporttable', { schema: 'public' })
 export class ReportTable extends EntityCoreProps {
+  static plural = 'reportTables';
   @Column('character varying', {
     nullable: true,
     length: 255,
