@@ -17,6 +17,11 @@ import { MapViewDimensionItem } from './entities/map-view-dimension-item.entity'
 import { DashboardItemChart } from './entities/dashboard-item-chart.entity';
 import { DashboardItemReportTable } from './entities/dashboard-item-report-table.entity';
 import { DashboardItemMap } from './entities/dashboard-item-map.entity';
+import { DashboardService } from './services/dashboard.service';
+import { DashboardItemService } from './services/dashboard-item.service';
+import { ChartService } from './services/chart.service';
+import { ReportTableService } from './services/report-table.service';
+import { MapService } from './services/map.service';
 
 @Module({
   imports: [
@@ -40,6 +45,12 @@ import { DashboardItemMap } from './entities/dashboard-item-map.entity';
     ]),
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    DashboardService,
+    DashboardItemService,
+    ChartService,
+    ReportTableService,
+    MapService,
+  ],
 })
 export class DashboardModule {}
