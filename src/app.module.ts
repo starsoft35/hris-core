@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
-
 import { AppController } from './app.controller';
 import { getDataBaseConfiguration } from './core/utilities/configuration';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
@@ -32,6 +31,8 @@ import { AppsController } from './modules/app/controllers/apps.controller';
 import { AppService } from './app.service';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { IndicatorModule } from './modules/indicator/indicator.module';
+import { SystemSettingModule } from './modules/system-setting/system-setting.module';
+
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { IndicatorModule } from './modules/indicator/indicator.module';
     // Analytics and Indicator Modules
     IndicatorModule,
     AnalyticsModule,
+    SystemSettingModule,
   ],
   // ToDO: Re-check these import statement
   // controllers: [AppController],
