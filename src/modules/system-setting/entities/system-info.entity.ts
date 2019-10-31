@@ -3,7 +3,7 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 
 @Entity('systeminfo', { schema: 'public' })
 export class SystemInfo extends EntityCoreProps {
-  static plural = 'systemInfo';
+  static plural = 'system/info';
   @Column('bytea', {
     nullable: true,
     name: 'value',
