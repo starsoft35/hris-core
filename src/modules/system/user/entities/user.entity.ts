@@ -1,14 +1,17 @@
+import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
+import { Dashboard } from 'src/modules/dashboard/entities/dashboard.entity';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import {
+  BeforeInsert,
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   OneToMany,
   OneToOne,
-  BeforeInsert,
-  JoinColumn,
 } from 'typeorm';
-import { DashboardChart } from '../../../dashboard/entities/dashboard-chart.entity';
+
 import { Form } from '../../../form/entities/form.entity';
 import { MessageMetadata } from '../../../message/entities/message-metadata.entity';
 import { MessageThreadMetadata } from '../../../message/entities/message-thread-metadata.entity';
@@ -17,10 +20,11 @@ import { Message } from '../../../message/entities/message.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { Chart } from 'src/modules/dashboard/entities/chart.entity';
+import { Map } from 'src/modules/dashboard/entities/map.entity';
+import { ReportTable } from 'src/modules/dashboard/entities/report-table.entity';
 
-@Entity('systemuser', { schema: 'public' })
+@Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {
   static plural = 'users';
 
@@ -29,6 +33,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'firstname',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -37,6 +42,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'middlename',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -58,6 +64,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'phonenumber',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -66,6 +73,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'varchar',
+    name: 'jobtitle',
     nullable: true,
     length: 64,
     default: () => 'NULL::varchar',
@@ -74,6 +82,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'timestamp without time zone',
+    name: 'lastlogin',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
@@ -81,6 +90,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'timestamp without time zone',
+    name: 'expirydate',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
@@ -88,6 +98,7 @@ export class User extends UserCoreProps {
 
   @Column({
     type: 'timestamp without time zone',
+    name: 'deleteddate',
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
@@ -137,28 +148,6 @@ export class User extends UserCoreProps {
     inverseJoinColumn: { referencedColumnName: 'uid' },
   })
   userGroups: UserGroup[];
-
-  // @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
-  //   onDelete: 'CASCADE',
-  // })
-  // dashboardCharts: DashboardChart[];
-
-  /**
-   * Many To Many Relationship: User and DashboardChart Entities
-   */
-  @ManyToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
-    nullable: false,
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  @JoinTable({
-    name: 'userdashboardchartmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
-  })
-  dashboardCharts: DashboardChart[];
 
   // ! Deprecated
   // @OneToMany(type => Message, message => message.user, {
@@ -264,8 +253,20 @@ export class User extends UserCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'uid', name: 'usersettingsid' })
   userSettings: UserSettings;
+
+  @OneToMany(() => Dashboard, (dashboard: Dashboard) => dashboard.user)
+  dashboards: Dashboard[];
+
+  @OneToMany(() => Chart, (chart: Chart) => chart.user)
+  charts: Chart[];
+
+  @OneToMany(() => Map, (map: Map) => map.user)
+  maps: Map[];
+
+  @OneToMany(() => ReportTable, (reportTable: ReportTable) => reportTable.user)
+  reportTable: ReportTable[];
 
   public static async authenticateUser(user: {
     username: string;
