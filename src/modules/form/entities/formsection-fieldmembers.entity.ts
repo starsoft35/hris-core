@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Field } from '../../maintenance/field/entities/field.entity';
 import { FormSection } from './form-section.entity';
-import { HRISBaseEntity } from 'src/core/entities/base-entity';
+import { HRISBaseEntity } from '../../../core/entities/base-entity';
 
 @Entity('formsectionfieldmember', { schema: 'public' })
 export class FormSectionFieldMember extends HRISBaseEntity{
