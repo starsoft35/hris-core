@@ -1,8 +1,22 @@
-{
-    "migrations": [
-        "src/database/migration/*.ts"
-    ],
+[
+  {
+    "name": "test",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "hrisdb",
+    "synchronize": true,
+    "logging": false,
+    "dropSchema": true,
+    "entities": ["src/modules/entities/**/*.ts"],
+    "migrations": ["src/database/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"],
     "cli": {
-        "migrationsDir": "src/database/migration"
+      "entitiesDir": "src/modules/entities",
+      "migrationsDir": "src/database/migration",
+      "subscribersDir": "src/subscriber"
     }
-}
+  }
+]
