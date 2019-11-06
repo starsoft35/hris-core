@@ -9,8 +9,8 @@ export class friendlyreport1570133196446 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "hris_friendlyreport" RENAME TO "friendlyreport"');
         await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "id" TO "friendlyreportid"');
         await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "series_id" TO "seriesid"');
-        await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "datecreated" TO "createdAt"');
-        await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "lastupdated" text');
         await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "name" text');
         await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "uid" text');
         await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "description" text');        

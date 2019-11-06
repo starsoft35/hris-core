@@ -27,8 +27,8 @@ export class integrations1570172257753 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" ADD COLUMN IF NOT EXISTS "name" text');
         await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" ADD COLUMN IF NOT EXISTS "password" text');
         await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" RENAME COLUMN "host_url" TO "hosturl"');
-        await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" RENAME COLUMN "datecreated" TO "createdAt"');
-        await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" ADD COLUMN IF NOT EXISTS "lastupdated" text');
         await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" RENAME COLUMN "dataset_name" TO "datasetname"');
         await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" RENAME COLUMN "dataset_uid" TO "datasetuid"');
         await queryRunner.query('ALTER TABLE "intergrationdhisdataconnection" RENAME COLUMN "dataset_html" TO "datasethtml"');
@@ -61,8 +61,8 @@ export class integrations1570172257753 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "intergrationtiisdataconnection" ADD COLUMN IF NOT EXISTS "employeeformname" text');
         await queryRunner.query('ALTER TABLE "intergrationtiisdataconnection" ADD COLUMN IF NOT EXISTS "defaultnationality" text');
         await queryRunner.query('ALTER TABLE "intergrationtiisdataconnection" ADD COLUMN IF NOT EXISTS "defaulthrnationality" text');
-        await queryRunner.query('ALTER TABLE "intergrationtiisdataconnection" RENAME COLUMN "datecreated" TO "createdAt"');
-        await queryRunner.query('ALTER TABLE "intergrationtiisdataconnection" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "intergrationtiisdataconnection" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "intergrationtiisdataconnection" ADD COLUMN IF NOT EXISTS "lastupdated" text');
 
        
 

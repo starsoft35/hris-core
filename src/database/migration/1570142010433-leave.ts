@@ -23,8 +23,8 @@ export class leave1570142010433 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "leave" ADD COLUMN IF NOT EXISTS "email" text');
         await queryRunner.query('ALTER TABLE "leave" ADD COLUMN IF NOT EXISTS "reason" text');
         await queryRunner.query('ALTER TABLE "leave" RENAME COLUMN "leave_destination" TO "leavedestination"');
-        await queryRunner.query('ALTER TABLE "leave" RENAME COLUMN "datecreated" TO "createdAt"');
-        await queryRunner.query('ALTER TABLE "leave" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "leave" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "leave" ADD COLUMN IF NOT EXISTS "lastupdated" text');
 
         await queryRunner.query('ALTER TABLE "hris_leave_relative" RENAME TO "leaverelative"');
         await queryRunner.query('ALTER TABLE "leaverelative" RENAME COLUMN "id" TO "leaverelativeid"');
@@ -43,8 +43,8 @@ export class leave1570142010433 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "leavetype" ADD COLUMN IF NOT EXISTS "name" text');
         await queryRunner.query('ALTER TABLE "leavetype" RENAME COLUMN "maximum_days" TO "maximumdays"');
         await queryRunner.query('ALTER TABLE "leavetype" ADD COLUMN IF NOT EXISTS "description" text');
-        await queryRunner.query('ALTER TABLE "leavetype" RENAME COLUMN "datecreated" TO "createdAt"');
-        await queryRunner.query('ALTER TABLE "leavetype" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "leavetype" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "leavetype" ADD COLUMN IF NOT EXISTS "lastupdated" text');
 
     }
 }

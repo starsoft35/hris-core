@@ -16,15 +16,15 @@ export class instances1570141287644 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "instancefacilitator" RENAME COLUMN "id" TO "instancefacilitatorid"');
         await queryRunner.query('ALTER TABLE "instancefacilitator" RENAME COLUMN "instance_id" TO "instanceid"');
         await queryRunner.query('ALTER TABLE "instancefacilitator" RENAME COLUMN "record_id" TO "recordid"');
-        await queryRunner.query('ALTER TABLE "instancefacilitator" RENAME COLUMN "datecreated" TO "createdAt"');
-        await queryRunner.query('ALTER TABLE "instancefacilitator" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "instancefacilitator" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "instancefacilitator" ADD COLUMN IF NOT EXISTS "lastupdated" text');
 
         await queryRunner.query('ALTER TABLE "hris_instancetrainer" RENAME TO "instancetrainer"');
         await queryRunner.query('ALTER TABLE "instancetrainer" RENAME COLUMN "id" TO "instancefacilitatorid"');
         await queryRunner.query('ALTER TABLE "instancetrainer" RENAME COLUMN "instance_id" TO "instanceid"');
         await queryRunner.query('ALTER TABLE "instancetrainer" RENAME COLUMN "trainer_id" TO "trainerid"');
-        await queryRunner.query('ALTER TABLE "instancetrainer" RENAME COLUMN "datecreated" TO "createdAt"');
-        await queryRunner.query('ALTER TABLE "instancetrainer" RENAME COLUMN "lastupdated" TO "updatedAt"');
+        await queryRunner.query('ALTER TABLE "instancetrainer" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "instancetrainer" ADD COLUMN IF NOT EXISTS "lastupdated" text');
 
         await queryRunner.query('ALTER TABLE "instancefacilitator" ADD COLUMN IF NOT EXISTS "description" text');
         await queryRunner.query('ALTER TABLE "instancefacilitator" ADD COLUMN IF NOT EXISTS "name" text');
