@@ -44,10 +44,10 @@
         @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
         uid: string;
 
-        @JoinColumn({ referencedColumnName: 'uid' })
+        @JoinColumn({ referencedColumnName: 'id' })
         createdBy: User;
 
-        @JoinColumn({ referencedColumnName: 'uid' })
+        @JoinColumn({ referencedColumnName: 'id' })
         lastUpdatedBy: User;
 
         @BeforeInsert()
