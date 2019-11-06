@@ -127,8 +127,8 @@ export class User extends UserCoreProps {
   })
   @JoinTable({
     name: 'userrolemembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   userRoles: UserRole[];
 
@@ -144,10 +144,32 @@ export class User extends UserCoreProps {
   })
   @JoinTable({
     name: 'usergroupmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   userGroups: UserGroup[];
+
+  // @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
+  //   onDelete: 'CASCADE',
+  // })
+  // dashboardCharts: DashboardChart[];
+
+  /**
+   * Many To Many Relationship: User and DashboardChart Entities
+   */
+  // @ManyToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
+  //   nullable: false,
+  //   eager: true,
+  //   cascade: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinTable({
+  //   name: 'userdashboardchartmembers',
+  //   joinColumn: { referencedColumnName: 'id' },
+  //   inverseJoinColumn: { referencedColumnName: 'id' },
+  // })
+  // dashboardCharts: DashboardChart[];
 
   // ! Deprecated
   // @OneToMany(type => Message, message => message.user, {
@@ -218,8 +240,8 @@ export class User extends UserCoreProps {
   })
   @JoinTable({
     name: 'userformmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   forms: Form[];
 
@@ -239,8 +261,8 @@ export class User extends UserCoreProps {
   )
   @JoinTable({
     name: 'organisationunitmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   organisationUnits: OrganisationUnit[];
 
@@ -253,7 +275,7 @@ export class User extends UserCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid', name: 'usersettingsid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   userSettings: UserSettings;
 
   @OneToMany(() => Dashboard, (dashboard: Dashboard) => dashboard.user)
