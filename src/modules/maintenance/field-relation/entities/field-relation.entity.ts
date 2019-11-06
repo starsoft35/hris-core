@@ -15,7 +15,7 @@ export class FieldRelation extends HRISBaseEntity {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   parentField: Field;
 
   /**
@@ -26,6 +26,6 @@ export class FieldRelation extends HRISBaseEntity {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   childField: Field;
 }

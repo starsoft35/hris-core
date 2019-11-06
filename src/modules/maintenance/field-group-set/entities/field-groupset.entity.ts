@@ -18,8 +18,8 @@ export class FieldGroupSet extends EntityCoreProps {
   })
   @JoinTable({
     name: 'fieldgroupsetmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   fieldGroups: FieldGroup[];
 }

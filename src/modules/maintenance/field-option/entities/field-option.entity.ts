@@ -32,7 +32,7 @@ export class FieldOption extends EntityCoreProps {
    * One To Many Relationship: Field and FieldOption
    */
   @ManyToOne(type => Field, field => field.fieldOptions)
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   field: Field;
 
   @OneToMany(
