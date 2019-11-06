@@ -24,20 +24,54 @@ export function deleteSuccessResponse(
 
 /**
  *
- * @param request
  * @param response
  * @param params
- * @param deleteResponse
  */
 export function genericFailureResponse(
     response: Response,
     params?: UIDParams,
 ): Response {
     return response.status(ENTITY_NOT_FOUND).json({
-        httpStatus: 'Not Found',
-        httpStatusCode: ENTITY_NOT_FOUND,
-        status: 'ERROR',
-        message: `IdentifiableObject with id ${params.id} could not be found.`,
+        message: `Object with id ${params.id} could not be found.`,
+    });
+}
+
+/**
+ *
+ * @param response
+ * @param params
+ */
+export function resultNotFoundResponse(
+    response: Response,
+    params?: UIDParams,
+): Response {
+    return response.status(ENTITY_NOT_FOUND).json({
+        message: `Object with id ${params.id} could not be found.`,
+    });
+}
+
+/**
+ *
+ * @param response
+ * @param params
+ */
+export function errorEntityWithAssociation(
+    response: Response,
+    params?: UIDParams,
+): Response {
+    return response.status(ENTITY_NOT_FOUND).json({
+        message: `Object with id ${params.id} could not be deleted. It has association with another objects`,
+    });
+}
+
+/**
+ *
+ * @param response
+ * @param msg
+ */
+export function errorMessage(response: Response, msg: string): Response {
+    return response.status(ENTITY_NOT_FOUND).json({
+        message: msg,
     });
 }
 
@@ -47,15 +81,9 @@ export function genericFailureResponse(
  * @param response
  * @param entity
  */
-export function entityExistResponse(
-    response: Response,
-    entity: any,
-): Response {
+export function entityExistResponse(response: Response, entity: any): Response {
     return response.json({
-        httpStatus: 'Item Found',
-        httpStatusCode: 404,
-        status: 'ERROR',
-        message: `IdentifiableObject with id ${entity.uid} could already exist.`,
+        message: `Object with id ${entity.uid} could already exist.`,
     });
 }
 
@@ -71,8 +99,8 @@ export function getSuccessResponse(
     getResponse: any,
 ): Response {
     if (getResponse !== undefined) {
-        const isPropExcluded = delete getResponse.id;
-        return isPropExcluded
+        // const isPropExcluded = delete getResponse.id;
+        return true
             ? response.status(response.statusCode).json(getResponse)
             : response.status(response.statusCode).json(getResponse);
     }
