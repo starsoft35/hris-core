@@ -9,6 +9,10 @@ import {
 import { getWhereConditions } from '../utilities';
 import { getRelations, getSelections } from '../utilities/get-fields.utility';
 import { HRISBaseEntity } from '../entities/base-entity';
+import { UIDToIDResolver } from '../resolvers/uid-to-id.resolver';
+import { entityTableMapper } from '../resolvers/database-table.resolver';
+import { isArray } from 'util';
+import * as _ from 'lodash';
 
 // class Factory {
 //   create<T>(type: (new () => T)): T {
@@ -156,6 +160,60 @@ export class BaseService<T extends HRISBaseEntity> {
     const condition: any = { uid };
     if (condition) {
       return this.modelRepository.delete(condition);
+    }
+  }
+
+  /**
+   *
+   * @param entityRelationProps
+   * @param key
+   */
+  async getRelationUids(entityRelationProps: any[], key: string): Promise<any> {
+    return Promise.all(
+      await _.map(
+        entityRelationProps[key],
+        async (relationObj: any): Promise<any> => {
+          const relationUids = await UIDToIDResolver(
+            relationObj.uid,
+            this.modelRepository,
+            entityTableMapper[key],
+          );
+          return await relationUids;
+        },
+      ),
+    );
+  }
+
+  /**
+   *
+   * @param entityUpdates
+   * @param entity
+   */
+  async EntityUidResolver(entityUpdates: any, entity: any) {
+    if (entityUpdates) {
+      entity = { ...entity, id: entity.id };
+      const objectKeys = Object.keys(entityUpdates);
+      const relationUIDs = await Promise.all(
+        await _.map(
+          objectKeys,
+          async (key: string): Promise<any> => {
+            if (isArray(entityUpdates[key])) {
+              const result = await this.getRelationUids(entityUpdates, key);
+              entity[key] = [
+                ...entity[key],
+                ...(await this.getRelationUids(entityUpdates, key)),
+              ];
+              if (result) {
+                return await this.getRelationUids(entityUpdates, key);
+              }
+            }
+          },
+        ),
+      );
+      return _.flatten(_.filter(relationUIDs, uid => uid === 0 || Boolean(uid)))
+        .length >= 1
+        ? entity
+        : entity;
     }
   }
 }

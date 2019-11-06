@@ -1,13 +1,12 @@
-import { BeforeInsert, Column, PrimaryColumn, Generated } from 'typeorm';
+import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { getUid } from '@iapps/utils/utils';
 import { TransactionTimestamp } from './transaction-timestamp.entity';
 
 export class EntityCoreProps extends TransactionTimestamp {
-    @Column({ select: false })
-    @Generated('increment')
+    @PrimaryGeneratedColumn()
     id: number;
 
-    @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+    @Column({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
     @Column({
@@ -20,6 +19,29 @@ export class EntityCoreProps extends TransactionTimestamp {
 
     @Column({ type: 'varchar', length: 256 })
     name: string;
+
+    @Column('text', {
+        nullable: true,
+        name: 'description',
+    })
+    description: string | null;
+
+    // TODO Find best way to associated last updated field with user entity
+    @Column({ nullable: true, name: 'lastupdatedby' })
+    lastUpdatedBy: string | null;
+
+    @Column('character varying', {
+        nullable: true,
+        length: 8,
+        name: 'publicaccess',
+    })
+    publicAccess: string | null;
+
+    @Column('boolean', {
+        nullable: true,
+        name: 'externalaccess',
+    })
+    externalAccess: boolean | null;
 
     @BeforeInsert()
     beforeInsertEntityCoreProps() {

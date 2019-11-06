@@ -69,7 +69,7 @@ export class BaseController<T extends HRISBaseEntity> {
         nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
       },
       [this.Model.plural]: _.map(entityRes, (content: any) => {
-        delete content.id;
+        // delete content.id;
         return content;
       }),
     };
@@ -147,7 +147,7 @@ export class BaseController<T extends HRISBaseEntity> {
       } else {
         const createdEntity = await this.baseService.create(createEntityDto);
         if (createdEntity !== undefined) {
-          delete createdEntity.id;
+          // delete createdEntity.id;
           return postSuccessResponse(res, createdEntity);
         } else {
           return genericFailureResponse(res);
@@ -173,10 +173,14 @@ export class BaseController<T extends HRISBaseEntity> {
   ): Promise<ApiResult> {
     const updateEntity = await this.baseService.findOneByUid(params.id);
     if (updateEntity !== undefined) {
+      const resolvedEntityDTO: any = await this.baseService.EntityUidResolver(
+        updateEntityDto,
+        updateEntity,
+      );
       // ! Removed Update Based By UID params and update automatically
       // ! By following the criteria if the uid exist the it will update
       // ! The item but if it is new then it will create new item
-      const payload = await this.baseService.update(updateEntityDto);
+      const payload = await this.baseService.update(resolvedEntityDTO);
       if (payload) {
         return res
           .status(res.statusCode)
@@ -185,6 +189,7 @@ export class BaseController<T extends HRISBaseEntity> {
     } else {
       return genericFailureResponse(res, params);
     }
+    return null;
   }
 
   /**

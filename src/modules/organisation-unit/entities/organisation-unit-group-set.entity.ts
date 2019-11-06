@@ -1,6 +1,6 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { OrganisationUnitGroup } from './organisation-unit-group.entity';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('organisationunitgroupset', { schema: 'public' })
 export class OrganisationUnitGroupSet extends EntityCoreProps {
