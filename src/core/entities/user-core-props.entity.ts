@@ -2,26 +2,23 @@ import {
     BeforeInsert,
     Column,
     JoinColumn,
-    PrimaryColumn,
-    Generated,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { getUid } from '@iapps/utils/utils';
 import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';
 import { User } from 'src/modules/system/user/entities/user.entity';
 
 export class UserCoreProps extends TransactionTimestamp {
-
-    @Column({ select: false })
-    @Generated('increment')
+    @PrimaryGeneratedColumn()
     id: number;
 
-    @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+    @Column({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
-    @JoinColumn({ referencedColumnName: 'uid' })
+    @JoinColumn({ referencedColumnName: 'id' })
     createdBy: User;
 
-    @JoinColumn({ referencedColumnName: 'uid' })
+    @JoinColumn({ referencedColumnName: 'id' })
     lastUpdatedBy: User;
 
     @BeforeInsert()
