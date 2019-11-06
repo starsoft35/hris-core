@@ -6,7 +6,7 @@
       "port": 5432,
       "username": "postgres",
       "password": "postgres",
-      "database": "hris4_new",
+      "database": "ben",
       "synchronize": true,
       "logging": false,
       "dropSchema": true,
