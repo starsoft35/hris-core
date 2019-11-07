@@ -1,7 +1,7 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { DashboardItem } from '../dashboard-item/entities/dashboard-item.entity';
-import { Map } from './map.entity';
+import { Map } from '../map/entities/map.entity';
 
 @Entity('dashboarditemmap', { schema: 'public' })
 export class DashboardItemMap {

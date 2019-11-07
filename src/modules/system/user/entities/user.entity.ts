@@ -21,7 +21,7 @@ import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
 import { Chart } from 'src/modules/visualization/chart/entities/chart.entity';
-import { Map } from 'src/modules/visualization/entities/map.entity';
+import { Map } from 'src/modules/visualization/map/entities/map.entity';
 import { ReportTable } from 'src/modules/visualization/entities/report-table.entity';
 
 @Entity('user', { schema: 'public' })

@@ -9,7 +9,7 @@ import { ReportTableDimension } from './entities/report-table-dimension.entity';
 import { ReportTable } from './entities/report-table.entity';
 import { ReportTableDimensionItem } from './entities/report-table-dimension-item.entity';
 import { MapView } from './entities/map-view.entity';
-import { Map } from './entities/map.entity';
+import { Map } from './map/entities/map.entity';
 import { MapViewDimension } from './entities/map-view-dimension.entity';
 import { MapViewDimensionItem } from './entities/map-view-dimension-item.entity';
 import { DashboardItemChart } from './entities/dashboard-item-chart.entity';
@@ -18,13 +18,14 @@ import { DashboardItemMap } from './entities/dashboard-item-map.entity';
 import { DashboardService } from './dashboard/services/dashboard.service';
 import { DashboardItemService } from './dashboard-item/services/dashboard-item.service';
 import { ReportTableService } from './services/report-table.service';
-import { MapService } from './services/map.service';
+import { MapService } from './map/services/map.service';
 import { DashboardItemController } from './dashboard-item/controllers/dashboard-item.controller';
 import { ReportTableController } from './controllers/report-table.controller';
-import { MapController } from './controllers/map.controller';
+import { MapController } from './map/controllers/map.controller';
 import { DashboardController } from './dashboard/controllers/dashboard.controller';
 import { ChartModule } from './chart/chart.module';
 import { DashboardItemModule } from './dashboard-item/dashboard-item.module';
+import { MapModule } from './map/map.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { DashboardItemModule } from './dashboard-item/dashboard-item.module';
     ChartModule,
     DashboardItemModule,
     VisualizationModule,
+    MapModule,
   ],
   controllers: [
     DashboardController,

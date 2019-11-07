@@ -1,7 +1,7 @@
 import { Entity, Column, OneToMany, ManyToOne } from 'typeorm';
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { MapViewDimension } from './map-view-dimension.entity';
-import { Map } from './map.entity';
+import { Map } from '../map/entities/map.entity';
 
 @Entity('mapview', { schema: 'public' })
 export class MapView extends EntityCoreProps {
