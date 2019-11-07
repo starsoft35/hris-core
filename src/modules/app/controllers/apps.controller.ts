@@ -50,6 +50,8 @@ export class AppsController extends BaseController<App> {
     ): Promise<ApiResult> {
         try {
             const result: any = await this.uploadFile(file);
+            // tslint:disable-next-line: no-console
+            console.log('UPLOAD FILE::: ' + JSON.stringify(result));
             const apps: any[] = await this.service.findWhere({
                 name: result.name,
             });
