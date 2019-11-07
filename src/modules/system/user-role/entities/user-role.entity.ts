@@ -40,8 +40,8 @@ export class UserRole extends UserIdentification {
   // })
   // @JoinTable({
   //   name: 'userrolegroupmembers',
-  //   joinColumn: { referencedColumnName: 'uid' },
-  //   inverseJoinColumn: { referencedColumnName: 'uid' },
+  //   joinColumn: { referencedColumnName: 'id' },
+  //   inverseJoinColumn: { referencedColumnName: 'id' },
   // })
   // userGroups: UserGroup[];
 }

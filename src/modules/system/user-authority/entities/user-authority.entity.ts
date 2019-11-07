@@ -22,8 +22,8 @@ export class UserAuthority extends UserCoreProps {
     })
     @JoinTable({
         name: 'userauthoritymembers',
-        joinColumn: { referencedColumnName: 'uid' },
-        inverseJoinColumn: { referencedColumnName: 'uid' },
+        joinColumn: { referencedColumnName: 'id' },
+        inverseJoinColumn: { referencedColumnName: 'id' },
     })
     userRoles: UserRole[];
 }

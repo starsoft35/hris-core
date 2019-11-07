@@ -15,7 +15,7 @@ export class FieldOptionMerge extends EntityCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   field: Field;
 
   /**
@@ -26,7 +26,7 @@ export class FieldOptionMerge extends EntityCoreProps {
     fieldOption => fieldOption.fieldOptionMerges,
     { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
   )
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   mergedFieldOption: FieldOption;
 
   @Column({

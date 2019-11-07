@@ -14,8 +14,8 @@ export class FieldGroup extends EntityCoreProps {
   @ManyToMany(type => Field, field => field.fieldGroups, { nullable: false })
   @JoinTable({
     name: 'fieldgroupmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   fields: Field[];
 
