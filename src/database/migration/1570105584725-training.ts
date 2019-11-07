@@ -157,10 +157,78 @@ export class training1570105584725 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "training" ADD COLUMN IF NOT EXISTS "curiculum" text'); 
     }
 
+
+    let trainingSession = `
+    CREATE SEQUENCE trainingsession_id_seq;
+    CREATE TABLE public.trainingsession
+    (
+        created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+        lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+        trainingsessionid integer NOT NULL DEFAULT nextval('trainingsession_id_seq'::regclass),
+        uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        code character varying(25) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+        name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        description text COLLATE pg_catalog."default",
+        lastupdatedby character varying COLLATE pg_catalog."default",
+        publicaccess character varying(8) COLLATE pg_catalog."default",
+        externalaccess boolean,
+        startdate timestamp without time zone,
+        enddate timestamp without time zone,
+        sectionid integer,
+        organisationunitid integer,
+        venueid integer,
+        sponsorid integer,
+        unitid integer,
+        curriculumid integer,
+        organiserid integer,
+        CONSTRAINT "PK_740a23883e56d250a5b08f7bc66" PRIMARY KEY (trainingsessionid),
+        CONSTRAINT "FK_14772fcc31e449bcfecb5be0d0e" FOREIGN KEY (curriculumid)
+            REFERENCES public.trainingcurriculum (trainingcurriculumid) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID,
+        CONSTRAINT "FK_30778db1b27df56675edf72f9ad" FOREIGN KEY (sectionid)
+            REFERENCES public.trainingsections (trainingsectionsid) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID,
+        CONSTRAINT "FK_7311b5eb1d2c11ea7f331dacb84" FOREIGN KEY (organisationunitid)
+            REFERENCES public.organisationunit (organisationunitid) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID,
+        CONSTRAINT "FK_76aeeee775bf56bb981764dc25e" FOREIGN KEY (organiserid)
+            REFERENCES public.trainingsponsor (trainingsponsorid) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID,
+        CONSTRAINT "FK_83ce766a8db4f37f18da08e0db4" FOREIGN KEY (sponsorid)
+            REFERENCES public.trainingsponsor (trainingsponsorid) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID,
+        CONSTRAINT "FK_8cc245eeb7e85c31b83bb6b3955" FOREIGN KEY (venueid)
+            REFERENCES public.trainingvenue (trainingvenueid) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID,
+        CONSTRAINT "FK_db3070edc959ca56cda6610ea27" FOREIGN KEY (unitid)
+            REFERENCES public.trainingunit (trainingunitid) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID
+    )
+    WITH (
+        OIDS = FALSE
+    )
+    TABLESPACE pg_default;
+    `
+    await queryRunner.query(trainingSession);
+
     let trainingSessionMethod = `CREATE TABLE public.trainingsessionmethods
     (
-        "trainingsessionid" character varying(256) COLLATE pg_catalog."default" NOT NULL,
-        "trainingmethodid" character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        "trainingsessionid" integer NOT NULL,
+        "trainingmethodid" integer NOT NULL,
         CONSTRAINT "PK_41abdff34305f481cf47ecbdea2" PRIMARY KEY ("trainingsessionid", "trainingmethodid"),
         CONSTRAINT "FK_af6beeda56102e75386789a2df9" FOREIGN KEY ("trainingsessionid")
             REFERENCES public.trainingsession (trainingsessionid) MATCH SIMPLE
@@ -180,80 +248,15 @@ export class training1570105584725 implements MigrationInterface {
     
     CREATE INDEX "IDX_af6beeda56102e75386789a2df"
         ON public.trainingsessionmethods USING btree
-        ("trainingsessionUid" COLLATE pg_catalog."default")
+        ("trainingsessionid")
         TABLESPACE pg_default;
             
     CREATE INDEX "IDX_b00b6a95a0aef228e3aedad74e"
         ON public.trainingsessionmethods USING btree
-        ("trainingmethodUid" COLLATE pg_catalog."default")
+        ("trainingmethodid")
         TABLESPACE pg_default;`
 
         await queryRunner.query(trainingSessionMethod);
-
-        let trainingSession = `CREATE TABLE public.trainingsession
-        (
-            created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
-            lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
-            trainingsessionid integer NOT NULL DEFAULT nextval('trainingsession_id_seq'::regclass),
-            uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
-            code character varying(25) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-            name character varying(256) COLLATE pg_catalog."default" NOT NULL,
-            description text COLLATE pg_catalog."default",
-            lastupdatedby character varying COLLATE pg_catalog."default",
-            publicaccess character varying(8) COLLATE pg_catalog."default",
-            externalaccess boolean,
-            startdate timestamp without time zone,
-            enddate timestamp without time zone,
-            sectionid character varying(256) COLLATE pg_catalog."default",
-            organisationunitid character varying(256) COLLATE pg_catalog."default",
-            venueid character varying(256) COLLATE pg_catalog."default",
-            sponsorid character varying(256) COLLATE pg_catalog."default",
-            unitid character varying(256) COLLATE pg_catalog."default",
-            curriculumid character varying(256) COLLATE pg_catalog."default",
-            organiserid character varying(256) COLLATE pg_catalog."default",
-            CONSTRAINT "PK_740a23883e56d250a5b08f7bc66" PRIMARY KEY (trainingsessionid),
-            CONSTRAINT "FK_14772fcc31e449bcfecb5be0d0e" FOREIGN KEY (curriculumid)
-                REFERENCES public.trainingcurriculum (trainingcurriculumid) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE CASCADE
-                NOT VALID,
-            CONSTRAINT "FK_30778db1b27df56675edf72f9ad" FOREIGN KEY (sectionid)
-                REFERENCES public.trainingsections (uid) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE CASCADE
-                NOT VALID,
-            CONSTRAINT "FK_7311b5eb1d2c11ea7f331dacb84" FOREIGN KEY (organisationunitid)
-                REFERENCES public.organisationunit (uid) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE CASCADE
-                NOT VALID,
-            CONSTRAINT "FK_76aeeee775bf56bb981764dc25e" FOREIGN KEY (organiserid)
-                REFERENCES public.trainingsponsor (uid) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE CASCADE
-                NOT VALID,
-            CONSTRAINT "FK_83ce766a8db4f37f18da08e0db4" FOREIGN KEY (sponsorid)
-                REFERENCES public.trainingsponsor (uid) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE CASCADE
-                NOT VALID,
-            CONSTRAINT "FK_8cc245eeb7e85c31b83bb6b3955" FOREIGN KEY (venueid)
-                REFERENCES public.trainingvenue (uid) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE CASCADE
-                NOT VALID,
-            CONSTRAINT "FK_db3070edc959ca56cda6610ea27" FOREIGN KEY (unitid)
-                REFERENCES public.trainingunit (trainingunitid) MATCH SIMPLE
-                ON UPDATE NO ACTION
-                ON DELETE CASCADE
-                NOT VALID
-        )
-        WITH (
-            OIDS = FALSE
-        )
-        TABLESPACE pg_default;
-        `
-        await queryRunner.query(trainingSession);
 }
 public async down(queryRunner: QueryRunner): Promise<any> {
 

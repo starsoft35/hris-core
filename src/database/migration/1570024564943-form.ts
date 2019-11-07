@@ -116,7 +116,7 @@ export class form1570024564943 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "lastupdatedby" text');
         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "publicaccess" text');
         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
-        await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "code" text');
+        await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "code" text');
 
         await queryRunner.query('ALTER TABLE "hris_fieldoption_children" RENAME TO "fieldoptionchildren"');
         await queryRunner.query('ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentfieldoption"');
@@ -130,13 +130,13 @@ export class form1570024564943 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "parentFieldOptionUid" text');
         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "childFieldOptionUid" text');
-        await queryRunner.query('ALTER TABLE "fieldoptionchildren" RENAME COLUMN "datecreated" TO "created"');
+        await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "created" text');
         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "lastupdated" text');
         
         await queryRunner.query('ALTER TABLE "hris_field_inputtype" RENAME TO "fieldinputtype"');
         await queryRunner.query('ALTER TABLE "fieldinputtype" RENAME COLUMN "id" TO "fieldinputtypeid"');
         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "description" text');
-        await queryRunner.query('ALTER TABLE "fieldinputtynamepe" ADD COLUMN IF NOT EXISTS "name" text');
+        await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "name" text');
         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "htmltag" text');
         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "uid" text');
         await queryRunner.query('ALTER TABLE "fieldinputtype" RENAME COLUMN "datecreated" TO "created"');
