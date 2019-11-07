@@ -6,8 +6,8 @@ import {
     Generated,
 } from 'typeorm';
 import { getUid } from '@iapps/utils/utils';
-import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';
-import { User } from 'src/modules/system/user/entities/user.entity';
+import { TransactionTimestamp } from '../../core/entities/transaction-timestamp.entity';
+import { User } from '../../modules/system/user/entities/user.entity';
 
 export class UserCoreProps extends TransactionTimestamp {
 

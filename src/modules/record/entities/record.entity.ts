@@ -9,9 +9,9 @@ import {
 } from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
-import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
-import { TransactionUser } from 'src/core/entities/transaction-user.entity';
+import { OrganisationUnit } from '../../../modules/organisation-unit/entities/organisation-unit.entity';
+import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
+import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 
 @Entity('record', { schema: 'public' })

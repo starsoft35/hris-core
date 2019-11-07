@@ -1,4 +1,4 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { FieldOption } from '../../field-option/entities/field-option.entity';

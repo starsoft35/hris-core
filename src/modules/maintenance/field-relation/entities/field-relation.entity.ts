@@ -1,7 +1,7 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Field } from '../../field/entities/field.entity';
-import { HRISBaseEntity } from 'src/core/entities/base-entity';
+import { HRISBaseEntity } from '../../../../core/entities/base-entity';
 
 @Entity('fieldrelation', { schema: 'public' })
 export class FieldRelation extends HRISBaseEntity {

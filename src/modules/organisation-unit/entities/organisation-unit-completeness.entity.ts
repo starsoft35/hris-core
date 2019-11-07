@@ -1,5 +1,5 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { Form } from 'src/modules/form/entities/form.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { Form } from '../../../modules/form/entities/form.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { OrganisationUnit } from './organisation-unit.entity';

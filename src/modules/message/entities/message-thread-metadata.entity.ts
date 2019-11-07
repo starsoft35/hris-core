@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 import { MessageThread } from './message-thread.entity';
 import { User } from '../../system/user/entities/user.entity';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('messagethreadmetadata', { schema: 'public' })
 export class MessageThreadMetadata extends EntityCoreProps {
