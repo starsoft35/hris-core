@@ -22,7 +22,7 @@ import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
 import { Chart } from 'src/modules/visualization/chart/entities/chart.entity';
 import { Map } from 'src/modules/visualization/map/entities/map.entity';
-import { ReportTable } from 'src/modules/visualization/entities/report-table.entity';
+import { ReportTable } from 'src/modules/visualization/report-table/entities/report-table.entity';
 
 @Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {

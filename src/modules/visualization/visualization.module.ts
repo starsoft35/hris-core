@@ -6,7 +6,7 @@ import { ChartDimension } from './entities/chart-dimension.entity';
 import { DashboardItem } from './dashboard-item/entities/dashboard-item.entity';
 import { Dashboard } from './dashboard/entities/dashboard.entity';
 import { ReportTableDimension } from './entities/report-table-dimension.entity';
-import { ReportTable } from './entities/report-table.entity';
+import { ReportTable } from './report-table/entities/report-table.entity';
 import { ReportTableDimensionItem } from './entities/report-table-dimension-item.entity';
 import { MapView } from './entities/map-view.entity';
 import { Map } from './map/entities/map.entity';
@@ -17,15 +17,16 @@ import { DashboardItemReportTable } from './entities/dashboard-item-report-table
 import { DashboardItemMap } from './entities/dashboard-item-map.entity';
 import { DashboardService } from './dashboard/services/dashboard.service';
 import { DashboardItemService } from './dashboard-item/services/dashboard-item.service';
-import { ReportTableService } from './services/report-table.service';
+import { ReportTableService } from './report-table/services/report-table.service';
 import { MapService } from './map/services/map.service';
 import { DashboardItemController } from './dashboard-item/controllers/dashboard-item.controller';
-import { ReportTableController } from './controllers/report-table.controller';
+import { ReportTableController } from './report-table/controllers/report-table.controller';
 import { MapController } from './map/controllers/map.controller';
 import { DashboardController } from './dashboard/controllers/dashboard.controller';
 import { ChartModule } from './chart/chart.module';
 import { DashboardItemModule } from './dashboard-item/dashboard-item.module';
 import { MapModule } from './map/map.module';
+import { ReportTableModule } from './report-table/report-table.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { MapModule } from './map/map.module';
     DashboardItemModule,
     VisualizationModule,
     MapModule,
+    ReportTableModule,
   ],
   controllers: [
     DashboardController,
