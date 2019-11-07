@@ -1,7 +1,7 @@
 import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { User } from 'src/modules/system/user/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { DashboardItem } from './dashboard-item.entity';
+import { DashboardItem } from '../../dashboard-item/entities/dashboard-item.entity';
 
 @Entity('dashboard', { schema: 'public' })
 export class Dashboard extends EntityCoreProps {

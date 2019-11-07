@@ -1,7 +1,7 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { DashboardItem } from './dashboard-item.entity';
-import { ReportTable } from './report-table.entity';
+import { DashboardItem } from '../dashboard-item/entities/dashboard-item.entity';
+import { ReportTable } from '../report-table/entities/report-table.entity';
 
 @Entity('dashboarditemreporttable', { schema: 'public' })
 export class DashboardItemReportTable {

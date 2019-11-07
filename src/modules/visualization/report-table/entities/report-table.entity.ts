@@ -2,8 +2,8 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { User } from 'src/modules/system/user/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
-import { ReportTableDimension } from './report-table-dimension.entity';
+import { DashboardItemReportTable } from '../../entities/dashboard-item-report-table.entity';
+import { ReportTableDimension } from '../../entities/report-table-dimension.entity';
 
 @Entity('reporttable', { schema: 'public' })
 export class ReportTable extends EntityCoreProps {

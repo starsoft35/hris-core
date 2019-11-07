@@ -5,7 +5,7 @@ import { MapService } from '../services/map.service';
 
 @Controller('api/' + Map.plural)
 export class MapController extends BaseController<Map> {
-  constructor(service: MapService) {
-    super(service, Map);
+  constructor(mapService: MapService) {
+    super(mapService, Map);
   }
 }

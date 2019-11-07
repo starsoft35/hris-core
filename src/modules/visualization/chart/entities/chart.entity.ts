@@ -2,8 +2,8 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { User } from 'src/modules/system/user/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { ChartDimension } from './chart-dimension.entity';
-import { DashboardItemChart } from './dashboard-item-chart.entity';
+import { ChartDimension } from '../../entities/chart-dimension.entity';
+import { DashboardItemChart } from '../../entities/dashboard-item-chart.entity';
 
 @Entity('chart', { schema: 'public' })
 export class Chart extends EntityCoreProps {
