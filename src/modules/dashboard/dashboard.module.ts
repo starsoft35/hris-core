@@ -3,7 +3,7 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChartDimensionItem } from './entities/chart-dimension-item.entity';
 import { ChartDimension } from './entities/chart-dimension.entity';
-import { DashboardItem } from './entities/dashboard-item.entity';
+import { DashboardItem } from './dashboard-item/entities/dashboard-item.entity';
 import { Dashboard } from './entities/dashboard.entity';
 import { ReportTableDimension } from './entities/report-table-dimension.entity';
 import { ReportTable } from './entities/report-table.entity';
@@ -16,14 +16,15 @@ import { DashboardItemChart } from './entities/dashboard-item-chart.entity';
 import { DashboardItemReportTable } from './entities/dashboard-item-report-table.entity';
 import { DashboardItemMap } from './entities/dashboard-item-map.entity';
 import { DashboardService } from './services/dashboard.service';
-import { DashboardItemService } from './services/dashboard-item.service';
+import { DashboardItemService } from './dashboard-item/services/dashboard-item.service';
 import { ReportTableService } from './services/report-table.service';
 import { MapService } from './services/map.service';
-import { DashboardItemController } from './controllers/dashboard-item.controller';
+import { DashboardItemController } from './dashboard-item/controllers/dashboard-item.controller';
 import { ReportTableController } from './controllers/report-table.controller';
 import { MapController } from './controllers/map.controller';
 import { DashboardController } from './controllers/dashboard.controller';
 import { ChartModule } from './chart/chart.module';
+import { DashboardItemModule } from './dashboard-item/dashboard-item.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { ChartModule } from './chart/chart.module';
       DashboardItemMap,
     ]),
     ChartModule,
+    DashboardItemModule,
   ],
   controllers: [
     DashboardController,
