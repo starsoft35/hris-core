@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 import { ChartDimensionItem } from './entities/chart-dimension-item.entity';
 import { ChartDimension } from './entities/chart-dimension.entity';
-import { Chart } from './entities/chart.entity';
 import { DashboardItem } from './entities/dashboard-item.entity';
 import { Dashboard } from './entities/dashboard.entity';
 import { ReportTableDimension } from './entities/report-table-dimension.entity';
@@ -19,14 +17,13 @@ import { DashboardItemReportTable } from './entities/dashboard-item-report-table
 import { DashboardItemMap } from './entities/dashboard-item-map.entity';
 import { DashboardService } from './services/dashboard.service';
 import { DashboardItemService } from './services/dashboard-item.service';
-import { ChartService } from './services/chart.service';
 import { ReportTableService } from './services/report-table.service';
 import { MapService } from './services/map.service';
 import { DashboardItemController } from './controllers/dashboard-item.controller';
-import { ChartController } from './controllers/chart.controller';
 import { ReportTableController } from './controllers/report-table.controller';
 import { MapController } from './controllers/map.controller';
 import { DashboardController } from './controllers/dashboard.controller';
+import { ChartModule } from './chart/chart.module';
 
 @Module({
   imports: [
@@ -34,7 +31,6 @@ import { DashboardController } from './controllers/dashboard.controller';
     TypeOrmModule.forFeature([
       Dashboard,
       DashboardItem,
-      Chart,
       ChartDimension,
       ChartDimensionItem,
       ReportTable,
@@ -48,20 +44,19 @@ import { DashboardController } from './controllers/dashboard.controller';
       DashboardItemReportTable,
       DashboardItemMap,
     ]),
+    ChartModule,
   ],
   controllers: [
     DashboardController,
     DashboardItemController,
-    ChartController,
     ReportTableController,
     MapController,
   ],
   providers: [
     DashboardService,
     DashboardItemService,
-    ChartService,
     ReportTableService,
     MapService,
   ],
 })
-export class DashboardModule {}
+export class DashboardModule { }

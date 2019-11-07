@@ -33,7 +33,6 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { IndicatorModule } from './modules/indicator/indicator.module';
 import { SystemSettingModule } from './modules/system-setting/system-setting.module';
 
-
 @Module({
   imports: [
     AppsModule,
@@ -79,5 +78,5 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
   providers: [],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) {}
+  constructor(private readonly connection: Connection) { }
 }

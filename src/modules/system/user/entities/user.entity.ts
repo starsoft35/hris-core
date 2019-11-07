@@ -20,7 +20,7 @@ import { Message } from '../../../message/entities/message.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { Chart } from 'src/modules/dashboard/entities/chart.entity';
+import { Chart } from 'src/modules/dashboard/chart/entities/chart.entity';
 import { Map } from 'src/modules/dashboard/entities/map.entity';
 import { ReportTable } from 'src/modules/dashboard/entities/report-table.entity';
 
