@@ -4,7 +4,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { DashboardItemChart } from '../../entities/dashboard-item-chart.entity';
 import { DashboardItemMap } from '../../entities/dashboard-item-map.entity';
 import { DashboardItemReportTable } from '../../entities/dashboard-item-report-table.entity';
-import { Dashboard } from '../../entities/dashboard.entity';
+import { Dashboard } from '../../dashboard/entities/dashboard.entity';
 
 @Entity('dashboarditem', { schema: 'public' })
 export class DashboardItem extends EntityCoreProps {

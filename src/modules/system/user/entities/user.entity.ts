@@ -1,5 +1,5 @@
 import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
-import { Dashboard } from 'src/modules/dashboard/entities/dashboard.entity';
+import { Dashboard } from 'src/modules/dashboard/dashboard/entities/dashboard.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import {
   BeforeInsert,
