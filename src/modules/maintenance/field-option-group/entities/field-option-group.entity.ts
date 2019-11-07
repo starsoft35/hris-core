@@ -20,7 +20,7 @@ export class FieldOptionGroup extends EntityCoreProps {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   field: Field | null;
 
   @Column({
@@ -47,8 +47,8 @@ export class FieldOptionGroup extends EntityCoreProps {
   )
   @JoinTable({
     name: 'fieldoptiongroupmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   fieldOptions: FieldOption[];
 

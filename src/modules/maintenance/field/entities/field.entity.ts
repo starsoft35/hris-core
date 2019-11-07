@@ -77,7 +77,7 @@ export class Field extends EntityCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   dataType: FieldDataType;
 
   @OneToMany(type => FieldRelation, fieldRelation => fieldRelation.childField, {
@@ -112,7 +112,7 @@ export class Field extends EntityCoreProps {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   fieldInputType: FieldInputType;
 
   @OneToMany(

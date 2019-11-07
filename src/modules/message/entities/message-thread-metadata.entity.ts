@@ -10,7 +10,7 @@ import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('messagethreadmetadata', { schema: 'public' })
 export class MessageThreadMetadata extends EntityCoreProps {
-  static plural = 'messageThreadMetadata';
+  static plural = 'messageThreadMetadatas';
 
   @ManyToOne(
     type => MessageThread,

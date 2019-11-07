@@ -23,8 +23,8 @@ export class FieldOptionGroupSet extends EntityCoreProps {
   )
   @JoinTable({
     name: 'fieldoptiongroupsetmembers',
-    joinColumn: { referencedColumnName: 'uid' },
-    inverseJoinColumn: { referencedColumnName: 'uid' },
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
   })
   fieldOptionGroups: FieldOptionGroup[];
 }

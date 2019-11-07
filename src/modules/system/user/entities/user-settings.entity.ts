@@ -2,7 +2,7 @@ import { Column, Entity, OneToOne } from 'typeorm';
 import { User } from './user.entity';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 
-@Entity('usersettings', { schema: 'public' })
+@Entity('usersetting', { schema: 'public' })
 export class UserSettings extends EntityCoreProps {
 
   @Column({ type: 'text', nullable: true })

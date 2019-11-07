@@ -12,7 +12,7 @@ export class FieldOptionChildren extends EntityCoreProps {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   parentFieldOption: FieldOption;
 
   @ManyToOne(type => FieldOption, fieldOption => fieldOption.id, {
@@ -20,6 +20,6 @@ export class FieldOptionChildren extends EntityCoreProps {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'uid' })
+  @JoinColumn({ referencedColumnName: 'id' })
   childFieldOption: FieldOption;
 }
