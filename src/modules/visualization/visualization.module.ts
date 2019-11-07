@@ -47,7 +47,7 @@ import { DashboardItemModule } from './dashboard-item/dashboard-item.module';
     ]),
     ChartModule,
     DashboardItemModule,
-    DashboardModule,
+    VisualizationModule,
   ],
   controllers: [
     DashboardController,
@@ -62,4 +62,4 @@ import { DashboardItemModule } from './dashboard-item/dashboard-item.module';
     MapService,
   ],
 })
-export class DashboardModule { }
+export class VisualizationModule { }

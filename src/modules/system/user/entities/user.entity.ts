@@ -1,5 +1,5 @@
 import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
-import { Dashboard } from 'src/modules/dashboard/dashboard/entities/dashboard.entity';
+import { Dashboard } from 'src/modules/visualization/dashboard/entities/dashboard.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import {
   BeforeInsert,
@@ -20,9 +20,9 @@ import { Message } from '../../../message/entities/message.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { Chart } from 'src/modules/dashboard/chart/entities/chart.entity';
-import { Map } from 'src/modules/dashboard/entities/map.entity';
-import { ReportTable } from 'src/modules/dashboard/entities/report-table.entity';
+import { Chart } from 'src/modules/visualization/chart/entities/chart.entity';
+import { Map } from 'src/modules/visualization/entities/map.entity';
+import { ReportTable } from 'src/modules/visualization/entities/report-table.entity';
 
 @Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {

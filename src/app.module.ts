@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { AppController } from './app.controller';
 import { getDataBaseConfiguration } from './core/utilities/configuration';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { VisualizationModule } from './modules/visualization/visualization.module';
 import { FormModule } from './modules/form/form.module';
 import { MessageModule } from './modules/message/message.module';
 import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-unit.module';
@@ -62,7 +62,7 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
     UserAuthorityModule,
     // END: User Modules
 
-    DashboardModule,
+    VisualizationModule,
     ReportModule,
     TrainingModule,
     MessageModule,
