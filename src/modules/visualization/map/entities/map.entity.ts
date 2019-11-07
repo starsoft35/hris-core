@@ -2,8 +2,8 @@ import { EntityCoreProps } from 'src/core/entities/entity-core-props';
 import { User } from 'src/modules/system/user/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { DashboardItemMap } from '../../entities/dashboard-item-map.entity';
-import { MapView } from '../../entities/map-view.entity';
+import { DashboardItemMap } from '../../other/entities/dashboard-item-map.entity';
+import { MapView } from '../../other/entities/map-view.entity';
 
 @Entity('map', { schema: 'public' })
 export class Map extends EntityCoreProps {
