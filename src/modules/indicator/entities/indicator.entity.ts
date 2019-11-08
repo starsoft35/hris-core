@@ -23,9 +23,9 @@ export class Indicator extends HRISBaseEntity {
     @Column('integer', {
         nullable: false,
         primary: true,
-        name: 'programindicatorid',
+        name: 'id',
     })
-    programindicatorid: number;
+    id: number;
 
     @Column('character varying', {
         nullable: true,
