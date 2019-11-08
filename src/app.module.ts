@@ -33,14 +33,12 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { IndicatorModule } from './modules/indicator/indicator.module';
 import { SystemSettingModule } from './modules/system-setting/system-setting.module';
 
-
 @Module({
   imports: [
     AppsModule,
     Repository,
     TypeOrmModule.forRoot(getDataBaseConfiguration()),
     OrganisatinUnitModule,
-    // FormModule,
 
     // START: Field Modules
     FieldModule,
@@ -54,6 +52,8 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
     FieldOptionGroupSetModule,
     FieldOptionMergeModule,
     FieldRelationModule,
+    FormModule,
+
     // END: Field Modules
 
     // START: User Modules
