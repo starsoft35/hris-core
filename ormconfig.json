@@ -5,13 +5,8 @@
       "host": "localhost",
       "port": 5432,
       "username": "postgres",
-<<<<<<< HEAD
       "password": "postgres",
-      "database": "newhris",
-=======
-      "password": "<REPLACE WITH YOUR POSTGRES PASSWORD>",
-      "database": "hrisdb_new",
->>>>>>> 0c20833057bbfec9b62f283a36170920e356f53b
+      "database": "bennett",
       "synchronize": true,
       "logging": false,
       "dropSchema": true,
