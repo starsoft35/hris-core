@@ -1,4 +1,5 @@
 export const entityTableMapper = {
+    users: 'user',
     userRoles: 'userrole',
     userAuthorities: 'userauthority',
     userGroups: 'usergroup',
@@ -39,7 +40,6 @@ export const entityTableMapper = {
     dataStore: 'datastore',
     records: 'record',
     reports: 'report',
-    users: 'user',
     systeminfos: 'systeminfo',
     systemSettings: 'systemsetting',
 };
