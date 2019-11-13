@@ -1,5 +1,5 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { User } from 'src/modules/system/user/entities/user.entity';
+import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
+import { User } from '../../../system/user/entities/user.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { ChartDimension } from '../../other/entities/chart-dimension.entity';

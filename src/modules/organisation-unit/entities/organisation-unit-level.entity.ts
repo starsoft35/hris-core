@@ -1,5 +1,5 @@
 import { Column, Entity } from 'typeorm';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('organisationunitlevel', { schema: 'public' })
 export class OrganisationUnitLevel extends EntityCoreProps {

@@ -1,6 +1,6 @@
 import { Column, Entity, JoinTable, ManyToMany, JoinColumn } from 'typeorm';
 import { UserRole } from '../../user-role/entities/user-role.entity';
-import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
+import { UserCoreProps } from '../../../../core/entities/user-core-props.entity';
 
 @Entity('userauthority', { schema: 'public' })
 export class UserAuthority extends UserCoreProps {

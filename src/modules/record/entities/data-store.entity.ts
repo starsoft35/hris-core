@@ -1,5 +1,5 @@
 import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
-import { UserIdentification } from 'src/modules/system/user/entities/user-identification';
+import { UserIdentification } from '../../../modules/system/user/entities/user-identification';
 
 import { Form } from '../../form/entities/form.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';

@@ -1,8 +1,8 @@
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
-import { Record } from 'src/modules/record/entities/record.entity';
-import { User } from 'src/modules/system/user/entities/user.entity';
-import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
-import { TrainingVenue } from 'src/modules/training/entities/training-venue.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { Record } from '../../../modules/record/entities/record.entity';
+import { User } from '../../../modules/system/user/entities/user.entity';
+import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
+import { TrainingVenue } from '../../../modules/training/entities/training-venue.entity';
 import {
   Column,
   Entity,
