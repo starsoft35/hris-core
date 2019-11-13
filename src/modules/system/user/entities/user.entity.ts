@@ -1,5 +1,5 @@
 import { UserCoreProps } from '../../../../core/entities/user-core-props.entity';
-import { Dashboard } from '../dashboard/entities/dashboard.entity';
+import { Dashboard } from '../../../visualization/dashboard/entities/dashboard.entity';
 import { OrganisationUnit } from '../../../../modules/organisation-unit/entities/organisation-unit.entity';
 
 import {
@@ -21,9 +21,9 @@ import { Message } from '../../../message/entities/message.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { Chart } from '../../../dashboard/entities/chart.entity';
-import { Map } from '../../../dashboard/entities/map.entity';
-import { ReportTable } from '../../../dashboard/entities/report-table.entity';
+import { Chart } from '../../../visualization/chart/entities/chart.entity'
+import { Map } from '../../../visualization/map/entities/map.entity';
+import { ReportTable } from '../../../visualization/report-table/entities/report-table.entity';
 @Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {
   static plural = 'users';
