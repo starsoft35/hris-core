@@ -15,7 +15,6 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       await queryRunner.query('ALTER TABLE "record" ADD COLUMN "lastupdatedbyid" INTEGER');
       await queryRunner.query('ALTER TABLE "record" ADD CONSTRAINT "fk_record_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "hris_user"');
 
-      await queryRunner.query('ALTER TABLE "record" RENAME COLUMN id TO "recordid"');
       await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "organisationunit_id" TO "organisationunitid"');
       await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "form_id" TO "formid"');
       await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "datecreated" TO "created"');
