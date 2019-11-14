@@ -11,7 +11,7 @@ export class MessageMetadata extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'messagemetadataid',
+    name: 'id',
   })
   id: number;
 

@@ -46,26 +46,53 @@ export class Report extends EntityCoreProps {
     name: 'lastupdated',
   })
   lastupdated: string | null;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
+    name: 'createdby',
+  })
+  createdby: string;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
+    name: 'userid',
+  })
+  userid: number;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
+    name: 'lastupdatedby',
+  })
+  lastupdatedby: string;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
+    name: 'publicaccess',
+  })
+  publicAccesscess: string;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
+    name: 'externalaccess',
+  })
+  externalAccess: boolean;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
+    name: 'description',
+  })
+  description: string;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
+    name: 'code',
+  })
+  code: string;
 }
-
-
-// "lastUpdated": "2013-03-20T19:09:10.769",
-//       "href": "https://play.dhis2.org/2.33.0/api/reports/Kvg1AhYHM8Q",
-//       "id": "Kvg1AhYHM8Q",
-//       "created": "2012-11-13T14:49:45.007",
-//       "name": "ANC: 1st Visit Cumulative Chart",
-//       "designContent":
-// "displayName": "ANC: 1st Visit Cumulative Chart",
-// "publicAccess": "--------",
-// "type": "JASPER_REPORT_TABLE",
-// "externalAccess": true,
-// "cacheStrategy": "RESPECT_SYSTEM_SETTING",
-// "favorite": false,
-// "access": {
-//   "read": true,
-//   "update": true,
-//   "externalize": true,
-//   "delete": true,
-//   "write": true,
-//   "manage": true
-// },
