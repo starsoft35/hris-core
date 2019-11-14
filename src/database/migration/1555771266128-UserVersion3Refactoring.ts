@@ -243,9 +243,6 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "hris_formsection" RENAME TO "formsection"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formsection" RENAME COLUMN "id" TO "formsectionid"',
-      );
-      await queryRunner.query(
         'ALTER TABLE "formsection" RENAME COLUMN "form_id" TO "formid"',
       );
       await queryRunner.query(

@@ -73,7 +73,7 @@ export class Report extends EntityCoreProps {
     length: 255,
     name: 'publicaccess',
   })
-  publicacpublicAccesscess: string;
+  publicAccesscess: string;
 
   @Column('character varying', {
     nullable: false,
