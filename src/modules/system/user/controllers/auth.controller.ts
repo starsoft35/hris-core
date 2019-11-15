@@ -12,7 +12,6 @@ import { Request, Response } from 'express';
 import { AuthService } from '../services/auth.service';
 import { SessionGuard } from '../guards/session.guard';
 import { ApiResult } from 'src/core/interfaces';
-import { UserAuthority } from 'dist/modules/system/user-authority/entities/user-authority.entity';
 
 @Controller('api/me')
 export class AuthController {

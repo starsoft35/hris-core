@@ -22,32 +22,6 @@ export class Report extends EntityCoreProps {
   parameters: string;
 
   @Column('character varying', {
-    nullable: true,
-    length: 11,
-    default: () => 'NULL::character varying',
-    name: 'uid',
-  })
-  dhisuid: string | null;
-
-  @Column('character varying', {
-    nullable: true,
-    name: 'name',
-  })
-  active: boolean | null;
-
-  @Column('date', {
-    nullable: true,
-    name: 'created',
-  })
-  openingDate: string | null;
-
-  @Column('date', {
-    nullable: true,
-    name: 'lastupdated',
-  })
-  lastupdated: string | null;
-
-  @Column('character varying', {
     nullable: false,
     length: 255,
     name: 'createdby',
@@ -64,16 +38,9 @@ export class Report extends EntityCoreProps {
   @Column('character varying', {
     nullable: false,
     length: 255,
-    name: 'lastupdatedby',
-  })
-  lastupdatedby: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
     name: 'publicaccess',
   })
-  publicAccesscess: string;
+  publicAccess: string;
 
   @Column('character varying', {
     nullable: false,

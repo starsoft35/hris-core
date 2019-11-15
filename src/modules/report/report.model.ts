@@ -2,7 +2,7 @@ export class Report {
   id: number;
   uri: Text;
   uid: string;
-  created: string;
+  //created: string;
   createdby: string;
   userid: number;
   parameters: string;

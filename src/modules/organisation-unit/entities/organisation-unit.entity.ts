@@ -35,6 +35,9 @@ export class OrganisationUnit extends EntityCoreProps {
   })
   dhisuid: string | null;
 
+  @Column({ name:'shortname',type: 'varchar', length: 256 })
+  shortName: string;
+
   @Column('boolean', {
     nullable: true,
     name: 'active',
