@@ -33,7 +33,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingcurriculum" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingcurriculum" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "trainingcurriculum" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingcurriculum" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -67,7 +67,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -98,7 +98,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingsections" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingsections" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "trainingsections" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingsections" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -144,7 +144,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingsponsor" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingsponsor" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "trainingsponsor" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingsponsor" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -214,7 +214,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingtrainer" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingtrainer" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "trainingtrainer" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingtrainer" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -251,7 +251,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingunit" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingunit" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "trainingunit" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingunit" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -291,7 +291,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',

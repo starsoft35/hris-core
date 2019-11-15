@@ -194,7 +194,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "form" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -264,7 +264,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -339,7 +339,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -391,7 +391,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -475,7 +475,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -515,7 +515,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -555,7 +555,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -586,7 +586,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -617,7 +617,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -690,7 +690,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -739,7 +739,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -782,7 +782,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
@@ -823,7 +823,7 @@ export class UserVersion3Refactoring1555771266128
         'ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "message" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)',
+        'ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
         'ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',

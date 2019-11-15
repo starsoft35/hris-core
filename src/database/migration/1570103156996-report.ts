@@ -17,7 +17,7 @@ export class report1570103156996 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS "uri" text');
         await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS "userid" text');
         await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-        await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+        await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
         await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
         await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
         await queryRunner.query('ALTER TABLE "report" ADD COLUMN IF NOT EXISTS "description" text');

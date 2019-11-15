@@ -16,7 +16,7 @@
 //         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "description" text');
 //         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "form" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
        
@@ -43,7 +43,7 @@
 //         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "formsection" ADD COLUMN IF NOT EXISTS "description" text');
@@ -71,7 +71,7 @@
 //         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "skipInReport" boolean');
@@ -90,7 +90,7 @@
 //         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "description" text');
 //         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "removedFieldOptionValue" text');
 //         await queryRunner.query('ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "removedFieldOptionUid" text');
@@ -114,7 +114,7 @@
 //         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 
@@ -126,7 +126,7 @@
 //         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "description" text');
 //         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "parentFieldOptionUid" text');
 //         await queryRunner.query('ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "childFieldOptionUid" text');
@@ -143,7 +143,7 @@
 //         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone');
 //         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 
 //         await queryRunner.query('ALTER TABLE "hris_fieldgroupset" RENAME TO "fieldgroupset"');
@@ -156,7 +156,7 @@
 //         await queryRunner.query('ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "fieldgroupset" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 
 //         await queryRunner.query('ALTER TABLE "hris_field_datatype" RENAME TO "fielddatatype"');
@@ -168,7 +168,7 @@
 //         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 
 //         await queryRunner.query('ALTER TABLE "hris_fieldgroup_members" RENAME TO "fieldgroupmembers"');

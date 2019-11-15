@@ -26,7 +26,7 @@ export class maintenance1570090895536 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "hasTarget" boolean');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "hasOptions" boolean');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
        
         await queryRunner.query('ALTER TABLE "hris_fieldgroup" RENAME TO "fieldgroup"');
@@ -37,7 +37,7 @@ export class maintenance1570090895536 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
         await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
         await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-        await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+        await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
         await queryRunner.query('ALTER TABLE "fieldgroup" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');       
 
     }

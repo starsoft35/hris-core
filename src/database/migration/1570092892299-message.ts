@@ -13,7 +13,7 @@
 //         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS  "created" text');
 //         await queryRunner.query('ALTER TABLE "messagemetadata" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone');
@@ -30,7 +30,7 @@
 //         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone');
 //         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "messagethreadmetadata" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
@@ -45,7 +45,7 @@
 //         await queryRunner.query('ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "messagethread" DROP COLUMN "datecreated"'); 
 //         await queryRunner.query('ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "messagethread" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
@@ -60,7 +60,7 @@
 //         await queryRunner.query('ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
 //         await queryRunner.query('ALTER TABLE "message" DROP COLUMN "datecreated"'); 
 //         await queryRunner.query('ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
-//         await queryRunner.query('ALTER TABLE "message" ADD COLUMN IF NOT EXISTS publicaccess character varying(8)');
+//         await queryRunner.query('ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
 //         await queryRunner.query('ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
 //         await queryRunner.query('ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "code" character varying(25)');
 //         await queryRunner.query('ALTER TABLE "message" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
