@@ -11,13 +11,14 @@ import { AuthService } from './services/auth.service';
 import { AppAuthGuard } from './guards/roles.guard';
 import { UsersController } from './controllers/user.controller';
 import { UserService } from './services/user.service';
+import { AuthController } from './controllers/auth.controller';
 
 @Module({
-    imports: [
-        PassportModule.register({ defaultStrategy: 'basic', session: true }),
-        TypeOrmModule.forFeature([User, UserGroup, UserRole, UserSettings]),
-    ],
-    controllers: [UsersController],
-    providers: [UserService, AuthService, AppAuthGuard],
+  imports: [
+    PassportModule.register({ defaultStrategy: 'basic', session: true }),
+    TypeOrmModule.forFeature([User, UserGroup, UserRole, UserSettings]),
+  ],
+  controllers: [UsersController, AuthController],
+  providers: [UserService, AuthService, AppAuthGuard],
 })
-export class UserModule { }
+export class UserModule {}

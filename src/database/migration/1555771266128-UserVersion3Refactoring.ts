@@ -153,13 +153,13 @@ export class UserVersion3Refactoring1555771266128
       );
 
       await queryRunner.query(
-        'ALTER TABLE "hris_user_group_members" RENAME TO "userrolegroupmembers"',
+        'ALTER TABLE "hris_user_group_members" RENAME TO "userrolemembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrolegroupmembers" RENAME COLUMN group_id TO "userroleId"',
+        'ALTER TABLE "userrolemembers" RENAME COLUMN group_id TO "userroleId"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrolegroupmembers" RENAME COLUMN user_id TO "userId"',
+        'ALTER TABLE "userrolemembers" RENAME COLUMN user_id TO "userId"',
       );
 
       //await queryRunner.query('ALTER TABLE GOOD ALTER COLUMN "id" RENAME TO userid;');
@@ -1059,50 +1059,6 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 
     await queryRunner.query(userMessageMembers);
 
-    let userrolemembers = `CREATE TABLE public.userrolemembers
-    (
-        "userId" integer NOT NULL,
-        "userroleId" integer NOT NULL,
-        CONSTRAINT "PK_fe01211c9ac04fdbf65009a5762" PRIMARY KEY ("userId", "userroleId"),
-        CONSTRAINT "FK_315d0c17f77fa8fb90abc516f3f" FOREIGN KEY ("userroleId")
-            REFERENCES public.userrole (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID,
-        CONSTRAINT "FK_6879814297a8abd1068bd4feb4d" FOREIGN KEY ("userId")
-            REFERENCES public."user" (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID
-    )
-    WITH (
-        OIDS = FALSE
-    )
-    TABLESPACE pg_default;
-    
-    ALTER TABLE public.userrolemembers
-        OWNER to postgres;
-    
-    -- Index: IDX_315d0c17f77fa8fb90abc516f3
-    
-    -- DROP INDEX public."IDX_315d0c17f77fa8fb90abc516f3";
-    
-    CREATE INDEX "IDX_315d0c17f77fa8fb90abc516f3"
-        ON public.userrolemembers USING btree
-        ("userroleId")
-        TABLESPACE pg_default;
-    
-    -- Index: IDX_6879814297a8abd1068bd4feb4
-    
-    -- DROP INDEX public."IDX_6879814297a8abd1068bd4feb4";
-    
-    CREATE INDEX "IDX_6879814297a8abd1068bd4feb4"
-        ON public.userrolemembers USING btree
-        ("userId")
-        TABLESPACE pg_default;`;
-
-    await queryRunner.query(userrolemembers);
-
     /*await queryRunner.query(`CREATE SEQUENCE userauthority_id_seq
     INCREMENT 1
     START 1508
@@ -1784,6 +1740,16 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
             ')',
         );
       }
+    }
+
+    const users = await queryRunner.manager.query('SELECT * FROM public.user');
+    for(let user of users){
+      console.log(user);
+      await queryRunner.manager.query(
+        `UPDATE public.user SET token='${Buffer.from(
+          user.username + ':HRHIS2020',
+        ).toString('base64')}' WHERE id=${user.id}`,
+      );
     }
   }
 
