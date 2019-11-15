@@ -45,7 +45,6 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         'REFERENCES public.record(recordid) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,'+
         'CONSTRAINT "FK_6c8389b754538fff362120945f5" FOREIGN KEY(fieldid) ' +
         'REFERENCES public.hris_field(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)';
-      console.log(query);
       await queryRunner.query(query);
 
       const results = await queryRunner.manager.query(
@@ -67,7 +66,6 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
 
       let newObjects = [];
       results.splice(0,1000).forEach(data => {
-        //console.log(data);
         let jsonData = JSON.parse(data.value);
         Object.keys(jsonData).forEach(key => {
           let value = "";
@@ -97,13 +95,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
 
   async updateData(queryRunner, data){
     let batch = 1000;
-    /*console.log(data[0]);
-    let query = "INSERT INTO public.recordvalue(created, lastupdated, value, recordid, fieldid) VALUES"
-    query += `(now(),now(),'${data[0].value}',${data[0].recordid},${data[0].fieldid ?data[0].fieldid:null})`;
-    await queryRunner.manager.query(query);
-    return;*/
     do{
-      console.log(data.length);
       let query = "INSERT INTO public.recordvalue(created, lastupdated, value, recordid, fieldid)VALUES";
       let index = 0;
       data.splice(0, batch).forEach((recordValue)=>{
@@ -118,7 +110,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
               if(Object.keys(value).length === 0){
                 value = null;
               }else{
-                console.log('Error Value Object:', value);
+                console.error('Error Value Object:', value);
                 process.exit();
               }
             }
@@ -138,7 +130,6 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         }
       })
       await queryRunner.manager.query(query);
-      console.log('Finished Batch');
     } while (data.length > 0)
   }
   public async down(queryRunner: QueryRunner): Promise<any> {}

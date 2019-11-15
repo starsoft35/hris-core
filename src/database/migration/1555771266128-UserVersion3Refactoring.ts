@@ -1059,28 +1059,6 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 
     await queryRunner.query(userMessageMembers);
 
-    /*await queryRunner.query(`CREATE SEQUENCE userauthority_id_seq
-    INCREMENT 1
-    START 1508
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    CACHE 1;`);
-    let query = `CREATE TABLE userauthority
-                (
-                    created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
-                    lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
-                    id integer NOT NULL DEFAULT nextval('userauthority_id_seq':: regclass),
-                    uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
-                    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-                    description text COLLATE pg_catalog."default",
-                    CONSTRAINT "PK_fe38a99dbf1752298d9ecb3d8b7" PRIMARY KEY(id),
-                    CONSTRAINT "UQ_28361ca58f332ff7f4b1b3ae787" UNIQUE(uid),
-                    CONSTRAINT "UQ_57cf3ab6145ccc967d1749bf28a" UNIQUE(name)
-
-                )`;
-    console.log(query);
-    await queryRunner.query(query);*/
-
     const previousRoles = {
       ROLE_ADMIN: 'ROLE_USER',
       ROLE_DASHBOARD_VIEW: [
@@ -1688,7 +1666,6 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     };
     let authorities = [];
     Object.keys(previousRoles).forEach(key => {
-      console.log(previousRoles[key]);
       if (Array.isArray(previousRoles[key])) {
         authorities = authorities.concat(
           previousRoles[key]
@@ -1722,7 +1699,6 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
         }
       });
       if (auths.length > 0) {
-        console.log(auths);
         await queryRunner.query(
           `INSERT INTO userauthoritymembers(
 	"userroleId","userauthorityId")
@@ -1744,7 +1720,6 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 
     const users = await queryRunner.manager.query('SELECT * FROM public.user');
     for(let user of users){
-      console.log(user);
       await queryRunner.manager.query(
         `UPDATE public.user SET token='${Buffer.from(
           user.username + ':HRHIS2020',
