@@ -6,6 +6,7 @@ import {
   ManyToMany,
   Generated,
   PrimaryColumn,
+  OneToMany,
 } from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
@@ -13,12 +14,13 @@ import { OrganisationUnit } from '../../../modules/organisation-unit/entities/or
 import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
 import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
+import { RecordValue } from './record-value.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {
   static plural = 'records';
 
-  @Column({ select: false })
+  @Column({ name: 'recordid', select: false })
   @Generated('increment')
   id: number;
 
@@ -52,6 +54,11 @@ export class Record extends TransactionUser {
     name: 'value',
   })
   value: string;
+
+  @OneToMany(type => RecordValue, recordValue => recordValue.record.id, {
+    cascade: ['insert', 'update'],
+  })
+  recordValues: RecordValue[];
 
   @ManyToMany(
     type => TrainingSession,
