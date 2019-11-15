@@ -39,7 +39,6 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
     Repository,
     TypeOrmModule.forRoot(getDataBaseConfiguration()),
     OrganisatinUnitModule,
-    // FormModule,
 
     // START: Field Modules
     FieldModule,
@@ -53,6 +52,8 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
     FieldOptionGroupSetModule,
     FieldOptionMergeModule,
     FieldRelationModule,
+    FormModule,
+
     // END: Field Modules
 
     // START: User Modules

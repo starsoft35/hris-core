@@ -11,11 +11,11 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       
 
       await queryRunner.query('ALTER TABLE "record" ADD COLUMN "createdbyid" INTEGER');
-      await queryRunner.query('ALTER TABLE "record" ADD CONSTRAINT "fk_record_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"');
+      await queryRunner.query('ALTER TABLE "record" ADD CONSTRAINT "fk_record_createdby" FOREIGN KEY("createdbyid") REFERENCES "hris_user"');
       await queryRunner.query('ALTER TABLE "record" ADD COLUMN "lastupdatedbyid" INTEGER');
-      await queryRunner.query('ALTER TABLE "record" ADD CONSTRAINT "fk_record_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "user"');
+      await queryRunner.query('ALTER TABLE "record" ADD CONSTRAINT "fk_record_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "hris_user"');
+      await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "id" TO "recordid"');
 
-      await queryRunner.query('ALTER TABLE "record" RENAME COLUMN id TO "recordid"');
       await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "organisationunit_id" TO "organisationunitid"');
       await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "form_id" TO "formid"');
       await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "datecreated" TO "created"');
@@ -24,7 +24,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "correct"');
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "hashistory"');
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "hastraining"');
-      await queryRunner.query('UPDATE "record" r SET createdbyid=u.userid, lastupdatedbyid=u.userid FROM "user" u WHERE r.username = u.username');
+      await queryRunner.query('UPDATE "record" r SET createdbyid=u.id, lastupdatedbyid=u.id FROM "hris_user" u WHERE r.username = u.username');
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "username"');
       //await queryRunner.query('ALTER TABLE GOOD ALTER COLUMN "id" RENAME TO userid;');
 
@@ -142,5 +142,3 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
   }
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }
-
-
