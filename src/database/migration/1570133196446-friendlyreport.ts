@@ -7,12 +7,11 @@ export class friendlyreport1570133196446 implements MigrationInterface {
 
     if (Friendlyreport){
         await queryRunner.query('ALTER TABLE "hris_friendlyreport" RENAME TO "friendlyreport"');
-        await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "id" TO "friendlyreportid"');
         await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "series_id" TO "seriesid"');
         await queryRunner.query('ALTER TABLE "friendlyreport" RENAME COLUMN "datecreated" TO "created"');
-        await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "lastupdated" text');
-        await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "name" text');
-        await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "uid" text');
+        await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone');
+        await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
+        await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
         await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "description" text');        
         await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "operator" text');
         await queryRunner.query('ALTER TABLE "friendlyreport" ADD COLUMN IF NOT EXISTS "sort" integer');

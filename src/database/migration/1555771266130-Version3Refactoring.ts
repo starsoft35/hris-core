@@ -26,11 +26,10 @@ export class Version3Refactoring1555771266128 implements MigrationInterface {
             await queryRunner.query('DROP TABLE IF EXISTS "_resource_all_fields_temporary"');
             await queryRunner.query('DROP TABLE IF EXISTS "_resource_all_fields_temporary"');
 
-            await queryRunner.query('ALTER TABLE "sqlview" RENAME COLUMN id TO "sqlviewid"');
             await queryRunner.query('ALTER TABLE "sqlview" ADD COLUMN "createdbyid" INTEGER');
-            await queryRunner.query('ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"');
+            await queryRunner.query('ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyid") REFERENCES "hris_user"');
             await queryRunner.query('ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyid" INTEGER');
-            await queryRunner.query('ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "user"');
+            await queryRunner.query('ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "hris_user"');
         }
     }
 
