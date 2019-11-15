@@ -6,7 +6,7 @@ import { UserCoreProps } from '../../../../core/entities/user-core-props.entity'
 export class UserAuthority extends UserCoreProps {
     static plural = 'userAuthorities';
 
-    @Column({ type: 'varchar', length: 255 })
+    @Column({ type: 'varchar', unique: true, length: 255 })
     name: string;
 
     @Column({ type: 'text', nullable: true })
