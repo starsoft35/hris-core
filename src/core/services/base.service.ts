@@ -25,7 +25,7 @@ export class BaseService<T extends HRISBaseEntity> {
   constructor(
     private readonly modelRepository: Repository<T>,
     private readonly Model,
-  ) {}
+  ) { }
 
   async findAll(): Promise<T[]> {
     return await this.modelRepository.find();
@@ -205,6 +205,10 @@ export class BaseService<T extends HRISBaseEntity> {
               ];
               if (result) {
                 return await this.getRelationUids(entityUpdates, key);
+              }
+            } else {
+              if (_.has(entityUpdates, key) && _.has(entity, key)) {
+                entity[key] = entityUpdates[key];
               }
             }
           },

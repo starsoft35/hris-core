@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { AppController } from './app.controller';
 import { getDataBaseConfiguration } from './core/utilities/configuration';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { VisualizationModule } from './modules/visualization/visualization.module';
 import { FormModule } from './modules/form/form.module';
 import { MessageModule } from './modules/message/message.module';
 import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-unit.module';
@@ -32,7 +32,6 @@ import { AppService } from './app.service';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { IndicatorModule } from './modules/indicator/indicator.module';
 import { SystemSettingModule } from './modules/system-setting/system-setting.module';
-
 
 @Module({
   imports: [
@@ -63,7 +62,7 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
     UserAuthorityModule,
     // END: User Modules
 
-    DashboardModule,
+    VisualizationModule,
     ReportModule,
     TrainingModule,
     MessageModule,
@@ -79,5 +78,5 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
   providers: [],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) {}
+  constructor(private readonly connection: Connection) { }
 }
