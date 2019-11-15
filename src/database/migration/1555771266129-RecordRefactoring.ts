@@ -24,7 +24,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "correct"');
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "hashistory"');
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "hastraining"');
-      await queryRunner.query('UPDATE "record" r SET createdbyid=u.userid, lastupdatedbyid=u.userid FROM "user" u WHERE r.username = u.username');
+      await queryRunner.query('UPDATE "record" r SET createdbyid=u.id, lastupdatedbyid=u.id FROM "user" u WHERE r.username = u.username');
       await queryRunner.query('ALTER TABLE "record" DROP COLUMN "username"');
       //await queryRunner.query('ALTER TABLE GOOD ALTER COLUMN "id" RENAME TO userid;');
 
@@ -65,7 +65,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       });
 
       let newObjects = [];
-      results.forEach(data => {
+      results.splice(0,1000).forEach(data => {
         //console.log(data);
         let jsonData = JSON.parse(data.value);
         Object.keys(jsonData).forEach(key => {
