@@ -32,6 +32,9 @@ export function getDataBaseConfiguration() {
 }
 export function getConfiguration() {
   const files = config.files || {};
+  if (!config.port){
+    config.port = 3000;
+  }
   if (!files.apps) {
     files.apps = pathFolder + '/' + 'apps';
   }
@@ -44,5 +47,8 @@ export function getConfiguration() {
   if (!fs.existsSync(files.temp)) {
     fs.mkdirSync(files.temp);
   }
-  return files;
+  return {
+    config,
+    ...files
+  };
 }
