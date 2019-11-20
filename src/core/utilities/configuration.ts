@@ -48,7 +48,7 @@ export function getConfiguration() {
     fs.mkdirSync(files.temp);
   }
   return {
-    config,
+    ...config,
     ...files
   };
 }
