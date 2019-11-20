@@ -38,6 +38,36 @@ export class UserVersion3Refactoring1555771266128
 
     await queryRunner.query(usersetting);
 
+    let app = `
+    CREATE SEQUENCE app_id_seq;
+CREATE TABLE public.app
+(
+    created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+    lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+    id integer NOT NULL DEFAULT nextval('app_id_seq'::regclass),
+    uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
+    code character varying(25) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+    name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+    description text COLLATE pg_catalog."default",
+    lastupdatedby character varying COLLATE pg_catalog."default",
+    publicaccess character varying(8) COLLATE pg_catalog."default",
+    externalaccess boolean,
+    "shortName" character varying(50) COLLATE pg_catalog."default",
+    version character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    launchpath character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    appicon character varying(128) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "PK_6cad4ca603ac1057c0753e291b4" PRIMARY KEY (id),
+    CONSTRAINT "UQ_8c37a357a9e04230aa9d0bfa63b" UNIQUE (uid)
+
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+    `;
+    await queryRunner.query(app);
+
     if (userTable) {
       await queryRunner.query('ALTER TABLE "hris_user" RENAME TO "user"');
 
@@ -150,6 +180,12 @@ export class UserVersion3Refactoring1555771266128
       );
       await queryRunner.query(
         'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
+      );
+      await queryRunner.query(
+        'ALTER TABLE "userrole" ADD COLUMN "landingpage" integer',
+      );
+      await queryRunner.query(
+        ' ALTER TABLE "userrole" ADD CONSTRAINT "fk_landing_page_app" FOREIGN KEY ("landingpage") REFERENCES public.app(id)',
       );
 
       await queryRunner.query(
@@ -415,8 +451,6 @@ export class UserVersion3Refactoring1555771266128
       await queryRunner.query(
         'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldId" integer',
       );
-
-      
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroupset" RENAME TO "fieldoptiongroupset"',
@@ -1719,7 +1753,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     }
 
     const users = await queryRunner.manager.query('SELECT * FROM public.user');
-    for(let user of users){
+    for (let user of users) {
       await queryRunner.manager.query(
         `UPDATE public.user SET token='${Buffer.from(
           user.username + ':HRHIS2020',
