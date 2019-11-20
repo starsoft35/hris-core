@@ -60,8 +60,8 @@ export class AppsController extends BaseController<App> {
       } else {
         return this.service.updateByUID(apps[0].id, result);
       }
-    } catch (e) {
-      return e;
+    } catch (error) {
+      res.status(400).json(error);
     }
   }
 
@@ -84,7 +84,7 @@ export class AppsController extends BaseController<App> {
         });
         if (!found) {
           reject({
-            error: 'No Manifest File Found',
+            message: 'No Manifest File Found',
           });
           zip.close();
         } else {
@@ -134,11 +134,11 @@ export class AppsController extends BaseController<App> {
                   -1
                 ) {
                   reject({
-                    error: 'Manifest File Invalid JSON',
+                    message: 'Manifest File Invalid JSON',
                   });
                 } else {
                   reject({
-                    error: e.message,
+                    message: e.message,
                   });
                 }
               }
