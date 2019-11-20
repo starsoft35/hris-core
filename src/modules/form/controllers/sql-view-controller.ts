@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { BaseController } from 'src/core/controllers/base.contoller';
-import { SqlView } from '../entities/sqlview';
+import { SqlView } from '../entities/sqlview.entity';
 import { SqlViewService } from '../services/sql-view.service';
 
 @Controller('api/' + SqlView.plural)

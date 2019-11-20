@@ -47,6 +47,9 @@ import { FormVisibleField } from './entities/form-visible-fields.entity';
 import { Form } from './entities/form.entity';
 import { FormSectionFieldMember } from './entities/formsection-fieldmembers.entity';
 import { FieldInputTypeModule } from '../maintenance/field-input-type/field-input-type.module';
+import { SqlViewController } from './controllers/sql-view-controller';
+import { SqlViewService } from './services/sql-view.service';
+import { SqlView } from './entities/sqlview.entity';
 
 @Module({
   imports: [
@@ -65,6 +68,7 @@ import { FieldInputTypeModule } from '../maintenance/field-input-type/field-inpu
       FormVisibleField,
       Form,
       FormSectionFieldMember,
+      SqlView
     ]),
   ],
   controllers: [
@@ -83,6 +87,7 @@ import { FieldInputTypeModule } from '../maintenance/field-input-type/field-inpu
     FormController,
     FormSectionFieldMemberController,
     // FieldInputTypeController,
+    SqlViewController
   ],
   providers: [
     // FieldGroupService,
@@ -100,6 +105,7 @@ import { FieldInputTypeModule } from '../maintenance/field-input-type/field-inpu
     FormSectionService,
     FormVisibleFieldService,
     FormSectionFieldMemberService,
+    SqlViewService
   ],
 })
 export class FormModule {}
