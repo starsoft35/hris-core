@@ -18,9 +18,6 @@ export class RecordValue extends TransactionUser {
   @Generated('increment')
   id: number;
 
-  @Column({ type: 'varchar', length: 256, unique: true })
-  uid: string;
-
   @PrimaryGeneratedColumn({ type: "integer",name:'recordvalueid'})
   recordvalueid: number;
 
