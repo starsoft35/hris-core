@@ -26,8 +26,6 @@ import { FieldOptionChildrenModule } from './modules/maintenance/field-option-ch
 import { FieldOptionGroupSetModule } from './modules/maintenance/field-option-group-set/field-option-group-set.module';
 import { FieldRelationModule } from './modules/maintenance/field-relation/field-relation.module';
 import { AppsModule } from './modules/app/apps.module';
-import { AppsService } from './modules/app/services/apps.service';
-import { AppsController } from './modules/app/controllers/apps.controller';
 import { AppService } from './app.service';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { IndicatorModule } from './modules/indicator/indicator.module';
@@ -75,8 +73,8 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
     SystemSettingModule,
   ],
   // ToDO: Re-check these import statement
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private readonly connection: Connection) { }

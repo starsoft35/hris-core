@@ -6,6 +6,7 @@ import {
   ManyToOne,
   Generated,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Record } from './record.entity';
@@ -13,20 +14,30 @@ import { TransactionUser } from '../../../core/entities/transaction-user.entity'
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {
-  @PrimaryColumn({ select: false })
+@PrimaryColumn({ select: false })
   @Generated('increment')
   id: number;
 
   @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
 
-  @ManyToOne(type => Record, record => record.id, { onDelete: 'CASCADE' })
+  @PrimaryGeneratedColumn({ type: "integer",name:'recordvalueid'})
+  recordvalueid: number;
+
+  /*@Column({ type: 'varchar', length: 256, unique: true })
+  uid: string;*/
+  /*@ManyToOne(
+    type => Record,
+    record => record.recordValues,
+    { onDelete: 'CASCADE' },
+  )
+  @JoinColumn()
+  recordId: string;*/
+
+  @ManyToOne(() => Record, (record: Record) => record.recordValues, {})
   @JoinColumn({ name: 'recordid' })
   record: Record | null;
 
-  // @ManyToOne(type => Field, field => field.id, { onDelete: 'CASCADE' })
-  // @JoinColumn({ name: 'fieldid' })
-  // field: Field | null;
 
   @Column('text', {
     nullable: false,

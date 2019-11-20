@@ -12,5 +12,6 @@ import { AppsService } from './services/apps.service';
   ],
   controllers: [AppsController],
   providers: [AppsService],
+  exports: [AppsService]
 })
 export class AppsModule {}
