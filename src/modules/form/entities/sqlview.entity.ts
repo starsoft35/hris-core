@@ -11,11 +11,11 @@ import { UserIdentification } from '../../system/user/entities/user-identificati
 export class SqlView extends UserIdentification {
     static plural = 'sqlViews';
 
-    @Column({ select: false })
+    @PrimaryColumn({ select: false })
     @Generated('increment')
     id: number;
 
-    @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+    @Column({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
     @Column({ type: 'text', unique: true })

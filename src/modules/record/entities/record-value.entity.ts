@@ -14,12 +14,18 @@ import { TransactionUser } from '../../../core/entities/transaction-user.entity'
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {
+@PrimaryColumn({ select: false })
+  @Generated('increment')
+  id: number;
+
+  @Column({ type: 'varchar', length: 256, unique: true })
+  uid: string;
+
   @PrimaryGeneratedColumn({ type: "integer",name:'recordvalueid'})
   recordvalueid: number;
 
   /*@Column({ type: 'varchar', length: 256, unique: true })
   uid: string;*/
-
   /*@ManyToOne(
     type => Record,
     record => record.recordValues,

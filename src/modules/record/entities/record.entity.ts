@@ -21,6 +21,7 @@ import { RecordValue } from './record-value.entity';
 export class Record extends TransactionUser {
   static plural = 'records';
 
+
   @PrimaryGeneratedColumn({ type: "integer", name: 'recordid' })
   @Generated('increment')
   recordid: number;
