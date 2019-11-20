@@ -13,11 +13,11 @@ import { TransactionUser } from '../../../core/entities/transaction-user.entity'
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {
-  @Column({ select: false })
+  @PrimaryColumn({ select: false })
   @Generated('increment')
   id: number;
 
-  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+  @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
 
   @ManyToOne(type => Record, record => record.id, { onDelete: 'CASCADE' })

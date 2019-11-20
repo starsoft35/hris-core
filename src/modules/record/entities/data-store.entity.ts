@@ -12,11 +12,11 @@ export class DataStore extends UserIdentification {
 
     static plural = 'dataStore';
 
-    @Column({ select: false })
+    @PrimaryColumn({ select: false })
     @Generated('increment')
     id: number;
 
-    @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+    @Column({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
     @Column('character varying', {

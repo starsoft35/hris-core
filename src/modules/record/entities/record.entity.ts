@@ -20,11 +20,11 @@ import { RecordValue } from './record-value.entity';
 export class Record extends TransactionUser {
   static plural = 'records';
 
-  @Column({ name: 'recordid', select: false })
+  @PrimaryColumn({ name: 'recordid', select: false })
   @Generated('increment')
   id: number;
 
-  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+  @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
 
   @ManyToOne(
