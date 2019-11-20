@@ -18,11 +18,13 @@ export class AppController {
 
   @Get()
   async index(@Req() request, @Res() response) {
+    let app;
     if (request.session && request.session.user) {
-      // ToDo: Implementation to be completed in this condition block
+      app = request.session.user.userRoles[0].landingPage;
+      console.log('App:', app);
     } else {
-      const app = await this.appService.getLoginApp();
-      response.redirect('/api/apps/' + app.name.toLowerCase().split(' ').join('') + '/' + app.launchpath);
+      app = await this.appService.getLoginApp();
     }
+    response.redirect('/api/apps/' + app.name.toLowerCase().split(' ').join('') + '/' + app.launchpath);
   }
 }

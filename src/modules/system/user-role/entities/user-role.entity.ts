@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToMany, JoinTable } from 'typeorm';
+import { Column, Entity, ManyToMany, JoinTable, JoinColumn, OneToOne } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserIdentification } from '../../user/entities/user-identification';
 import { UserAuthority } from '../../user-authority/entities/user-authority.entity';
+import { App } from 'src/modules/app/entities/apps.entity';
 
 @Entity('userrole', { schema: 'public' })
 export class UserRole extends UserIdentification {
@@ -13,6 +14,10 @@ export class UserRole extends UserIdentification {
 
   @Column({ type: 'text', nullable: true })
   description: string | null;
+
+  @OneToOne(type => App, app => app.id, { eager: true,})
+  @JoinColumn({name:'landingpage'})
+  landingPage: App;
 
   /**
    * Many To Many Relationship: UserRole and User Entities
