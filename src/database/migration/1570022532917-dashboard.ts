@@ -116,36 +116,6 @@ TABLESPACE pg_default;`;
 
     await queryRunner.query(reportTableDimensionItem);
 
-    let app = `
-    CREATE SEQUENCE app_id_seq;
-CREATE TABLE public.app
-(
-    created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
-    lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
-    id integer NOT NULL DEFAULT nextval('app_id_seq'::regclass),
-    uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
-    code character varying(25) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    name character varying(256) COLLATE pg_catalog."default" NOT NULL,
-    description text COLLATE pg_catalog."default",
-    lastupdatedby character varying COLLATE pg_catalog."default",
-    publicaccess character varying(8) COLLATE pg_catalog."default",
-    externalaccess boolean,
-    "shortName" character varying(50) COLLATE pg_catalog."default",
-    version character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    launchpath character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    appicon character varying(128) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT "PK_6cad4ca603ac1057c0753e291b4" PRIMARY KEY (id),
-    CONSTRAINT "UQ_8c37a357a9e04230aa9d0bfa63b" UNIQUE (uid)
-
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-    `;
-    await queryRunner.query(app);
-
     let chart = `
     CREATE SEQUENCE chart_id_seq;
     CREATE TABLE public.chart

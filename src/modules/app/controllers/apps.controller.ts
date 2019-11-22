@@ -19,6 +19,7 @@ import * as fs from 'fs';
 import * as StreamZip from 'node-stream-zip';
 import { ApiResult } from 'src/core/interfaces';
 import { Request, Response } from 'express';
+import { postSuccessResponse, genericFailureResponse } from 'src/core/helpers/response.helper';
 
 @Controller('api/' + App.plural)
 export class AppsController extends BaseController<App> {
@@ -58,10 +59,15 @@ export class AppsController extends BaseController<App> {
       if (apps.length === 0) {
         return super.create(req, res, result);
       } else {
-        return this.service.updateByUID(apps[0].id, result);
+        const createdEntity = await this.service.updateByUID(apps[0].uid, result);
+        if (createdEntity !== undefined) {
+          return postSuccessResponse(res, apps[0]);
+        } else {
+          return genericFailureResponse(res);
+        }
       }
-    } catch (e) {
-      return e;
+    } catch (error) {
+      res.status(400).json(error);
     }
   }
 
@@ -84,7 +90,7 @@ export class AppsController extends BaseController<App> {
         });
         if (!found) {
           reject({
-            error: 'No Manifest File Found',
+            message: 'No Manifest File Found',
           });
           zip.close();
         } else {
@@ -134,11 +140,11 @@ export class AppsController extends BaseController<App> {
                   -1
                 ) {
                   reject({
-                    error: 'Manifest File Invalid JSON',
+                    message: 'Manifest File Invalid JSON',
                   });
                 } else {
                   reject({
-                    error: e.message,
+                    message: e.message,
                   });
                 }
               }

@@ -7,6 +7,7 @@ import {
   Generated,
   PrimaryColumn,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
@@ -20,11 +21,12 @@ import { RecordValue } from './record-value.entity';
 export class Record extends TransactionUser {
   static plural = 'records';
 
-  @Column({ name: 'recordid', select: false })
-  @Generated('increment')
-  id: number;
 
-  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+  @PrimaryGeneratedColumn({ type: "integer", name: 'recordid' })
+  @Generated('increment')
+  recordid: number;
+
+  @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
 
   @ManyToOne(
@@ -49,15 +51,7 @@ export class Record extends TransactionUser {
   })
   instance: string;
 
-  @Column('text', {
-    nullable: false,
-    name: 'value',
-  })
-  value: string;
-
-  @OneToMany(type => RecordValue, recordValue => recordValue.record.id, {
-    cascade: ['insert', 'update'],
-  })
+  @OneToMany(() => RecordValue, (recordvalue: RecordValue) => recordvalue.record, { eager: true, onDelete: 'CASCADE', })
   recordValues: RecordValue[];
 
   @ManyToMany(

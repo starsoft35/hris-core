@@ -13,10 +13,10 @@ import { AuthService } from '../services/auth.service';
 import { SessionGuard } from '../guards/session.guard';
 import { ApiResult } from 'src/core/interfaces';
 
-@Controller('api/me')
+@Controller('api')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @Get()
+  @Get('me')
   @UseGuards(SessionGuard)
   async me(@Req() request): Promise<ApiResult> {
     const result = await this.authService.getUserByUid(
@@ -36,7 +36,12 @@ export class AuthController {
       };
     }
   }
-  @Get('authorization')
+  @Get('me.json')
+  @UseGuards(SessionGuard)
+  async mejson(@Req() request): Promise<ApiResult> {
+    return this.me(request);
+  }
+  @Get('me/authorization')
   @UseGuards(SessionGuard)
   async authorization(@Req() request): Promise<ApiResult> {
     const result:User = await this.authService.getUserByUid(
@@ -62,5 +67,11 @@ export class AuthController {
         },
       };
     }
+  }
+
+  @Get('me/dashboards')
+  @UseGuards(SessionGuard)
+  async dashboards(): Promise<ApiResult> {
+    return [];
   }
 }

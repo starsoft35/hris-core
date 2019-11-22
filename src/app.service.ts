@@ -3,17 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { App } from './modules/app/entities/apps.entity';
 import { BaseService } from './core/services/base.service';
+import { AppsService } from './modules/app/services/apps.service';
 
 @Injectable()
-export class AppService extends BaseService<App> {
-    constructor(
-        @InjectRepository(App)
-        public appsRepository: Repository<App>,
+export class AppService{
+    constructor(private appsService: AppsService
     ) {
-        super(appsRepository, App);
     }
 
     async getLoginApp(): Promise<App> {
-        return await this.appsRepository.findOne();
+        let apps = await this.appsService.findWhere({});
+        return apps[0];
     }
 }
