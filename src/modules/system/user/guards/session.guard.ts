@@ -6,6 +6,10 @@ export class SessionGuard implements CanActivate {
     async canActivate(context: ExecutionContext) {
         const httpContext = context.switchToHttp();
         const request = httpContext.getRequest();
+        console.log(request.headers.host)
+        /*if (request.headers.host.indexOf('localhost') > -1){
+            return true;
+        }*/
         //return true;
         // console.log(request.headers)
         try {
