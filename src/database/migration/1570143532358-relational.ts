@@ -17,6 +17,9 @@ export class relational1570143532358 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "hris_relationalfilter_member" RENAME TO "relationalfiltermember"');
         await queryRunner.query('ALTER TABLE "relationalfiltermember" RENAME COLUMN "relationalfilter_id" TO "relationalfilterid"');
         await queryRunner.query('ALTER TABLE "relationalfiltermember" RENAME COLUMN "fieldoption_id" TO "fieldoptionid"');
+        
+        //change recordid to id
+        await queryRunner.query('ALTER TABLE "record" RENAME COLUMN "recordid" TO "id"');
 
     }
 }
