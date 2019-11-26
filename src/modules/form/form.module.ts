@@ -46,6 +46,10 @@ import { FormSection } from './entities/form-section.entity';
 import { FormVisibleField } from './entities/form-visible-fields.entity';
 import { Form } from './entities/form.entity';
 import { FormSectionFieldMember } from './entities/formsection-fieldmembers.entity';
+import { FieldInputTypeModule } from '../maintenance/field-input-type/field-input-type.module';
+import { SqlViewController } from './controllers/sql-view-controller';
+import { SqlViewService } from './services/sql-view.service';
+import { SqlView } from './entities/sqlview.entity';
 
 @Module({
   imports: [
@@ -64,40 +68,44 @@ import { FormSectionFieldMember } from './entities/formsection-fieldmembers.enti
       FormVisibleField,
       Form,
       FormSectionFieldMember,
+      SqlView
     ]),
   ],
   controllers: [
-    FieldDatatypeController,
-    FieldGroupController,
-    FieldGroupSetController,
-    FieldOptionChildrenController,
-    FieldOptionGroupController,
-    FieldOptionGroupSetController,
-    FieldOptionMergeController,
-    FieldOptionController,
-    FieldRelationController,
+    // FieldDatatypeController,
+    // FieldGroupController,
+    // FieldGroupSetController,
+    // FieldOptionChildrenController,
+    // FieldOptionGroupController,
+    // FieldOptionGroupSetController,
+    // FieldOptionMergeController,
+    // FieldOptionController,
+    // FieldRelationController,
     FormFieldMemberController,
     FormSectionController,
     FormVisibleFieldController,
     FormController,
     FormSectionFieldMemberController,
+    // FieldInputTypeController,
+    SqlViewController
   ],
   providers: [
-    FieldGroupService,
-    FieldGroupSetService,
-    FieldInputTypeService,
-    FieldDataTypeService,
-    FieldOptionService,
-    FieldOptionChildrenService,
-    FieldOptionGroupService,
-    FieldOptionGroupSetService,
-    FieldOptionMergeService,
-    FieldRelationService,
+    // FieldGroupService,
+    // FieldGroupSetService,
+    // //FieldInputTypeService,
+    // FieldDataTypeService,
+    // //FieldOptionService,
+    // FieldOptionChildrenService,
+    // FieldOptionGroupService,
+    // FieldOptionGroupSetService,
+    // FieldOptionMergeService,
+    // FieldRelationService,
     FormService,
     FormFieldMemberService,
     FormSectionService,
     FormVisibleFieldService,
     FormSectionFieldMemberService,
+    SqlViewService
   ],
 })
 export class FormModule {}

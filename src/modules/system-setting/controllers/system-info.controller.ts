@@ -9,14 +9,15 @@ import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 
 import { SystemSetting } from '../entities/system-setting.entity';
 import { SystemInfoService } from '../services/system-info.service';
-@Controller('api/' + SystemSetting.plural)
+@Controller('api/system')
+
 // @UseGuards(AuthGuard())
 export class SystemInfoController {
   constructor(private readonly systemInfoService: SystemInfoService) {
     // super(systemInfoService, SystemInfo);
   }
 
-  @Get()
+  @Get('info')
   @UseGuards(SessionGuard)
   async findOne(
     @Req() req: Request,

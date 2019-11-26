@@ -1,12 +1,12 @@
 import { Column, Entity, JoinTable, ManyToMany, JoinColumn } from 'typeorm';
 import { UserRole } from '../../user-role/entities/user-role.entity';
-import { UserCoreProps } from 'src/core/entities/user-core-props.entity';
+import { UserCoreProps } from '../../../../core/entities/user-core-props.entity';
 
 @Entity('userauthority', { schema: 'public' })
 export class UserAuthority extends UserCoreProps {
     static plural = 'userAuthorities';
 
-    @Column({ type: 'varchar', length: 255 })
+    @Column({ type: 'varchar', unique: true, length: 255 })
     name: string;
 
     @Column({ type: 'text', nullable: true })

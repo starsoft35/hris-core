@@ -7,7 +7,7 @@
     "host": "localhost",
     "port": 5432,
     "username": "postgres",
-    "password": "<REPLACE WITH YOUR POSTGRES PASSWORD>",
+    "password": "postgres", 
     "database": "hrisdb",
     "synchronize": true
   }

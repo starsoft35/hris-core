@@ -10,8 +10,9 @@ import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 import { SystemInfo } from '../entities/system-info.entity';
 import { SystemInfoService } from '../services/system-info.service';
 import { SystemSettingService } from '../services/system-setting.service';
+import { SystemSetting } from '../entities/system-setting.entity';
 
-@Controller('api/' + SystemInfo.plural)
+@Controller('api/' + SystemSetting.plural)
 // @UseGuards(AuthGuard())
 export class SystemSettingController {
   constructor(private readonly systemSettingService: SystemSettingService) {

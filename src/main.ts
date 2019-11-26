@@ -7,6 +7,9 @@ import * as helmet from 'helmet';
 
 import { AppModule } from './app.module';
 
+import { getConfiguration } from './core/utilities/configuration';
+const config = getConfiguration();
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -39,6 +42,6 @@ async function bootstrap() {
   );
   app.use(compression());
   // app.setGlobalPrefix('api');
-  await app.listen(3000);
+  await app.listen(config.port);
 }
 bootstrap();

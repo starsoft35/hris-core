@@ -20,12 +20,12 @@ import { HRISBaseEntity } from '../../../core/entities/base-entity';
 @Entity('indicator', { schema: 'public' })
 export class Indicator extends HRISBaseEntity {
     static plural = 'indicators';
-    @Column('integer', {
+    @PrimaryColumn('integer', {
         nullable: false,
         primary: true,
-        name: 'programindicatorid',
+        name: 'id',
     })
-    programindicatorid: number;
+    id: number;
 
     @Column('character varying', {
         nullable: true,

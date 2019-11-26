@@ -1,5 +1,5 @@
 import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
-import { UserIdentification } from 'src/modules/system/user/entities/user-identification';
+import { UserIdentification } from '../../../modules/system/user/entities/user-identification';
 
 import { Form } from '../../form/entities/form.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
@@ -12,11 +12,11 @@ export class DataStore extends UserIdentification {
 
     static plural = 'dataStore';
 
-    @Column({ select: false })
+    @PrimaryColumn({ select: false })
     @Generated('increment')
     id: number;
 
-    @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+    @Column({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
     @Column('character varying', {

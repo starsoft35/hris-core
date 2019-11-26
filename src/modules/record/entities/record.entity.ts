@@ -6,23 +6,27 @@ import {
   ManyToMany,
   Generated,
   PrimaryColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Form } from '../../form/entities/form.entity';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
-import { TrainingSession } from 'src/modules/training/entities/training-session.entity';
-import { TransactionUser } from 'src/core/entities/transaction-user.entity';
+import { OrganisationUnit } from '../../../modules/organisation-unit/entities/organisation-unit.entity';
+import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
+import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
+import { RecordValue } from './record-value.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {
   static plural = 'records';
 
-  @Column({ select: false })
+
+  @PrimaryGeneratedColumn({ type: "integer", name: 'id' })
   @Generated('increment')
   id: number;
 
-  @PrimaryColumn({ type: 'varchar', length: 256, unique: true })
+  @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
 
   @ManyToOne(
@@ -47,11 +51,8 @@ export class Record extends TransactionUser {
   })
   instance: string;
 
-  @Column('text', {
-    nullable: false,
-    name: 'value',
-  })
-  value: string;
+  @OneToMany(() => RecordValue, (recordvalue: RecordValue) => recordvalue.record, { eager: true, onDelete: 'CASCADE', })
+  recordValues: RecordValue[];
 
   @ManyToMany(
     type => TrainingSession,

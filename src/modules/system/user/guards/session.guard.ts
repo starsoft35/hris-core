@@ -6,24 +6,24 @@ export class SessionGuard implements CanActivate {
     async canActivate(context: ExecutionContext) {
         const httpContext = context.switchToHttp();
         const request = httpContext.getRequest();
-        return true;
+        //return true;
         // console.log(request.headers)
-        // try {
-        //     if (request.session.user) {
-        //         request.session.previousPath = request.path;
-        //         return true;
-        //     }
-        //     if (request.headers['authorization']) {
-        //         let user = await User.authenticateUserByToken(request.headers['authorization'].replace('Basic ', ''));
-        //         if (user) {
-        //             request.session.user = user;
-        //             return true;
-        //         }
-        //     }
-        // } catch (e) {
-        //     console.log(e.stack);
-        //     // throw new Error('Not In Session');
-        // }
+        try {
+            if (request.session.user) {
+                request.session.previousPath = request.path;
+                return true;
+            }
+            if (request.headers['authorization']) {
+                let user = await User.authenticateUserByToken(request.headers['authorization'].replace('Basic ', ''));
+                if (user) {
+                    request.session.user = user;
+                    return true;
+                }
+            }
+        } catch (e) {
+            console.log(e.stack);
+            // throw new Error('Not In Session');
+        }
     }
 }
 export const SessionUser = createParamDecorator((data, req) => {

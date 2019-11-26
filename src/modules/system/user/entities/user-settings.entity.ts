@@ -1,6 +1,6 @@
 import { Column, Entity, OneToOne } from 'typeorm';
 import { User } from './user.entity';
-import { EntityCoreProps } from 'src/core/entities/entity-core-props';
+import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 
 @Entity('usersetting', { schema: 'public' })
 export class UserSettings extends EntityCoreProps {
