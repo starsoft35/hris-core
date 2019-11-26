@@ -3,12 +3,11 @@ import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToMany,
   ManyToOne,
 } from 'typeorm';
 
-import { FieldOption } from './field-option.entity';
+// import { FieldOption } from './field-option.entity';
 import { Field } from '../../maintenance/field/entities/field.entity';
 import { FieldOptionGroupSet } from './field-option-groupset.entity';
 
@@ -38,13 +37,13 @@ export class FieldOptionGroup extends EntityCoreProps {
   })
   operator: string | null;
 
-  @ManyToMany(
-    type => FieldOption,
-    fieldOption => fieldOption.fieldOptionGroups,
-    { nullable: false },
-  )
-  @JoinTable({ name: 'fieldoptiongroupmembers' })
-  fieldOptions: FieldOption[];
+  // @ManyToMany(
+  //   type => FieldOption,
+  //   fieldOption => fieldOption.fieldOptionGroups,
+  //   { nullable: false },
+  // )
+  // @JoinTable({ name: 'fieldoptiongroupmembers' })
+  // fieldOptions: FieldOption[];
 
   @ManyToMany(
     type => FieldOptionGroupSet,
