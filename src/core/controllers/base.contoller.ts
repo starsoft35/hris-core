@@ -35,7 +35,7 @@ export class BaseController<T extends HRISBaseEntity> {
   constructor(
     private readonly baseService: BaseService<T>,
     private readonly Model: typeof HRISBaseEntity,
-  ) { }
+  ) {}
 
   /**
    *
@@ -69,7 +69,6 @@ export class BaseController<T extends HRISBaseEntity> {
         nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
       },
       [this.Model.plural]: _.map(entityRes, (content: any) => {
-        // delete content.id;
         const isPropExcluded = delete content.id;
         return isPropExcluded ? content : content;
       }),
@@ -148,8 +147,6 @@ export class BaseController<T extends HRISBaseEntity> {
       } else {
         const createdEntity = await this.baseService.create(createEntityDto);
         if (createdEntity !== undefined) {
-          // delete createdEntity.id;
-          return postSuccessResponse(res, createdEntity);
           const isPropExcluded = delete createdEntity.id;
           return isPropExcluded
             ? postSuccessResponse(res, createdEntity)

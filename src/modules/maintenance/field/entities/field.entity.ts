@@ -106,7 +106,7 @@ export class Field extends EntityCoreProps {
   /**
    * Many To One Relationship: Field and FieldInputType
    */
-  
+
   @ManyToOne(type => FieldInputType, fieldInputType => fieldInputType.fields, {
     cascade: true,
     eager: true,
