@@ -70,7 +70,8 @@ export class BaseController<T extends HRISBaseEntity> {
       },
       [this.Model.plural]: _.map(entityRes, (content: any) => {
         // delete content.id;
-        return content;
+        const isPropExcluded = delete content.id;
+        return isPropExcluded ? content : content;
       }),
     };
   }
@@ -149,6 +150,10 @@ export class BaseController<T extends HRISBaseEntity> {
         if (createdEntity !== undefined) {
           // delete createdEntity.id;
           return postSuccessResponse(res, createdEntity);
+          const isPropExcluded = delete createdEntity.id;
+          return isPropExcluded
+            ? postSuccessResponse(res, createdEntity)
+            : postSuccessResponse(res, createdEntity);
         } else {
           return genericFailureResponse(res);
         }
