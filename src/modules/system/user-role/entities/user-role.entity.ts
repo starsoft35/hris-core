@@ -3,7 +3,7 @@ import { User } from '../../user/entities/user.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserIdentification } from '../../user/entities/user-identification';
 import { UserAuthority } from '../../user-authority/entities/user-authority.entity';
-import { App } from 'src/modules/app/entities/apps.entity';
+import { App } from '../../../app/entities/apps.entity';
 
 @Entity('userrole', { schema: 'public' })
 export class UserRole extends UserIdentification {
