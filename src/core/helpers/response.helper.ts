@@ -99,8 +99,8 @@ export function getSuccessResponse(
     getResponse: any,
 ): Response {
     if (getResponse !== undefined) {
-        // const isPropExcluded = delete getResponse.id;
-        return true
+        const isPropExcluded = delete getResponse.id;
+        return isPropExcluded
             ? response.status(response.statusCode).json(getResponse)
             : response.status(response.statusCode).json(getResponse);
     }

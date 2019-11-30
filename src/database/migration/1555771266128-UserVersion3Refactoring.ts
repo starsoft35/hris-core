@@ -114,6 +114,9 @@ TABLESPACE pg_default;
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "email" TEXT',
       );
       await queryRunner.query(
+        'ALTER TABLE "user" DROP COLUMN "roles"',
+      );
+      await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "phonenumber" TEXT',
       );
       await queryRunner.query(
@@ -131,6 +134,7 @@ TABLESPACE pg_default;
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "userSettingsId" INTEGER',
       );
+
       // await queryRunner.query('ALTER TABLE "user" ADD CONSTRAINT "PK_03b91d2b8321aa7ba32257dc321" PRIMARY KEY (id)');
       await queryRunner.query(
         'ALTER TABLE "user" ADD CONSTRAINT "REL_7154b7b71e3dd18b59ad8ee8b8" UNIQUE ("userSettingsId")',

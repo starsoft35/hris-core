@@ -22,9 +22,9 @@ export class Record extends TransactionUser {
   static plural = 'records';
 
 
-  @PrimaryGeneratedColumn({ type: "integer", name: 'recordid' })
+  @PrimaryGeneratedColumn({ type: "integer", name: 'id' })
   @Generated('increment')
-  recordid: number;
+  id: number;
 
   @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
