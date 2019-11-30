@@ -25,6 +25,7 @@ import {
   postSuccessResponse,
   entityExistResponse,
 } from '../helpers/response.helper';
+import { convertUidsToIds } from '../utilities/convertIds';
 
 export class BaseController<T extends HRISBaseEntity> {
   /**
@@ -68,11 +69,14 @@ export class BaseController<T extends HRISBaseEntity> {
         total: totalCount,
         nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
       },
-      [this.Model.plural]: _.map(entityRes, (content: any) => {
-        const isPropExcluded = delete content.id;
-        return isPropExcluded ? content : content;
-      }),
+      [this.Model.plural]: _.map(entityRes, convertUidsToIds),
     };
+  }
+
+  @Get('../.json')
+  @UseGuards(SessionGuard)
+  async findAllWithJSON(@Query() query): Promise<ApiResult> {
+    return this.findAll(query);
   }
 
   /**
