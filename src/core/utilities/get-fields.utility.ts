@@ -21,10 +21,11 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
       ) ;
     });
   } else {
-    return metaData.columns
+    return null;
+    /*return metaData.columns
       .map(metadataColumn => {
         return metadataColumn.propertyName;
-      });
+      });*/
   }
 }
 
