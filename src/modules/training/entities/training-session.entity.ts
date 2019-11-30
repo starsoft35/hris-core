@@ -16,7 +16,7 @@ import { TrainingSponsor } from './training-sponsor.entity';
 import { TrainingUnit } from './training-unit.entity';
 import { TrainingVenue } from './training-venue.entity';
 import { Record } from '../../record/entities/record.entity';
-import { TransactionTimestamp } from 'src/core/entities/transaction-timestamp.entity';
+import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 
 @Entity('traininginstance', { schema: 'public' })
 export class TrainingSession extends TransactionTimestamp {

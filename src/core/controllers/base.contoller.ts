@@ -73,12 +73,6 @@ export class BaseController<T extends HRISBaseEntity> {
     };
   }
 
-  @Get('../.json')
-  @UseGuards(SessionGuard)
-  async findAllWithJSON(@Query() query): Promise<ApiResult> {
-    return this.findAll(query);
-  }
-
   /**
    *
    * @param req
@@ -145,7 +139,7 @@ export class BaseController<T extends HRISBaseEntity> {
     @Body() createEntityDto,
   ): Promise<ApiResult> {
     try {
-      const isIDExist = await this.baseService.findOneById(createEntityDto.uid);
+      const isIDExist = await this.baseService.findOneByUid(createEntityDto.id);
       if (isIDExist !== undefined) {
         return entityExistResponse(res, isIDExist);
       } else {

@@ -90,50 +90,6 @@ export class organizationunit1570013088616 implements MigrationInterface {
             await queryRunner.query('ALTER TABLE "organisationunitcompleteness" ADD COLUMN IF NOT EXISTS "name" character varying(256)');
             await queryRunner.query('ALTER TABLE "organisationunitcompleteness" ADD COLUMN IF NOT EXISTS "description" text');
     }
-
-    let organisationUnitMembers = `CREATE TABLE public.organisationunitmembers
-    (
-        "userId" integer NOT NULL,
-        "organisationunitId" integer NOT NULL,
-        CONSTRAINT "PK_4c1bb7cd98866e76ec49e91a5b1" PRIMARY KEY ("userId", "organisationunitId"),
-        CONSTRAINT "FK_9f8405fda0d56decd0f7e46d85d" FOREIGN KEY ("userId")
-            REFERENCES public."user" (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID,
-        CONSTRAINT "FK_f54224b61c067df95828b544adb" FOREIGN KEY ("organisationunitId")
-            REFERENCES public.organisationunit (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID
-    )
-    WITH (
-        OIDS = FALSE
-    )
-    TABLESPACE pg_default;
-    
-    ALTER TABLE public.organisationunitmembers
-        OWNER to postgres;
-    
-    -- Index: IDX_9f8405fda0d56decd0f7e46d85
-    
-    -- DROP INDEX public."IDX_9f8405fda0d56decd0f7e46d85";
-    
-    CREATE INDEX "IDX_9f8405fda0d56decd0f7e46d85"
-        ON public.organisationunitmembers USING btree
-        ("userId")
-        TABLESPACE pg_default;
-    
-    -- Index: IDX_f54224b61c067df95828b544ad
-    
-    -- DROP INDEX public."IDX_f54224b61c067df95828b544ad";
-    
-    CREATE INDEX "IDX_f54224b61c067df95828b544ad"
-        ON public.organisationunitmembers USING btree
-        ("organisationunitId")
-        TABLESPACE pg_default;`;
-
-        await queryRunner.query(organisationUnitMembers);
 }
 
 public async down(queryRunner: QueryRunner): Promise<any> {

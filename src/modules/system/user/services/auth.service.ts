@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { createHash } from 'crypto';
 import { User } from 'src/modules/system/user/entities/user.entity';
 import { UserService } from './user.service';
+import { convertUidsToIds } from '../../../../core/utilities/convertIds';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,6 @@ export class AuthService {
   }
 
   async getUserByUid(uid: string): Promise<User> {
-    return await this.userService.findOneByUid(uid);
+    return convertUidsToIds(await this.userService.findOneByUid(uid));
   }
 }
