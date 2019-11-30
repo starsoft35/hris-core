@@ -16,6 +16,7 @@ import { TrainingUnit } from './training-unit.entity';
 
 @Entity('trainingcurriculum', { schema: 'public' })
 export class TrainingCurriculum extends EntityCoreProps {
+  static plural = 'curriculums';
   @Column('integer', {
     nullable: false,
     primary: true,

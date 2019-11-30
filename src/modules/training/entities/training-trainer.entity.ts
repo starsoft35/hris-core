@@ -3,6 +3,7 @@ import { Column, Entity } from 'typeorm';
 
 @Entity('trainingtrainer', { schema: 'public' })
 export class TrainingTrainer extends EntityCoreProps {
+  static plural = 'trainers';
   @Column('integer', {
     nullable: false,
     primary: true,

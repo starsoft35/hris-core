@@ -7,6 +7,7 @@ import { TrainingSession } from './training-session.entity';
 
 @Entity('trainingunit', { schema: 'public' })
 export class TrainingUnit extends EntityCoreProps {
+  static plural = 'units';
   @Column('integer', {
     nullable: false,
     primary: true,
