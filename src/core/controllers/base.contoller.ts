@@ -90,7 +90,7 @@ export class BaseController<T extends HRISBaseEntity> {
       const isExist = await this.baseService.findOneByUid(params.id);
       const getResponse = isExist;
       if (isExist !== undefined) {
-        return getSuccessResponse(res, getResponse);
+        return getSuccessResponse(res, convertUidsToIds(getResponse));
       } else {
         return genericFailureResponse(res, params);
       }

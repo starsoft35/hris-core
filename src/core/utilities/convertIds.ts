@@ -15,6 +15,8 @@ export const convertUidsToIds = (object)=>{
             } else {
               object[key] = convertUidsToIds(object[key]);
             }
+          } else if(object[key] === null){
+            delete object[key];
           }
         });
     }
