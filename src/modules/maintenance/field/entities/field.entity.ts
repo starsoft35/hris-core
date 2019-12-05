@@ -5,6 +5,7 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 import { FieldDataType } from '../../field-data-type/entities/field-datatype.entity';
@@ -155,10 +156,10 @@ export class Field extends EntityCoreProps {
   @ManyToMany(type => Form, form => form.fields)
   forms: Form[];
 
-  @ManyToOne(
+  @OneToOne(
     type => RecordValue,
     recordValue => recordValue.field,
-    { eager: true, nullable: false, onDelete: 'CASCADE' },
+    { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'recordvalueid' })
   recordValue: RecordValue | null;
