@@ -4,6 +4,7 @@ import {
     PrimaryGeneratedColumn,
   } from 'typeorm';
   import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
+import { collectFields } from 'graphql/execution/execute';
   
   @Entity('schedule', { schema: 'public' })
   export class Schedule extends EntityCoreProps {
@@ -16,12 +17,15 @@ import {
     uid: string;
   
     @Column({ type: 'varchar', length: 256 })
-    startedAt: string;
+    name: string;
   
     @Column({type: 'text'})
     progress: string
   
     @Column({type: 'varchar'})
     cron: string
+
+    @Column({type: 'integer'})
+    functionid: number
   }
   

@@ -23,4 +23,11 @@ export class Task extends EntityCoreProps {
 
   @Column({type: 'varchar'})
   status: string
+
+  @Column({type: Date})
+  startedat: Date
+
+  @Column({type: Date})
+  endedat: Date
+
 }
