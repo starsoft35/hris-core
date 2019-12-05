@@ -65,7 +65,7 @@ export class RecordValue extends TransactionUser {
   @ManyToMany(
     type => Field,
     field => field.recordValue,
-    { eager: true, nullable: false, onDelete: 'CASCADE' },
+    { nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'fieldid' })
   field: Field | null;
