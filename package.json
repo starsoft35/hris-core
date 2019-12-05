@@ -14,7 +14,7 @@
     "migration:run": "npx ts-node node_modules/.bin/typeorm migration:run -c development",
     "migration:revert": "ts-node node_modules/.bin/typeorm migration:revert",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ormconfig.json",
-    "prestart:prod": "rimraf dist && npm run build",
+    "prestart:prod": "rimraf dist && npx run build",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
@@ -110,5 +110,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+  "migration:generate": "npx run typeorm migration:generate -n",
+  "migration:create": "npx run typeorm migration:create -n",
+  "migration:run": "npx run typeorm migration:run"
 }
