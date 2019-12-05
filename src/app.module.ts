@@ -30,6 +30,8 @@ import { AppService } from './app.service';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { IndicatorModule } from './modules/indicator/indicator.module';
 import { SystemSettingModule } from './modules/system-setting/system-setting.module';
+import { TaskModule } from './modules/system/task/task.module';
+import { ScheduleModule } from './modules/system/schedule/schedule.module';
 
 @Module({
   imports: [
@@ -60,6 +62,11 @@ import { SystemSettingModule } from './modules/system-setting/system-setting.mod
     UserGroupModule,
     UserAuthorityModule,
     // END: User Modules
+
+    //System Modules
+    TaskModule,
+    ScheduleModule,
+    //System Modules
 
     VisualizationModule,
     ReportModule,
