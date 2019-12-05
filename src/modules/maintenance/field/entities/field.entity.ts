@@ -19,6 +19,7 @@ import { FormVisibleField } from '../../../form/entities/form-visible-fields.ent
 import { Form } from '../../../form/entities/form.entity';
 import { FormSectionFieldMember } from '../../../form/entities/formsection-fieldmembers.entity';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
+import { RecordValue } from '../../../../modules/record/entities/record-value.entity';
 
 @Entity('field', { schema: 'public' })
 export class Field extends EntityCoreProps {
@@ -153,4 +154,12 @@ export class Field extends EntityCoreProps {
 
   @ManyToMany(type => Form, form => form.fields)
   forms: Form[];
+
+  @ManyToOne(
+    type => RecordValue,
+    recordValue => recordValue.field,
+    { eager: true, nullable: false, onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'recordvalueid' })
+  recordValue: RecordValue | null;
 }

@@ -7,34 +7,25 @@ import {
   Generated,
   PrimaryColumn,
   PrimaryGeneratedColumn,
+  ManyToMany,
 } from 'typeorm';
 
 import { Record } from './record.entity';
 import { TransactionUser } from '../../../core/entities/transaction-user.entity';
+import { Field } from '../../../modules/maintenance/field/entities/field.entity';
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {
-@PrimaryColumn({ select: false })
-  @Generated('increment')
-  id: number;
-
-  @PrimaryGeneratedColumn({ type: "integer",name:'recordvalueid'})
+  @PrimaryGeneratedColumn()
   recordvalueid: number;
 
-  /*@Column({ type: 'varchar', length: 256, unique: true })
-  uid: string;*/
-  /*@ManyToOne(
-    type => Record,
-    record => record.recordValues,
-    { onDelete: 'CASCADE' },
+  @ManyToOne(
+    () => Record,
+    (record: Record) => record.recordValues,
+    {},
   )
-  @JoinColumn()
-  recordId: string;*/
-
-  @ManyToOne(() => Record, (record: Record) => record.recordValues, {})
   @JoinColumn({ name: 'recordid' })
   record: Record | null;
-
 
   @Column('text', {
     nullable: false,
@@ -70,4 +61,12 @@ export class RecordValue extends TransactionUser {
     name: 'entitledpayment',
   })
   entitledPayment: string | null;
+
+  @ManyToMany(
+    type => Field,
+    field => field.recordValue,
+    { eager: true, nullable: false, onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'fieldid' })
+  field: Field | null;
 }
