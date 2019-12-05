@@ -15,19 +15,43 @@ export class Task extends EntityCoreProps {
   @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
 
-  @Column({ type: 'varchar', length: 256 })
+  @Column({
+    type:'varchar',
+    nullable: false,
+    length: 255,
+    name: 'name',
+  })
   name: string;
 
-  @Column({type: 'text'})
-  log: string
+  @Column({
+    type:'varchar',
+    nullable: false,
+    length: 255,
+    name: 'log',
+  })
+  log: string;
 
-  @Column({type: 'varchar'})
-  status: string
+  @Column({
+    type:'varchar',
+    nullable: false,
+    length: 255,
+    name: 'status',
+  })
+  status: string;
 
-  @Column({type: Date})
-  startedat: Date
+  @Column({
+    type:Date,
+    nullable: false,
+    name: 'endedat',
+  })
+  startedat: Date | null;
 
-  @Column({type: Date})
-  endedat: Date
+  @Column({
+    nullable: false,
+    name: 'endedat',
+    type:Date
+  })
+  endedat: Date | null;
 
 }
+
