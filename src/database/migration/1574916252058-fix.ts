@@ -216,9 +216,37 @@ export class fix1574916252058 implements MigrationInterface {
 
     ALTER TABLE field ADD COLUMN recordvalueid integer;
 
+    CREATE SEQUENCE schedule_id_seq;
+    CREATE SEQUENCE task_id_seq;
 
+    CREATE TABLE public.schedule
+    (
+        created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+        lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+        id integer NOT NULL DEFAULT nextval('schedule_id_seq'::regclass),
+        uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        cron text COLLATE pg_catalog."default",
+        progress character varying COLLATE pg_catalog."default" NOT NULL,
+        functionid integer NOT NULL,
+        CONSTRAINT "PK_schdeule" PRIMARY KEY (id),
+        CONSTRAINT "UQ_schedule" UNIQUE (uid)
+    
+    CREATE TABLE public.task
 
-
+    (
+        created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+        lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+        id integer NOT NULL DEFAULT nextval('task_id_seq'::regclass),
+        uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        status text COLLATE pg_catalog."default",
+        startedat character varying COLLATE pg_catalog."default" NOT NULL,
+        endedat integer NOT NULL,
+        CONSTRAINT "PK_task" PRIMARY KEY (id),
+        CONSTRAINT "UQ_task" UNIQUE (uid)
+      
+      )
     `;
     await queryRunner.query(fixes);
     }
