@@ -8,6 +8,7 @@ import {
   PrimaryColumn,
   PrimaryGeneratedColumn,
   ManyToMany,
+  OneToOne,
 } from 'typeorm';
 
 import { Record } from './record.entity';
@@ -62,7 +63,7 @@ export class RecordValue extends TransactionUser {
   })
   entitledPayment: string | null;
 
-  @ManyToMany(
+  @OneToOne(
     type => Field,
     field => field.recordValue,
     { eager: true, nullable: false, onDelete: 'CASCADE' },
