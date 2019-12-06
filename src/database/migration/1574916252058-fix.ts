@@ -228,10 +228,21 @@ export class fix1574916252058 implements MigrationInterface {
         name character varying(256) COLLATE pg_catalog."default" NOT NULL,
         cron text COLLATE pg_catalog."default",
         progress character varying COLLATE pg_catalog."default" NOT NULL,
+        code text COLLATE pg_catalog."default",
         functionid integer NOT NULL,
+        description text,
+        publicaccess boolean,
+        externalaccess boolean,
         CONSTRAINT "PK_schdeule" PRIMARY KEY (id),
-        CONSTRAINT "UQ_schedule" UNIQUE (uid)
-    
+        CONSTRAINT "UQ_schedule" UNIQUE (uid),
+        lastupdatedby integer,
+        CONSTRAINT fk_lastupdatedby FOREIGN KEY (lastupdatedby)
+        REFERENCES public."user" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+    );
+
     CREATE TABLE public.task
 
     (
@@ -240,11 +251,22 @@ export class fix1574916252058 implements MigrationInterface {
         id integer NOT NULL DEFAULT nextval('task_id_seq'::regclass),
         uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
         name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+        code text COLLATE pg_catalog."default",
         status text COLLATE pg_catalog."default",
         startedat character varying COLLATE pg_catalog."default" NOT NULL,
+        lastupdatedby integer,
+        description text,
+        log text,
+        publicaccess boolean,
+        externalaccess boolean,
         endedat integer NOT NULL,
         CONSTRAINT "PK_task" PRIMARY KEY (id),
-        CONSTRAINT "UQ_task" UNIQUE (uid)
+        CONSTRAINT "UQ_task" UNIQUE (uid),
+        CONSTRAINT fk_lastupdatedby FOREIGN KEY (lastupdatedby)
+        REFERENCES public."user" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
       
       )
     `;
