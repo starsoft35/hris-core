@@ -1,7 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
-import { collectFields } from 'graphql/execution/execute';
-
 @Entity('schedule', { schema: 'public' })
 export class Schedule extends EntityCoreProps {
   static plural = 'Schedules';

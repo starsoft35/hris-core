@@ -1,13 +1,9 @@
-import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
-  Generated,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
-  ManyToMany,
   OneToOne,
 } from 'typeorm';
 
@@ -64,7 +60,7 @@ export class RecordValue extends TransactionUser {
   entitledPayment: string | null;
 
   @OneToOne(
-    type => Field,
+    () => Field,
     field => field.recordValue,
     { nullable: false, onDelete: 'CASCADE' },
   )
