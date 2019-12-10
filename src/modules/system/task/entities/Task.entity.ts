@@ -1,8 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 
 @Entity('task', { schema: 'public' })
@@ -16,42 +12,34 @@ export class Task extends EntityCoreProps {
   uid: string;
 
   @Column({
-    type:'varchar',
     nullable: false,
     length: 255,
-    name: 'name',
+    unique: true
   })
   name: string;
 
   @Column({
-    type:'varchar',
     nullable: false,
     length: 255,
-    name: 'log',
   })
   log: string;
 
   @Column({
-    type:'varchar',
+    type: 'varchar',
     nullable: false,
     length: 255,
-    name: 'status',
   })
   status: string;
 
   @Column({
-    type:Date,
+    type: Date,
     nullable: false,
-    name: 'endedat',
   })
   startedat: Date | null;
 
   @Column({
     nullable: false,
-    name: 'endedat',
-    type:Date
+    type: Date,
   })
   endedat: Date | null;
-
 }
-

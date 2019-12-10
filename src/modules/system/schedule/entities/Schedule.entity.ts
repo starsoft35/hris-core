@@ -13,20 +13,19 @@ export class Schedule extends EntityCoreProps {
   @Column('character varying', {
     nullable: false,
     length: 255,
-    name: 'name',
+    unique: true
   })
   name: string;
+
   @Column('character varying', {
     nullable: false,
     length: 255,
-    name: 'progress',
   })
   progress: string;
 
   @Column('character varying', {
     nullable: false,
     length: 255,
-    name: 'cron',
   })
   cron: string;
 
