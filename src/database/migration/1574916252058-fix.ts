@@ -236,6 +236,7 @@ export class fix1574916252058 implements MigrationInterface {
         CONSTRAINT "PK_schdeule" PRIMARY KEY (id),
         CONSTRAINT "UQ_schedule" UNIQUE (uid),
         lastupdatedby integer,
+        CONSTRAINT "UQ_schedule_name" UNIQUE (name),
         CONSTRAINT fk_lastupdatedby FOREIGN KEY (lastupdatedby)
         REFERENCES public."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -252,16 +253,17 @@ export class fix1574916252058 implements MigrationInterface {
         uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
         name character varying(256) COLLATE pg_catalog."default" NOT NULL,
         code text COLLATE pg_catalog."default",
-        status text COLLATE pg_catalog."default",
-        startedat character varying COLLATE pg_catalog."default" NOT NULL,
+        status text COLLATE pg_catalog."default" NOT NULL,
+        startedat timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
         lastupdatedby integer,
         description text,
-        log text,
+        log text NOT NULL,
         publicaccess boolean,
         externalaccess boolean,
-        endedat integer NOT NULL,
+        endedat timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
         CONSTRAINT "PK_task" PRIMARY KEY (id),
         CONSTRAINT "UQ_task" UNIQUE (uid),
+        CONSTRAINT "UQ_task_name" UNIQUE (name),
         CONSTRAINT fk_lastupdatedby FOREIGN KEY (lastupdatedby)
         REFERENCES public."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION

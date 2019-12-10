@@ -94,12 +94,12 @@ export class TrainingSession extends TransactionTimestamp {
   })
   created: Date;
 
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
+  // @Column('timestamp without time zone', {
+  //   nullable: true,
+  //   default: () => 'NULL::timestamp without time zone',
+  //   name: 'lastupdated',
+  // })
+  // lastupdated: Date | null;
 
   @ManyToOne(
     () => TrainingUnit,

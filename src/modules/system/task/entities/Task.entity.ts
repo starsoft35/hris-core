@@ -35,7 +35,7 @@ export class Task extends EntityCoreProps {
     type: Date,
     nullable: false,
   })
-  startedat: Date | null;
+  startedAt: Date | null;
 
   @Column({
     nullable: false,
