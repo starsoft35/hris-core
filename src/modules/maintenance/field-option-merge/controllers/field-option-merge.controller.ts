@@ -1,10 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { FieldOptionMerge } from '../entities/field-option-merge.entity';
 import { FieldOptionMergeService } from '../services/field-option-merge.service';
-import { BaseController } from 'src/core/controllers/base.contoller';
+import { MaintenanceBaseController } from 'src/core/maintenance/controllers/base.contoller';
 
 @Controller('api/' + FieldOptionMerge.plural)
-export class FieldOptionMergeController extends BaseController<
+export class FieldOptionMergeController extends MaintenanceBaseController<
 FieldOptionMerge
 > {
     constructor(fieldOptionMergeService: FieldOptionMergeService) {

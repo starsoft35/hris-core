@@ -1,10 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { BaseController } from 'src/core/controllers/base.contoller';
 import { FieldInputType } from '../entities/field-input-type.entity';
 import { FieldInputTypeService } from '../services/field-input-type.service';
+import { MaintenanceBaseController } from 'src/core/maintenance/controllers/base.contoller';
 
 @Controller('api/' + FieldInputType.plural)
-export class FieldInputTypeController extends BaseController<FieldInputType> {
+export class FieldInputTypeController extends MaintenanceBaseController<FieldInputType> {
     constructor(fieldInputTypeService: FieldInputTypeService) {
         super(fieldInputTypeService, FieldInputType);
     }
