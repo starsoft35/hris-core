@@ -6,7 +6,7 @@ export class EntityCoreProps extends TransactionTimestamp {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'varchar', length: 256, unique: true })
+    @Column({ type: 'varchar', length: 256 })
     uid: string;
 
     @Column({
