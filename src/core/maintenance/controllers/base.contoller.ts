@@ -214,10 +214,10 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     @Res() res: Response,
   ): Promise<ApiResult> {
     try {
-      const isExist = await this.baseService.findOneByUid(params.id);
+      const isExist: any = await this.baseService.findOneByUid(params);
       if (isExist !== undefined) {
         const deleteResponse: DeleteResponse = await this.baseService.delete(
-          params.id,
+          isExist.id,
         );
         return deleteSuccessResponse(req, res, params, deleteResponse);
       } else {

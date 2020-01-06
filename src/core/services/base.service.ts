@@ -58,7 +58,7 @@ export class BaseService<T extends HRISBaseEntity> {
    * @param entity
    */
   async findOneByUid(entity: any): Promise<T> {
-    return await this.modelRepository.findOne({ where: { uid : entity.uid } });
+    return await this.modelRepository.findOne({ where: { uid : entity.id } });
   }
 
   /**
@@ -154,10 +154,10 @@ export class BaseService<T extends HRISBaseEntity> {
 
   /**
    *
-   * @param uid
+   * @param id
    */
-  async delete(uid: string): Promise<DeleteResult> {
-    const condition: any = { uid };
+  async delete(id: string): Promise<DeleteResult> {
+    const condition: any = { id };
     if (condition) {
       return this.modelRepository.delete(condition);
     }
