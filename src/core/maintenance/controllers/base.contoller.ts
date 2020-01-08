@@ -46,9 +46,14 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
   @Get()
   @UseGuards(SessionGuard)
   async findAll(@Query() query): Promise<ApiResult> {
-    if (query.paging === 'false') {
+    if (_.has(query, 'paging') && query.paging === 'false') {
       const allContents: T[] = await this.maintenanceBaseService.findAll();
       return { [this.Model.plural]: allContents };
+    } else if (_.has(query, 'name')) {
+      const foundName = await this.maintenanceBaseService.findOneByName(
+        query.name,
+      );
+      return { [this.Model.plural]: foundName };
     }
 
     const pagerDetails: Pager = getPagerDetails(query);
@@ -179,7 +184,9 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     @Param() params,
     @Body() updateEntityDto,
   ): Promise<ApiResult> {
-    const updateEntity = await this.maintenanceBaseService.findOneByUid(params.id);
+    const updateEntity = await this.maintenanceBaseService.findOneByUid(
+      params.id,
+    );
     if (updateEntity !== undefined) {
       const resolvedEntityDTO: any = await this.maintenanceBaseService.EntityUidResolver(
         updateEntityDto,
@@ -188,7 +195,9 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
       // ! Removed Update Based By UID params and update automatically
       // ! By following the criteria if the uid exist the it will update
       // ! The item but if it is new then it will create new item
-      const payload = await this.maintenanceBaseService.update(resolvedEntityDTO);
+      const payload = await this.maintenanceBaseService.update(
+        resolvedEntityDTO,
+      );
       if (payload) {
         return res
           .status(res.statusCode)
@@ -214,7 +223,9 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     @Res() res: Response,
   ): Promise<ApiResult> {
     try {
-      const isExist: any = await this.maintenanceBaseService.findOneByUid(params);
+      const isExist: any = await this.maintenanceBaseService.findOneByUid(
+        params,
+      );
       if (isExist !== undefined) {
         const deleteResponse: DeleteResponse = await this.maintenanceBaseService.delete(
           isExist.id,

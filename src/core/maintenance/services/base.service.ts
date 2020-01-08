@@ -71,6 +71,14 @@ export class MaintenanceBaseService<T extends HRISBaseEntity> {
 
   /**
    *
+   * @param name
+   */
+  async findOneByName(name: string): Promise<T[]> {
+    return await this.modelRepository.find({ where: { name }});
+  }
+
+  /**
+   *
    * @param data
    * @param modelTarget
    */
