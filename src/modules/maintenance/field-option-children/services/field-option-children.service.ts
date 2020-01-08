@@ -5,7 +5,9 @@ import { Repository } from 'typeorm';
 import { MaintenanceBaseService } from 'src/core/maintenance/services/base.service';
 
 @Injectable()
-export class FieldOptionChildrenService extends MaintenanceBaseService<FieldOptionChildren> {
+export class FieldOptionChildrenService extends MaintenanceBaseService<
+FieldOptionChildren
+> {
     constructor(
         @InjectRepository(FieldOptionChildren)
         repository: Repository<FieldOptionChildren>,
@@ -13,4 +15,3 @@ export class FieldOptionChildrenService extends MaintenanceBaseService<FieldOpti
         super(repository, FieldOptionChildren);
     }
 }
-
