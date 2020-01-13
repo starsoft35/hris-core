@@ -32,7 +32,7 @@ export function getDataBaseConfiguration() {
 }
 export function getConfiguration() {
   const files = config.files || {};
-  if (!config.port){
+  if (!config.port) {
     config.port = 3000;
   }
   if (!files.apps) {
@@ -49,6 +49,6 @@ export function getConfiguration() {
   }
   return {
     ...config,
-    ...files
+    ...files,
   };
 }

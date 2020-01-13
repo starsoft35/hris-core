@@ -1,4 +1,14 @@
 import { Controller } from '@nestjs/common';
+import { BaseController } from '../../../core/controllers/base.contoller';
 
-@Controller('api/' + 'training-venue')
-export class TrainingVenueController {}
+import { TrainingVenueService } from '../services/training-venue.service';
+import { TrainingVenue } from '../entities/training-venue.entity';
+
+@Controller('api/training/' + TrainingVenue.plural)
+export class TrainingVenueController extends BaseController<
+TrainingVenue
+> {
+    constructor(trainingVenueService: TrainingVenueService) {
+        super(trainingVenueService, TrainingVenue);
+    }
+}

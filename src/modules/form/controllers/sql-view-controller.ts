@@ -10,7 +10,7 @@ import { Request, Response } from 'express';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { SqlView } from '../entities/sqlview.entity';
 import { SqlViewService } from '../services/sql-view.service';
-import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
+import { SessionGuard } from '../../../modules/system/user/guards/session.guard';
 import { ApiResult } from 'src/core/interfaces';
 import { getSuccessResponse, genericFailureResponse } from 'src/core/helpers/response.helper';
 

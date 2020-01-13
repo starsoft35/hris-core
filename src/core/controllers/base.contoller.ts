@@ -25,6 +25,7 @@ import {
   postSuccessResponse,
   entityExistResponse,
 } from '../helpers/response.helper';
+import { convertUidsToIds } from '../utilities/convertIds';
 
 export class BaseController<T extends HRISBaseEntity> {
   /**
@@ -35,7 +36,7 @@ export class BaseController<T extends HRISBaseEntity> {
   constructor(
     private readonly baseService: BaseService<T>,
     private readonly Model: typeof HRISBaseEntity,
-  ) { }
+  ) {}
 
   /**
    *
@@ -68,10 +69,7 @@ export class BaseController<T extends HRISBaseEntity> {
         total: totalCount,
         nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
       },
-      [this.Model.plural]: _.map(entityRes, (content: any) => {
-        // delete content.id;
-        return content;
-      }),
+      [this.Model.plural]: _.map(entityRes, convertUidsToIds),
     };
   }
 
@@ -92,7 +90,7 @@ export class BaseController<T extends HRISBaseEntity> {
       const isExist = await this.baseService.findOneByUid(params.id);
       const getResponse = isExist;
       if (isExist !== undefined) {
-        return getSuccessResponse(res, getResponse);
+        return getSuccessResponse(res, convertUidsToIds(getResponse));
       } else {
         return genericFailureResponse(res, params);
       }
@@ -141,14 +139,16 @@ export class BaseController<T extends HRISBaseEntity> {
     @Body() createEntityDto,
   ): Promise<ApiResult> {
     try {
-      const isIDExist = await this.baseService.findOneById(createEntityDto.uid);
+      const isIDExist = await this.baseService.findOneByUid(createEntityDto.id);
       if (isIDExist !== undefined) {
         return entityExistResponse(res, isIDExist);
       } else {
         const createdEntity = await this.baseService.create(createEntityDto);
         if (createdEntity !== undefined) {
-          // delete createdEntity.id;
-          return postSuccessResponse(res, createdEntity);
+          const isPropExcluded = delete createdEntity.id;
+          return isPropExcluded
+            ? postSuccessResponse(res, createdEntity)
+            : postSuccessResponse(res, createdEntity);
         } else {
           return genericFailureResponse(res);
         }

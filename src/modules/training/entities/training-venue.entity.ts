@@ -6,6 +6,7 @@ import { TrainingSession } from './training-session.entity';
 
 @Entity('trainingvenue', { schema: 'public' })
 export class TrainingVenue extends EntityCoreProps {
+  static plural = 'venues';
   @Column('integer', {
     nullable: false,
     primary: true,

@@ -37,7 +37,7 @@ export class Form extends EntityCoreProps {
   title: string | null;
 
   @OneToMany(type => FormFieldMember, formFieldMember => formFieldMember.form, {
-    onDelete: 'CASCADE',
+    eager:true,onDelete: 'CASCADE',
   })
   formFieldMembers: FormFieldMember[];
 

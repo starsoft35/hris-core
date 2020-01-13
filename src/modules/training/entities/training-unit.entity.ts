@@ -7,6 +7,7 @@ import { TrainingSession } from './training-session.entity';
 
 @Entity('trainingunit', { schema: 'public' })
 export class TrainingUnit extends EntityCoreProps {
+  static plural = 'units';
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -17,7 +18,7 @@ export class TrainingUnit extends EntityCoreProps {
   @ManyToOne(
     type => TrainingSection,
     trainingSection => trainingSection.trainingUnits,
-    { onDelete: 'CASCADE' },
+    { eager:true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'sectionid' })
   section: TrainingSection | null;

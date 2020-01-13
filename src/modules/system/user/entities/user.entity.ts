@@ -262,8 +262,8 @@ export class User extends UserCoreProps {
   )
   @JoinTable({
     name: 'organisationunitmembers',
-    joinColumn: { referencedColumnName: 'id' },
-    inverseJoinColumn: { referencedColumnName: 'id' },
+    joinColumn: { name: 'userid', referencedColumnName: 'id' },
+    inverseJoinColumn: { name:'organisationunitid', referencedColumnName: 'id' },
   })
   organisationUnits: OrganisationUnit[];
 

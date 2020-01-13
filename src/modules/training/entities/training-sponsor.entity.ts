@@ -5,6 +5,7 @@ import { TrainingSession } from './training-session.entity';
 
 @Entity('trainingsponsor', { schema: 'public' })
 export class TrainingSponsor extends EntityCoreProps {
+  static plural = 'sponsors';
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -46,4 +47,10 @@ export class TrainingSponsor extends EntityCoreProps {
     { onDelete: 'CASCADE' },
   )
   sponsorTrainingSessions: TrainingSession[];
+
+  @OneToMany(
+    type => TrainingSession,
+    trainingSession => trainingSession.trainingMethods,
+  )
+  trainingSessions: TrainingSession[];
 }

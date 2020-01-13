@@ -21,10 +21,8 @@ import { RecordValue } from './record-value.entity';
 export class Record extends TransactionUser {
   static plural = 'records';
 
-
-  @PrimaryGeneratedColumn({ type: "integer", name: 'recordid' })
-  @Generated('increment')
-  recordid: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
@@ -32,15 +30,16 @@ export class Record extends TransactionUser {
   @ManyToOne(
     type => OrganisationUnit,
     organisationUnit => organisationUnit.records,
-    { nullable: false, onDelete: 'CASCADE' },
+    { eager: true, nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'organisationunitid' })
   organisationUnit: OrganisationUnit | null;
 
-  @ManyToOne(type => Form, form => form.records, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(
+    type => Form,
+    form => form.records,
+    { eager: true, nullable: false, onDelete: 'CASCADE' },
+  )
   @JoinColumn({ name: 'formid' })
   form: Form | null;
 
@@ -51,7 +50,11 @@ export class Record extends TransactionUser {
   })
   instance: string;
 
-  @OneToMany(() => RecordValue, (recordvalue: RecordValue) => recordvalue.record, { eager: true, onDelete: 'CASCADE', })
+  @OneToMany(
+    () => RecordValue,
+    (recordvalue: RecordValue) => recordvalue.record,
+    { eager: true, onDelete: 'CASCADE' },
+  )
   recordValues: RecordValue[];
 
   @ManyToMany(

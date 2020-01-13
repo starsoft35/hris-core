@@ -87,9 +87,6 @@ TABLESPACE pg_default;
         'ALTER TABLE "user" ADD CONSTRAINT "fk_user_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" RENAME COLUMN "organisationunit_id" TO "organisationunitId"',
-      );
-      await queryRunner.query(
         'ALTER TABLE "user" RENAME COLUMN "last_login" TO "lastlogin"',
       );
       await queryRunner.query(
@@ -114,6 +111,9 @@ TABLESPACE pg_default;
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "email" TEXT',
       );
       await queryRunner.query(
+        'ALTER TABLE "user" DROP COLUMN "roles"',
+      );
+      await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "phonenumber" TEXT',
       );
       await queryRunner.query(
@@ -131,6 +131,7 @@ TABLESPACE pg_default;
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "userSettingsId" INTEGER',
       );
+
       // await queryRunner.query('ALTER TABLE "user" ADD CONSTRAINT "PK_03b91d2b8321aa7ba32257dc321" PRIMARY KEY (id)');
       await queryRunner.query(
         'ALTER TABLE "user" ADD CONSTRAINT "REL_7154b7b71e3dd18b59ad8ee8b8" UNIQUE ("userSettingsId")',
@@ -1760,6 +1761,52 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
         ).toString('base64')}' WHERE id=${user.id}`,
       );
     }
+
+    let organisationUnitMembers = `CREATE TABLE public.organisationunitmembers
+    (
+        userid integer NOT NULL,
+        organisationunitid integer NOT NULL,
+        CONSTRAINT "PK_4c1bb7cd98866e76ec49e91a5b1" PRIMARY KEY ("userid", "organisationunitid"),
+        CONSTRAINT "FK_9f8405fda0d56decd0f7e46d85d" FOREIGN KEY ("userid")
+            REFERENCES public."user" (id) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID,
+        CONSTRAINT "FK_f54224b61c067df95828b544adb" FOREIGN KEY ("organisationunitid")
+            REFERENCES public.hris_organisationunit (id) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            NOT VALID
+    )
+    WITH (
+        OIDS = FALSE
+    )
+    TABLESPACE pg_default;
+    
+    ALTER TABLE public.organisationunitmembers
+        OWNER to postgres;
+    
+    -- Index: IDX_9f8405fda0d56decd0f7e46d85
+    
+    -- DROP INDEX public."IDX_9f8405fda0d56decd0f7e46d85";
+    
+    CREATE INDEX "IDX_9f8405fda0d56decd0f7e46d85"
+        ON public.organisationunitmembers USING btree
+        ("userid")
+        TABLESPACE pg_default;
+    
+    -- Index: IDX_f54224b61c067df95828b544ad
+    
+    -- DROP INDEX public."IDX_f54224b61c067df95828b544ad";
+    
+    CREATE INDEX "IDX_f54224b61c067df95828b544ad"
+        ON public.organisationunitmembers USING btree
+        ("organisationunitid")
+        TABLESPACE pg_default;`;
+
+    await queryRunner.query(organisationUnitMembers);
+    await queryRunner.query(`INSERT INTO organisationunitmembers(userid,organisationunitid)
+(SELECT public.user.id,public.user.organisationunit_id FROM public.user WHERE public.user.organisationunit_id IS NOT NULL)`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}

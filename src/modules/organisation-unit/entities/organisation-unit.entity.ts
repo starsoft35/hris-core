@@ -147,7 +147,7 @@ export class OrganisationUnit extends EntityCoreProps {
 
   @OneToMany(
     type => TrainingSession,
-    trainingSession => trainingSession.organisationUnit,
+    trainingSession => trainingSession.region,
     { onDelete: 'CASCADE' },
   )
   trainingSessions: TrainingSession[];

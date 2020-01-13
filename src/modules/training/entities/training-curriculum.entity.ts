@@ -16,6 +16,7 @@ import { TrainingUnit } from './training-unit.entity';
 
 @Entity('trainingcurriculum', { schema: 'public' })
 export class TrainingCurriculum extends EntityCoreProps {
+  static plural = 'curriculums';
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -26,7 +27,7 @@ export class TrainingCurriculum extends EntityCoreProps {
   @ManyToOne(
     type => TrainingSection,
     trainingSection => trainingSection.curriculums,
-    { onDelete: 'CASCADE' },
+    { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'sectionid' })
   section: TrainingSection | null;
@@ -34,7 +35,7 @@ export class TrainingCurriculum extends EntityCoreProps {
   @ManyToOne(
     type => TrainingUnit,
     trainingUnit => trainingUnit.trainingCurriculums,
-    { onDelete: 'CASCADE' },
+    { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'unitid' })
   unit: TrainingUnit | null;

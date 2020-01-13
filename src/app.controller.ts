@@ -1,5 +1,6 @@
 import { Get, Controller, Render, Req, Res, Param } from '@nestjs/common';
 import { AppService } from './app.service';
+import { genericFailureResponse } from './core/helpers/response.helper';
 
 @Controller()
 export class AppController {
@@ -25,6 +26,13 @@ export class AppController {
     } else {
       app = await this.appService.getLoginApp();
     }
-    response.redirect('/api/apps/' + app.name.toLowerCase().split(' ').join('') + '/' + app.launchpath);
+    console.log(app);
+    if(app){
+      response.redirect('/api/apps/' + app.name.toLowerCase().split(' ').join('') + '/' + app.launchpath);
+    }else{
+      return response.status(500).json({
+        message: `Apps not uploaded.`,
+      });
+    }
   }
 }
