@@ -21,7 +21,7 @@ export class Schedule extends EntityCoreProps {
     nullable: false,
     length: 255,
   })
-  progress: string;
+  process: string;
 
   @Column('character varying', {
     nullable: false,
