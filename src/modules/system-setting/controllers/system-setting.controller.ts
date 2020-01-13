@@ -9,7 +9,6 @@ import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 
 import { SystemSetting } from '../entities/system-setting.entity';
 import { SystemSettingService } from '../services/system-setting.service';
-import { SystemSetting } from '../entities/system-setting.entity';
 
 @Controller('api/' + SystemSetting.plural)
 // @UseGuards(AuthGuard())
