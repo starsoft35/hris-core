@@ -7,17 +7,13 @@ import {
 import { ApiResult } from 'src/core/interfaces';
 import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 
-import { SystemInfo } from '../entities/system-info.entity';
-import { SystemInfoService } from '../services/system-info.service';
-import { SystemSettingService } from '../services/system-setting.service';
 import { SystemSetting } from '../entities/system-setting.entity';
+import { SystemSettingService } from '../services/system-setting.service';
 
 @Controller('api/' + SystemSetting.plural)
 // @UseGuards(AuthGuard())
 export class SystemSettingController {
-  constructor(private readonly systemSettingService: SystemSettingService) {
-    // super(systemInfoService, SystemInfo);
-  }
+  constructor(private readonly systemSettingService: SystemSettingService) {}
 
   @Get()
   @UseGuards(SessionGuard)

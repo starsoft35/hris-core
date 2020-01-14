@@ -14,7 +14,6 @@ import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 import { Request, Response, response } from 'express';
 import * as _ from 'lodash';
 import { HRISBaseEntity } from 'src/core/entities/base-entity';
-import { BaseService } from 'src/core/services/base.service';
 import { ApiResult, Pager } from 'src/core/interfaces';
 import { getPagerDetails } from 'src/core/utilities';
 import { convertUidsToIds } from 'src/core/utilities/convertIds';
@@ -27,15 +26,16 @@ import {
 } from 'src/core/helpers/response.helper';
 import { IDTOUIDObjectPropsResolver } from 'src/core/resolvers/id-to-uid-object-prop.resolver';
 import { DeleteResponse } from 'src/core/interfaces/response/delete.interface';
+import { MaintenanceBaseService } from '../services/base.service';
 
 export class MaintenanceBaseController<T extends HRISBaseEntity> {
   /**
    *
-   * @param baseService
+   * @param maintenanceBaseService
    * @param Model
    */
   constructor(
-    private readonly baseService: BaseService<T>,
+    private readonly maintenanceBaseService: MaintenanceBaseService<T>,
     private readonly Model: typeof HRISBaseEntity,
   ) {}
 
@@ -46,9 +46,14 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
   @Get()
   @UseGuards(SessionGuard)
   async findAll(@Query() query): Promise<ApiResult> {
-    if (query.paging === 'false') {
-      const allContents: T[] = await this.baseService.findAll();
+    if (_.has(query, 'paging') && query.paging === 'false') {
+      const allContents: T[] = await this.maintenanceBaseService.findAll();
       return { [this.Model.plural]: allContents };
+    } else if (_.has(query, 'name')) {
+      const foundName = await this.maintenanceBaseService.findOneByName(
+        query.name,
+      );
+      return { [this.Model.plural]: foundName };
     }
 
     const pagerDetails: Pager = getPagerDetails(query);
@@ -56,7 +61,7 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     const [entityRes, totalCount]: [
       T[],
       number,
-    ] = await this.baseService.findAndCount(
+    ] = await this.maintenanceBaseService.findAndCount(
       query.fields,
       query.filter,
       pagerDetails.pageSize,
@@ -88,7 +93,7 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     @Param() params,
   ): Promise<ApiResult> {
     try {
-      const isExist = await this.baseService.findOneByUid(params.id);
+      const isExist = await this.maintenanceBaseService.findOneByUid(params.id);
       const getResponse = isExist;
       if (isExist !== undefined) {
         return getSuccessResponse(res, convertUidsToIds(getResponse));
@@ -114,7 +119,7 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     @Param() params,
   ): Promise<ApiResult> {
     try {
-      const isExist = await this.baseService.findOneByUid(params.id);
+      const isExist = await this.maintenanceBaseService.findOneByUid(params.id);
       const getResponse = isExist;
       if (isExist !== undefined) {
         return { [params.relation]: getResponse[params.relation] };
@@ -143,13 +148,13 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
       const procCreateEntityDTO = await IDTOUIDObjectPropsResolver(
         createEntityDto,
       );
-      const isIDExist = await this.baseService.findOneByUid(
+      const isIDExist = await this.maintenanceBaseService.findOneByUid(
         procCreateEntityDTO,
       );
       if (isIDExist !== undefined) {
         return entityExistResponse(res, isIDExist);
       } else {
-        const createdEntity = await this.baseService.create(
+        const createdEntity = await this.maintenanceBaseService.create(
           procCreateEntityDTO,
         );
         if (createdEntity !== undefined) {
@@ -179,16 +184,20 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     @Param() params,
     @Body() updateEntityDto,
   ): Promise<ApiResult> {
-    const updateEntity = await this.baseService.findOneByUid(params.id);
+    const updateEntity = await this.maintenanceBaseService.findOneByUid(
+      params.id,
+    );
     if (updateEntity !== undefined) {
-      const resolvedEntityDTO: any = await this.baseService.EntityUidResolver(
+      const resolvedEntityDTO: any = await this.maintenanceBaseService.EntityUidResolver(
         updateEntityDto,
         updateEntity,
       );
       // ! Removed Update Based By UID params and update automatically
       // ! By following the criteria if the uid exist the it will update
       // ! The item but if it is new then it will create new item
-      const payload = await this.baseService.update(resolvedEntityDTO);
+      const payload = await this.maintenanceBaseService.update(
+        resolvedEntityDTO,
+      );
       if (payload) {
         return res
           .status(res.statusCode)
@@ -214,10 +223,12 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
     @Res() res: Response,
   ): Promise<ApiResult> {
     try {
-      const isExist = await this.baseService.findOneByUid(params.id);
+      const isExist: any = await this.maintenanceBaseService.findOneByUid(
+        params,
+      );
       if (isExist !== undefined) {
-        const deleteResponse: DeleteResponse = await this.baseService.delete(
-          params.id,
+        const deleteResponse: DeleteResponse = await this.maintenanceBaseService.delete(
+          isExist.id,
         );
         return deleteSuccessResponse(req, res, params, deleteResponse);
       } else {

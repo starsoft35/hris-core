@@ -11,7 +11,7 @@
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "migration:run": "npx ts-node node_modules/.bin/typeorm migration:run -c development",
+    "migration:run": "ts-node node_modules/.bin/typeorm migration:run -c development",
     "migration:revert": "ts-node node_modules/.bin/typeorm migration:revert",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ormconfig.json",
     "prestart:prod": "rimraf dist && npx run build",

@@ -6,13 +6,13 @@ import {
   FindConditions,
 } from 'typeorm';
 
-import { getWhereConditions } from '../utilities';
-import { getRelations, getSelections } from '../utilities/get-fields.utility';
-import { HRISBaseEntity } from '../entities/base-entity';
-import { UIDToIDResolver } from '../resolvers/uid-to-id.resolver';
-import { entityTableMapper } from '../resolvers/database-table.resolver';
 import { isArray } from 'util';
 import * as _ from 'lodash';
+import { HRISBaseEntity } from 'src/core/entities/base-entity';
+import { getSelections, getRelations } from 'src/core/utilities/get-fields.utility';
+import { getWhereConditions } from 'src/core/utilities';
+import { UIDToIDResolver } from 'src/core/resolvers/uid-to-id.resolver';
+import { entityTableMapper } from 'src/core/resolvers/database-table.resolver';
 
 // class Factory {
 //   create<T>(type: (new () => T)): T {
@@ -21,7 +21,7 @@ import * as _ from 'lodash';
 // }
 
 @Injectable()
-export class BaseService<T extends HRISBaseEntity> {
+export class MaintenanceBaseService<T extends HRISBaseEntity> {
   constructor(
     private readonly modelRepository: Repository<T>,
     private readonly Model,
@@ -67,6 +67,14 @@ export class BaseService<T extends HRISBaseEntity> {
    */
   async findOneById(id: string): Promise<T> {
     return await this.modelRepository.findOne({ where: { id } });
+  }
+
+  /**
+   *
+   * @param name
+   */
+  async findOneByName(name: string): Promise<T[]> {
+    return await this.modelRepository.find({ where: { name }});
   }
 
   /**
