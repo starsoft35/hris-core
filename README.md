@@ -19,6 +19,7 @@ The Ministry of Health and Social Welfare (MOHSW) has initiated development of H
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
+  * [Running Migrations](#migrations)
 * [Usage](#usage)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
@@ -72,6 +73,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+### Migrations
+```bash
+# Running Migrations
+npm run migration:run
+```
 ## Usage
 * **`USER`**
     * [**`User Module`**](https://github.com/hisptz/hris-restful-api-v1/blob/master/documents/USERMODULE.md)
