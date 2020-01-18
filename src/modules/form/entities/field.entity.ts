@@ -10,11 +10,11 @@ import {
 
 import { FieldDataType } from './field-datatype.entity';
 import { FieldGroup } from './field-group.entity';
-import { FieldInputType } from '../../maintenance/field-input-type/entities/field-input-type.entity';
-import { FieldOptionGroup } from '../../maintenance/field-option-group/entities/field-option-group.entity';
-import { FieldOptionMerge } from '../../maintenance/field-option-merge/entities/field-option-merge.entity';
-import { FieldOption } from '../../maintenance/field-option/entities/field-option.entity';
-import { FieldRelation } from '../../maintenance/field-relation/entities/field-relation.entity';
+import { FieldInputType } from './field-input-type.entity';
+import { FieldOptionGroup } from './field-option-group.entity';
+import { FieldOptionMerge } from './field-option-merge.entity';
+import { FieldOption } from './field-option.entity';
+import { FieldRelation } from './field-relation.entity';
 import { FormFieldMember } from './form-field-member.entity';
 import { FormVisibleField } from './form-visible-fields.entity';
 import { Form } from './form.entity';

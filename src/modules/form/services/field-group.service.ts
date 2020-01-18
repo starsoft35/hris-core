@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { FieldGroup } from '../entities/field-group.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { BaseService } from 'src/core/services/base.service';
 import { Repository } from 'typeorm';
-import { MaintenanceBaseService } from 'src/core/maintenance/services/base.service';
+
+import { FieldGroup } from '../entities/field-group.entity';
 
 @Injectable()
-export class FieldGroupService extends MaintenanceBaseService<FieldGroup> {
+export class FieldGroupService extends BaseService<FieldGroup> {
   constructor(
     @InjectRepository(FieldGroup)
     repository: Repository<FieldGroup>,
