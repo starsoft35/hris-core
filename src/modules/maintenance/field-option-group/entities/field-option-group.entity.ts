@@ -9,17 +9,21 @@ import {
 } from 'typeorm';
 
 import { FieldOption } from '../../field-option/entities/field-option.entity';
-import { Field } from '../../field/entities/field.entity';
+import { Field } from '../../../form/entities/field.entity';
 import { FieldOptionGroupSet } from '../../field-option-group-set/entities/field-option-group-set.entity';
 
 @Entity('fieldoptiongroup', { schema: 'public' })
 export class FieldOptionGroup extends EntityCoreProps {
   static plural = 'fieldOptionGroups';
 
-  @ManyToOne(type => Field, field => field.fieldOptionGroups, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(
+    type => Field,
+    field => field.fieldOptionGroups,
+    {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+  )
   @JoinColumn({ referencedColumnName: 'id' })
   field: Field | null;
 

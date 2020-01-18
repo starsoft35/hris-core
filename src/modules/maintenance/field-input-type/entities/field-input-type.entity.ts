@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 
-import { Field } from '../../field/entities/field.entity';
+import { Field } from '../../../form/entities/field.entity';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 
 @Entity('fieldinputtype', { schema: 'public' })
@@ -15,6 +15,9 @@ export class FieldInputType extends EntityCoreProps {
   })
   htmlTag: string;
 
-  @OneToMany(type => Field, field => field.fieldInputType)
+  @OneToMany(
+    type => Field,
+    field => field.fieldInputType,
+  )
   fields: Field[];
 }

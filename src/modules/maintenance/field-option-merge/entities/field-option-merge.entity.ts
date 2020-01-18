@@ -2,7 +2,7 @@ import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { FieldOption } from '../../field-option/entities/field-option.entity';
-import { Field } from '../../field/entities/field.entity';
+import { Field } from '../../../form/entities/field.entity';
 
 @Entity('fieldoptionmerge', { schema: 'public' })
 export class FieldOptionMerge extends EntityCoreProps {
@@ -11,10 +11,14 @@ export class FieldOptionMerge extends EntityCoreProps {
   /**
    * Many To One Relationship: FieldOptionMerge and Field Entities
    */
-  @ManyToOne(type => Field, field => field.fieldOptionMerges, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(
+    type => Field,
+    field => field.fieldOptionMerges,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinColumn({ referencedColumnName: 'id' })
   field: Field;
 

@@ -1,19 +1,12 @@
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 
 // import { FieldOption } from './field-option.entity';
-import { Field } from '../../maintenance/field/entities/field.entity';
+import { Field } from './field.entity';
 import { FieldOptionGroupSet } from './field-option-groupset.entity';
 
 @Entity('fieldoptiongroup', { schema: 'public' })
 export class FieldOptionGroup extends EntityCoreProps {
-
   static plural = 'fieldOptionGroups';
 
   @Column('integer', {
@@ -23,9 +16,13 @@ export class FieldOptionGroup extends EntityCoreProps {
   })
   id: number;
 
-  @ManyToOne(type => Field, field => field.fieldOptionGroups, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(
+    type => Field,
+    field => field.fieldOptionGroups,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinColumn({ name: 'fieldid' })
   field: Field | null;
 

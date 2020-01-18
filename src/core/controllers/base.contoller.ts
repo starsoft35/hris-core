@@ -25,7 +25,7 @@ import {
   postSuccessResponse,
   entityExistResponse,
 } from '../helpers/response.helper';
-import { sanitizeResponseObject } from '../utilities/sanitized-response-object';
+import { sanitizeResponseObject } from '../utilities/sanitize-response-object';
 
 export class BaseController<T extends HRISBaseEntity> {
   /**

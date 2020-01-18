@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { FieldOptionMerge } from '../../field-option-merge/entities/field-option-merge.entity';
-import { Field } from '../../field/entities/field.entity';
+import { Field } from '../../../form/entities/field.entity';
 import { FieldOptionGroup } from '../../field-option-group/entities/field-option-group.entity';
 
 @Entity('fieldoption', { schema: 'public' })
@@ -31,7 +31,10 @@ export class FieldOption extends EntityCoreProps {
   /**
    * One To Many Relationship: Field and FieldOption
    */
-  @ManyToOne(type => Field, field => field.fieldOptions)
+  @ManyToOne(
+    type => Field,
+    field => field.fieldOptions,
+  )
   @JoinColumn({ referencedColumnName: 'id' })
   field: Field;
 

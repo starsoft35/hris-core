@@ -10,7 +10,6 @@ import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-
 import { ReportModule } from './modules/report/report.module';
 import { TrainingModule } from './modules/training/training.module';
 import { RecordModule } from './modules/record/record.module';
-import { FieldModule } from './modules/maintenance/field/field.module';
 import { FieldGroupModule } from './modules/maintenance/field-group/field-group.module';
 import { UserRoleModule } from './modules/system/user-role/user-role.module';
 import { UserGroupModule } from './modules/system/user-group/user-group.module';
@@ -41,9 +40,6 @@ import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
     Repository,
     TypeOrmModule.forRoot(getDataBaseConfiguration()),
     OrganisatinUnitModule,
-
-    // START: Field Modules
-    FieldModule,
     FieldDataTypeModule,
     FieldGroupModule,
     FieldGroupSetModule,
@@ -55,21 +51,12 @@ import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
     FieldOptionMergeModule,
     FieldRelationModule,
     FormModule,
-
-    // END: Field Modules
-
-    // START: User Modules
     UserModule,
     UserRoleModule,
     UserGroupModule,
     UserAuthorityModule,
-    // END: User Modules
-
-    //System Modules
     TaskModule,
     ScheduleModule,
-    //System Modules
-
     VisualizationModule,
     ReportModule,
     TrainingModule,

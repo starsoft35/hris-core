@@ -8,19 +8,19 @@ import {
   OneToOne,
 } from 'typeorm';
 
-import { FieldDataType } from '../../field-data-type/entities/field-datatype.entity';
-import { FieldGroup } from '../../field-group/entities/field-group.entity';
-import { FieldInputType } from '../../field-input-type/entities/field-input-type.entity';
-import { FieldOptionGroup } from '../../field-option-group/entities/field-option-group.entity';
-import { FieldOptionMerge } from '../../field-option-merge/entities/field-option-merge.entity';
-import { FieldOption } from '../../field-option/entities/field-option.entity';
-import { FieldRelation } from '../../field-relation/entities/field-relation.entity';
-import { FormFieldMember } from '../../../form/entities/form-field-member.entity';
-import { FormVisibleField } from '../../../form/entities/form-visible-fields.entity';
-import { Form } from '../../../form/entities/form.entity';
-import { FormSectionFieldMember } from '../../../form/entities/formsection-fieldmembers.entity';
-import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
-import { RecordValue } from '../../../../modules/record/entities/record-value.entity';
+import { FieldDataType } from '../../maintenance/field-data-type/entities/field-datatype.entity';
+import { FieldGroup } from '../../maintenance/field-group/entities/field-group.entity';
+import { FieldInputType } from '../../maintenance/field-input-type/entities/field-input-type.entity';
+import { FieldOptionGroup } from '../../maintenance/field-option-group/entities/field-option-group.entity';
+import { FieldOptionMerge } from '../../maintenance/field-option-merge/entities/field-option-merge.entity';
+import { FieldOption } from '../../maintenance/field-option/entities/field-option.entity';
+import { FieldRelation } from '../../maintenance/field-relation/entities/field-relation.entity';
+import { FormFieldMember } from './form-field-member.entity';
+import { FormVisibleField } from './form-visible-fields.entity';
+import { Form } from './form.entity';
+import { FormSectionFieldMember } from './formsection-fieldmembers.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { RecordValue } from '../../record/entities/record-value.entity';
 
 @Entity('field', { schema: 'public' })
 export class Field extends EntityCoreProps {
@@ -62,29 +62,41 @@ export class Field extends EntityCoreProps {
   /**
    * Many To Many Relationship: Field and FieldGroup
    */
-  @ManyToMany(type => FieldGroup, fieldGroup => fieldGroup.fields, {
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(
+    type => FieldGroup,
+    fieldGroup => fieldGroup.fields,
+    {
+      eager: true,
+      cascade: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   fieldGroups: FieldGroup[];
 
   /**
    * Many To One Relationship: Field and FieldGroup
    */
-  @ManyToOne(type => FieldDataType, fieldDataType => fieldDataType.fields, {
-    cascade: true,
-    eager: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(
+    type => FieldDataType,
+    fieldDataType => fieldDataType.fields,
+    {
+      cascade: true,
+      eager: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinColumn({ referencedColumnName: 'id' })
   dataType: FieldDataType;
 
-  @OneToMany(type => FieldRelation, fieldRelation => fieldRelation.childField, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(
+    type => FieldRelation,
+    fieldRelation => fieldRelation.childField,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   childFieldRelations: FieldRelation[];
 
   @OneToMany(
@@ -97,24 +109,32 @@ export class Field extends EntityCoreProps {
   /**
    * One To Many Relationship: Field and FieldOption
    */
-  @OneToMany(type => FieldOption, fieldOption => fieldOption.field, {
-    cascade: true,
-    eager: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(
+    type => FieldOption,
+    fieldOption => fieldOption.field,
+    {
+      cascade: true,
+      eager: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   fieldOptions: FieldOption[];
 
   /**
    * Many To One Relationship: Field and FieldInputType
    */
 
-  @ManyToOne(type => FieldInputType, fieldInputType => fieldInputType.fields, {
-    cascade: true,
-    eager: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(
+    type => FieldInputType,
+    fieldInputType => fieldInputType.fields,
+    {
+      cascade: true,
+      eager: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinColumn({ referencedColumnName: 'id' })
   fieldInputType: FieldInputType;
 
@@ -153,7 +173,10 @@ export class Field extends EntityCoreProps {
   )
   formSectionFieldMembers: FormSectionFieldMember[];
 
-  @ManyToMany(type => Form, form => form.fields)
+  @ManyToMany(
+    type => Form,
+    form => form.fields,
+  )
   forms: Form[];
 
   @OneToOne(
