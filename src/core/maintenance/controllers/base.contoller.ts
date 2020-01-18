@@ -1,31 +1,32 @@
 import {
   Body,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
-  Param,
-  Delete,
   Query,
-  UseGuards,
-  Res,
   Req,
+  Res,
+  UseGuards,
 } from '@nestjs/common';
-import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
-import { Request, Response, response } from 'express';
+import { Request, Response } from 'express';
 import * as _ from 'lodash';
 import { HRISBaseEntity } from 'src/core/entities/base-entity';
-import { ApiResult, Pager } from 'src/core/interfaces';
-import { getPagerDetails } from 'src/core/utilities';
-import { convertUidsToIds } from 'src/core/utilities/convertIds';
 import {
-  getSuccessResponse,
-  genericFailureResponse,
-  entityExistResponse,
-  postSuccessResponse,
   deleteSuccessResponse,
+  entityExistResponse,
+  genericFailureResponse,
+  getSuccessResponse,
+  postSuccessResponse,
 } from 'src/core/helpers/response.helper';
-import { IDTOUIDObjectPropsResolver } from 'src/core/resolvers/id-to-uid-object-prop.resolver';
+import { ApiResult, Pager } from 'src/core/interfaces';
 import { DeleteResponse } from 'src/core/interfaces/response/delete.interface';
+import { IDTOUIDObjectPropsResolver } from 'src/core/resolvers/id-to-uid-object-prop.resolver';
+import { getPagerDetails } from 'src/core/utilities';
+import { sanitizeResponseObject } from 'src/core/utilities/sanitize-response-object';
+import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
+
 import { MaintenanceBaseService } from '../services/base.service';
 
 export class MaintenanceBaseController<T extends HRISBaseEntity> {
@@ -75,7 +76,7 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
         total: totalCount,
         nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
       },
-      [this.Model.plural]: _.map(entityRes, convertUidsToIds),
+      [this.Model.plural]: _.map(entityRes, sanitizeResponseObject),
     };
   }
 
@@ -96,7 +97,7 @@ export class MaintenanceBaseController<T extends HRISBaseEntity> {
       const isExist = await this.maintenanceBaseService.findOneByUid(params.id);
       const getResponse = isExist;
       if (isExist !== undefined) {
-        return getSuccessResponse(res, convertUidsToIds(getResponse));
+        return getSuccessResponse(res, sanitizeResponseObject(getResponse));
       } else {
         return genericFailureResponse(res, params);
       }

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { createHash } from 'crypto';
+import { sanitizeResponseObject } from 'src/core/utilities/sanitize-response-object';
 import { User } from 'src/modules/system/user/entities/user.entity';
+
 import { UserService } from './user.service';
-import { convertUidsToIds } from '../../../../core/utilities/convertIds';
 
 @Injectable()
 export class AuthService {
@@ -14,11 +14,12 @@ export class AuthService {
 
   async login(username, password): Promise<User> {
     const user = await this.userService.findByUsername(username);
-    //user.token = this.encodePassword(password, user.salt);
+    // user.token = this.encodePassword(password, user.salt);
     return user;
   }
 
   async getUserByUid(uid: string): Promise<User> {
-    return convertUidsToIds(await this.userService.findOneByUid(uid));
+    const user = await this.userService.findOneByUid(uid);
+    return sanitizeResponseObject(user);
   }
 }

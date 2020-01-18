@@ -3,52 +3,66 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
 } from 'typeorm';
 
-// import { FieldOption } from './field-option.entity';
-import { Field } from '../../maintenance/field/entities/field.entity';
-import { FieldOptionGroupSet } from './field-option-groupset.entity';
+import { FieldOption } from './field-option.entity';
+import { Field } from './field.entity';
+import { FieldOptionGroupSet } from './field-option-group-set.entity';
 
 @Entity('fieldoptiongroup', { schema: 'public' })
 export class FieldOptionGroup extends EntityCoreProps {
-
   static plural = 'fieldOptionGroups';
 
-  @Column('integer', {
-    nullable: false,
-    primary: true,
-    name: 'fieldoptiongroupid',
-  })
-  id: number;
-
-  @ManyToOne(type => Field, field => field.fieldOptionGroups, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'fieldid' })
+  @ManyToOne(
+    type => Field,
+    field => field.fieldOptionGroups,
+    {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+  )
+  @JoinColumn({ referencedColumnName: 'id' })
   field: Field | null;
 
-  @Column('character varying', {
+  @Column({
+    type: 'varchar',
     nullable: true,
     length: 64,
-    default: () => 'NULL::character varying',
-    name: 'operator',
+    default: () => 'NULL::varchar',
   })
-  operator: string | null;
+  operator: string;
 
-  // @ManyToMany(
-  //   type => FieldOption,
-  //   fieldOption => fieldOption.fieldOptionGroups,
-  //   { nullable: false },
-  // )
-  // @JoinTable({ name: 'fieldoptiongroupmembers' })
-  // fieldOptions: FieldOption[];
+  /**
+   * Many To Many Relationship: FieldOptionGroup and FieldOption Entities
+   */
+  @ManyToMany(
+    type => FieldOption,
+    fieldOption => fieldOption.fieldOptionGroups,
+    {
+      nullable: false,
+      cascade: true,
+      eager: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
+  @JoinTable({
+    name: 'fieldoptiongroupmembers',
+    joinColumn: { referencedColumnName: 'id' },
+    inverseJoinColumn: { referencedColumnName: 'id' },
+  })
+  fieldOptions: FieldOption[];
 
+  /**
+   * Many To Many Relationship: FieldOptionGroup and FieldOptionGroupSet Entities
+   */
   @ManyToMany(
     type => FieldOptionGroupSet,
     fieldOptionGroupSet => fieldOptionGroupSet.fieldOptionGroups,
-    { nullable: false },
+    { nullable: false, onUpdate: 'CASCADE', onDelete: 'CASCADE' },
   )
-  fieldOptionGroupSets: FieldOptionGroup[];
+  fieldOptionGroupSets: FieldOptionGroupSet[];
 }

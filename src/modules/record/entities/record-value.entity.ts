@@ -9,7 +9,7 @@ import {
 
 import { Record } from './record.entity';
 import { TransactionUser } from '../../../core/entities/transaction-user.entity';
-import { Field } from '../../../modules/maintenance/field/entities/field.entity';
+import { Field } from '../../form/entities/field.entity';
 
 @Entity('recordvalue', { schema: 'public' })
 export class RecordValue extends TransactionUser {

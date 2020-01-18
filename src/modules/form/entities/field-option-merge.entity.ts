@@ -1,46 +1,49 @@
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-// import { FieldOption } from './field-option.entity';
-import { Field } from '../../maintenance/field/entities/field.entity';
+import { FieldOption } from './field-option.entity';
+import { Field } from './field.entity';
 
 @Entity('fieldoptionmerge', { schema: 'public' })
 export class FieldOptionMerge extends EntityCoreProps {
-
   static plural = 'fieldOptionMerges';
 
-  @Column('integer', {
+  /**
+   * Many To One Relationship: FieldOptionMerge and Field Entities
+   */
+  @ManyToOne(
+    type => Field,
+    field => field.fieldOptionMerges,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
+  @JoinColumn({ referencedColumnName: 'id' })
+  field: Field;
+
+  /**
+   * Many To One Relationship: FieldOptionMerge and FieldOption Entities
+   */
+  @ManyToOne(
+    type => FieldOption,
+    fieldOption => fieldOption.fieldOptionMerges,
+    { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ referencedColumnName: 'id' })
+  mergedFieldOption: FieldOption;
+
+  @Column({
+    type: 'varchar',
     nullable: false,
-    primary: true,
-    name: 'id',
-  })
-  id: number;
-
-  @ManyToOne(type => Field, field => field.fieldOptionMerges, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'fieldid' })
-  field: Field | null;
-
-  // @ManyToOne(
-  //   type => FieldOption,
-  //   fieldOption => fieldOption.fieldOptionMerges,
-  //   { onDelete: 'CASCADE' },
-  // )
-  // @JoinColumn({ name: 'mergedfieldoptionid' })
-  // mergedFieldOption: FieldOption | null;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 64,
-    name: 'removedfieldoptionvalue',
+    length: 255,
   })
   removedFieldOptionValue: string;
 
-  @Column('character varying', {
+  @Column({
+    type: 'varchar',
     nullable: false,
-    length: 13,
-    name: 'removedfieldoptionuid',
+    length: 255,
   })
   removedFieldOptionUid: string;
 }

@@ -4,7 +4,7 @@ import { User } from '../../../modules/system/user/entities/user.entity';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 
 import { Record } from '../../record/entities/record.entity';
-import { Field } from '../../maintenance/field/entities/field.entity';
+import { Field } from './field.entity';
 import { FormFieldMember } from './form-field-member.entity';
 import { FormSection } from './form-section.entity';
 import { FormVisibleField } from './form-visible-fields.entity';
@@ -12,7 +12,6 @@ import { Indicator } from '../../indicator/entities/indicator.entity';
 
 @Entity('form', { schema: 'public' })
 export class Form extends EntityCoreProps {
-
   static plural = 'forms';
 
   @Column('integer', {
@@ -36,9 +35,14 @@ export class Form extends EntityCoreProps {
   })
   title: string | null;
 
-  @OneToMany(type => FormFieldMember, formFieldMember => formFieldMember.form, {
-    eager:true,onDelete: 'CASCADE',
-  })
+  @OneToMany(
+    type => FormFieldMember,
+    formFieldMember => formFieldMember.form,
+    {
+      eager: true,
+      onDelete: 'CASCADE',
+    },
+  )
   formFieldMembers: FormFieldMember[];
 
   @OneToMany(
@@ -48,9 +52,13 @@ export class Form extends EntityCoreProps {
   )
   formVisibleFields: FormVisibleField[];
 
-  @OneToMany(type => FormSection, formSection => formSection.form, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(
+    type => FormSection,
+    formSection => formSection.form,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   formSections: FormSection[];
 
   @OneToMany(
@@ -59,20 +67,34 @@ export class Form extends EntityCoreProps {
   )
   organisationUnitCompletenesss: OrganisationUnitCompleteness[];
 
-  @OneToMany(type => Record, record => record.form, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(
+    type => Record,
+    record => record.form,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   records: Record[];
 
-  @ManyToMany(type => Field, field => field.forms, {
-    nullable: false,
-  })
+  @ManyToMany(
+    type => Field,
+    field => field.forms,
+    {
+      nullable: false,
+    },
+  )
   @JoinTable({ name: 'formuniquerecordfields' })
   fields: Field[];
 
-  @ManyToMany(type => User, user => user.forms)
+  @ManyToMany(
+    type => User,
+    user => user.forms,
+  )
   users: User[];
 
-  @OneToMany(() => Indicator, (indicator: Indicator) => indicator.form)
+  @OneToMany(
+    () => Indicator,
+    (indicator: Indicator) => indicator.form,
+  )
   indicators: Indicator[];
 }

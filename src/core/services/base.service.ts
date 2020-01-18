@@ -25,10 +25,12 @@ export class BaseService<T extends HRISBaseEntity> {
   constructor(
     private readonly modelRepository: Repository<T>,
     private readonly Model,
-  ) { }
+  ) {}
 
   async findAll(): Promise<T[]> {
-    return await this.modelRepository.find();
+    const results = await this.modelRepository.find();
+
+    return results;
   }
 
   /**
@@ -58,7 +60,7 @@ export class BaseService<T extends HRISBaseEntity> {
    * @param entity
    */
   async findOneByUid(entity: any): Promise<T> {
-    return await this.modelRepository.findOne({ where: { uid : entity.id } });
+    return await this.modelRepository.findOne({ where: { uid: entity.id } });
   }
 
   /**
