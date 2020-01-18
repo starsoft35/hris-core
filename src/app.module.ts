@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { HttpErrorFilter } from './core/filters/http-error.filter';
 import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
 import { getDataBaseConfiguration } from './core/utilities/configuration';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
@@ -52,6 +53,7 @@ import { VisualizationModule } from './modules/visualization/visualization.modul
   providers: [
     AppService,
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
+    { provide: APP_FILTER, useClass: HttpErrorFilter },
   ],
 })
 export class AppModule {
