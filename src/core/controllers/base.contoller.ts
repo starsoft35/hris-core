@@ -82,12 +82,7 @@ export class BaseController<T extends HRISBaseEntity> {
    */
   @Get(':id')
   @UseGuards(SessionGuard)
-  async findOne(
-    @Req() req: Request,
-    @Res() res: Response,
-    @Param() params,
-  ): Promise<ApiResult> {
-    Logger.log(JSON.stringify(params));
+  async findOne(@Res() res: Response, @Param() params): Promise<ApiResult> {
     const results = await this.baseService.findOneByUid(params.id);
 
     return getSuccessResponse(res, sanitizeResponseObject(results));
