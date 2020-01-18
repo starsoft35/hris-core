@@ -5,7 +5,7 @@ import { MaintenanceBaseController } from 'src/core/maintenance/controllers/base
 
 @Controller('api/' + Field.plural)
 export class FieldController extends MaintenanceBaseController<Field> {
-    constructor(fieldService: FieldService) {
-        super(fieldService, Field);
-    }
+  constructor(fieldService: FieldService) {
+    super(fieldService, Field);
+  }
 }

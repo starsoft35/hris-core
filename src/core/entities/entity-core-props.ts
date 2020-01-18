@@ -54,9 +54,4 @@ export class EntityCoreProps extends TransactionTimestamp {
      */
     this.uid = getUid('', 11);
   }
-
-  toResponseObject() {
-    console.log(this);
-    return this;
-  }
 }

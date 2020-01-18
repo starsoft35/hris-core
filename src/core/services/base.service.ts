@@ -30,7 +30,7 @@ export class BaseService<T extends HRISBaseEntity> {
   async findAll(): Promise<T[]> {
     const results = await this.modelRepository.find();
 
-    return results.map(result => result.toResponseObject());
+    return results;
   }
 
   /**

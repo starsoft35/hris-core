@@ -25,7 +25,7 @@ import {
   postSuccessResponse,
   entityExistResponse,
 } from '../helpers/response.helper';
-import { convertUidsToIds } from '../utilities/convertIds';
+import { sanitizeResponseObject } from '../utilities/sanitized-response-object';
 
 export class BaseController<T extends HRISBaseEntity> {
   /**
@@ -69,7 +69,7 @@ export class BaseController<T extends HRISBaseEntity> {
         total: totalCount,
         nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
       },
-      [this.Model.plural]: _.map(entityRes, convertUidsToIds),
+      [this.Model.plural]: _.map(entityRes, sanitizeResponseObject),
     };
   }
 
@@ -90,7 +90,7 @@ export class BaseController<T extends HRISBaseEntity> {
       const isExist = await this.baseService.findOneByUid(params.id);
       const getResponse = isExist;
       if (isExist !== undefined) {
-        return getSuccessResponse(res, convertUidsToIds(getResponse));
+        return getSuccessResponse(res, sanitizeResponseObject(getResponse));
       } else {
         return genericFailureResponse(res, params);
       }
