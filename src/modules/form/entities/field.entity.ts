@@ -8,7 +8,7 @@ import {
   OneToOne,
 } from 'typeorm';
 
-import { FieldDataType } from '../../maintenance/field-data-type/entities/field-datatype.entity';
+import { FieldDataType } from './field-datatype.entity';
 import { FieldGroup } from '../../maintenance/field-group/entities/field-group.entity';
 import { FieldInputType } from '../../maintenance/field-input-type/entities/field-input-type.entity';
 import { FieldOptionGroup } from '../../maintenance/field-option-group/entities/field-option-group.entity';

@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 
-import { Field } from '../../../form/entities/field.entity';
-import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
+import { Field } from './field.entity';
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 
 @Entity('fielddatatype', { schema: 'public' })
 export class FieldDataType extends EntityCoreProps {
