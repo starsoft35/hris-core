@@ -9,6 +9,7 @@ import {
   UseGuards,
   Res,
   Req,
+  Logger,
 } from '@nestjs/common';
 import { BaseService } from '../services/base.service';
 import { Pager, ApiResult } from '../interfaces';
@@ -81,22 +82,10 @@ export class BaseController<T extends HRISBaseEntity> {
    */
   @Get(':id')
   @UseGuards(SessionGuard)
-  async findOne(
-    @Req() req: Request,
-    @Res() res: Response,
-    @Param() params,
-  ): Promise<ApiResult> {
-    try {
-      const isExist = await this.baseService.findOneByUid(params.id);
-      const getResponse = isExist;
-      if (isExist !== undefined) {
-        return getSuccessResponse(res, sanitizeResponseObject(getResponse));
-      } else {
-        return genericFailureResponse(res, params);
-      }
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+  async findOne(@Res() res: Response, @Param() params): Promise<ApiResult> {
+    const results = await this.baseService.findOneByUid(params.id);
+
+    return getSuccessResponse(res, sanitizeResponseObject(results));
   }
 
   /**
