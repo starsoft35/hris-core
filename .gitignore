@@ -425,3 +425,4 @@ docker-compose.yml
 dist
 files
 ormconfig.json
+config.json
