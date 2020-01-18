@@ -6,10 +6,10 @@ import { MaintenanceBaseService } from 'src/core/maintenance/services/base.servi
 
 @Injectable()
 export class FieldGroupService extends MaintenanceBaseService<FieldGroup> {
-    constructor(
-        @InjectRepository(FieldGroup)
-        repository: Repository<FieldGroup>,
-    ) {
-        super(repository, FieldGroup);
-    }
+  constructor(
+    @InjectRepository(FieldGroup)
+    repository: Repository<FieldGroup>,
+  ) {
+    super(repository, FieldGroup);
+  }
 }
