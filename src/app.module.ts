@@ -32,6 +32,8 @@ import { IndicatorModule } from './modules/indicator/indicator.module';
 import { SystemSettingModule } from './modules/system-setting/system-setting.module';
 import { TaskModule } from './modules/system/task/task.module';
 import { ScheduleModule } from './modules/system/schedule/schedule.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
 
 @Module({
   imports: [
@@ -81,8 +83,11 @@ import { ScheduleModule } from './modules/system/schedule/schedule.module';
   ],
   // ToDO: Re-check these import statement
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
+  ],
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) { }
+  constructor(private readonly connection: Connection) {}
 }
