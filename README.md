@@ -3,8 +3,8 @@
 ### A software for collection, collation, storage of Human resource for health Information.
 
 [![Build Status](https://travis-ci.org/hisptz/hris-restful-api-v1.svg?branch=master)](https://travis-ci.org/hisptz/hris-restful-api-v1)
-[![Maintainability](https://api.codeclimate.com/v1/badges/43300df82d8d93167ff1/maintainability)](https://codeclimate.com/github/hisptz/hris-restful-api-v4/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/43300df82d8d93167ff1/test_coverage)](https://codeclimate.com/github/hisptz/hris-restful-api-v4/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/101c3629392ed954289e/maintainability)](https://codeclimate.com/github/hisptz/hris-core/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/101c3629392ed954289e/test_coverage)](https://codeclimate.com/github/hisptz/hris-core/test_coverage)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 ![GitHub](https://img.shields.io/github/license/hisptz/hris-restful-api-v1?color=%234CB80A&label=licence&logoColor=%23ffffff)
 
