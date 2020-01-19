@@ -35,7 +35,7 @@
     "@nestjs/swagger": "4.1.14",
     "@nestjs/typeorm": "6.2.0",
     "@nestjs/websockets": "6.10.14",
-    "@tsed/common": "^5.38.7",
+    "@tsed/common": "^5.39.0",
     "@tsed/core": "^5.38.7",
     "@tsed/di": "^5.38.7",
     "@tsed/typeorm": "^5.38.7",
