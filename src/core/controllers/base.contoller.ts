@@ -1,31 +1,31 @@
 import {
   Body,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
-  Param,
-  Delete,
   Query,
-  UseGuards,
-  Res,
   Req,
-  Logger,
+  Res,
+  UseGuards,
 } from '@nestjs/common';
-import { BaseService } from '../services/base.service';
-import { Pager, ApiResult } from '../interfaces';
-import { getPagerDetails } from '../utilities';
-import { HRISBaseEntity } from '../entities/base-entity';
-import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
-import { Request, Response, response } from 'express';
-import { DeleteResponse } from '../interfaces/response/delete.interface';
+import { Request, Response } from 'express';
 import * as _ from 'lodash';
+import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
+
+import { HRISBaseEntity } from '../entities/base-entity';
 import {
-  getSuccessResponse,
   deleteSuccessResponse,
-  genericFailureResponse,
-  postSuccessResponse,
   entityExistResponse,
+  genericFailureResponse,
+  getSuccessResponse,
+  postSuccessResponse,
 } from '../helpers/response.helper';
+import { ApiResult, Pager } from '../interfaces';
+import { DeleteResponse } from '../interfaces/response/delete.interface';
+import { BaseService } from '../services/base.service';
+import { getPagerDetails } from '../utilities';
 import { sanitizeResponseObject } from '../utilities/sanitize-response-object';
 
 export class BaseController<T extends HRISBaseEntity> {
@@ -48,7 +48,9 @@ export class BaseController<T extends HRISBaseEntity> {
   async findAll(@Query() query): Promise<ApiResult> {
     if (query.paging === 'false') {
       const allContents: T[] = await this.baseService.findAll();
-      return { [this.Model.plural]: allContents };
+      return {
+        [this.Model.plural]: _.map(allContents, sanitizeResponseObject),
+      };
     }
 
     const pagerDetails: Pager = getPagerDetails(query);
