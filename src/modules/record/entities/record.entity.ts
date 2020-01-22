@@ -38,7 +38,7 @@ export class Record extends TransactionUser {
   @ManyToOne(
     type => Form,
     form => form.records,
-    { eager: true, nullable: false, onDelete: 'CASCADE' },
+    { nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'formid' })
   form: Form | null;
