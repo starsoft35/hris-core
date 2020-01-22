@@ -227,7 +227,7 @@ export class fix1574916252058 implements MigrationInterface {
         uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
         name character varying(256) COLLATE pg_catalog."default" NOT NULL,
         cron text COLLATE pg_catalog."default",
-        progress character varying COLLATE pg_catalog."default" NOT NULL,
+        process character varying COLLATE pg_catalog."default" NOT NULL,
         code text COLLATE pg_catalog."default",
         functionid integer NOT NULL,
         description text,
