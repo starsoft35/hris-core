@@ -88,6 +88,16 @@ $ npm run test:cov
 npm run migration:run
 ```
 
+### For App Development (Docker)
+
+To setup the environment for test your web apps easily you can install [DOCKER](https://get.docker.com/) and run the application using docker as follows:
+
+Setup a database with the name hris in postgres and restore the backup file.
+
+```bash
+1. docker run --network host -v $(pwd)/files:/home/app/files hisptz/hris-api:1.0.0 npm start
+```
+
 ## Usage
 
 - **`USER`**

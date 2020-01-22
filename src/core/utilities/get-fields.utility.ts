@@ -1,15 +1,22 @@
 import { EntityMetadata } from 'typeorm';
+import { Logger } from '@nestjs/common';
 
 export function getSelections(fields: any, metaData: EntityMetadata): any {
   if (fields) {
-    console.log(metaData.columns
-      .map(metadataColumn => {
-        return metadataColumn.propertyName;
-      }).join(','));
-    fields = fields.split("*").join(metaData.columns
-      .map(metadataColumn => {
-        return metadataColumn.propertyName;
-      }).join(','))
+    console.log(
+      metaData.columns
+        .map(metadataColumn => {
+          return metadataColumn.propertyName;
+        })
+        .join(','),
+    );
+    fields = fields.split('*').join(
+      metaData.columns
+        .map(metadataColumn => {
+          return metadataColumn.propertyName;
+        })
+        .join(','),
+    );
     return fields.split(',').filter(item => {
       return (
         item.indexOf('[') === -1 &&
@@ -18,7 +25,7 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
             return metadataColumn.propertyName;
           })
           .indexOf(item) > -1
-      ) ;
+      );
     });
   } else {
     return null;
@@ -76,17 +83,31 @@ export function getRelations(fields: any, metaData: EntityMetadata): any {
   if (fields) {
     let results = [];
 
-    // results = results.concat(fields.split(',').filter((item) => {
-    //     return metaData.relations.map((item) => {
-    //         return item.propertyName
-    //     }).indexOf(item) > -1
-    // }));
-    // results = results.concat(fields.split(',').filter((item) => {
-    //     return item.indexOf('[') > -1
-    // })).map((item) => {
-    //     item.substring(item.indexOf('[') + 1, item.substring(0, item.indexOf('[')).length - 1);
-    //     return item.substring(0, item.indexOf('['));
-    // });
+    // results = results.concat(
+    //   fields.split(',').filter(item => {
+    //     return (
+    //       metaData.relations
+    //         .map(relation => {
+    //           return relation.propertyName;
+    //         })
+    //         .indexOf(item) > -1
+    //     );
+    //   }),
+    // );
+    results = results
+      .concat(
+        fields.split(',').filter(item => {
+          return item.indexOf('[') > -1;
+        }),
+      )
+      .map(item => {
+        item.substring(
+          item.indexOf('[') + 1,
+          item.substring(0, item.indexOf('[')).length - 1,
+        );
+        return item.substring(0, item.indexOf('['));
+      });
+
     results = evaluateRelations(fields, results, metaData);
     return results;
   } else {
