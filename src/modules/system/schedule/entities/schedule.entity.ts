@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 @Entity('schedule', { schema: 'public' })
 export class Schedule extends EntityCoreProps {
-  static plural = 'Schedules';
+  static plural = 'schedules';
 
   @PrimaryGeneratedColumn()
   id: number;
