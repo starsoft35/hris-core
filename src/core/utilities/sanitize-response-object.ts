@@ -1,4 +1,5 @@
 import { isArray, keys, map, omit } from 'lodash';
+import { Logger } from '@nestjs/common';
 
 export const sanitizeResponseObject: any = (responseObject: any) => {
   const newResponseObject = { id: responseObject.uid };
