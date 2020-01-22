@@ -3,7 +3,7 @@ import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 
 @Entity('task', { schema: 'public' })
 export class Task extends EntityCoreProps {
-  static plural = 'Tasks';
+  static plural = 'tasks';
 
   @PrimaryGeneratedColumn()
   id: number;
