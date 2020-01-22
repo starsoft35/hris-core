@@ -43,13 +43,13 @@ export class Version3Refactoring1555771266128 implements MigrationInterface {
         'ALTER TABLE "sqlview" ADD COLUMN "createdbyid" INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyid") REFERENCES "hris_user"',
+        'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"',
       );
       await queryRunner.query(
         'ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyid" INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "hris_user"',
+        'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "user"',
       );
       await queryRunner.query(
         'ALTER TABLE "sqlview" RENAME COLUMN "createdat" TO "created"',
@@ -60,7 +60,10 @@ export class Version3Refactoring1555771266128 implements MigrationInterface {
       await queryRunner.query(
         'ALTER TABLE "sqlview" ADD COLUMN "uid" character varying(13)',
       );
-      await queryRunner.query('UPDATE "sqlview" SET uid=(SELECT uid()) ');
+      await queryRunner.query(
+        'ALTER TABLE "sqlview" ADD CONSTRAINT "UQ_sqlView" UNIQUE (uid)',
+      );
+      await queryRunner.query('UPDATE "sqlview" SET uid=uid()');
     }
   }
 
