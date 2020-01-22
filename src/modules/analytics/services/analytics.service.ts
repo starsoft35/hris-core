@@ -118,22 +118,23 @@ export class AnalyticsService{
             await this.connetion.manager.query('ALTER TABLE _orgunitstructure ADD COLUMN namelevel' + level + ' text COLLATE pg_catalog."default"');
             for (let i = 1; i <= level; i++) {
                 INSERTFIELD += `, idlevel${i},uidlevel${i},namelevel${i}`;
-                FIELD += `, oulevel${i}.organisationunitid,oulevel${i}.uid,oulevel${i}.longname`;
+                FIELD += `, oulevel${i}.id as organisationunitid,oulevel${i}.uid,oulevel${i}.name`;
                 if (i == 1) {
                     if (i === level) {
                         WHERE += ' WHERE parentid IS NULL';
                     } else {
-                        WHERE += ` INNER JOIN organisationunit oulevel${level - 1} ON(oulevel${level - (i - 1)}.parentid =oulevel${level - 1}.organisationunitid AND oulevel${level - 1}.organisationunitid IN (SELECT organisationunitid FROM _orgunitstructure WHERE level = ${level - 1}))`;
+                        WHERE += ` INNER JOIN organisationunit oulevel${level - 1} ON(oulevel${level - (i - 1)}.parentid =oulevel${level - 1}.id AND oulevel${level - 1}.id IN (SELECT organisationunitid FROM _orgunitstructure WHERE level = ${level - 1}))`;
                     }
                 } else if (i != level) {
-                    WHERE += ` INNER JOIN organisationunit oulevel${level - i} ON(oulevel${level - (i - 1)}.parentid =oulevel${level - i}.organisationunitid)`;
+                    WHERE += ` INNER JOIN organisationunit oulevel${level - i} ON(oulevel${level - (i - 1)}.parentid =oulevel${level - i}.id)`;
                 }
             }
             let query = 'INSERT INTO _orgunitstructure(' +
                 'organisationunitid, uid, level' + INSERTFIELD +')' +
-                ' SELECT oulevel' + level + '.organisationunitid, oulevel' + level + '.uid,' + level + FIELD + ' FROM organisationunit ' +
+                ' SELECT oulevel' + level + '.id as organisationunitid, oulevel' + level + '.uid,' + level + FIELD + ' FROM organisationunit ' +
                 WHERE +
                 ';';
+            console.log('Query:',query)
             await this.connetion.manager.query(query);
             countstructure = await this.connetion.manager.query('SELECT COUNT(*) FROM _orgunitstructure');
             count = await this.connetion.manager.query('SELECT COUNT(*) FROM organisationunit');
@@ -151,7 +152,7 @@ export class AnalyticsService{
             'enddate date NOT NULL, ' +
             'CONSTRAINT _periodstructure_temp_pkey PRIMARY KEY(iso)' +
             ')');
-        let query = "SELECT value FROM recordvalue INNER JOIN field f USING(fieldid) INNER JOIN fielddatatype dt ON(dt.fielddatatypeid = f.datatypeid AND dt.name = 'Date') GROUP BY value";
+        let query = `SELECT value FROM recordvalue INNER JOIN field f ON(recordvalue.fieldid=f.id) INNER JOIN fielddatatype dt ON(dt.id = f."dataTypeId" AND dt.name = 'Date') GROUP BY value`;
         console.log('Field Query:', query);
         let fields = await this.connetion.manager.query(query);
         console.log(fields[0].value, new Date(fields[0].value));
@@ -235,11 +236,11 @@ export class AnalyticsService{
             })
             return newRow;
         });
-        query = "SELECT ou.uid,ou.longname FROM  organisationunit ou WHERE (" + ou.map((o) => "ou.uid = '" +o+ "'").join(" OR ") + ") ";
+        query = "SELECT ou.uid,ou.name FROM  organisationunit ou WHERE (" + ou.map((o) => "ou.uid = '" +o+ "'").join(" OR ") + ") ";
         console.log(query);
         let organisationunits = await this.connetion.manager.query(query);
         organisationunits.forEach((orgUnit) => {
-            analytics.metaData.items[orgUnit.uid] = orgUnit.longname;
+            analytics.metaData.items[orgUnit.uid] = orgUnit.name;
             analytics.metaData.dimensions.ou.push(orgUnit.uid);
         })
         console.log('organisationunits:', organisationunits);
