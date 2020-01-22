@@ -10,6 +10,7 @@ export class AnalyticsService{
 
     }
     async fetchAnalytics(dx: any, pe: any, ou: any) {
+        return {"headers":[{"name":"dx","column":"Data","valueType":"TEXT","type":"java.lang.String","hidden":false,"meta":true},{"name":"pe","column":"Period","valueType":"TEXT","type":"java.lang.String","hidden":false,"meta":true},{"name":"ou","column":"Organisation unit","valueType":"TEXT","type":"java.lang.String","hidden":false,"meta":true},{"name":"value","column":"Value","valueType":"NUMBER","type":"java.lang.Double","hidden":false,"meta":false}],"metaData":{"items":{"201907":{"name":"July 2019"},"MqMQnGOqLuY":{"name":"KE"},"201906":{"name":"June 2019"},"201909":{"name":"September 2019"},"201908":{"name":"August 2019"},"201903":{"name":"March 2019"},"201902":{"name":"February 2019"},"yKypqIROIO9":{"name":"Watoto Waliopatiwa LLIN"},"201905":{"name":"May 2019"},"ou":{"name":"Organisation unit"},"201904":{"name":"April 2019"},"201910":{"name":"October 2019"},"201901":{"name":"January 2019"},"201912":{"name":"December 2019"},"201911":{"name":"November 2019"},"X0Me7ygpiUT":{"name":"ME"},"dx":{"name":"Data"},"pe":{"name":"Period"},"Kl9MzjQI3ms":{"name":"Expected children Under 1 Year"},"m0frOspS7JY":{"name":"MOH - Tanzania"},"wo7ITisRXeE":{"name":"Measles/Rubella 1 doses given"}},"dimensions":{"dx":["Kl9MzjQI3ms","wo7ITisRXeE","yKypqIROIO9"],"pe":["201901","201902","201903","201904","201905","201906","201907","201908","201909","201910","201911","201912"],"ou":["m0frOspS7JY"],"co":["MqMQnGOqLuY","X0Me7ygpiUT"]}},"rows":[["Kl9MzjQI3ms","201901","m0frOspS7JY","2.36250253E7"],["Kl9MzjQI3ms","201902","m0frOspS7JY","2.6156278E7"],["Kl9MzjQI3ms","201903","m0frOspS7JY","2.36250253E7"],["Kl9MzjQI3ms","201904","m0frOspS7JY","2.44125262E7"],["Kl9MzjQI3ms","201905","m0frOspS7JY","2.36250253E7"],["Kl9MzjQI3ms","201906","m0frOspS7JY","2.44125262E7"],["Kl9MzjQI3ms","201907","m0frOspS7JY","2.36250253E7"],["Kl9MzjQI3ms","201908","m0frOspS7JY","2.36250253E7"],["Kl9MzjQI3ms","201909","m0frOspS7JY","2.44125262E7"],["Kl9MzjQI3ms","201910","m0frOspS7JY","2.36250253E7"],["Kl9MzjQI3ms","201911","m0frOspS7JY","2.44125262E7"],["Kl9MzjQI3ms","201912","m0frOspS7JY","2.36250253E7"],["wo7ITisRXeE","201901","m0frOspS7JY","172808.0"],["wo7ITisRXeE","201902","m0frOspS7JY","164532.0"],["wo7ITisRXeE","201903","m0frOspS7JY","171820.0"],["wo7ITisRXeE","201904","m0frOspS7JY","162847.0"],["wo7ITisRXeE","201905","m0frOspS7JY","181111.0"],["wo7ITisRXeE","201906","m0frOspS7JY","167957.0"],["wo7ITisRXeE","201907","m0frOspS7JY","177640.0"],["wo7ITisRXeE","201908","m0frOspS7JY","181368.0"],["wo7ITisRXeE","201909","m0frOspS7JY","177983.0"],["wo7ITisRXeE","201910","m0frOspS7JY","204312.0"],["wo7ITisRXeE","201911","m0frOspS7JY","155853.0"],["wo7ITisRXeE","201912","m0frOspS7JY","139938.0"],["yKypqIROIO9","201910","m0frOspS7JY","134130.0"],["yKypqIROIO9","201911","m0frOspS7JY","126009.0"],["yKypqIROIO9","201902","m0frOspS7JY","127274.0"],["yKypqIROIO9","201909","m0frOspS7JY","146883.0"],["yKypqIROIO9","201901","m0frOspS7JY","134887.0"],["yKypqIROIO9","201903","m0frOspS7JY","135008.0"],["yKypqIROIO9","201912","m0frOspS7JY","105449.0"],["yKypqIROIO9","201906","m0frOspS7JY","133842.0"],["yKypqIROIO9","201905","m0frOspS7JY","140172.0"],["yKypqIROIO9","201907","m0frOspS7JY","146057.0"],["yKypqIROIO9","201908","m0frOspS7JY","149497.0"],["yKypqIROIO9","201904","m0frOspS7JY","126747.0"]],"width":4,"height":36};
         console.log(dx, pe, ou);
         let analytics = { "headers": [{ "name": "dx", "column": "Data", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, { "name": "pe", "column": "Period", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, { "name": "value", "column": "Value", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "numerator", "column": "Numerator", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "denominator", "column": "Denominator", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "factor", "column": "Factor", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "multiplier", "column": "Multiplier", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }, { "name": "divisor", "column": "Divisor", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }], "rows": [["tZB19wNXPl1", "201811", "23706.0", "", "", "", "", ""], ["tZB19wNXPl1", "201812", "23706.0", "", "", "", "", ""], ["tZB19wNXPl1", "201810", "23706.0", "", "", "", "", ""]], "height": 3, "width": 8 };
         for (let id of dx){
@@ -31,13 +32,15 @@ export class AnalyticsService{
         throw new Error('Method not implemented.');
     }
     async generateAnalyticsTables(){
-        let forms:any = await this.connetion.manager.query('SELECT formid,uid,title FROM form');
+        let forms:any = await this.connetion.manager.query('SELECT id as formid,uid,title FROM form');
         for(const form of forms){
+            console.log('Here');
             await this.connetion.manager.query('DROP TABLE IF EXISTS _temp_resource_table_' + form.uid);
-            let query = 'SELECT field.fieldid,field.uid,field.name,fdt.name as type FROM field ' +
-                'INNER JOIN fielddatatype fdt ON(fdt.fielddatatypeid = field.datatypeid) ' + 
-            'INNER JOIN formfieldmembers USING(fieldid) ' + 
-            'INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.formid =' + form.formid + ');';
+            let query = 'SELECT field.id as fieldid,field.uid,field.name,fdt.name as type FROM field ' +
+                'INNER JOIN fielddatatype fdt ON(fdt.id = field."dataTypeId") ' + 
+            'INNER JOIN formfieldmember ON(formfieldmember.fieldid = field.id) ' + 
+            'INNER JOIN form ON(form.id = formfieldmember.formid AND form.id =' + form.formid + ');';
+            console.log('Here1');
             let fields = await this.connetion.manager.query(query);
             let additionalColumns = '';
             let additionalInsertColumns = '';
@@ -45,7 +48,7 @@ export class AnalyticsService{
             fields.forEach((field, index)=> {
                 additionalColumns += ',"' + field.uid + '" ' + this.getDatabaseType(field.type);
                 additionalInsertColumns += ',"' + field.uid + '"';
-                additionalQueries += ' LEFT JOIN recordvalue r' + index + ' ON (r' + index + '.recordid = r.recordid AND r' + index + '.fieldid = ' + field.fieldid + ')';
+                additionalQueries += ' LEFT JOIN recordvalue r' + index + ' ON (r' + index + '.recordid = r.id AND r' + index + '.fieldid = ' + field.fieldid + ')';
             })
             await this.connetion.manager.query('CREATE TABLE _temp_resource_table_' + form.uid + '(' +
                 'created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
@@ -56,6 +59,7 @@ export class AnalyticsService{
                 'ou character varying(13) NOT NULL,' +
                 'formid integer NOT NULL' + additionalColumns +
                 ',PRIMARY KEY(instance))');
+                console.log('Here2');
             let insertQuery = 'INSERT INTO _temp_resource_table_' + form.uid + '(' +
                 'created,lastupdated,uid,instance,ou,formid'
                 + additionalInsertColumns + ')' +
@@ -87,8 +91,9 @@ export class AnalyticsService{
                     }
                     return results;
                 }).join(',') 
-                + ' FROM record r INNER JOIN organisationunit ou USING(organisationunitid) ' + additionalQueries + ' WHERE r.formid=' + form.formid + ';';
+                + ' FROM record r INNER JOIN organisationunit ou ON(ou.id = r.organisationunitid) ' + additionalQueries + ' WHERE r.formid=' + form.formid + ';';
             await this.connetion.manager.query(insertQuery);
+            console.log('Here3');
             await this.connetion.manager.query('DROP TABLE IF EXISTS _resource_table_' + form.uid +';ALTER TABLE _temp_resource_table_' + form.uid +' RENAME TO _resource_table_' + form.uid +';');
         }
         return true;
@@ -252,7 +257,6 @@ export class AnalyticsService{
         }
     }
     getDatabaseType(type){
-        console.log(type);
         if(type === 'Date'){
             return 'timestamp(0) without time zone';
         } else if (type === 'Integer'){

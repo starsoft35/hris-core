@@ -62,15 +62,17 @@ export class AnalyticsController {
     );
   }
   @Get('generate')
-  async fetchAnalyticsGenerate(@Param() params) {
-      if (params.analyticsTables) {
-          await this.analyticsService.generateAnalyticsTables();
+  async fetchAnalyticsGenerate(@Query() query) {
+      console.log('Running:',query)
+      if (query.analyticsTables) {
+        console.log('Running Analytics');
+        await this.analyticsService.generateAnalyticsTables();
       }
-      if (params.periodTable) {
+      if (query.periodTable) {
         await this.analyticsService.generatePeriodStructureTables();
       }
-      if (params.organisationUnitTable) {
-        this.analyticsService.generateOrganisationUnitStructureTables();
+      if (query.organisationUnitTable) {
+        await this.analyticsService.generateOrganisationUnitStructureTables();
       }
   }
 }

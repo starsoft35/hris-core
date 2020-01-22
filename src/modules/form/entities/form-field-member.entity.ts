@@ -26,6 +26,7 @@ export class FormFieldMember extends HRISBaseEntity {
     {
       primary: true,
       nullable: false,
+      eager: true,
       onDelete: 'CASCADE',
     },
   )
