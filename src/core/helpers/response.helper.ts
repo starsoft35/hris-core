@@ -10,16 +10,16 @@ import { ENTITY_NOT_FOUND } from '../constants/statuscode.constant';
  * @param deleteResponse
  */
 export function deleteSuccessResponse(
-    request: Request,
-    response: Response,
-    params: UIDParams,
-    deleteResponse: any,
+  request: Request,
+  response: Response,
+  params: UIDParams,
+  deleteResponse: any,
 ): Response {
-    if (deleteResponse.affected === 1) {
-        return response
-            .status(response.statusCode)
-            .json({ message: `Object with id ${params.id} deleted successfully` });
-    }
+  if (deleteResponse.affected === 1) {
+    return response
+      .status(response.statusCode)
+      .json({ message: `Object with id ${params.id} deleted successfully` });
+  }
 }
 
 /**
@@ -28,12 +28,12 @@ export function deleteSuccessResponse(
  * @param params
  */
 export function genericFailureResponse(
-    response: Response,
-    params?: UIDParams,
+  response: Response,
+  params?: UIDParams,
 ): Response {
-    return response.status(ENTITY_NOT_FOUND).json({
-        message: `Object with id ${params.id} could not be found.`,
-    });
+  return response.status(ENTITY_NOT_FOUND).json({
+    message: `Object with id ${params.id} could not be found.`,
+  });
 }
 
 /**
@@ -42,12 +42,12 @@ export function genericFailureResponse(
  * @param params
  */
 export function resultNotFoundResponse(
-    response: Response,
-    params?: UIDParams,
+  response: Response,
+  params?: UIDParams,
 ): Response {
-    return response.status(ENTITY_NOT_FOUND).json({
-        message: `Object with id ${params.id} could not be found.`,
-    });
+  return response.status(ENTITY_NOT_FOUND).json({
+    message: `Object with id ${params.id} could not be found.`,
+  });
 }
 
 /**
@@ -56,12 +56,12 @@ export function resultNotFoundResponse(
  * @param params
  */
 export function errorEntityWithAssociation(
-    response: Response,
-    params?: UIDParams,
+  response: Response,
+  params?: UIDParams,
 ): Response {
-    return response.status(ENTITY_NOT_FOUND).json({
-        message: `Object with id ${params.id} could not be deleted. It has association with another objects`,
-    });
+  return response.status(ENTITY_NOT_FOUND).json({
+    message: `Object with id ${params.id} could not be deleted. It has association with another objects`,
+  });
 }
 
 /**
@@ -70,9 +70,9 @@ export function errorEntityWithAssociation(
  * @param msg
  */
 export function errorMessage(response: Response, msg: string): Response {
-    return response.status(ENTITY_NOT_FOUND).json({
-        message: msg,
-    });
+  return response.status(ENTITY_NOT_FOUND).json({
+    message: msg,
+  });
 }
 
 /**
@@ -82,9 +82,9 @@ export function errorMessage(response: Response, msg: string): Response {
  * @param entity
  */
 export function entityExistResponse(response: Response, entity: any): Response {
-    return response.json({
-        message: `Object with id ${entity.uid} could already exist.`,
-    });
+  return response.json({
+    message: `Object with id ${entity.uid} could already exist.`,
+  });
 }
 
 /**
@@ -95,15 +95,16 @@ export function entityExistResponse(response: Response, entity: any): Response {
  * @param getResponse
  */
 export function getSuccessResponse(
-    response: Response,
-    getResponse: any,
+  response: Response,
+  getResponse: any,
 ): Response {
-    if (getResponse !== undefined) {
-        const isPropExcluded = delete getResponse.id;
-        return isPropExcluded
-            ? response.status(response.statusCode).json(getResponse)
-            : response.status(response.statusCode).json(getResponse);
-    }
+  if (getResponse !== undefined) {
+    // const isPropExcluded = delete getResponse.id;
+    // return isPropExcluded
+    //     ? response.status(response.statusCode).json(getResponse)
+    //     : response.status(response.statusCode).json(getResponse);
+    return response.status(response.statusCode).json(getResponse);
+  }
 }
 
 /**
@@ -113,10 +114,10 @@ export function getSuccessResponse(
  * @param postResponse
  */
 export function postSuccessResponse(
-    response: Response,
-    postResponse: any,
+  response: Response,
+  postResponse: any,
 ): Response {
-    if (postResponse !== undefined) {
-        return response.status(response.statusCode).json(postResponse);
-    }
+  if (postResponse !== undefined) {
+    return response.status(response.statusCode).json(postResponse);
+  }
 }
