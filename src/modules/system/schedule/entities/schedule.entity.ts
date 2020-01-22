@@ -1,9 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
-
-@Entity('task', { schema: 'public' })
-export class Task extends EntityCoreProps {
-  static plural = 'Tasks';
+@Entity('schedule', { schema: 'public' })
+export class Schedule extends EntityCoreProps {
+  static plural = 'schedules';
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -11,35 +10,29 @@ export class Task extends EntityCoreProps {
   @Column({ type: 'varchar', length: 256, unique: true })
   uid: string;
 
-  @Column({
+  @Column('character varying', {
     nullable: false,
     length: 255,
     unique: true
   })
   name: string;
 
-  @Column({
+  @Column('character varying', {
     nullable: false,
     length: 255,
   })
-  log: string;
+  process: string;
 
-  @Column({
-    type: 'varchar',
+  @Column('character varying', {
     nullable: false,
     length: 255,
   })
-  status: string;
+  cron: string;
 
-  @Column({
-    type: Date,
+  @Column('character varying', {
     nullable: false,
+    length: 255,
+    name: 'functionid',
   })
-  startedat: Date | null;
-
-  @Column({
-    nullable: false,
-    type: Date,
-  })
-  endedat: Date | null;
+  functionid: string;
 }

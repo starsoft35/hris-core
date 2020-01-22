@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/core/services/base.service';
 import { Repository } from 'typeorm';
 
-import { Task } from '../entities/Task.entity';
+import { Task } from '../entities/task.entity';
 
 @Injectable()
 export class TaskService extends BaseService<Task> {

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ScheduleController } from './controllers/Schedule.controller';
-import { ScheduleService } from './services/Schedule.service';
+import { ScheduleController } from './controllers/Schedule.controlles';
+import { ScheduleService } from './services/schedule.service';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Schedule } from './entities/Schedule.entity';
+import { Schedule } from './entities/schedule.entity';
 
 @Module({
   imports: [
