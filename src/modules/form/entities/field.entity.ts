@@ -53,6 +53,9 @@ export class Field extends EntityCoreProps {
   @Column({ type: 'boolean', nullable: true })
   hasTarget: boolean | null;
 
+  @Column({ type: 'boolean', nullable: true })
+  showInList: boolean | null;
+
   @Column({ type: 'boolean', nullable: true, name: 'fieldrelation' })
   fieldRelation: boolean | null;
 
