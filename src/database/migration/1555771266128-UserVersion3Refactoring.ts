@@ -1807,6 +1807,13 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     await queryRunner.query(organisationUnitMembers);
     await queryRunner.query(`INSERT INTO organisationunitmembers(userid,organisationunitid)
 (SELECT public.user.id,public.user.organisationunit_id FROM public.user WHERE public.user.organisationunit_id IS NOT NULL)`);
+
+    await queryRunner.query(
+      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"',
+    );
+    await queryRunner.query(
+      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "user"',
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}
