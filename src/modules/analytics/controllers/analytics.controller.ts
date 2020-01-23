@@ -10,7 +10,6 @@ export class AnalyticsController {
     let ou;
     let dx;
     let otherDimensions = {};
-    console.log('Query:', query);
     query.dimension.forEach(dimension => {
       let split = dimension.split(':');
       if (split[0] === 'pe') {
