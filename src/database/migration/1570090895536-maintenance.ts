@@ -28,6 +28,7 @@ export class maintenance1570090895536 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "showInList" boolean');
        
         await queryRunner.query('ALTER TABLE "hris_fieldgroup" RENAME TO "fieldgroup"');
         await queryRunner.query('ALTER TABLE "fieldgroup" RENAME COLUMN "datecreated" TO "created"');
