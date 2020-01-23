@@ -46,6 +46,9 @@ export class Version3Refactoring1555771266128 implements MigrationInterface {
         'ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyid" INTEGER',
       );
       await queryRunner.query(
+        'ALTER TABLE "sqlview" RENAME COLUMN "title" TO "name"',
+      );
+      await queryRunner.query(
         'ALTER TABLE "sqlview" RENAME COLUMN "createdat" TO "created"',
       );
       await queryRunner.query(

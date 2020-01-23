@@ -31,7 +31,8 @@ export class RecordValue extends TransactionUser {
   value: string;
 
   @Column('timestamp without time zone', {
-    nullable: false,
+    nullable: true,
+    default: () => 'NULL::timestamp without time zone',
     name: 'startdate',
   })
   startDate: Date;
