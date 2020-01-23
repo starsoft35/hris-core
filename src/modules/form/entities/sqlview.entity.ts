@@ -18,6 +18,9 @@ export class SqlView extends UserIdentification {
     @Column({ type: 'varchar', length: 256, unique: true })
     uid: string;
 
+    @Column({ type: 'varchar', length: 256, unique: true })
+    name: string;
+
     @Column({ type: 'text', unique: true })
     query: string;
 }
