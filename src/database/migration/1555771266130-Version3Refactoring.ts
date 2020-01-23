@@ -38,13 +38,6 @@ export class Version3Refactoring1555771266128 implements MigrationInterface {
       await queryRunner.query(
         'DROP TABLE IF EXISTS "_resource_all_fields_temporary"',
       );
-
-      await queryRunner.query(
-        'ALTER TABLE "sqlview" ADD COLUMN "createdbyid" INTEGER',
-      );
-      await queryRunner.query(
-        'ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyid" INTEGER',
-      );
       await queryRunner.query(
         'ALTER TABLE "sqlview" RENAME COLUMN "title" TO "name"',
       );
@@ -53,9 +46,6 @@ export class Version3Refactoring1555771266128 implements MigrationInterface {
       );
       await queryRunner.query(
         'ALTER TABLE "sqlview" RENAME COLUMN "updatedat" TO "lastupdated"',
-      );
-      await queryRunner.query(
-        'ALTER TABLE "sqlview" RENAME COLUMN "title" TO "name"',
       );
 
       await queryRunner.query(
