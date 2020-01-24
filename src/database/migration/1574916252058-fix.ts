@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class fix1574916252058 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<any> {
-        let fixes = `
+  public async up(queryRunner: QueryRunner): Promise<any> {
+    let fixes = `
     ALTER TABLE public."user" OWNER TO postgres;
     CREATE SEQUENCE user_id_seq AS integer OWNED BY "user".id;
     ALTER TABLE public."user" ALTER COLUMN id SET DEFAULT nextval('user_id_seq');
@@ -257,13 +257,12 @@ export class fix1574916252058 implements MigrationInterface {
         startedat timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
         lastupdatedby integer,
         description text,
-        log text NOT NULL,
+        log jsonb NOT NULL,
         publicaccess boolean,
         externalaccess boolean,
         endedat timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
         CONSTRAINT "PK_task" PRIMARY KEY (id),
         CONSTRAINT "UQ_task" UNIQUE (uid),
-        CONSTRAINT "UQ_task_name" UNIQUE (name),
         CONSTRAINT fk_lastupdatedby FOREIGN KEY (lastupdatedby)
         REFERENCES public."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -273,8 +272,7 @@ export class fix1574916252058 implements MigrationInterface {
       )
     `;
     await queryRunner.query(fixes);
-    }
+  }
 
-public async down(queryRunner: QueryRunner): Promise<any> { }
+  public async down(queryRunner: QueryRunner): Promise<any> {}
 }
-

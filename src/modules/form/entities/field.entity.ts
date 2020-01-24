@@ -33,10 +33,10 @@ export class Field extends EntityCoreProps {
   compulsory: boolean | null;
 
   @Column({ type: 'boolean', nullable: true })
-  isUnique: boolean | null;
+  isunique: boolean | null;
 
   @Column({ type: 'boolean', nullable: true })
-  isCalculated: boolean | null;
+  iscalculated: boolean | null;
 
   @Column({ type: 'text', nullable: true })
   description: string | null;
@@ -45,22 +45,22 @@ export class Field extends EntityCoreProps {
   calculatedExpression: string | null;
 
   @Column({ type: 'boolean', nullable: true })
-  hasHistory: boolean | null;
+  hashistory: boolean | null;
 
   @Column({ type: 'boolean', nullable: false, default: false })
-  hasOptions: boolean | null;
+  hasoptions: boolean | null;
 
   @Column({ type: 'boolean', nullable: true })
-  hasTarget: boolean | null;
+  hastarget: boolean | null;
 
   @Column({ type: 'boolean', nullable: true })
-  showInList: boolean | null;
+  showinlist: boolean | null;
 
   @Column({ type: 'boolean', nullable: true, name: 'fieldrelation' })
-  fieldRelation: boolean | null;
+  fieldrelation: boolean | null;
 
   @Column({ type: 'boolean', nullable: true, name: 'skipinreport' })
-  skipInReport: boolean | null;
+  skipinreport: boolean | null;
 
   /**
    * Many To Many Relationship: Field and FieldGroup

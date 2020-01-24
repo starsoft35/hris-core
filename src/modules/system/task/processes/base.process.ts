@@ -17,6 +17,7 @@ export class BackgroundProcess {
       throw('Run Not Implemented')
   }
   async log(logdetails:{type:'ERROR'|'INFO'|'SUCCESS'|'WARNING',message:string,code?:number}){
-
+    this.task.log.push(logdetails);
+    return await this.taskService.update(this.task);
   }
 }
