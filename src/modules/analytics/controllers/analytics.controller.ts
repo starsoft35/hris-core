@@ -62,16 +62,22 @@ export class AnalyticsController {
   }
   @Get('generate')
   async fetchAnalyticsGenerate(@Query() query) {
-      console.log('Running:',query)
+      console.log('Running:',query);
+      let processes = [];
       if (query.analyticsTables) {
         console.log('Running Analytics');
-        await this.analyticsService.generateAnalyticsTables();
+        processes.push(this.analyticsService.generateAnalyticsTables());
       }
       if (query.periodTable) {
-        await this.analyticsService.generatePeriodStructureTables();
+        processes.push(this.analyticsService.generatePeriodStructureTables());
       }
       if (query.organisationUnitTable) {
-        await this.analyticsService.generateOrganisationUnitStructureTables();
+        processes.push(this.analyticsService.generateOrganisationUnitStructureTables());
       }
+      Promise.all(processes).then(()=>{
+
+      }).catch((error)=>{
+        
+      })
   }
 }
