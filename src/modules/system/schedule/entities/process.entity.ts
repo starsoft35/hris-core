@@ -21,11 +21,10 @@ export class Process extends EntityCoreProps {
     nullable: false,
     length: 255,
   })
-  type: string;
+  description: string;
 
   @Column('character varying', {
     nullable: false,
-    length: 255,
   })
-  cron: string;
+  code: string;
 }
