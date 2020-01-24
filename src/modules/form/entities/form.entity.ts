@@ -86,11 +86,11 @@ export class Form extends EntityCoreProps {
   @JoinTable({ name: 'formuniquerecordfields' })
   fields: Field[];
 
-  @ManyToMany(
-    type => User,
-    user => user.forms,
-  )
-  users: User[];
+  // @ManyToMany(
+  //   type => User,
+  //   user => user.forms,
+  // )
+  // users: User[];
 
   @OneToMany(
     () => Indicator,
