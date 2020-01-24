@@ -13,7 +13,7 @@ export class ScheduleService extends BaseService<Schedule>{
     }
 
     async getProcess(){
-        
+        return this.findOneByUid
     }
 }
 
