@@ -1,9 +1,15 @@
 import { Body, Get, Post, Put, Param, Delete, Query, UseGuards, Controller } from '@nestjs/common';
 import { AnalyticsService } from '../services/analytics.service';
+import { TaskService } from 'src/modules/system/task/services/task.service';
+
 
 @Controller('api/analytics')
 export class AnalyticsController {
-  constructor(private analyticsService: AnalyticsService) {}
+  constructor(private analyticsService: AnalyticsService,
+    private taskService: TaskService
+
+    ) {
+  }
   @Get()
   async fetchAnalytics(@Query() query) {
     let pe;
