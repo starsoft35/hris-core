@@ -14,7 +14,7 @@ export class TaskService extends BaseService<Task> {
     super(taskRepository, Task);
   }
   async createEmptyTask(name:string): Promise<any> {
-    return this.taskRepository.create({
+    return this.create({
       name: name,
       startedat: new Date(),
       log: [],
