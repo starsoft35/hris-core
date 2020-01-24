@@ -75,27 +75,4 @@ export class AnalyticsController {
       otherDimensions,
     );
   }
-  @Get('generate')
-  async fetchAnalyticsGenerate(@Query() query) {
-    console.log('Running:', query);
-    let task = await this.taskService.createEmptyTask('Task Name');
-    let processes = [];
-    if (query.analyticsTables) {
-      console.log('Running Analytics');
-      processes.push(this.analyticsService.generateAnalyticsTables());
-    }
-    if (query.periodTable) {
-      processes.push(this.analyticsService.generatePeriodStructureTables());
-    }
-    if (query.organisationUnitTable) {
-      processes.push(
-        this.analyticsService.generateOrganisationUnitStructureTables(),
-      );
-    }
-    Promise.all(processes)
-      .then(() => {
-      })
-      .catch(error => console.log(error, 'Process failed with errors'));
-    return task;
-  }
 }

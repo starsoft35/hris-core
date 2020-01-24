@@ -19,10 +19,10 @@ import { Injectable } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 
 @Injectable()
-export class PeriodGenerator extends BackgroundProcess{
-    constructor(private taskService: TaskService,private connetion:Connection){
-        super(taskService);
-    }
+export class PeriodGenerator extends BackgroundProcess {
+  constructor(taskService: TaskService,private connetion:Connection){
+    super(taskService);
+}
     async run(){
         await this.connetion.manager.query('DROP TABLE IF EXISTS _periodstructure');
     await this.connetion.manager.query(

@@ -135,4 +135,26 @@ export class Analytics extends BackgroundProcess{
           }
       this.log({type:"SUCCESS",message:"Analytics finished running successfully"});
     }
+    getGenericType(type) {
+      if (type === 'timestamp without time zone') {
+        return 'DATETIME';
+      } else if (type === 'character varying') {
+        return 'TEXT';
+      } else if (type === 'integer') {
+        return 'INTEGER';
+      } else {
+        return type;
+      }
+    }
+    getDatabaseType(type) {
+      if (type === 'Date') {
+        return 'timestamp(0) without time zone';
+      } else if (type === 'Integer') {
+        return 'integer';
+      } else if (type === 'Double') {
+        return 'DOUBLE PRECISION';
+      } else {
+        return 'varchar';
+      }
+    }
 }
