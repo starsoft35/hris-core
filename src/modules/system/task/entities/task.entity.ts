@@ -13,8 +13,7 @@ export class Task extends EntityCoreProps {
 
   @Column({
     nullable: false,
-    length: 255,
-    unique: true
+    length: 255
   })
   name: string;
 
