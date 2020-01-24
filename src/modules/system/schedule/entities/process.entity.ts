@@ -22,9 +22,8 @@ export class Process extends EntityCoreProps {
   })
   description: string;
 
-  @Column('character varying', {
+  @Column('text', {
     nullable: false,
-    length: 256
   })
   code: string;
 }
