@@ -11,5 +11,9 @@ export class ScheduleService extends BaseService<Schedule>{
     ){
         super(scheduleRepository, Schedule);
     }
+
+    async getProcess(){
+        
+    }
 }
 
