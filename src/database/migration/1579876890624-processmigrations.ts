@@ -1,0 +1,36 @@
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class processmigrations1579876890624 implements MigrationInterface {
+  name = 'processmigrations1579876890624';
+
+  public async up(queryRunner: QueryRunner): Promise<any> {
+    let processMigrations = `
+        CREATE TABLE public.process
+        (
+            created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+            lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+            id integer NOT NULL DEFAULT nextval('process_id_seq'::regclass),
+            uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
+            code text COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+            name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+            description text COLLATE pg_catalog."default",
+            lastupdatedby character varying COLLATE pg_catalog."default",
+            publicaccess character varying(8) COLLATE pg_catalog."default",
+            externalaccess boolean,
+            CONSTRAINT "PK_fa87251e776c56e422a7910b058" PRIMARY KEY (id),
+            CONSTRAINT "UQ_c31996377c448fd1c22558bbacc" UNIQUE (uid)
+        )
+        WITH (
+            OIDS = FALSE
+        )
+        TABLESPACE pg_default;
+  
+        ALTER TABLE public.process
+            OWNER to postgres;
+        `;
+
+    await queryRunner.query(processMigrations);
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<any> {}
+}

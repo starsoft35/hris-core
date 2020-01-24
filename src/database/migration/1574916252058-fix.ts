@@ -216,9 +216,9 @@ export class fix1574916252058 implements MigrationInterface {
 
     ALTER TABLE field ADD COLUMN recordvalueid integer;
 
-    CREATE SEQUENCE schedule_id_seq;
     CREATE SEQUENCE task_id_seq;
     CREATE SEQUENCE process_id_seq;
+<<<<<<< HEAD
 
     CREATE TABLE public.schedule
     (
@@ -294,6 +294,9 @@ export class fix1574916252058 implements MigrationInterface {
 
       ALTER TABLE public.process
           OWNER to postgres;
+=======
+    CREATE SEQUENCE schedule_id_seq;
+>>>>>>> 6fa54a0dbf7f8d289ba21fbd8cb96c334191f3f0
     `;
     await queryRunner.query(fixes);
   }
