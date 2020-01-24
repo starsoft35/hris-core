@@ -12,11 +12,398 @@ export class ChartService extends BaseService<Chart> {
   ) {
     super(chartRepository, Chart);
   }
-
-  async findOneByUid(uid: string): Promise<any> {
-    return {
+  data = {
+    "MTWXrZKjPRa":{
       lastUpdated: '2019-02-09T20:13:45.425',
-      uid: 'gOtLTyVug5W',
+      uid: 'MTWXrZKjPRa',
+      created: '2017-07-29T21:18:43.937',
+      name: 'Employments',
+      publicAccess: 'r-------',
+      type: 'COLUMN',
+      subscribed: false,
+      cumulativeValues: false,
+      sortOrder: 0,
+      favorite: false,
+      topLimit: 0,
+      displayName: 'Employments',
+      percentStackedValues: false,
+      noSpaceBetweenColumns: false,
+      hideTitle: false,
+      series: 'dx',
+      showData: true,
+      parentGraphMap: {},
+      regressionType: 'NONE',
+      completedOnly: false,
+      hideEmptyRowItems: 'NONE',
+      aggregationType: 'DEFAULT',
+      hideSubtitle: false,
+      title: 'Employments',
+      hideLegend: false,
+      category: 'pe',
+      access: {
+        read: true,
+        update: true,
+        externalize: true,
+        delete: true,
+        write: true,
+        manage: true,
+      },
+      lastUpdatedBy: { uid: 'I89T5MJIt27' },
+      dataElementGroupSetDimensions: [],
+      attributeDimensions: [],
+      translations: [],
+      interpretations: [],
+      userGroupAccesses: [],
+      columns: [
+        {
+          dimension: 'dx',
+          items: [
+            {
+              uid: 'wo7ITisRXeE',
+              dimensionItem: 'wo7ITisRXeE',
+              displayName: 'Employment',
+              dimensionItemType: 'INDICATOR',
+            },
+          ],
+        },
+      ],
+      dataElementDimensions: [],
+      categoryDimensions: [],
+      programIndicatorDimensions: [],
+      attributeValues: [],
+      userAccesses: [],
+      dataDimensionItems: [
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'wo7ITisRXeE' },
+        },
+      ],
+      categoryOptionGroupSetDimensions: [],
+      organisationUnitGroupSetDimensions: [],
+      filters: [
+        {
+          dimension: 'ou',
+          items: [
+            {
+              uid: 'USER_ORGUNIT',
+              dimensionItem: 'USER_ORGUNIT',
+              displayName: 'USER_ORGUNIT',
+            },
+          ],
+        },
+      ],
+      rows: [
+        {
+          dimension: 'pe',
+          items: [
+            {
+              uid: 'LAST_12_MONTHS',
+              dimensionItem: 'LAST_12_MONTHS',
+              displayName: 'LAST_12_MONTHS',
+              dimensionItemType: 'PERIOD',
+            },
+          ],
+        },
+      ],
+    },
+    "cbnWOXfp9vW":{
+      lastUpdated: '2019-02-09T20:13:45.425',
+      uid: 'cbnWOXfp9vW',
+      created: '2017-07-29T21:18:43.937',
+      name: 'Retirement',
+      publicAccess: 'r-------',
+      type: 'LINE',
+      subscribed: false,
+      cumulativeValues: false,
+      sortOrder: 0,
+      favorite: false,
+      topLimit: 0,
+      displayName: 'Retirement',
+      percentStackedValues: false,
+      noSpaceBetweenColumns: false,
+      hideTitle: false,
+      series: 'dx',
+      showData: true,
+      parentGraphMap: {},
+      regressionType: 'NONE',
+      completedOnly: false,
+      hideEmptyRowItems: 'NONE',
+      aggregationType: 'DEFAULT',
+      hideSubtitle: false,
+      title: 'Retirement',
+      hideLegend: false,
+      category: 'pe',
+      access: {
+        read: true,
+        update: true,
+        externalize: true,
+        delete: true,
+        write: true,
+        manage: true,
+      },
+      lastUpdatedBy: { uid: 'I89T5MJIt27' },
+      dataElementGroupSetDimensions: [],
+      attributeDimensions: [],
+      translations: [],
+      interpretations: [],
+      userGroupAccesses: [],
+      columns: [
+        {
+          dimension: 'dx',
+          items: [
+            {
+              uid: 'wo7ITisRXeE',
+              dimensionItem: 'wo7ITisRXeE',
+              displayName: 'Retirement',
+              dimensionItemType: 'INDICATOR',
+            },
+          ],
+        },
+      ],
+      dataElementDimensions: [],
+      categoryDimensions: [],
+      programIndicatorDimensions: [],
+      attributeValues: [],
+      userAccesses: [],
+      dataDimensionItems: [
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'Kl9MzjQI3ms' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'wo7ITisRXeE' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          dataElement: { uid: 'yKypqIROIO9' },
+        },
+      ],
+      categoryOptionGroupSetDimensions: [],
+      organisationUnitGroupSetDimensions: [],
+      filters: [
+        {
+          dimension: 'ou',
+          items: [
+            {
+              uid: 'USER_ORGUNIT',
+              dimensionItem: 'USER_ORGUNIT',
+              displayName: 'USER_ORGUNIT',
+            },
+          ],
+        },
+      ],
+      rows: [
+        {
+          dimension: 'pe',
+          items: [
+            {
+              uid: 'LAST_12_MONTHS',
+              dimensionItem: 'LAST_12_MONTHS',
+              displayName: 'LAST_12_MONTHS',
+              dimensionItemType: 'PERIOD',
+            },
+          ],
+        },
+      ],
+    },
+    "x1cWTFjrxVd":{
+      lastUpdated: '2019-02-09T20:13:45.425',
+      uid: 'x1cWTFjrxVd',
+      created: '2017-07-29T21:18:43.937',
+      name: 'Gender Ratio',
+      publicAccess: 'r-------',
+      type: 'PIE',
+      subscribed: false,
+      cumulativeValues: false,
+      sortOrder: 0,
+      favorite: false,
+      topLimit: 0,
+      displayName: 'Gender Ratio',
+      percentStackedValues: false,
+      noSpaceBetweenColumns: false,
+      hideTitle: false,
+      series: 'dx',
+      showData: true,
+      parentGraphMap: {},
+      regressionType: 'NONE',
+      completedOnly: false,
+      hideEmptyRowItems: 'NONE',
+      aggregationType: 'DEFAULT',
+      hideSubtitle: false,
+      title: 'Gender Ratio',
+      hideLegend: false,
+      category: 'pe',
+      access: {
+        read: true,
+        update: true,
+        externalize: true,
+        delete: true,
+        write: true,
+        manage: true,
+      },
+      lastUpdatedBy: { uid: 'I89T5MJIt27' },
+      dataElementGroupSetDimensions: [],
+      attributeDimensions: [],
+      translations: [],
+      interpretations: [],
+      userGroupAccesses: [],
+      rows: [
+        {
+          dimension: 'dx',
+          items: [
+            {
+              uid: 'yKypqIROIO9',
+              dimensionItem: 'yKypqIROIO9',
+              displayName: 'Age Distribution',
+              dimensionItemType: 'INDICATOR',
+            },
+          ],
+        },
+      ],
+      dataElementDimensions: [],
+      categoryDimensions: [],
+      programIndicatorDimensions: [],
+      attributeValues: [],
+      userAccesses: [],
+      dataDimensionItems: [
+        {
+          dataDimensionItemType: 'INDICATOR',
+          dataElement: { uid: 'yKypqIROIO9' },
+        },
+      ],
+      categoryOptionGroupSetDimensions: [],
+      organisationUnitGroupSetDimensions: [],
+      columns: [
+        {
+          dimension: 'ou',
+          items: [
+            {
+              uid: 'USER_ORGUNIT',
+              dimensionItem: 'USER_ORGUNIT',
+              displayName: 'USER_ORGUNIT',
+            },
+          ],
+        },
+      ],
+      filters: [
+        {
+          dimension: 'pe',
+          items: [
+            {
+              uid: 'LAST_12_MONTHS',
+              dimensionItem: 'LAST_12_MONTHS',
+              displayName: 'LAST_12_MONTHS',
+              dimensionItemType: 'PERIOD',
+            },
+          ],
+        },
+      ],
+    },
+    "CCIJuYfJqAG":{
+      lastUpdated: '2019-02-09T20:13:45.425',
+      uid: 'CCIJuYfJqAG',
+      created: '2017-07-29T21:18:43.937',
+      name: 'Age Distribution',
+      publicAccess: 'r-------',
+      type: 'COLUMN',
+      subscribed: false,
+      cumulativeValues: false,
+      sortOrder: 0,
+      favorite: false,
+      topLimit: 0,
+      displayName: 'Age Distribution',
+      percentStackedValues: false,
+      noSpaceBetweenColumns: false,
+      hideTitle: false,
+      series: 'dx',
+      showData: true,
+      parentGraphMap: {},
+      regressionType: 'NONE',
+      completedOnly: false,
+      hideEmptyRowItems: 'NONE',
+      aggregationType: 'DEFAULT',
+      hideSubtitle: false,
+      title: 'Age Distribution',
+      hideLegend: false,
+      category: 'pe',
+      access: {
+        read: true,
+        update: true,
+        externalize: true,
+        delete: true,
+        write: true,
+        manage: true,
+      },
+      lastUpdatedBy: { uid: 'I89T5MJIt27' },
+      dataElementGroupSetDimensions: [],
+      attributeDimensions: [],
+      translations: [],
+      interpretations: [],
+      userGroupAccesses: [],
+      columns: [
+        {
+          dimension: 'dx',
+          items: [
+            {
+              uid: 'yKypqIROIO4',
+              dimensionItem: 'yKypqIROIO4',
+              displayName: 'Age Distribution',
+              dimensionItemType: 'INDICATOR',
+            },
+          ],
+        },
+      ],
+      dataElementDimensions: [],
+      categoryDimensions: [],
+      programIndicatorDimensions: [],
+      attributeValues: [],
+      userAccesses: [],
+      dataDimensionItems: [
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'Kl9MzjQI3ms' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'wo7ITisRXeE' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          dataElement: { uid: 'yKypqIROIO9' },
+        },
+      ],
+      categoryOptionGroupSetDimensions: [],
+      organisationUnitGroupSetDimensions: [],
+      filters: [
+        {
+          dimension: 'ou',
+          items: [
+            {
+              uid: 'USER_ORGUNIT',
+              dimensionItem: 'USER_ORGUNIT',
+              displayName: 'USER_ORGUNIT',
+            },
+          ],
+        },
+      ],
+      rows: [
+        {
+          dimension: 'pe',
+          items: [
+            {
+              uid: 'LAST_12_MONTHS',
+              dimensionItem: 'LAST_12_MONTHS',
+              displayName: 'LAST_12_MONTHS',
+              dimensionItemType: 'PERIOD',
+            },
+          ],
+        },
+      ],
+    },
+    "yNx3h2FFgiN":{
+      lastUpdated: '2019-02-09T20:13:45.425',
+      uid: 'yNx3h2FFgiN',
       created: '2017-07-29T21:18:43.937',
       name: 'LLIN Accountability Report-IVD',
       publicAccess: 'r-------',
@@ -126,6 +513,238 @@ export class ChartService extends BaseService<Chart> {
           ],
         },
       ],
-    };
+    },
+    "LZmdvqKvmt7":{
+      lastUpdated: '2019-02-09T20:13:45.425',
+      uid: 'LZmdvqKvmt7',
+      created: '2017-07-29T21:18:43.937',
+      name: 'LLIN Accountability Report-IVD',
+      publicAccess: 'r-------',
+      type: 'LINE',
+      subscribed: false,
+      cumulativeValues: false,
+      sortOrder: 0,
+      favorite: false,
+      topLimit: 0,
+      displayName: 'LLIN Accountability Report-IVD',
+      percentStackedValues: false,
+      noSpaceBetweenColumns: false,
+      hideTitle: false,
+      series: 'dx',
+      showData: true,
+      parentGraphMap: {},
+      regressionType: 'NONE',
+      completedOnly: false,
+      hideEmptyRowItems: 'NONE',
+      aggregationType: 'DEFAULT',
+      hideSubtitle: false,
+      title: 'LLIN Accountability Graph-IVD',
+      hideLegend: false,
+      category: 'pe',
+      access: {
+        read: true,
+        update: true,
+        externalize: true,
+        delete: true,
+        write: true,
+        manage: true,
+      },
+      lastUpdatedBy: { uid: 'I89T5MJIt27' },
+      dataElementGroupSetDimensions: [],
+      attributeDimensions: [],
+      translations: [],
+      interpretations: [],
+      userGroupAccesses: [],
+      columns: [
+        {
+          dimension: 'dx',
+          items: [
+            {
+              uid: 'Kl9MzjQI3ms',
+              dimensionItem: 'Kl9MzjQI3ms',
+              displayName: 'Retirement',
+              dimensionItemType: 'INDICATOR',
+            },
+            {
+              uid: 'wo7ITisRXeE',
+              dimensionItem: 'wo7ITisRXeE',
+              displayName: 'Employment',
+              dimensionItemType: 'INDICATOR',
+            },
+            {
+              uid: 'yKypqIROIO9',
+              dimensionItem: 'yKypqIROIO9',
+              displayName: 'Age Distribution',
+              dimensionItemType: 'INDICATOR',
+            },
+          ],
+        },
+      ],
+      dataElementDimensions: [],
+      categoryDimensions: [],
+      programIndicatorDimensions: [],
+      attributeValues: [],
+      userAccesses: [],
+      dataDimensionItems: [
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'Kl9MzjQI3ms' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'wo7ITisRXeE' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          dataElement: { uid: 'yKypqIROIO9' },
+        },
+      ],
+      categoryOptionGroupSetDimensions: [],
+      organisationUnitGroupSetDimensions: [],
+      filters: [
+        {
+          dimension: 'ou',
+          items: [
+            {
+              uid: 'USER_ORGUNIT',
+              dimensionItem: 'USER_ORGUNIT',
+              displayName: 'USER_ORGUNIT',
+            },
+          ],
+        },
+      ],
+      rows: [
+        {
+          dimension: 'pe',
+          items: [
+            {
+              uid: 'LAST_12_MONTHS',
+              dimensionItem: 'LAST_12_MONTHS',
+              displayName: 'LAST_12_MONTHS',
+              dimensionItemType: 'PERIOD',
+            },
+          ],
+        },
+      ],
+    },
+    "khyp31Acwuv":{
+      lastUpdated: '2019-02-09T20:13:45.425',
+      uid: 'khyp31Acwuv',
+      created: '2017-07-29T21:18:43.937',
+      name: 'LLIN Accountability Report-IVD',
+      publicAccess: 'r-------',
+      type: 'LINE',
+      subscribed: false,
+      cumulativeValues: false,
+      sortOrder: 0,
+      favorite: false,
+      topLimit: 0,
+      displayName: 'LLIN Accountability Report-IVD',
+      percentStackedValues: false,
+      noSpaceBetweenColumns: false,
+      hideTitle: false,
+      series: 'dx',
+      showData: true,
+      parentGraphMap: {},
+      regressionType: 'NONE',
+      completedOnly: false,
+      hideEmptyRowItems: 'NONE',
+      aggregationType: 'DEFAULT',
+      hideSubtitle: false,
+      title: 'LLIN Accountability Graph-IVD',
+      hideLegend: false,
+      category: 'pe',
+      access: {
+        read: true,
+        update: true,
+        externalize: true,
+        delete: true,
+        write: true,
+        manage: true,
+      },
+      lastUpdatedBy: { uid: 'I89T5MJIt27' },
+      dataElementGroupSetDimensions: [],
+      attributeDimensions: [],
+      translations: [],
+      interpretations: [],
+      userGroupAccesses: [],
+      columns: [
+        {
+          dimension: 'dx',
+          items: [
+            {
+              uid: 'Kl9MzjQI3ms',
+              dimensionItem: 'Kl9MzjQI3ms',
+              displayName: 'Retirement',
+              dimensionItemType: 'INDICATOR',
+            },
+            {
+              uid: 'wo7ITisRXeE',
+              dimensionItem: 'wo7ITisRXeE',
+              displayName: 'Employment',
+              dimensionItemType: 'INDICATOR',
+            },
+            {
+              uid: 'yKypqIROIO9',
+              dimensionItem: 'yKypqIROIO9',
+              displayName: 'Age Distribution',
+              dimensionItemType: 'INDICATOR',
+            },
+          ],
+        },
+      ],
+      dataElementDimensions: [],
+      categoryDimensions: [],
+      programIndicatorDimensions: [],
+      attributeValues: [],
+      userAccesses: [],
+      dataDimensionItems: [
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'Kl9MzjQI3ms' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          indicator: { uid: 'wo7ITisRXeE' },
+        },
+        {
+          dataDimensionItemType: 'INDICATOR',
+          dataElement: { uid: 'yKypqIROIO9' },
+        },
+      ],
+      categoryOptionGroupSetDimensions: [],
+      organisationUnitGroupSetDimensions: [],
+      filters: [
+        {
+          dimension: 'ou',
+          items: [
+            {
+              uid: 'USER_ORGUNIT',
+              dimensionItem: 'USER_ORGUNIT',
+              displayName: 'USER_ORGUNIT',
+            },
+          ],
+        },
+      ],
+      rows: [
+        {
+          dimension: 'pe',
+          items: [
+            {
+              uid: 'LAST_12_MONTHS',
+              dimensionItem: 'LAST_12_MONTHS',
+              displayName: 'LAST_12_MONTHS',
+              dimensionItemType: 'PERIOD',
+            },
+          ],
+        },
+      ],
+    }
+  }
+  async findOneByUid(uid: string): Promise<any> {
+    if(!this.data[uid]){
+      console.log('UID:',uid);
+    }
+    return this.data[uid];
   }
 }
