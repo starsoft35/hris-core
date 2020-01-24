@@ -1,15 +1,24 @@
-import { Body, Get, Post, Put, Param, Delete, Query, UseGuards, Controller } from '@nestjs/common';
+import {
+  Body,
+  Get,
+  Post,
+  Put,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+  Controller,
+} from '@nestjs/common';
 import { AnalyticsService } from '../services/analytics.service';
 import { TaskService } from 'src/modules/system/task/services/task.service';
-
+import { errorMessage } from 'src/core/helpers/response.helper';
 
 @Controller('api/analytics')
 export class AnalyticsController {
-  constructor(private analyticsService: AnalyticsService,
-    private taskService: TaskService
-
-    ) {
-  }
+  constructor(
+    private analyticsService: AnalyticsService,
+    private taskService: TaskService,
+  ) {}
   @Get()
   async fetchAnalytics(@Query() query) {
     let pe;
@@ -68,22 +77,25 @@ export class AnalyticsController {
   }
   @Get('generate')
   async fetchAnalyticsGenerate(@Query() query) {
-      console.log('Running:',query);
-      let processes = [];
-      if (query.analyticsTables) {
-        console.log('Running Analytics');
-        processes.push(this.analyticsService.generateAnalyticsTables());
-      }
-      if (query.periodTable) {
-        processes.push(this.analyticsService.generatePeriodStructureTables());
-      }
-      if (query.organisationUnitTable) {
-        processes.push(this.analyticsService.generateOrganisationUnitStructureTables());
-      }
-      Promise.all(processes).then(()=>{
-
-      }).catch((error)=>{
-        
+    console.log('Running:', query);
+    let task = await this.taskService.createEmptyTask('Task Name');
+    let processes = [];
+    if (query.analyticsTables) {
+      console.log('Running Analytics');
+      processes.push(this.analyticsService.generateAnalyticsTables());
+    }
+    if (query.periodTable) {
+      processes.push(this.analyticsService.generatePeriodStructureTables());
+    }
+    if (query.organisationUnitTable) {
+      processes.push(
+        this.analyticsService.generateOrganisationUnitStructureTables(),
+      );
+    }
+    Promise.all(processes)
+      .then(() => {
       })
+      .catch(error => console.log(error, 'Process failed with errors'));
+    return task;
   }
 }
