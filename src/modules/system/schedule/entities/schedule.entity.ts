@@ -21,7 +21,7 @@ export class Schedule extends EntityCoreProps {
     nullable: false,
     length: 255,
   })
-  process: string;
+  type: string;
 
   @Column('character varying', {
     nullable: false,
@@ -34,5 +34,5 @@ export class Schedule extends EntityCoreProps {
     length: 255,
     name: 'functionid',
   })
-  functionid: string;
+  processid: string;
 }
