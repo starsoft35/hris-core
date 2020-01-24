@@ -2,29 +2,29 @@ import { Task } from '../entities/task.entity';
 import { BackgroundProcess } from './base.process';
 import { Connection } from 'typeorm';
 import {
-    format,
-    endOfMonth,
-    startOfMonth,
-    getDaysInMonth,
-    endOfQuarter,
-    startOfQuarter,
-    differenceInDays,
-    getDaysInYear,
-    startOfYear,
-    endOfWeek,
-    startOfWeek,
-    endOfYear,
-  } from 'date-fns';
+  format,
+  endOfMonth,
+  startOfMonth,
+  getDaysInMonth,
+  endOfQuarter,
+  startOfQuarter,
+  differenceInDays,
+  getDaysInYear,
+  startOfYear,
+  endOfWeek,
+  startOfWeek,
+  endOfYear,
+} from 'date-fns';
 import { Injectable } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 
 @Injectable()
-export class PeriodGenerator extends BackgroundProcess{
-    constructor(private taskService: TaskService,private connetion:Connection){
-        super(taskService);
-    }
-    async run(){
-        await this.connetion.manager.query('DROP TABLE IF EXISTS _periodstructure');
+export class PeriodGenerator extends BackgroundProcess {
+  constructor(private taskService: TaskService, private connetion: Connection) {
+    super(taskService);
+  }
+  async run() {
+    await this.connetion.manager.query('DROP TABLE IF EXISTS _periodstructure');
     await this.connetion.manager.query(
       'CREATE TABLE _periodstructure' +
         '(' +
@@ -121,5 +121,5 @@ export class PeriodGenerator extends BackgroundProcess{
         );
       }
     }
-    }
+  }
 }
