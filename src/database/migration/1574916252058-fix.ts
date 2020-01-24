@@ -218,6 +218,7 @@ export class fix1574916252058 implements MigrationInterface {
 
     CREATE SEQUENCE schedule_id_seq;
     CREATE SEQUENCE task_id_seq;
+    CREATE SEQUENCE process_id_seq
 
     CREATE TABLE public.schedule
     (
