@@ -278,7 +278,7 @@ export class fix1574916252058 implements MigrationInterface {
           lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
           id integer NOT NULL DEFAULT nextval('process_id_seq'::regclass),
           uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
-          code character varying(256) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+          code text COLLATE pg_catalog."default" DEFAULT NULL::character varying,
           name character varying(256) COLLATE pg_catalog."default" NOT NULL,
           description text COLLATE pg_catalog."default",
           lastupdatedby character varying COLLATE pg_catalog."default",
