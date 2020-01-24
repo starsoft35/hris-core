@@ -9,20 +9,16 @@ import { Task } from '../entities/task.entity';
 export class TaskService extends BaseService<Task> {
   constructor(
     @InjectRepository(Task)
-    taskRepository: Repository<Task>,
-    private Task: Task,
-    private Mode
-
+    private taskRepository: Repository<Task>,
   ) {
     super(taskRepository, Task);
   }
-  async create(entity: any): Promise<any> {
-    const model = new this.Mode();
-    Object.keys(entity).forEach(key => {
-      model[key] = entity[key];
+  async createEmptyTask(name:string): Promise<any> {
+    return this.taskRepository.create({
+      name: name,
+      startedat: new Date(),
+      log: [],
+      status: "Started"
     });
-
-    // return model.save();
-    return await this.Task.save(model);
   }
 }
