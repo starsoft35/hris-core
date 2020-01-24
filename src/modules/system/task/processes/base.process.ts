@@ -7,7 +7,7 @@ import { Task } from '../entities/task.entity';
 
 @Injectable()
 export class BackgroundProcess {
-  task:Task
+  protected task:Task
   constructor(private taskService: TaskService) {}
   async start(task:Task){
     this.task = task;

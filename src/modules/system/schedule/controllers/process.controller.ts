@@ -4,10 +4,12 @@ import { Process } from '../entities/process.entity';
 import { ProcessService } from '../services/process.service';
 import { SessionGuard } from '../../user/guards/session.guard';
 import { ApiResult } from 'dist/core/interfaces';
+import { CustomProcess } from '../../task/processes/custom.process';
+import { TaskService } from '../../task/services/task.service';
 
 @Controller('api/' + Process.plural)
 export class ProcessController extends BaseController<Process> {
-  constructor(processService: ProcessService) {
+  constructor(private processService: ProcessService,private taskService: TaskService) {
     super(processService, Process);
   }
 
@@ -19,9 +21,11 @@ export class ProcessController extends BaseController<Process> {
    */
   @Get(':id/run')
   @UseGuards(SessionGuard)
-  async getProcess(): Promise<ApiResult> {
-    let logs = new Logger('Process is Running');
-    return logs;
+  async getProcess(@Param() params): Promise<ApiResult> {
+    let process:Process = await this.processService.findOneByUid(params.id);
+    let task = await this.taskService.createEmptyTask(process.name);
+    (new CustomProcess(this.taskService, process)).start(task)
+    return task;
   }
 }
 0
