@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ScheduleController } from './controllers/Schedule.controlles';
+import { ScheduleController } from './controllers/schedule.controlles';
 import { ScheduleService } from './services/schedule.service';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
