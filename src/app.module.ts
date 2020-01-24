@@ -17,7 +17,7 @@ import { OrganisatinUnitModule } from './modules/organisation-unit/organisation-
 import { RecordModule } from './modules/record/record.module';
 import { ReportModule } from './modules/report/report.module';
 import { SystemSettingModule } from './modules/system-setting/system-setting.module';
-import { ScheduleModule } from './modules/system/schedule/schedule.module';
+import { SchedulesModule } from './modules/system/schedule/schedule.module';
 import { TaskModule } from './modules/system/task/task.module';
 import { UserAuthorityModule } from './modules/system/user-authority/user-authority.module';
 import { UserGroupModule } from './modules/system/user-group/user-group.module';
@@ -25,6 +25,8 @@ import { UserRoleModule } from './modules/system/user-role/user-role.module';
 import { UserModule } from './modules/system/user/user.module';
 import { TrainingModule } from './modules/training/training.module';
 import { VisualizationModule } from './modules/visualization/visualization.module';
+import { ScheduleModule } from '@nestjs/schedule';
+
 
 @Module({
   imports: [
@@ -38,7 +40,7 @@ import { VisualizationModule } from './modules/visualization/visualization.modul
     UserGroupModule,
     UserAuthorityModule,
     TaskModule,
-    ScheduleModule,
+    SchedulesModule,
     VisualizationModule,
     ReportModule,
     TrainingModule,
@@ -47,6 +49,7 @@ import { VisualizationModule } from './modules/visualization/visualization.modul
     IndicatorModule,
     AnalyticsModule,
     SystemSettingModule,
+    ScheduleModule.forRoot()
   ],
 
   controllers: [AppController],

@@ -19,4 +19,4 @@ import { TaskModule } from '../task/task.module';
   providers: [ScheduleService, ProcessService],
   exports: [ProcessService]
 })
-export class ScheduleModule {}
+export class SchedulesModule {}
