@@ -263,7 +263,6 @@ export class fix1574916252058 implements MigrationInterface {
         endedat timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
         CONSTRAINT "PK_task" PRIMARY KEY (id),
         CONSTRAINT "UQ_task" UNIQUE (uid),
-        CONSTRAINT "UQ_task_name" UNIQUE (name),
         CONSTRAINT fk_lastupdatedby FOREIGN KEY (lastupdatedby)
         REFERENCES public."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
