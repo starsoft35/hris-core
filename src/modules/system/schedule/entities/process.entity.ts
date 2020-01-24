@@ -13,7 +13,6 @@ export class Process extends EntityCoreProps {
   @Column('character varying', {
     nullable: false,
     length: 255,
-    unique: true,
   })
   name: string;
 
@@ -25,6 +24,7 @@ export class Process extends EntityCoreProps {
 
   @Column('character varying', {
     nullable: false,
+    length: 256
   })
   code: string;
 }
