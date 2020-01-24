@@ -216,8 +216,9 @@ export class fix1574916252058 implements MigrationInterface {
 
     ALTER TABLE field ADD COLUMN recordvalueid integer;
 
-    CREATE SEQUENCE schedule_id_seq;
     CREATE SEQUENCE task_id_seq;
+    CREATE SEQUENCE process_id_seq;
+<<<<<<< HEAD
 
     CREATE TABLE public.schedule
     (
@@ -269,7 +270,33 @@ export class fix1574916252058 implements MigrationInterface {
         ON DELETE NO ACTION
         NOT VALID
       
+      );
+
+      CREATE TABLE public.process
+      (
+          created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+          lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
+          id integer NOT NULL DEFAULT nextval('process_id_seq'::regclass),
+          uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
+          code text COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+          name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+          description text COLLATE pg_catalog."default",
+          lastupdatedby character varying COLLATE pg_catalog."default",
+          publicaccess character varying(8) COLLATE pg_catalog."default",
+          externalaccess boolean,
+          CONSTRAINT "PK_fa87251e776c56e422a7910b058" PRIMARY KEY (id),
+          CONSTRAINT "UQ_c31996377c448fd1c22558bbacc" UNIQUE (uid)
       )
+      WITH (
+          OIDS = FALSE
+      )
+      TABLESPACE pg_default;
+
+      ALTER TABLE public.process
+          OWNER to postgres;
+=======
+    CREATE SEQUENCE schedule_id_seq;
+>>>>>>> 6fa54a0dbf7f8d289ba21fbd8cb96c334191f3f0
     `;
     await queryRunner.query(fixes);
   }

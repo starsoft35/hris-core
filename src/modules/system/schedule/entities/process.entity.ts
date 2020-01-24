@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
-@Entity('schedule', { schema: 'public' })
-export class Schedule extends EntityCoreProps {
-  static plural = 'schedules';
+@Entity('process', { schema: 'public' })
+export class Process extends EntityCoreProps {
+  static plural = 'processes';
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -13,7 +13,6 @@ export class Schedule extends EntityCoreProps {
   @Column('character varying', {
     nullable: false,
     length: 255,
-    unique: true
   })
   name: string;
 
@@ -21,18 +20,10 @@ export class Schedule extends EntityCoreProps {
     nullable: false,
     length: 255,
   })
-  type: string;
+  description: string;
 
-  @Column('character varying', {
+  @Column('text', {
     nullable: false,
-    length: 255,
   })
-  cron: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
-    name: 'functionid',
-  })
-  processid: string;
+  code: string;
 }

@@ -6,9 +6,9 @@ import { TaskService } from '../services/task.service';
 
 @Injectable()
 export class OrgUnitGenerator extends BackgroundProcess{
-    constructor(private taskService: TaskService,private connetion:Connection){
-        super(taskService);
-    }
+  constructor(taskService: TaskService,private connetion:Connection){
+    super(taskService);
+}
     async run(){
         await this.connetion.manager.query(
             'DROP TABLE IF EXISTS _organisationunitstructure',

@@ -20,7 +20,7 @@ import { TaskService } from '../services/task.service';
 
 @Injectable()
 export class PeriodGenerator extends BackgroundProcess {
-  constructor(private taskService: TaskService, private connetion: Connection) {
+  constructor(taskService: TaskService,private connetion:Connection){
     super(taskService);
   }
   async run() {

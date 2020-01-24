@@ -232,19 +232,19 @@ export class User extends UserCoreProps {
   /**
    * Many To Many Relationship: User and Form Entities
    */
-  @ManyToMany(type => Form, form => form.users, {
-    nullable: false,
-    cascade: true,
-    eager: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  @JoinTable({
-    name: 'userformmembers',
-    joinColumn: { referencedColumnName: 'id' },
-    inverseJoinColumn: { referencedColumnName: 'id' },
-  })
-  forms: Form[];
+  // @ManyToMany(type => Form, form => form.users, {
+  //   nullable: false,
+  //   cascade: true,
+  //   eager: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinTable({
+  //   name: 'userformmembers',
+  //   joinColumn: { referencedColumnName: 'id' },
+  //   inverseJoinColumn: { referencedColumnName: 'id' },
+  // })
+  // forms: Form[];
 
   /**
    * Many To Many Relationship: User and OrganizationUnit Entities
