@@ -19,10 +19,10 @@ export class Task extends EntityCoreProps {
   name: string;
 
   @Column({
+    type:'jsonb',
     nullable: false,
-    length: 255,
   })
-  log: string;
+  log: any;
 
   @Column({
     type: 'varchar',
