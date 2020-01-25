@@ -12,6 +12,7 @@ import {
 import { AnalyticsService } from '../services/analytics.service';
 import { TaskService } from 'src/modules/system/task/services/task.service';
 import { errorMessage } from 'src/core/helpers/response.helper';
+import { AuthenticatedUser } from 'src/core/helpers/user-decorator.helper';
 
 @Controller('api/analytics')
 export class AnalyticsController {
@@ -20,7 +21,7 @@ export class AnalyticsController {
     private taskService: TaskService,
   ) {}
   @Get()
-  async fetchAnalytics(@Query() query) {
+  async fetchAnalytics(@Query() query, @AuthenticatedUser() user) {
     let pe;
     let ou;
     let dx;
@@ -37,7 +38,9 @@ export class AnalyticsController {
         otherDimensions[split[0]] = split[1];
       }
     });
-    return this.analyticsService.fetchAnalytics(dx, pe, ou);
+    return this.analyticsService.fetchAnalytics(dx, pe, ou,{
+      user:user
+    });
   }
   @Get('records/:formid')
   async fetchAnalyticsRecords(@Param() params, @Query() query) {

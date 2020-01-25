@@ -22,13 +22,10 @@ export class LoggingInterceptor implements NestInterceptor {
       .handle()
       .pipe(
         tap(() =>
-          {
-            console.trace();
-            Logger.log(
-              `${request.method} ${request.url} ${Date.now() - now}ms`,
-              context.getClass().name,
-            )
-          },
+        Logger.log(
+          `${request.method} ${request.url} ${Date.now() - now}ms`,
+          context.getClass().name,
+        ),
           
         ),
       );

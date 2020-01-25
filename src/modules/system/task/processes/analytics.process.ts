@@ -22,7 +22,7 @@ export class Analytics extends BackgroundProcess{
             );
             let query =
               'SELECT field.id as fieldid,field.uid,field.name,fdt.name as type FROM field ' +
-              'INNER JOIN fielddatatype fdt ON(fdt.id = field."dataTypeId") ' +
+              'INNER JOIN fielddatatype fdt ON(fdt.id = field."datatypeid") ' +
               'INNER JOIN formfieldmember ON(formfieldmember.fieldid = field.id) ' +
               'INNER JOIN form ON(form.id = formfieldmember.formid AND form.id =' +
               form.formid +
@@ -156,5 +156,8 @@ export class Analytics extends BackgroundProcess{
       } else {
         return 'varchar';
       }
+    }
+    async getProcessName(){
+      return "Analytics";
     }
 }

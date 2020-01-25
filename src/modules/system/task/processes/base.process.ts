@@ -11,7 +11,15 @@ export class BackgroundProcess {
   constructor(private taskService: TaskService) {}
   async start(task:Task){
     this.task = task;
-    await this.run();
+    try{
+      await this.run();
+      this.log({type:"SUCCESS",message:"Process finished successfully."});
+    }catch(e){
+      this.log({type:"ERROR",message: "("+await this.getProcessName()+")" + e.message});
+    }
+  }
+  async getProcessName():Promise<string>{
+    throw('Run Not Implemented')
   }
   async run(){
       throw('Run Not Implemented')

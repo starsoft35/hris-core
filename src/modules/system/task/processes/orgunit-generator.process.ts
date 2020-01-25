@@ -88,4 +88,7 @@ export class OrgUnitGenerator extends BackgroundProcess{
             level++;
           } while (count[0].count !== countstructure[0].count);
     }
+    async getProcessName(){
+      return "Orgunit Structure Table";
+    }
 }
