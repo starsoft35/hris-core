@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
+import { Process } from './process.entity';
 @Entity('schedule', { schema: 'public' })
 export class Schedule extends EntityCoreProps {
   static plural = 'schedules';
@@ -29,10 +30,11 @@ export class Schedule extends EntityCoreProps {
   })
   cron: string;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
-    name: 'functionid',
-  })
-  processid: string;
+  @ManyToOne(
+    type => Process,
+    process => process.schedules,
+    { eager:true, onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'processid' })
+  process: Process | null;
 }
