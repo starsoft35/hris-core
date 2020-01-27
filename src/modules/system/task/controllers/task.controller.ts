@@ -18,14 +18,14 @@ export class TaskController extends BaseController<Task>{
     console.log('Running:', query);
     let task = await this.taskService.createEmptyTask('Task Name');
     let processes = [];
-    if (query.analyticsTables) {
+    if (query.analyticsTables === 'true') {
       console.log('Running Analytics');
       processes.push((new Analytics(this.taskService, this.connetion)).start(task));
     }
-    if (query.periodTable) {
+    if (query.periodTable === 'true') {
       processes.push((new OrgUnitGenerator(this.taskService, this.connetion)).start(task));
     }
-    if (query.organisationUnitTable) {
+    if (query.organisationUnitTable === 'true') {
       processes.push(
         (new PeriodGenerator(this.taskService, this.connetion)).start(task)
       );
