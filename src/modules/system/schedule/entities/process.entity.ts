@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
+import { Schedule } from './schedule.entity';
 @Entity('process', { schema: 'public' })
 export class Process extends EntityCoreProps {
   static plural = 'processes';
@@ -26,4 +27,11 @@ export class Process extends EntityCoreProps {
     nullable: false,
   })
   code: string;
+
+  @OneToMany(
+    type => Schedule,
+    schedule => schedule.process,
+    { onDelete: 'CASCADE' },
+  )
+  schedules: Schedule[];
 }

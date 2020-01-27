@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { TaskService } from '../services/task.service';
+import { Repository } from 'typeorm';
+
 import { Task } from '../entities/task.entity';
-import { ScheduleService } from '../../schedule/services/schedule.service';
-import { job } from 'cron';
 
 @Injectable()
 export class BackgroundProcess {
-  protected task: Task;
-  constructor(
-    private taskService: TaskService,
-    private scheduleService: ScheduleService,
-  ) {}
-  async start(task: Task) {
+  protected task:Task
+  constructor(private taskService: TaskService) {}
+  async start(task:Task){
     this.task = task;
     try{
       await this.run();
@@ -23,18 +21,10 @@ export class BackgroundProcess {
   async getProcessName():Promise<string>{
     throw('Run Not Implemented')
   }
-  async run() {
-    try {
-      this.scheduleService.addCronJob(name, "60");  // ! ERROR missing argument 
-    } catch {
-      throw 'Cron Not Defined';
-    }
+  async run(){
+      throw('Run Not Implemented')
   }
-  async log(logdetails: {
-    type: 'ERROR' | 'INFO' | 'SUCCESS' | 'WARNING';
-    message: string;
-    code?: number;
-  }) {
+  async log(logdetails:{type:'ERROR'|'INFO'|'SUCCESS'|'WARNING',message:string,code?:number}){
     this.task.log.push(logdetails);
     return await this.taskService.update(this.task);
   }
