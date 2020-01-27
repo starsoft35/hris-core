@@ -26,7 +26,14 @@ export class CustomProcess extends BackgroundProcess {
     super(taskService);
   }
   async run() {
-    const execute = Function('parameters', this.process.code);
-    execute({});
+    console.log('Running things');
+    const execute = Function('context', 'console.log("This is happening")');
+    console.log('COde:',this.process.code);
+    execute({
+      log:this.log
+    });
+  }
+  async getProcessName():Promise<string>{
+    return 'Custom Process '+ this.process.name;
   }
 }

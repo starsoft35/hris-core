@@ -13,9 +13,9 @@ export class BackgroundProcess {
     this.task = task;
     try{
       await this.run();
-      this.log({type:"SUCCESS",message:"Process finished successfully."});
+      await this.log({type:"SUCCESS",message:"Process finished successfully."});
     }catch(e){
-      this.log({type:"ERROR",message: "("+await this.getProcessName()+")" + e.message});
+      await this.log({type:"ERROR",message: "("+await this.getProcessName()+")" + e.message});
     }
   }
   async getProcessName():Promise<string>{
