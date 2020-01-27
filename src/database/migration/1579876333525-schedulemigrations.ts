@@ -13,21 +13,19 @@ export class schedulemigrations1579876333525 implements MigrationInterface {
             cron text COLLATE pg_catalog."default",
             process character varying COLLATE pg_catalog."default" NOT NULL,
             code text COLLATE pg_catalog."default",
-            functionid integer NOT NULL,
+            processsid integer NOT NULL,
             description text,
             publicaccess boolean,
             externalaccess boolean,
             CONSTRAINT "PK_schdeule" PRIMARY KEY (id),
             CONSTRAINT "UQ_schedule" UNIQUE (uid),
             lastupdatedby integer,
-            CONSTRAINT "UQ_schedule_name" UNIQUE (name),
             CONSTRAINT fk_lastupdatedby FOREIGN KEY (lastupdatedby)
             REFERENCES public."user" (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE NO ACTION
             NOT VALID
         );
-    
         `;
     await queryRunner.query(schedules);
   }
