@@ -8,12 +8,12 @@ export class schedulemigrations1579876333525 implements MigrationInterface {
             created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
             lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
             id integer NOT NULL DEFAULT nextval('schedule_id_seq'::regclass),
-            uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
-            name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+             name character varying(256) COLLATE pg_catalog."default" NOT NULL,
             cron text COLLATE pg_catalog."default",
             process character varying COLLATE pg_catalog."default" NOT NULL,
             code text COLLATE pg_catalog."default",
             processsid integer NOT NULL,
+            type character varying(256) COLLATE pg_catalog."default" NOT NULL,
             description text,
             publicaccess boolean,
             externalaccess boolean,
@@ -26,7 +26,7 @@ export class schedulemigrations1579876333525 implements MigrationInterface {
             ON DELETE NO ACTION
             NOT VALID
         );
-        `;
+      `;
     await queryRunner.query(schedules);
   }
 
