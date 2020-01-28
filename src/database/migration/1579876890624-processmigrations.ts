@@ -29,7 +29,16 @@ export class processmigrations1579876890624 implements MigrationInterface {
             OWNER to postgres;
         `;
 
-    await queryRunner.query(processMigrations);
+   await queryRunner.query(processMigrations);
+
+   await queryRunner.query(`
+   ALTER TABLE schedule
+   ADD CONSTRAINT fk_processid FOREIGN KEY (processid)
+   REFERENCES public."process" (id) MATCH SIMPLE
+   ON UPDATE NO ACTION
+   ON DELETE NO ACTION
+   NOT VALID
+   `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}
