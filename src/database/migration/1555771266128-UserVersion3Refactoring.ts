@@ -349,6 +349,8 @@ TABLESPACE pg_default;
         'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "ispinned" boolean',
       );
 
+      await queryRunner.query('ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "showinlist" boolean',);
+
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoption" RENAME TO "fieldoption"',
       );
