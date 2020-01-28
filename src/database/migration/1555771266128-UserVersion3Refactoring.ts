@@ -110,9 +110,7 @@ TABLESPACE pg_default;
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "email" TEXT',
       );
-      await queryRunner.query(
-        'ALTER TABLE "user" DROP COLUMN "roles"',
-      );
+      await queryRunner.query('ALTER TABLE "user" DROP COLUMN "roles"');
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "phonenumber" TEXT',
       );
@@ -337,6 +335,18 @@ TABLESPACE pg_default;
       );
       await queryRunner.query(
         'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "sort" integer',
+      );
+
+      await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "compulsory" boolean',
+      );
+
+      await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "showinprofile" boolean',
+      );
+
+      await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "ispinned" boolean',
       );
 
       await queryRunner.query(
@@ -642,7 +652,9 @@ TABLESPACE pg_default;
       await queryRunner.query(
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "description" text',
       );
-    await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "id" integer',);
+      await queryRunner.query(
+        'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "id" integer',
+      );
 
       await queryRunner.query(
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
@@ -1813,9 +1825,13 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     await queryRunner.query(`INSERT INTO organisationunitmembers(userid,organisationunitid)
 (SELECT public.user.id,public.user.organisationunit_id FROM public.user WHERE public.user.organisationunit_id IS NOT NULL)`);
 
-    await queryRunner.query('ALTER TABLE "sqlview" ADD COLUMN "createdbyid" INTEGER',);
-    
-    await queryRunner.query('ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyid" INTEGER', );
+    await queryRunner.query(
+      'ALTER TABLE "sqlview" ADD COLUMN "createdbyid" INTEGER',
+    );
+
+    await queryRunner.query(
+      'ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyid" INTEGER',
+    );
 
     await queryRunner.query(
       'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"',
