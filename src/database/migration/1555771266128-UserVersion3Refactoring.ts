@@ -569,6 +569,9 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "description" text',
       );
       await queryRunner.query(
+        'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "id" integer',
+      );
+      await queryRunner.query(
         'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
       );
       await queryRunner.query(
@@ -639,6 +642,8 @@ TABLESPACE pg_default;
       await queryRunner.query(
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "description" text',
       );
+    await queryRunner.query('ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "id" integer',);
+
       await queryRunner.query(
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
       );
