@@ -1,0 +1,22 @@
+{
+    "version": "v1.0.0-beta.1",
+    "name": "LOGIN App",
+    "description": "HRHIS Login App",
+    "launch_path": "index.html",
+    "icons": {
+        "16": "favicon.ico",
+        "48": "favicon.ico",
+        "128": "favicon.ico"
+    },
+    "developer": {
+        "name": "UDSM-DHIS2",
+        "url": ""
+    },
+    "default_locale": "en",
+    "require_auth": false
+    "activities": {
+        "hris": {
+            "href": "../../../"
+        }
+    }
+}
