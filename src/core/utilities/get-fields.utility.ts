@@ -10,6 +10,8 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
         })
         .join(','),
     );
+    fields = fields.replace('id','uid');
+
     fields = fields.split('*').join(
       metaData.columns
         .map(metadataColumn => {
@@ -17,7 +19,7 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
         })
         .join(','),
     );
-    return fields.split(',').filter(item => {
+    let resutls = fields.split(',').filter(item => {
       return (
         item.indexOf('[') === -1 &&
         metaData.columns
@@ -26,7 +28,9 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
           })
           .indexOf(item) > -1
       );
-    });
+    })
+    console.log("resutls:",resutls);
+    return resutls;
   } else {
     return null;
     /*return metaData.columns

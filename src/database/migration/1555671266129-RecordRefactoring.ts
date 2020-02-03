@@ -63,9 +63,9 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       fieldOptions.forEach(field => {
         fieldOptionsObject[field.uid] = field.value;
       });
-
-      let newObjects = [];
-      results.splice(0,1000).forEach(data => {
+      do{
+        let newObjects = [];
+        results.splice(0,1000).forEach(data => {
         let jsonData = JSON.parse(data.value);
         Object.keys(jsonData).forEach(key => {
           let value = "";
@@ -89,7 +89,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       });
       //await queryRunner.manager.save(RecordValue, newObjects);
       await this.updateData(queryRunner, newObjects);
-      
+      } while (results.length > 0)      
     }
   }
 
