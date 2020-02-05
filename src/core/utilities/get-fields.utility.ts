@@ -11,6 +11,7 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
         .join(','),
     );
     fields = fields.replace('id','uid');
+    fields = fields.replace('uuid','uid');
 
     fields = fields.split('*').join(
       metaData.columns
