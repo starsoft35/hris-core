@@ -50,8 +50,8 @@ export class BaseService<T extends HRISBaseEntity> {
       select: getSelections(fields, metaData),
       relations: getRelations(fields, metaData),
       where: getWhereConditions(filter),
+      skip: page * size,
       take: size,
-      skip: page,
     });
   }
 
