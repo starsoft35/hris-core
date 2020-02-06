@@ -428,6 +428,7 @@ TABLESPACE pg_default
         height integer,
         width integer,
         dashboardid integer,
+        access jsonb,
         href text,  
         CONSTRAINT "PK_67334f4a46e4b156982eebb2dc4" PRIMARY KEY (id),
         CONSTRAINT "UQ_68394f9b2c87727e2dd06ea8029" UNIQUE (uid)
