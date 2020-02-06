@@ -380,7 +380,7 @@ TABLESPACE pg_default;
     lastupdatedby character varying COLLATE pg_catalog."default",
     publicaccess character varying(8) COLLATE pg_catalog."default",
     externalaccess boolean,
-    favorites jsonb,
+    favorite boolean,
     userid integer,
     CONSTRAINT "PK_8904b99a9c07185947c5d70bfde" PRIMARY KEY (id),
     CONSTRAINT "UQ_bb9e0587e0266172504bf6b5271" UNIQUE (uid)
