@@ -393,14 +393,7 @@ TABLESPACE pg_default;
         REFERENCES public."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-        NOT VALID,
-    
-    CONSTRAINT "FK_chart" FOREIGN KEY (chartid)
-    REFERENCES public."chart" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
         NOT VALID
-    
 )
 WITH (
     OIDS = FALSE
