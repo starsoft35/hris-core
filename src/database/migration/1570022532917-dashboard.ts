@@ -383,6 +383,7 @@ TABLESPACE pg_default;
     favorite boolean,
     userid integer,
     chartid integer,
+    access jsonb,
     itemCount integer,
     CONSTRAINT "PK_8904b99a9c07185947c5d70bfde" PRIMARY KEY (id),
     CONSTRAINT "UQ_bb9e0587e0266172504bf6b5271" UNIQUE (uid),
