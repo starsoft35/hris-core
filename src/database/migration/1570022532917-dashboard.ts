@@ -383,6 +383,7 @@ TABLESPACE pg_default;
     favorite boolean,
     userid integer,
     chartid integer,
+    itemCount integer,
     CONSTRAINT "PK_8904b99a9c07185947c5d70bfde" PRIMARY KEY (id),
     CONSTRAINT "UQ_bb9e0587e0266172504bf6b5271" UNIQUE (uid),
 
@@ -396,7 +397,7 @@ TABLESPACE pg_default;
     REFERENCES public."chart" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-        NOT VALID,
+        NOT VALID
     
 )
 WITH (
