@@ -376,7 +376,7 @@ TABLESPACE pg_default;
     uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
     code character varying(25) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
     name character varying(256) COLLATE pg_catalog."default" NOT NULL,
-    displayName character varying(256) COLLATE pg_catalog."default" NOT NULL,
+    "displayName" character varying(256) COLLATE pg_catalog."default" NOT NULL,
     description text COLLATE pg_catalog."default",
     lastupdatedby character varying COLLATE pg_catalog."default",
     publicaccess character varying(8) COLLATE pg_catalog."default",
@@ -385,7 +385,7 @@ TABLESPACE pg_default;
     userid integer,
     access jsonb,
     href text,
-    itemCount integer,
+    "itemCount" integer,
     CONSTRAINT "PK_8904b99a9c07185947c5d70bfde" PRIMARY KEY (id),
     CONSTRAINT "UQ_bb9e0587e0266172504bf6b5271" UNIQUE (uid),
 
