@@ -382,14 +382,22 @@ TABLESPACE pg_default;
     externalaccess boolean,
     favorite boolean,
     userid integer,
+    chartid integer,
     CONSTRAINT "PK_8904b99a9c07185947c5d70bfde" PRIMARY KEY (id),
-    CONSTRAINT "UQ_bb9e0587e0266172504bf6b5271" UNIQUE (uid)
-,
+    CONSTRAINT "UQ_bb9e0587e0266172504bf6b5271" UNIQUE (uid),
+
     CONSTRAINT "FK_737e17e1bc64698b29a6112cb1a" FOREIGN KEY (userid)
         REFERENCES public."user" (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-        NOT VALID
+        NOT VALID,
+    
+    CONSTRAINT "FK_chart" FOREIGN KEY (chartid)
+    REFERENCES public."chart" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    
 )
 WITH (
     OIDS = FALSE
