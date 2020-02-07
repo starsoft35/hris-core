@@ -1,5 +1,5 @@
 import { Entity, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
-import { FavoriteDimension } from './favorite-dimension.entity';
+import { FavoriteDimension } from '../../dashboard/entities/favorite-dimension.entity';
 import { MapViewDimensionItem } from './map-view-dimension-item.entity';
 import { MapView } from './map-view.entity';
 

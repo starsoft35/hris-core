@@ -1,8 +1,8 @@
 import { Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { ChartDimensionItem } from './chart-dimension-item.entity';
-import { Chart } from '../../chart/entities/chart.entity';
-import { FavoriteDimension } from './favorite-dimension.entity';
+import { Chart } from './chart.entity';
+import { FavoriteDimension } from '../../dashboard/entities/favorite-dimension.entity';
 
 @Entity('chartdimension', { schema: 'public' })
 export class ChartDimension extends FavoriteDimension {

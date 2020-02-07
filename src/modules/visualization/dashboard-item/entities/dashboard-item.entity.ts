@@ -1,9 +1,9 @@
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { DashboardItemChart } from '../../other/entities/dashboard-item-chart.entity';
-import { DashboardItemMap } from '../../other/entities/dashboard-item-map.entity';
-import { DashboardItemReportTable } from '../../other/entities/dashboard-item-report-table.entity';
+import { DashboardItemChart } from './dashboard-item-chart.entity';
+import { DashboardItemMap } from './dashboard-item-map.entity';
+import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
 import { Dashboard } from '../../dashboard/entities/dashboard.entity';
 
 @Entity('dashboarditem', { schema: 'public' })
