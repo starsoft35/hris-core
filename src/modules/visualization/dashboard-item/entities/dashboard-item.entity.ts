@@ -5,6 +5,7 @@ import { DashboardItemChart } from './dashboard-item-chart.entity';
 import { DashboardItemMap } from './dashboard-item-map.entity';
 import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
 import { Dashboard } from '../../dashboard/entities/dashboard.entity';
+import { Chart } from '../../chart/entities/chart.entity';
 
 @Entity('dashboarditem', { schema: 'public' })
 export class DashboardItem extends EntityCoreProps {
@@ -60,6 +61,14 @@ export class DashboardItem extends EntityCoreProps {
       dashboardItemChart.dashboardItem,
   )
   dashboardItemCharts: DashboardItemChart[];
+
+  @ManyToOne(
+    () => Chart,
+    (chart: Chart) => chart.dashboardsItems,
+    {},
+  )
+  @JoinColumn({ name: 'Chartid' })
+  chart: Chart | null;
 
   @OneToMany(
     () => DashboardItemReportTable,
