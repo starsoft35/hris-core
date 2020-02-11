@@ -190,12 +190,10 @@ export class Chart extends EntityCoreProps {
   })
   sortOrder: number | null;
 
-  @ManyToOne(() => DashboardItem, (dashboardsItems: DashboardItem) => dashboardsItems.chart)
-  @JoinColumn({ name: 'dashboardsItemsid' })
-  dashboardsItems: DashboardItem | null;
-
-
-  @ManyToOne(() => User, (user: User) => user.charts)
+  @ManyToOne(
+    () => User,
+    (user: User) => user.charts,
+  )
   @JoinColumn({ name: 'userid' })
   user: User | null;
 

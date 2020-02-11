@@ -62,14 +62,6 @@ export class DashboardItem extends EntityCoreProps {
   )
   dashboardItemCharts: DashboardItemChart[];
 
-  @ManyToOne(
-    () => Chart,
-    (chart: Chart) => chart.dashboardsItems,
-    {},
-  )
-  @JoinColumn({ name: 'Chartid' })
-  chart: Chart | null;
-
   @OneToMany(
     () => DashboardItemReportTable,
     (dashboardItemReportTable: DashboardItemReportTable) =>
