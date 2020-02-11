@@ -46,9 +46,22 @@ export class BaseService<T extends HRISBaseEntity> {
       this.Model,
     );
 
+    let join: any = {};
+
+    // TODO: Find best way to join any recursive relation
+    if (metaData.tableName === 'organisationunit') {
+      join = {
+        alias: 'organisationunit',
+        leftJoinAndSelect: {
+          profile: 'organisationunit.parent',
+        },
+      };
+    }
+
     return await this.modelRepository.findAndCount({
       select: getSelections(fields, metaData),
       relations: getRelations(fields, metaData),
+      join,
       where: getWhereConditions(filter),
       skip: page * size,
       take: size,

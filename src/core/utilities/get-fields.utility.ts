@@ -10,8 +10,8 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
         })
         .join(','),
     );
-    fields = fields.replace('id','uid');
-    fields = fields.replace('uuid','uid');
+    fields = fields.replace('id', 'uid');
+    fields = fields.replace('uuid', 'uid');
 
     fields = fields.split('*').join(
       metaData.columns
@@ -29,8 +29,8 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
           })
           .indexOf(item) > -1
       );
-    })
-    console.log("resutls:",resutls);
+    });
+    console.log('resutls:', resutls);
     return resutls;
   } else {
     return null;
@@ -114,6 +114,7 @@ export function getRelations(fields: any, metaData: EntityMetadata): any {
       });
 
     results = evaluateRelations(fields, results, metaData);
+
     return results;
   } else {
     return [];

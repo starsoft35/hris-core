@@ -9,6 +9,7 @@ import {
   Req,
   Res,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
@@ -64,13 +65,15 @@ export class BaseController<T extends HRISBaseEntity> {
       pagerDetails.pageSize,
       pagerDetails.page - 1,
     );
-    
+
     return {
       pager: {
         ...pagerDetails,
         pageCount: entityRes.length,
         total: totalCount,
-        nextPage: `/api/${this.Model.plural}?page=${parseInt(pagerDetails.page) + 1}`,
+        nextPage: `/api/${this.Model.plural}?page=${parseInt(
+          pagerDetails.page,
+        ) + 1}`,
       },
       [this.Model.plural]: _.map(entityRes, sanitizeResponseObject),
     };
