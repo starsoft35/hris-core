@@ -30,7 +30,6 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
           .indexOf(item) > -1
       );
     });
-    console.log('resutls:', resutls);
     return resutls;
   } else {
     return null;
