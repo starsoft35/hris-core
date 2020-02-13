@@ -415,8 +415,8 @@ TABLESPACE pg_default
         name character varying(256) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
         description text COLLATE pg_catalog."default",
         lastupdatedby character varying COLLATE pg_catalog."default",
-        "publicAccess" character varying(8) COLLATE pg_catalog."default",
-        "externalAccess" boolean,
+        publicaccess character varying(8) COLLATE pg_catalog."default",
+        externalaccess boolean,
         appkey character varying(255) COLLATE pg_catalog."default",
         shape character varying(50) COLLATE pg_catalog."default",
         x integer,
@@ -436,8 +436,6 @@ TABLESPACE pg_default
         "attributeValues" jsonb,
         type character varying(50) COLLATE pg_catalog."default",
         CONSTRAINT "PK_67334f4a46e4b156982eebb2dc4" PRIMARY KEY (id),
-        CONSTRAINT "UQ_68394f9b2c87727e2dd06ea8029" UNIQUE (uid)
-    ,
         CONSTRAINT "FK_1f928172b909a9c9df65c380c11" FOREIGN KEY (dashboardid)
             REFERENCES public.dashboard (id) MATCH SIMPLE
             ON UPDATE NO ACTION
