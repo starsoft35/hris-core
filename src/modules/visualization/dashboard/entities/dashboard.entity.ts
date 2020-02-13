@@ -35,14 +35,23 @@ export class Dashboard extends EntityCoreProps {
     nullable: true,
     name: 'externalaccess',
   })
-  externalAccess: boolean | null;
+  externalaccess: boolean | null;
 
   @Column('character varying', {
     nullable: true,
     length: 8,
     name: 'publicaccess',
   })
-  publicAccess: string | null;
+  publicaccess: string | null;
+
+
+  @Column('character varying', {
+    nullable: true,
+    length: 8,
+    name: 'type',
+  })
+  type: string | null;
+
 
   @Column('boolean', {
     nullable: true,
