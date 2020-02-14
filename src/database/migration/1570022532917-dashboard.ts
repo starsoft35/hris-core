@@ -436,6 +436,7 @@ TABLESPACE pg_default
         "attributeValues" jsonb,
         type character varying(50) COLLATE pg_catalog."default",
         CONSTRAINT "PK_67334f4a46e4b156982eebb2dc4" PRIMARY KEY (id),
+        CONSTRAINT "UQ_UID" UNIQUE (uid),
         CONSTRAINT "FK_1f928172b909a9c9df65c380c11" FOREIGN KEY (dashboardid)
             REFERENCES public.dashboard (id) MATCH SIMPLE
             ON UPDATE NO ACTION
