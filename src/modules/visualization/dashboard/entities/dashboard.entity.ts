@@ -44,15 +44,6 @@ export class Dashboard extends EntityCoreProps {
   })
   publicaccess: string | null;
 
-
-  @Column('character varying', {
-    nullable: true,
-    length: 8,
-    name: 'type',
-  })
-  type: string | null;
-
-
   @Column('boolean', {
     nullable: true,
     name: 'favorite',

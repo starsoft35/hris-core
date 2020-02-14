@@ -48,6 +48,13 @@ export class DashboardItem extends EntityCoreProps {
   })
   width: number | null;
 
+  @Column('character varying', {
+    nullable: true,
+    length: 50,
+    name: 'type',
+  })
+  type: string | null;
+
   @ManyToOne(
     () => Dashboard,
     (dashboard: Dashboard) => dashboard.dashboardItems,
