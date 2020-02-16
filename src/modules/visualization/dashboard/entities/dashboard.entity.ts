@@ -23,6 +23,12 @@ export class Dashboard extends EntityCoreProps {
   })
   displayName: string | null;
 
+  @Column('character varying', {
+    nullable: false,
+    name: 'name',
+  })
+  name: string | null;
+
   @ManyToOne(
     () => User,
     (user: User) => user.dashboards,
@@ -33,19 +39,6 @@ export class Dashboard extends EntityCoreProps {
 
   @Column('boolean', {
     nullable: true,
-    name: 'externalaccess',
-  })
-  externalaccess: boolean | null;
-
-  @Column('character varying', {
-    nullable: true,
-    length: 8,
-    name: 'publicaccess',
-  })
-  publicaccess: string | null;
-
-  @Column('boolean', {
-    nullable: true,
     name: 'favorite',
   })
   favorite: boolean | null;
@@ -53,6 +46,7 @@ export class Dashboard extends EntityCoreProps {
   @OneToMany(
     () => DashboardItem,
     (dashboardItem: DashboardItem) => dashboardItem.dashboard,
+    {eager: true}
   )
   dashboardItems: DashboardItem[];
 
