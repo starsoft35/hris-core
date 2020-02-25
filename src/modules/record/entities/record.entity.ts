@@ -30,7 +30,7 @@ export class Record extends TransactionUser {
   @ManyToOne(
     type => OrganisationUnit,
     organisationUnit => organisationUnit.records,
-    { eager: true, nullable: false, onDelete: 'CASCADE' },
+    { nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'organisationunitid' })
   organisationUnit: OrganisationUnit | null;
@@ -53,7 +53,7 @@ export class Record extends TransactionUser {
   @OneToMany(
     () => RecordValue,
     (recordvalue: RecordValue) => recordvalue.record,
-    { eager: true, onDelete: 'CASCADE' },
+    { onDelete: 'CASCADE' },
   )
   recordValues: RecordValue[];
 

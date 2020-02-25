@@ -3,16 +3,6 @@ import { Logger } from '@nestjs/common';
 
 export function getSelections(fields: any, metaData: EntityMetadata): any {
   if (fields) {
-    console.log(
-      metaData.columns
-        .map(metadataColumn => {
-          return metadataColumn.propertyName;
-        })
-        .join(','),
-    );
-    fields = fields.replace('id', 'uid');
-    fields = fields.replace('uuid', 'uid');
-
     fields = fields.split('*').join(
       metaData.columns
         .map(metadataColumn => {
@@ -30,13 +20,15 @@ export function getSelections(fields: any, metaData: EntityMetadata): any {
           .indexOf(item) > -1
       );
     });
+    if(resutls.indexOf('id') > -1){
+      resutls.push('uid');
+    }
+    if(resutls.indexOf('id') === -1){
+      resutls.push('id');
+    }
     return resutls;
   } else {
     return null;
-    /*return metaData.columns
-      .map(metadataColumn => {
-        return metadataColumn.propertyName;
-      });*/
   }
 }
 
@@ -52,8 +44,19 @@ function evaluateRelations(fields, results, metaData: EntityMetadata) {
       );
     }),
   );
+  // results = results.concat(
+  //   fields.split(',').filter(item => {
+  //     return (
+  //       metaData.relations
+  //         .map(metadataRelation => {
+  //           return metadataRelation.propertyName;
+  //         })
+  //         .indexOf(item) > -1
+  //     );
+  //   }),
+  // );
 
-  results = results
+  /*results = results
     .concat(
       fields.split(',').filter(item => {
         return item.indexOf('[') > -1;
@@ -80,7 +83,7 @@ function evaluateRelations(fields, results, metaData: EntityMetadata) {
         );
       }
       return relation;
-    });
+    });*/
   return results;
 }
 export function getRelations(fields: any, metaData: EntityMetadata): any {
