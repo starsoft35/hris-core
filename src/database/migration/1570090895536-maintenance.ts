@@ -8,7 +8,7 @@ export class maintenance1570090895536 implements MigrationInterface {
     if (FieldGroup){
         await queryRunner.query('ALTER TABLE "hris_field" RENAME TO "field"');
         await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "datatype_id" TO "datatypeid"');
-        await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "inputtype_id" TO "fieldInputTypeId"');
+        await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "inputtype_id" TO "fieldinputtypeid"');
         await queryRunner.query('ALTER TABLE "field" RENAME COLUMN "datecreated" TO "created"');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "name" character varying(256)');

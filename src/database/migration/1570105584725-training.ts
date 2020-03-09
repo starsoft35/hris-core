@@ -475,15 +475,15 @@ TABLESPACE pg_default;
 
     let trainingSessionMethod = `CREATE TABLE public.trainingsessionmethods
     (
-        "trainingsessionId" integer NOT NULL,
-        "trainingmethodId" integer NOT NULL,
-        CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionId", "trainingmethodId"),
-        CONSTRAINT "FK_69ff46ede8e95be623bb4a0fddb" FOREIGN KEY ("trainingsessionId")
+        "trainingsessionid" integer NOT NULL,
+        "trainingmethodid" integer NOT NULL,
+        CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionid", "trainingmethodid"),
+        CONSTRAINT "FK_69ff46ede8e95be623bb4a0fddb" FOREIGN KEY ("trainingsessionid")
             REFERENCES public.trainingsession (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE
             NOT VALID,
-        CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY ("trainingmethodId")
+        CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY ("trainingmethodid")
             REFERENCES public.trainingmethod (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE
@@ -503,7 +503,7 @@ TABLESPACE pg_default;
     
     CREATE INDEX "IDX_69ff46ede8e95be623bb4a0fdd"
         ON public.trainingsessionmethods USING btree
-        ("trainingsessionId")
+        ("trainingsessionid")
         TABLESPACE pg_default;
     
     -- Index: IDX_c6cf5835d03868b97d74d0ad37
@@ -512,7 +512,7 @@ TABLESPACE pg_default;
     
     CREATE INDEX "IDX_c6cf5835d03868b97d74d0ad37"
         ON public.trainingsessionmethods USING btree
-        ("trainingmethodId")
+        ("trainingmethodid")
         TABLESPACE pg_default;`;
 
     await queryRunner.query(trainingSessionMethod);
