@@ -24,6 +24,13 @@ export class Report extends EntityCoreProps {
   @Column('character varying', {
     nullable: false,
     length: 255,
+    name: 'type',
+  })
+  type: string;
+
+  @Column('character varying', {
+    nullable: false,
+    length: 255,
     name: 'createdby',
   })
   createdby: string;
