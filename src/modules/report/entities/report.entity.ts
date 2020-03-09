@@ -15,11 +15,11 @@ export class Report extends EntityCoreProps {
   })
   uri: string;
 
-  @Column('text', {
+  @Column('json', {
     nullable: false,
     name: 'parameters',
   })
-  parameters: string;
+  parameters: any;
 
   @Column('character varying', {
     nullable: false,
