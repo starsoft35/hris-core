@@ -8,9 +8,9 @@ import {
 } from 'typeorm';
 import { Report } from './report.entity';
 
-@Entity('reportGroup', { schema: 'public' })
+@Entity('reportgroup', { schema: 'public' })
 export class ReportGroup extends EntityCoreProps {
-  static plural = 'reportGroups';
+  static plural = 'reportgroups';
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -34,6 +34,6 @@ export class ReportGroup extends EntityCoreProps {
     report => report.reportGroups,
     { nullable: false },
   )
-  @JoinTable({})
+  @JoinTable({name: 'reportgroupmembers'})
   reports: Report[];
 }

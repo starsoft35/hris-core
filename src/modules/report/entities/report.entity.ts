@@ -1,5 +1,6 @@
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { ReportGroup } from './report.group.entity';
 
 @Entity('report', { schema: 'public' })
 export class Report extends EntityCoreProps {
@@ -75,4 +76,10 @@ export class Report extends EntityCoreProps {
     length: 255,
   })
   html: string;
+
+  @ManyToMany(
+    type => ReportGroup,
+    reportGroup => reportGroup.reports,
+  )
+  reportGroups: ReportGroup[];
 }
