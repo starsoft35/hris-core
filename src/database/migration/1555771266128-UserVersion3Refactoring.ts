@@ -72,19 +72,19 @@ TABLESPACE pg_default;
       await queryRunner.query('ALTER TABLE "hris_user" RENAME TO "user"');
 
       await queryRunner.query(
-        'ALTER TABLE "user" ADD COLUMN "createdbyId" INTEGER',
+        'ALTER TABLE "user" ADD COLUMN "createdbyid" INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_createdby" FOREIGN KEY("createdbyId") REFERENCES "user"',
+        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD COLUMN "lastupdatedbyId" INTEGER',
+        'ALTER TABLE "user" ADD COLUMN "lastupdatedbyid" INTEGER',
       );
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "id" INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
+        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "user"',
       );
       await queryRunner.query(
         'ALTER TABLE "user" RENAME COLUMN "last_login" TO "lastlogin"',
@@ -127,18 +127,18 @@ TABLESPACE pg_default;
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "enabled" BOOLEAN',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "userSettingsId" INTEGER',
+        'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "userSettingsid" INTEGER',
       );
 
       // await queryRunner.query('ALTER TABLE "user" ADD CONSTRAINT "PK_03b91d2b8321aa7ba32257dc321" PRIMARY KEY (id)');
       await queryRunner.query(
-        'ALTER TABLE "user" ADD CONSTRAINT "REL_7154b7b71e3dd18b59ad8ee8b8" UNIQUE ("userSettingsId")',
+        'ALTER TABLE "user" ADD CONSTRAINT "REL_7154b7b71e3dd18b59ad8ee8b8" UNIQUE ("userSettingsid")',
       );
       // await queryRunner.query('ALTER TABLE "user" ADD CONSTRAINT "UQ_b7a5e4a3b174e954b2dabf2ef9e" UNIQUE (email)); one duplicate user mail ****^^^Key (email)=(mwajey@yahoo.com) is duplicated.^^^*****
       await queryRunner.query(
         'ALTER TABLE "user" ADD CONSTRAINT "UQ_bd91f2e189f3dd7ae490007e14e" UNIQUE (uid)',
       );
-      await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT  "FK_7154b7b71e3dd18b59ad8ee8b8f" FOREIGN KEY ("userSettingsId")
+      await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT  "FK_7154b7b71e3dd18b59ad8ee8b8f" FOREIGN KEY ("userSettingsid")
             REFERENCES public.usersetting (id) MATCH SIMPLE
             ON UPDATE CASCADE
             ON DELETE CASCADE
@@ -169,16 +169,16 @@ TABLESPACE pg_default;
         'ALTER TABLE "userrole" RENAME COLUMN "datecreated" TO "created"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD COLUMN "createdbyId" INTEGER',
+        'ALTER TABLE "userrole" ADD COLUMN "createdbyid" INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_createdby" FOREIGN KEY("createdbyId") REFERENCES "user"',
+        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD COLUMN "lastupdatedbyId" INTEGER',
+        'ALTER TABLE "userrole" ADD COLUMN "lastupdatedbyid" INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
+        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "user"',
       );
       await queryRunner.query(
         'ALTER TABLE "userrole" ADD COLUMN "landingpage" integer',
@@ -191,10 +191,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_user_group_members" RENAME TO "userrolemembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrolemembers" RENAME COLUMN group_id TO "userroleId"',
+        'ALTER TABLE "userrolemembers" RENAME COLUMN group_id TO "userroleid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrolemembers" RENAME COLUMN user_id TO "userId"',
+        'ALTER TABLE "userrolemembers" RENAME COLUMN user_id TO "userid"',
       );
 
       //await queryRunner.query('ALTER TABLE GOOD ALTER COLUMN "id" RENAME TO userid;');
@@ -255,10 +255,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_form_uniquerecordfields" RENAME TO "formuniquerecordfields"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "form_id" TO "formId"',
+        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "form_id" TO "formid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "field_id" TO "fieldid"',
       );
 
       await queryRunner.query(
@@ -315,10 +315,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_field_relation" RENAME TO "fieldrelation"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO "parentFieldId"',
+        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO "parentfieldid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childFieldId"',
+        'ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childfieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldrelation" ADD COLUMN IF NOT EXISTS "sort" integer',
@@ -355,7 +355,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoption" RENAME TO "fieldoption"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoption" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "fieldoption" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoption" RENAME COLUMN "datecreated" TO "created"',
@@ -410,7 +410,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoptionmerge" RENAME TO "fieldoptionmerge"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO "mergedFieldOptionId"',
+        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO "mergedFieldOptionid"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "datecreated" TO "created"',
@@ -462,7 +462,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldid" integer',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldId" integer',
+        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldid" integer',
       );
 
       await queryRunner.query(
@@ -501,7 +501,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoptiongroup" RENAME TO "fieldoptiongroup"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroup" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "fieldoptiongroup" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptiongroup" RENAME COLUMN "datecreated" TO "created"',
@@ -538,10 +538,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoption_children" RENAME TO "fieldoptionchildren"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentFieldOptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentfieldoptionid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO "childFieldOptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO "childfieldoptionid"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
@@ -681,40 +681,40 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldgroup_members" RENAME TO "fieldgroupmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupId"',
+        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "field_id" TO "fieldid"',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldgroupset_members" RENAME TO "fieldgroupsetmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroupset_id" TO "fieldgroupsetId"',
+        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroupset_id" TO "fieldgroupsetid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupId"',
+        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroup_members" RENAME TO "fieldoptiongroupmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupId"',
+        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupd"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO "fieldoptionId"',
+        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO "fieldoptionid"',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroupset_members" RENAME TO "fieldoptiongroupsetmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroupset_id" TO "fieldoptiongroupsetId"',
+        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroupset_id" TO "fieldoptiongroupsetid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupId"',
+        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupid"',
       );
     }
 
