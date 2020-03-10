@@ -112,7 +112,6 @@ export class RecordService extends BaseService<Record> {
     };
 
     let where: any = getWhereConditions(filter);
-    console.log(where);
 
     const orgunitsquery = this.organisationunitRepository.createQueryBuilder();
     const getOrgunits = await orgunitsquery.getMany();
@@ -130,16 +129,16 @@ export class RecordService extends BaseService<Record> {
         .join(''),
     );
 
-    const whereParams = {...where[0], ...where[1]};
+    const whereParams = { ...where[0], ...where[1] };
     console.log(whereParams);
-    const actualForm = await forms.filter(form => form.uid === whereParams.form);
+    const actualForm = await forms.filter(
+      form => form.uid === whereParams.form,
+    );
     const actualOrgUnit = await orgunits.filter(
       orgunit => orgunit.uid === whereParams.organisationUnit,
     );
 
     where = { organisationUnit: actualOrgUnit[0].id, form: actualForm[0].id };
-
-    console.log(where)
 
     return await this.recordRepository.findAndCount({
       select: getSelections(fields, metaData),
