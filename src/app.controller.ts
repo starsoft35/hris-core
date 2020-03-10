@@ -20,6 +20,7 @@ export class AppController {
   @Get()
   async index(@Req() request, @Res() response) {
     let app;
+    console.log("request.session:",request.session);
     if (request.session && request.session.user) {
       app = request.session.user.userRoles[0].landingPage;
       console.log('App:', app);

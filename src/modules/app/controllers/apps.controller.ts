@@ -50,6 +50,7 @@ export class AppsController extends BaseController<App> {
     @UploadedFile() file,
   ): Promise<ApiResult> {
     try {
+      console.log('Here');
       const result: any = await this.uploadFile(file);
       // tslint:disable-next-line: no-console
       console.log('UPLOAD FILE::: ' + JSON.stringify(result));
@@ -77,6 +78,12 @@ export class AppsController extends BaseController<App> {
    */
   uploadFile(file) {
     return new Promise((resolve, reject) => {
+      if(!file){
+        reject({
+          message: 'File Does not exists',
+        });
+        return;
+      }
       const zip = new StreamZip({
         file: file.path,
         storeEntries: true,
