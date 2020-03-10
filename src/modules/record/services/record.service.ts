@@ -130,7 +130,6 @@ export class RecordService extends BaseService<Record> {
     );
 
     const whereParams = { ...where[0], ...where[1] };
-    console.log(whereParams);
     const actualForm = await forms.filter(
       form => form.uid === whereParams.form,
     );
