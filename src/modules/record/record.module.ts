@@ -10,11 +10,13 @@ import { DataStoreService } from './services/data-store.service';
 import { DataStore } from './entities/data-store.entity';
 import { RecordValue } from './entities/record-value.entity';
 import { Field } from '../form/entities/field.entity';
+import { OrganisationUnit } from '../organisation-unit/entities/organisation-unit.entity';
+import { Form } from '../form/entities/form.entity';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'basic', session: true }),
-    TypeOrmModule.forFeature([Field,Record,RecordValue, DataStore]),
+    TypeOrmModule.forFeature([Field,Record,RecordValue, DataStore, OrganisationUnit, Form]),
   ],
   controllers: [RecordsController, DataStoreController],
   providers: [RecordService, DataStoreService],

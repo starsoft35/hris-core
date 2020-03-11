@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 export function getWhereConditions(filter: any): any[] {
-  if (filter) {
+  if (!filter) {
     return [];
   }
 
