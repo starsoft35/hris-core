@@ -11,6 +11,9 @@ branches:
     - develop
     - /^greenkeeper/.*$/
 
+ignore:
+  - src/frontend/
+
 cache:
   directories:
     - ./node_modules
