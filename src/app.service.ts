@@ -15,4 +15,8 @@ export class AppService{
         let apps = await this.appsService.findWhere({name:Like("%Login%")});
         return apps[0];
     }
+    async getDefaultLoginApp(): Promise<App> {
+        let apps = await this.appsService.findWhere({name:Like("%Dashboard%")});
+        return apps[0];
+    }
 }
