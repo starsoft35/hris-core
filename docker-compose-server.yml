@@ -13,7 +13,9 @@ services:
       - POSTGRES_PASSWORD=postgres
     restart: always
     volumes:
-      - ./files/db/postgresql:/var/lib/postgresql
+      - type: bind
+        source: ./files/db/postgresql
+        target: /var/lib/postgresql
     networks: 
       - backend
   nginx:
