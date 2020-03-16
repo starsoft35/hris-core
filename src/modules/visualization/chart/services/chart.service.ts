@@ -13,7 +13,7 @@ export class ChartService extends BaseService<Chart> {
     super(chartRepository, Chart);
   }
   data = {
-    "MTWXrZKjPRa":{
+    MTWXrZKjPRa: {
       lastUpdated: '2019-02-09T20:13:45.425',
       uid: 'MTWXrZKjPRa',
       created: '2017-07-29T21:18:43.937',
@@ -106,7 +106,7 @@ export class ChartService extends BaseService<Chart> {
         },
       ],
     },
-    "cbnWOXfp9vW":{
+    cbnWOXfp9vW: {
       lastUpdated: '2019-02-09T20:13:45.425',
       uid: 'cbnWOXfp9vW',
       created: '2017-07-29T21:18:43.937',
@@ -207,7 +207,7 @@ export class ChartService extends BaseService<Chart> {
         },
       ],
     },
-    "x1cWTFjrxVd":{
+    x1cWTFjrxVd: {
       lastUpdated: '2019-02-09T20:13:45.425',
       uid: 'x1cWTFjrxVd',
       created: '2017-07-29T21:18:43.937',
@@ -300,7 +300,7 @@ export class ChartService extends BaseService<Chart> {
         },
       ],
     },
-    "CCIJuYfJqAG":{
+    CCIJuYfJqAG: {
       lastUpdated: '2019-02-09T20:13:45.425',
       uid: 'CCIJuYfJqAG',
       created: '2017-07-29T21:18:43.937',
@@ -403,8 +403,8 @@ export class ChartService extends BaseService<Chart> {
     }
   }
   async findOneByUid(uid: string): Promise<any> {
-    if(!this.data[uid]){
-      console.log('UID:',uid);
+    if (!this.data[uid]) {
+      console.log('UID:', uid);
     }
     return this.data[uid];
   }
