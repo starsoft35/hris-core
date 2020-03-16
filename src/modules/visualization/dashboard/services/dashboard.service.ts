@@ -296,7 +296,7 @@ export class DashboardService extends BaseService<Dashboard> {
         ],
         userAccesses: [],
       },
-      {
+      /*{
         lastUpdated: '2019-07-26T09:59:27.089',
         href: 'https://dhis.hisptz.org/dev/api/dashboards/tFPbgxRf1dc',
         uid: 'tFPbgxRf1dc',
@@ -420,7 +420,7 @@ export class DashboardService extends BaseService<Dashboard> {
           }
         ],
         userAccesses: [],
-      },
+      },*/
     ];
   }
 }
