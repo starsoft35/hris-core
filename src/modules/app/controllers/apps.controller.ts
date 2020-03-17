@@ -39,7 +39,7 @@ export class AppsController extends BaseController<App> {
   async findAll(@Query() query): Promise<ApiResult> {
     let results = await super.findAll(query)
     if(results.apps){
-      results.apps = results.apps.filter((app)=>app.name.toLowerCase().indexOf('login') > -1)
+      results.apps = results.apps.filter((app)=>app.name.toLowerCase().indexOf('login') === -1)
     }
     return results;
   }
