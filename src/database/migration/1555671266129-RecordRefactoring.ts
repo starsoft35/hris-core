@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { RecordValue } from '../../modules/record/entities/record-value.entity';
+import { getUid } from '@iapps/utils/utils';
 
 export class RecordRefactoring1555771266129 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -81,6 +81,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
             }
           }
           newObjects.push({
+            uid: getUid('', 11),
             fieldid: fieldsObject[key],
             value: value,
             recordid: data.recordid
@@ -111,12 +112,12 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
                 value = null;
               }else{
                 console.error('Error Value Object:', value);
-                process.exit();
+                //process.exit();
               }
             }
           }else {
             console.log('Error Value Object:', typeof value, value);
-            process.exit();
+            //process.exit();
           }
         } else {
           value = value.split("'").join("''")

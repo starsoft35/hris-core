@@ -159,4 +159,9 @@ export class RecordService extends BaseService<Record> {
       }
     }),number];
   }
+
+  async findOneByUid(uid: string): Promise<Record> {
+    console.log('Fetching By UID');
+    return await this.recordRepository.findOne({ where: { uid } });
+  }
 }
