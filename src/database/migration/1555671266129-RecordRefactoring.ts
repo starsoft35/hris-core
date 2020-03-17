@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { RecordValue } from '../../modules/record/entities/record-value.entity';
+import uid from 'uid'
 
 export class RecordRefactoring1555771266129 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -33,6 +33,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         'created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
         'lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
         "recordvalueid BIGSERIAL NOT NULL," +
+        'uid character varying(256) COLLATE pg_catalog."default" NOT NULL' +
         'value text COLLATE pg_catalog."default" NOT NULL,' +
         'startdate timestamp without time zone,' +
         'enddate timestamp without time zone,' +
@@ -83,7 +84,8 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
           newObjects.push({
             fieldid: fieldsObject[key],
             value: value,
-            recordid: data.recordid
+            recordid: data.recordid,
+            uid: uid()
           });
         });
       });
