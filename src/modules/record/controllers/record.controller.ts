@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Param, Query, Get, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Query,
+  Get,
+  UseGuards,
+  BadRequestException,
+} from '@nestjs/common';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { Record } from 'src/modules/record/entities/record.entity';
 
@@ -15,16 +24,15 @@ export class RecordsController extends BaseController<Record> {
   @Get()
   @UseGuards(SessionGuard)
   async findAll(@Query() query): Promise<ApiResult> {
-    console.log('Loading:',query);
-    if(!query.organisationUnit){
-
+    console.log('Loading:', query);
+    if (!(query.organisationUnit && query.form)) {
+      throw new BadRequestException(
+        'organisationUnit and form IDs must be passed',
+      );
     }
-    if(!query.form){
-
-    }
-    if(!query.filter){
+    if (!query.filter) {
       query.filter = [];
-    }else if(!Array.isArray(query.filter)){
+    } else if (!Array.isArray(query.filter)) {
       query.filter = [query.filter];
     }
     query.filter.push(`organisationUnit:eq:${query.organisationUnit}`);
@@ -32,13 +40,18 @@ export class RecordsController extends BaseController<Record> {
     return super.findAll(query);
   }
   @Post(':record/recordValues')
-  async getAll(@Param() params,
-    @Body() createEntityDto) {
+  async getAll(@Param() params, @Body() createEntityDto) {
     console.log('Params:', params);
-    console.log('createEntityDto:', createEntityDto)
-    return await this.recordService.saveRecordValues(params.record, createEntityDto);
+    console.log('createEntityDto:', createEntityDto);
+    return await this.recordService.saveRecordValues(
+      params.record,
+      createEntityDto,
+    );
     try {
-      return await this.recordService.saveRecordValues(params.record, createEntityDto);
+      return await this.recordService.saveRecordValues(
+        params.record,
+        createEntityDto,
+      );
       // if (isIDExist !== undefined) {
       //   return entityExistResponse(res, isIDExist);
       // } else {
