@@ -33,7 +33,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         'created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
         'lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,' +
         "recordvalueid BIGSERIAL NOT NULL," +
-        'value jsonb COLLATE pg_catalog."default" NOT NULL,' +
+        'value text COLLATE pg_catalog."default" NOT NULL,' +
         'startdate timestamp without time zone,' +
         'enddate timestamp without time zone,' +
         'comment character varying(255) COLLATE pg_catalog."default" DEFAULT NULL:: character varying,' +
