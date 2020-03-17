@@ -12,7 +12,7 @@ branches:
     - /^greenkeeper/.*$/
 
 ignore:
-  - src/frontend/
+  - src/frontend/*/**
 
 cache:
   directories:
