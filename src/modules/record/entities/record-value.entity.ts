@@ -30,6 +30,11 @@ export class RecordValue extends TransactionUser {
   })
   value: string;
 
+  @Column('character varying', {
+    nullable: false,
+  })
+  uid: string;
+
   @Column('timestamp without time zone', {
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
