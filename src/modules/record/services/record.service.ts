@@ -110,7 +110,6 @@ export class RecordService extends BaseService<Record> {
         organisationUnit: 'record.organisationUnit',
       },
     };
-
     let where: any = getWhereConditions(filter);
 
     const orgunitsquery = this.organisationunitRepository.createQueryBuilder();
@@ -139,13 +138,25 @@ export class RecordService extends BaseService<Record> {
 
     where = { organisationUnit: actualOrgUnit[0].id, form: actualForm[0].id };
 
-    return await this.recordRepository.findAndCount({
+    let [records,number] = await this.recordRepository.findAndCount({
       select: getSelections(fields, metaData),
       relations: getRelations(fields, metaData),
       where,
       join,
       skip: page * size,
       take: size,
-    });
+    })
+
+    let query = `SELECT recordvalue.recordvalueid,recordvalue.recordid,recordvalue.value,recordvalue.startdate,
+    recordvalue.enddate,recordvalue.comment,recordvalue.entitledpayment,field.uid as field FROM recordvalue
+    INNER JOIN field ON(field.id=recordvalue.fieldid)
+    WHERE recordvalue.recordid IN(${records.map((record)=>record.id).join(',')})`;
+    let recordValues = await this.recordValueRepository.manager.query(query);
+    return [records.map((record:any)=>{
+      return {
+        ...record,
+        recordValues:recordValues.filter((recordValue)=>recordValue.recordid=== record.id)
+      }
+    }),number];
   }
 }
