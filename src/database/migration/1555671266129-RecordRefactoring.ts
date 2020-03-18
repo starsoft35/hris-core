@@ -132,12 +132,12 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
                 value = null;
               } else {
                 console.error('Error Value Object:', value);
-                process.exit();
+                //process.exit();
               }
             }
           } else {
             console.log('Error Value Object:', typeof value, value);
-            process.exit();
+            //process.exit();
           }
         } else {
           value = value.split("'").join("''");

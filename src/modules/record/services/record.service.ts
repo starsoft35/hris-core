@@ -217,4 +217,9 @@ export class RecordService extends BaseService<Record> {
 
     await this.recordValueRepository.save(recordValue);
   }
+
+  async findOneByUid(uid: string): Promise<Record> {
+    console.log('Fetching By UID');
+    return await this.recordRepository.findOne({ where: { uid } });
+  }
 }

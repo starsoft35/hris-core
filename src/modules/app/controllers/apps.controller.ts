@@ -11,6 +11,8 @@ import {
   Param,
   Res,
   Req,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -20,6 +22,7 @@ import * as StreamZip from 'node-stream-zip';
 import { ApiResult } from 'src/core/interfaces';
 import { Request, Response } from 'express';
 import { postSuccessResponse, genericFailureResponse } from 'src/core/helpers/response.helper';
+import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 
 @Controller('api/' + App.plural)
 export class AppsController extends BaseController<App> {
@@ -27,6 +30,19 @@ export class AppsController extends BaseController<App> {
     super(service, App);
   }
 
+  /**
+   *
+   * @param query
+   */
+  @Get()
+  @UseGuards(SessionGuard)
+  async findAll(@Query() query): Promise<ApiResult> {
+    let results = await super.findAll(query)
+    if(results.apps){
+      results.apps = results.apps.filter((app)=>app.name.toLowerCase().indexOf('login') === -1)
+    }
+    return results;
+  }
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
