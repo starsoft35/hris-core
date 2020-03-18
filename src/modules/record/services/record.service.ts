@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -13,6 +17,7 @@ import {
 import { getWhereConditions } from 'src/core/utilities';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { Form } from 'src/modules/form/entities/form.entity';
+import { getUid } from '@iapps/utils/utils';
 
 @Injectable()
 export class RecordService extends BaseService<Record> {
@@ -138,25 +143,78 @@ export class RecordService extends BaseService<Record> {
 
     where = { organisationUnit: actualOrgUnit[0].id, form: actualForm[0].id };
 
-    let [records,number] = await this.recordRepository.findAndCount({
+    let [records, number] = await this.recordRepository.findAndCount({
       select: getSelections(fields, metaData),
       relations: getRelations(fields, metaData),
       where,
       join,
       skip: page * size,
       take: size,
-    })
+    });
 
-    let query = `SELECT recordvalue.recordvalueid,recordvalue.recordid,recordvalue.value,recordvalue.startdate,
+    let query = `SELECT recordvalue.recordvalueid,recordvalue.uid,recordvalue.recordid,recordvalue.value,recordvalue.startdate,
     recordvalue.enddate,recordvalue.comment,recordvalue.entitledpayment,field.uid as field FROM recordvalue
     INNER JOIN field ON(field.id=recordvalue.fieldid)
-    WHERE recordvalue.recordid IN(${records.map((record)=>record.id).join(',')})`;
+    WHERE recordvalue.recordid IN(${records
+      .map(record => record.id)
+      .join(',')})`;
     let recordValues = await this.recordValueRepository.manager.query(query);
-    return [records.map((record:any)=>{
-      return {
-        ...record,
-        recordValues:recordValues.filter((recordValue)=>recordValue.recordid=== record.id)
-      }
-    }),number];
+    return [
+      records.map((record: any) => {
+        return {
+          ...record,
+          recordValues: recordValues.filter(
+            recordValue => recordValue.recordid === record.id,
+          ),
+        };
+      }),
+      number,
+    ];
+  }
+
+  async createRecordValue(uid: string, createRecordDto: any): Promise<any> {
+    let recordValue = new RecordValue();
+    const {
+      value,
+      startDate,
+      endDate,
+      comment,
+      fieldid,
+      entitledPayment,
+    } = createRecordDto;
+    let recordGot = (await this.recordRepository.findOne({ uid })).id;
+    recordValue.uid = getUid('', 11);
+    recordValue.value = value;
+    recordValue.startDate = startDate;
+    recordValue.endDate = endDate;
+    recordValue.comment = comment;
+    recordValue.entitledPayment = entitledPayment;
+    recordValue.recordid = recordGot;
+    recordValue.fieldid = fieldid;
+
+    await this.recordValueRepository.save(recordValue);
+  }
+  async updateRecordValue(
+    uid: string,
+    updateRecordValueDto: any,
+  ): Promise<any> {
+    const {
+      value,
+      comment,
+      endDate,
+      entitledPayment,
+      created,
+      lastUpdated,
+    } = updateRecordValueDto;
+
+    let recordValue = await this.recordValueRepository.findOne({ uid });
+    recordValue.value = value;
+    recordValue.comment = comment;
+    recordValue.endDate = endDate;
+    recordValue.entitledPayment = entitledPayment;
+    recordValue.created = created;
+    recordValue.lastUpdated = lastUpdated;
+
+    await this.recordValueRepository.save(recordValue);
   }
 }
