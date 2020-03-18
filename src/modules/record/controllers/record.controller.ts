@@ -7,6 +7,11 @@ import {
   Get,
   UseGuards,
   BadRequestException,
+  Put,
+  ForbiddenException,
+  Patch,
+  HttpStatus,
+  Res,
 } from '@nestjs/common';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { Record } from 'src/modules/record/entities/record.entity';
@@ -14,6 +19,7 @@ import { Record } from 'src/modules/record/entities/record.entity';
 import { RecordService } from '../services/record.service';
 import { ApiResult } from 'src/core/interfaces';
 import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
+import { RecordValue } from '../entities/record-value.entity';
 
 @Controller('api/' + Record.plural)
 export class RecordsController extends BaseController<Record> {
@@ -24,10 +30,9 @@ export class RecordsController extends BaseController<Record> {
   @Get()
   @UseGuards(SessionGuard)
   async findAll(@Query() query): Promise<ApiResult> {
-    console.log('Loading:', query);
     if (!(query.organisationUnit && query.form)) {
-      throw new BadRequestException(
-        'organisationUnit and form IDs must be passed',
+      throw Error(
+        'organisationUnit and form IDs are compulsory and must be supplied',
       );
     }
     if (!query.filter) {
@@ -39,10 +44,9 @@ export class RecordsController extends BaseController<Record> {
     query.filter.push(`form:eq:${query.form}`);
     return super.findAll(query);
   }
-  @Post(':record/recordValues')
+  @Post(':record/recordVal')
+  @UseGuards(SessionGuard)
   async getAll(@Param() params, @Body() createEntityDto) {
-    console.log('Params:', params);
-    console.log('createEntityDto:', createEntityDto);
     return await this.recordService.saveRecordValues(
       params.record,
       createEntityDto,
@@ -67,6 +71,33 @@ export class RecordsController extends BaseController<Record> {
       // }
     } catch (error) {
       //res.status(400).json({ error: error.message });
+    }
+  }
+
+  @Post(':record/recordValues')
+  @UseGuards(SessionGuard)
+  async saveRecord(
+    @Param('record') record,
+    @Body() createRecordValueDto,
+    @Res() res,
+  ): Promise<any> {
+    await this.recordService.createRecordValue(record, createRecordValueDto);
+    return res.status(HttpStatus.OK).send('Record values created');
+  }
+  @Put('recordValues/:recordValue')
+  @UseGuards(SessionGuard)
+  async updateRecord(
+    @Param('recordValue') recordValue,
+    @Body() createRecordDto,
+    @Res() res,
+  ): Promise<RecordValue> {
+    try {
+      await this.recordService.updateRecordValue(recordValue, createRecordDto);
+      return res.status(HttpStatus.OK).send('Record Value Updated');
+    } catch {
+      return res
+        .status(HttpStatus.NOT_MODIFIED)
+        .send('Recordvalues not Updated');
     }
   }
 }
