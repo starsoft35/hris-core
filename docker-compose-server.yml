@@ -14,8 +14,10 @@ services:
     restart: always
     volumes:
       - type: volume
-        source: ./files/db/postgresql
+        source: HRISPGDATA
         target: /var/lib/postgresql
+        volume:
+          nocopy: true
     networks: 
       - backend
   nginx:
@@ -43,3 +45,5 @@ services:
 networks:
   backend:
     driver: "bridge"
+volumes:
+  HRISPGDATA:
