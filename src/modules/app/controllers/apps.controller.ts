@@ -186,6 +186,6 @@ export class AppsController extends BaseController<App> {
   @Get(':id/*')
   async loadFile(@Param() params, @Res() res) {
     // const result = await this.service.findOneByUid(params.id);
-    res.sendFile(getConfiguration().apps + '/' + params.id + '/' + params['0']);
+    res.sendFile(getConfiguration().apps + '/' + params.id.toLowerCase() + '/' + params['0']);
   }
 }
