@@ -1783,10 +1783,10 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 
     await queryRunner.query(`CREATE TABLE public.organisationunitmembers
     (
-        "userId" integer NOT NULL,
+        userid integer NOT NULL,
         organisationunitid integer NOT NULL,
-        CONSTRAINT "PK_4c1bb7cd98866e76ec49e91a5b1" PRIMARY KEY ("userId", "organisationunitid"),
-        CONSTRAINT "FK_9f8405fda0d56decd0f7e46d85d" FOREIGN KEY ("userId")
+        CONSTRAINT "PK_4c1bb7cd98866e76ec49e91a5b1" PRIMARY KEY ("userid", "organisationunitid"),
+        CONSTRAINT "FK_9f8405fda0d56decd0f7e46d85d" FOREIGN KEY ("userid")
             REFERENCES public."user" (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE
@@ -1811,7 +1811,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     
     CREATE INDEX "IDX_9f8405fda0d56decd0f7e46d85"
         ON public.organisationunitmembers USING btree
-        ("userId")
+        ("userid")
         TABLESPACE pg_default;
     
     -- Index: IDX_f54224b61c067df95828b544ad
@@ -1822,7 +1822,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
         ON public.organisationunitmembers USING btree
         ("organisationunitid")
         TABLESPACE pg_default`);
-    await queryRunner.query(`INSERT INTO organisationunitmembers("userId",organisationunitid)
+    await queryRunner.query(`INSERT INTO organisationunitmembers("userid",organisationunitid)
 (SELECT public.user.id,public.user.organisationunit_id FROM public.user WHERE public.user.organisationunit_id IS NOT NULL)`);
 
     await queryRunner.query(
