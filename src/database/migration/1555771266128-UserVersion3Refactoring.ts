@@ -315,10 +315,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_field_relation" RENAME TO "fieldrelation"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO "parentfieldId"',
+        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO "parentFieldId"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childfieldId"',
+        'ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childrenFieldId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldrelation" ADD COLUMN IF NOT EXISTS "sort" integer',
