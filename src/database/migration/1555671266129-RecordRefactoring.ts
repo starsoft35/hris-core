@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import * as uid from 'uid'
-import getUid from '@iapps/utils'
+import { generateUid } from 'src/core/helpers/makeuid';
+// import * as uid from 'uid'
+// import getUid from '@iapps/utils'
 export class RecordRefactoring1555771266129 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     let userTable = await queryRunner.getTable('hris_record');
@@ -146,7 +147,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
           if (index > 0) {
             query += ',';
           }
-          query += `(now(),now(),'${uid()}','${value}',${recordValue.recordid},${recordValue.fieldid})`;
+          query += `(now(),now(),'${generateUid()}','${value}',${recordValue.recordid},${recordValue.fieldid})`;
           index++;
         }
       });
