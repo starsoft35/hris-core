@@ -328,10 +328,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_form_fieldmembers" RENAME TO "formfieldmember"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formfieldmember" RENAME COLUMN "form_id" TO "formId"',
+        'ALTER TABLE "formfieldmember" RENAME COLUMN "form_id" TO "formid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formfieldmember" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "formfieldmember" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "sort" integer',
