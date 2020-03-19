@@ -13,7 +13,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     restart: always
     volumes:
-      - type: bind
+      - type: volume
         source: ./files/db/postgresql
         target: /var/lib/postgresql
     networks: 
