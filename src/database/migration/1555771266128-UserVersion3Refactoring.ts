@@ -410,7 +410,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoptionmerge" RENAME TO "fieldoptionmerge"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO "mergedfieldoptionId"',
+        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO "mergedFieldOptionId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "datecreated" TO "created"',
