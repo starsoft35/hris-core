@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { getUid } from '@iapps/utils/utils';
+import { getUid } from '@iapps/utils';
 import { TransactionTimestamp } from './transaction-timestamp.entity';
 
 export class EntityCoreProps extends TransactionTimestamp {
