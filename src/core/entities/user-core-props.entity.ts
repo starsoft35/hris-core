@@ -4,7 +4,7 @@ import {
     JoinColumn,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { getUid } from '@iapps/utils/utils';
+import { getUid } from '@iapps/utils';
 import { TransactionTimestamp } from '../../core/entities/transaction-timestamp.entity';
 import { User } from '../../modules/system/user/entities/user.entity';
 
