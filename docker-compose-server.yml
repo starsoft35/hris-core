@@ -13,11 +13,9 @@ services:
       - POSTGRES_PASSWORD=postgres
     restart: always
     volumes:
-      - type: volume
-        source: HRISPGDATA
+      - type: bind
+        source: ./files/db/postgresql
         target: /var/lib/postgresql
-        volume:
-          nocopy: true
     networks: 
       - backend
   nginx:
@@ -45,5 +43,3 @@ services:
 networks:
   backend:
     driver: "bridge"
-volumes:
-  HRISPGDATA:
