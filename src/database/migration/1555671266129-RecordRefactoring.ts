@@ -60,11 +60,11 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         'recordid integer NOT NULL,' +
         'fieldid integer NOT NULL,' +
         'CONSTRAINT "PK_7eee1d43a341d7d9081f4653f75" PRIMARY KEY(recordvalueid),' +
+        'CONSTRAINT "Unique_uid" UNIQUE (uid), ' +
         'CONSTRAINT "FK_6c8389b754538fff362120945f2" FOREIGN KEY(recordid) ' +
         'REFERENCES public.record(recordid) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,' +
         'CONSTRAINT "FK_6c8389b754538fff362120945f5" FOREIGN KEY(fieldid) ' +
-        'REFERENCES public.hris_field(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE),' +
-        'CONSTRAINT "Unique_uid" UNIQUE (uid)';
+        'REFERENCES public.hris_field(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)';
       await queryRunner.query(query);
 
       const results = await queryRunner.manager.query('SELECT * FROM record');
