@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { generateUid } from 'src/core/helpers/makeuid';
+import { generateUid } from '../../core/helpers/makeuid';
 // import * as uid from 'uid'
 // import getUid from '@iapps/utils'
 export class RecordRefactoring1555771266129 implements MigrationInterface {
@@ -63,7 +63,8 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         'CONSTRAINT "FK_6c8389b754538fff362120945f2" FOREIGN KEY(recordid) ' +
         'REFERENCES public.record(recordid) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE,' +
         'CONSTRAINT "FK_6c8389b754538fff362120945f5" FOREIGN KEY(fieldid) ' +
-        'REFERENCES public.hris_field(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)';
+        'REFERENCES public.hris_field(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE),' +
+        'CONSTRAINT "Unique_uid" UNIQUE (uid)';
       await queryRunner.query(query);
 
       const results = await queryRunner.manager.query('SELECT * FROM record');
