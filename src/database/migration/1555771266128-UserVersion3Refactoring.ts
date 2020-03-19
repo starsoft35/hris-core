@@ -538,10 +538,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoption_children" RENAME TO "fieldoptionchildren"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentfieldoptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentFieldoptionId"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO "childfieldoptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO "childFieldoptionId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
