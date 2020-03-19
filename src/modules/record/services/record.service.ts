@@ -17,7 +17,7 @@ import {
 import { getWhereConditions } from 'src/core/utilities';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { Form } from 'src/modules/form/entities/form.entity';
-import { getUid } from '@iapps/utils/utils';
+import { getUid } from '@iapps/utils';
 
 @Injectable()
 export class RecordService extends BaseService<Record> {
@@ -191,6 +191,8 @@ export class RecordService extends BaseService<Record> {
     recordValue.entitledPayment = entitledPayment;
     recordValue.recordid = recordGot;
     recordValue.fieldid = fieldid;
+    //(await this.fieldRepository.findOne({uid})).id;
+    console.log(recordValue.uid);
 
     await this.recordValueRepository.save(recordValue);
   }
