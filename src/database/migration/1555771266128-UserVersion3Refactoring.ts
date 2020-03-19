@@ -701,7 +701,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoptiongroup_members" RENAME TO "fieldoptiongroupmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupd"',
+        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO "fieldoptionId"',
