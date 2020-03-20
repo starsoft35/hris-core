@@ -184,6 +184,11 @@ export class RecordService extends BaseService<Record> {
       fieldid,
       entitledPayment,
     } = createRecordDto;
+
+    let query = await this.fieldRepository.manager.query(
+      `select id from field where uid='${fieldid}'`,
+    );
+    let idfield = query[0].id;
     let recordGot = (await this.recordRepository.findOne({ uid })).id;
     recordValue.uid = generateUid();
     recordValue.value = value;
@@ -192,8 +197,7 @@ export class RecordService extends BaseService<Record> {
     recordValue.comment = comment;
     recordValue.entitledPayment = entitledPayment;
     recordValue.recordid = recordGot;
-    recordValue.fieldid = fieldid;
-    //(await this.fieldRepository.findOne({uid})).id;
+    recordValue.fieldid = idfield;
     console.log(recordValue.uid);
 
     await this.recordValueRepository.save(recordValue);
