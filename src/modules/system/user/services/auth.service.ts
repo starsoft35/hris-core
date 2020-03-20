@@ -3,6 +3,7 @@ import { sanitizeResponseObject } from 'src/core/utilities/sanitize-response-obj
 import { User } from 'src/modules/system/user/entities/user.entity';
 
 import { UserService } from './user.service';
+import { getBasicAuthanticationString } from 'src/core/helpers/basic-auth-token';
 
 @Injectable()
 export class AuthService {
@@ -13,8 +14,8 @@ export class AuthService {
   constructor(private readonly userService: UserService) {}
 
   async login(username, password): Promise<User> {
-    const user = await this.userService.findByUsername(username);
-    // user.token = this.encodePassword(password, user.salt);
+    let token = getBasicAuthanticationString(username,password);
+    let user = await User.authenticateUserByToken(token);
     return user;
   }
 
