@@ -811,7 +811,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_message_thread" RENAME TO "messagethread"',
       );
       await queryRunner.query(
-        'ALTER TABLE "messagethread" RENAME COLUMN "createdby_id" TO "createdbyId"',
+        'ALTER TABLE "messagethread" RENAME COLUMN "createdby_id" TO "createdbyid"',
       );
       await queryRunner.query(
         'ALTER TABLE "messagethread" RENAME COLUMN "createdat" TO "created"',
