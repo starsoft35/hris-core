@@ -18,8 +18,8 @@ import { TrainingVenue } from './training-venue.entity';
 import { Record } from '../../record/entities/record.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 
-@Entity('traininginstance', { schema: 'public' })
-export class TrainingSession extends TransactionTimestamp {
+@Entity('trainingsession', { schema: 'public' })
+export class TrainingSession extends TransactionTimestamp { 
   static plural = 'sessions';
   @Column('integer', {
     nullable: false,
