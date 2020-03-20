@@ -245,7 +245,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "formsectionfieldmember" RENAME COLUMN "formsection_id" TO "formsectionid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formsectionfieldmember" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "formsectionfieldmember" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "formsectionfieldmember" ADD COLUMN IF NOT EXISTS "sort" integer',
@@ -265,10 +265,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_form_visiblefields" RENAME TO "formvisiblefield"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formvisiblefield" RENAME COLUMN "form_id" TO "formId"',
+        'ALTER TABLE "formvisiblefield" RENAME COLUMN "form_id" TO "formid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formvisiblefield" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "formvisiblefield" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "formvisiblefield" ADD COLUMN IF NOT EXISTS "sort" integer',
@@ -278,7 +278,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_formsection" RENAME TO "formsection"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formsection" RENAME COLUMN "form_id" TO "formId"',
+        'ALTER TABLE "formsection" RENAME COLUMN "form_id" TO "formid"',
       );
       await queryRunner.query(
         'ALTER TABLE "formsection" RENAME COLUMN "datecreated" TO "created"',
@@ -315,10 +315,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_field_relation" RENAME TO "fieldrelation"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO "parentfieldId"',
+        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO "parentFieldId"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childfieldId"',
+        'ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childFieldId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldrelation" ADD COLUMN IF NOT EXISTS "sort" integer',
@@ -410,7 +410,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoptionmerge" RENAME TO "fieldoptionmerge"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO "mergedfieldoptionId"',
+        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO "mergedFieldOptionId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "datecreated" TO "created"',
@@ -701,7 +701,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoptiongroup_members" RENAME TO "fieldoptiongroupmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupd"',
+        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO "fieldoptionId"',
@@ -811,7 +811,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_message_thread" RENAME TO "messagethread"',
       );
       await queryRunner.query(
-        'ALTER TABLE "messagethread" RENAME COLUMN "createdby_id" TO "createdbyId"',
+        'ALTER TABLE "messagethread" RENAME COLUMN "createdby_id" TO "createdbyid"',
       );
       await queryRunner.query(
         'ALTER TABLE "messagethread" RENAME COLUMN "createdat" TO "created"',
