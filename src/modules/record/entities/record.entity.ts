@@ -12,7 +12,7 @@ import {
 
 import { Form } from '../../form/entities/form.entity';
 import { OrganisationUnit } from '../../../modules/organisation-unit/entities/organisation-unit.entity';
-import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
+import { TrainingInstance } from '../../training/entities/training-instance.entity';
 import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import { RecordValue } from './record-value.entity';
@@ -58,8 +58,8 @@ export class Record extends TransactionUser {
   recordValues: RecordValue[];
 
   @ManyToMany(
-    type => TrainingSession,
-    trainingSession => trainingSession.trainingMethods,
+    type => TrainingInstance,
+    trainingInstance => trainingInstance.trainingMethods,
   )
-  trainingSessions: TrainingSession[];
+  TrainingInstance: TrainingInstance[];
 }
