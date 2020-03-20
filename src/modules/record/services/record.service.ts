@@ -17,8 +17,6 @@ import {
 import { getWhereConditions } from 'src/core/utilities';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { Form } from 'src/modules/form/entities/form.entity';
-// import { getUid } from '@iapps/utils';
-import * as uid from 'uid';
 import { generateUid } from 'src/core/helpers/makeuid';
 
 @Injectable()
