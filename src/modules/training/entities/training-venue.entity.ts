@@ -2,7 +2,8 @@ import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { TrainingSession } from './training-session.entity';
+import { TrainingInstance } from './training-instance.entity';
+
 
 @Entity('trainingvenue', { schema: 'public' })
 export class TrainingVenue extends EntityCoreProps {
@@ -30,9 +31,9 @@ export class TrainingVenue extends EntityCoreProps {
   organisationUnit: OrganisationUnit | null;
 
   @OneToMany(
-    type => TrainingSession,
-    trainingSession => trainingSession.venue,
+    type => TrainingInstance,
+    trainingInstance => trainingInstance.venue,
     { onDelete: 'CASCADE' },
   )
-  trainingSessions: TrainingSession[];
+  trainingInstance: TrainingInstance[];
 }

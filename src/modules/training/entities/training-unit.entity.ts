@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import { TrainingCurriculum } from './training-curriculum.entity';
 import { TrainingSection } from './training-section.entity';
-import { TrainingSession } from './training-session.entity';
+import { TrainingInstance } from './training-instance.entity';
 
 @Entity('trainingunit', { schema: 'public' })
 export class TrainingUnit extends EntityCoreProps {
@@ -30,8 +30,8 @@ export class TrainingUnit extends EntityCoreProps {
   )
   trainingCurriculums: TrainingCurriculum[];
 
-  @OneToMany(type => TrainingSession, trainingSession => trainingSession.unit, {
+  @OneToMany(type => TrainingInstance, trainingInstance => trainingInstance.unit, {
     onDelete: 'CASCADE',
   })
-  trainingSessions: TrainingSession[];
+  trainingInstance: TrainingInstance[];
 }

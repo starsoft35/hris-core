@@ -11,7 +11,7 @@ import {
 
 import { TrainingMethod } from './training-method.entity';
 import { TrainingSection } from './training-section.entity';
-import { TrainingSession } from './training-session.entity';
+import { TrainingInstance } from './training-instance.entity';
 import { TrainingUnit } from './training-unit.entity';
 
 @Entity('trainingcurriculum', { schema: 'public' })
@@ -47,11 +47,11 @@ export class TrainingCurriculum extends EntityCoreProps {
   allMethodsSelected: boolean | null;
 
   @OneToMany(
-    type => TrainingSession,
-    trainingSession => trainingSession.curriculum,
+    type => TrainingInstance,
+    trainingInstance => trainingInstance.curriculum,
     { onDelete: 'CASCADE' },
   )
-  trainingSessions: TrainingSession[];
+  trainingInstance: TrainingInstance[];
 
   @ManyToMany(
     type => TrainingMethod,

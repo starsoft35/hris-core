@@ -2,7 +2,7 @@ import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { Column, Entity, ManyToMany } from 'typeorm';
 
 import { TrainingCurriculum } from './training-curriculum.entity';
-import { TrainingSession } from './training-session.entity';
+import { TrainingInstance } from './training-instance.entity';
 
 @Entity('trainingmethod', { schema: 'public' })
 export class TrainingMethod extends EntityCoreProps {
@@ -21,8 +21,8 @@ export class TrainingMethod extends EntityCoreProps {
   trainingCurriculums: TrainingCurriculum[];
 
   @ManyToMany(
-    type => TrainingSession,
-    trainingSession => trainingSession.trainingMethods,
+    type => TrainingInstance,
+    trainingInstance => trainingInstance.trainingMethods,
   )
-  trainingSessions: TrainingSession[];
+  trainingInstances: TrainingInstance[];
 }

@@ -18,9 +18,9 @@ import { TrainingVenue } from './training-venue.entity';
 import { Record } from '../../record/entities/record.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 
-@Entity('trainingsession', { schema: 'public' })
-export class TrainingSession extends TransactionTimestamp { 
-  static plural = 'sessions';
+@Entity('traininginstance', { schema: 'public' })
+export class TrainingInstance extends TransactionTimestamp { 
+  static plural = 'instances';
   @Column('integer', {
     nullable: false,
     primary: true,
@@ -30,7 +30,7 @@ export class TrainingSession extends TransactionTimestamp {
 
   @ManyToOne(
     () => TrainingSection,
-    (trainingsections: TrainingSection) => trainingsections.trainingSessions,
+    (trainingsections: TrainingSection) => trainingsections.trainingInstance,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'sectionid' })
@@ -45,7 +45,7 @@ export class TrainingSession extends TransactionTimestamp {
 
   @ManyToOne(
     () => OrganisationUnit,
-    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
+    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingInstances,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'region' })
@@ -53,7 +53,7 @@ export class TrainingSession extends TransactionTimestamp {
 
   @ManyToOne(
     () => OrganisationUnit,
-    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
+    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingInstances,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'district' })
@@ -68,7 +68,7 @@ export class TrainingSession extends TransactionTimestamp {
 
   @ManyToOne(
     () => TrainingSponsor,
-    (TrainingSponsor: TrainingSponsor) => TrainingSponsor.trainingSessions,
+    (TrainingSponsor: TrainingSponsor) => TrainingSponsor.trainingInstances,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'sponsor' })
@@ -103,7 +103,7 @@ export class TrainingSession extends TransactionTimestamp {
 
   @ManyToOne(
     () => TrainingUnit,
-    (TrainingUnit: TrainingUnit) => TrainingUnit.trainingSessions,
+    (TrainingUnit: TrainingUnit) => TrainingUnit.trainingInstance,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'unitid' })
@@ -112,7 +112,7 @@ export class TrainingSession extends TransactionTimestamp {
   @ManyToOne(
     () => TrainingCurriculum,
     (TrainingCurriculum: TrainingCurriculum) =>
-      TrainingCurriculum.trainingSessions,
+      TrainingCurriculum.trainingInstance,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'curriculumid' })
@@ -120,7 +120,7 @@ export class TrainingSession extends TransactionTimestamp {
 
   @ManyToOne(
     () => TrainingSponsor,
-    (TrainingSponsor: TrainingSponsor) => TrainingSponsor.trainingSessions,
+    (TrainingSponsor: TrainingSponsor) => TrainingSponsor.trainingInstances,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'organiser' })
@@ -162,7 +162,7 @@ export class TrainingSession extends TransactionTimestamp {
 
   @ManyToMany(
     () => TrainingMethod,
-    (TrainingMethod: TrainingMethod) => TrainingMethod.trainingSessions,
+    (TrainingMethod: TrainingMethod) => TrainingMethod.trainingInstances,
     { nullable: false },
   )
   @JoinTable({ name: 'traininginstancemethods' })

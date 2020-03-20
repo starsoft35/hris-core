@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TrainingCurriculumController } from './controllers/training-curriculum.controller';
 import { TrainingMethodController } from './controllers/training-method.controller';
 import { TrainingSectionController } from './controllers/training-section.controller';
-import { TrainingSessionController } from './controllers/training-session.controller';
+import { TrainingInstanceController } from './controllers/training-session.controller';
 import { TrainingSponsorController } from './controllers/training-sponsor.controller';
 import { TrainingTrainerController } from './controllers/training-trainers.controller';
 import { TrainingUnitController } from './controllers/training-unit.controller';
@@ -10,7 +10,7 @@ import { TrainingVenueController } from './controllers/training-venue.controller
 import { TrainingCurriculumService } from './services/training-curriculum.service';
 import { TrainingMethodService } from './services/training-method.service';
 import { TrainingSectionService } from './services/training-section.service';
-import { TrainingSessionService } from './services/training-session.service';
+import { TrainingInstanceService } from './services/training-session.service';
 import { TrainingSponsorService } from './services/training-sponsor.service';
 import { TrainingTrainerService } from './services/training-trainers.service';
 import { TrainingUnitService } from './services/training-unit.service';
@@ -19,7 +19,7 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TrainingCurriculum } from './entities/training-curriculum.entity';
 import { TrainingMethod } from './entities/training-method.entity';
-import { TrainingSession } from './entities/training-session.entity';
+import { TrainingInstance } from './entities/training-instance.entity';
 import { TrainingSponsor } from './entities/training-sponsor.entity';
 import { TrainingTrainer } from './entities/training-trainer.entity';
 import { TrainingUnit } from './entities/training-unit.entity';
@@ -33,7 +33,7 @@ import { TrainingSection } from './entities/training-section.entity';
       TrainingSection,
       TrainingCurriculum,
       TrainingMethod,
-      TrainingSession,
+      TrainingInstance,
       TrainingSponsor,
       TrainingTrainer,
       TrainingUnit,
@@ -44,7 +44,7 @@ import { TrainingSection } from './entities/training-section.entity';
     TrainingCurriculumController,
     TrainingMethodController,
     TrainingSectionController,
-    TrainingSessionController,
+    TrainingInstanceController,
     TrainingSponsorController,
     TrainingTrainerController,
     TrainingUnitController,
@@ -54,7 +54,7 @@ import { TrainingSection } from './entities/training-section.entity';
     TrainingCurriculumService,
     TrainingMethodService,
     TrainingSectionService,
-    TrainingSessionService,
+    TrainingInstanceService,
     TrainingSponsorService,
     TrainingTrainerService,
     TrainingUnitService,
