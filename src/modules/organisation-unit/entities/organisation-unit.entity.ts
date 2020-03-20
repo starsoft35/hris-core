@@ -1,7 +1,7 @@
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { Record } from '../../../modules/record/entities/record.entity';
 import { User } from '../../../modules/system/user/entities/user.entity';
-import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
+import { TrainingInstance } from '../../training/entities/training-instance.entity';
 import { TrainingVenue } from '../../../modules/training/entities/training-venue.entity';
 import {
   Column,
@@ -146,11 +146,11 @@ export class OrganisationUnit extends EntityCoreProps {
   records: Record[];
 
   @OneToMany(
-    type => TrainingSession,
-    trainingSession => trainingSession.region,
+    type => TrainingInstance,
+    trainingInstances => trainingInstances.region,
     { onDelete: 'CASCADE' },
   )
-  trainingSessions: TrainingSession[];
+  trainingInstances: TrainingInstance[];
 
   @OneToMany(
     type => TrainingVenue,
