@@ -7,8 +7,8 @@ import { AppsService } from './modules/app/services/apps.service';
 
 @Injectable()
 export class AppService{
+    
     constructor(
-        @Inject('HTTP_SERVER_REF')
         private appsService: AppsService
     ) {
     }
