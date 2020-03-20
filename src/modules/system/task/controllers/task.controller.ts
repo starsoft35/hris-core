@@ -22,12 +22,12 @@ export class TaskController extends BaseController<Task>{
       console.log('Running Analytics');
       processes.push((new Analytics(this.taskService, this.connetion)).start(task));
     }
-    if (query.periodTable === 'true') {
+    if (query.organisationUnitTable === 'true') {
       processes.push((new OrgUnitGenerator(this.taskService, this.connetion)).start(task));
     }
-    if (query.organisationUnitTable === 'true') {
+    if (query.periodTable === 'true') {
       processes.push(
-        (new PeriodGenerator(this.taskService, this.connetion)).start(task)
+        (new PeriodGenerator(this.taskService, this.connetion)).start(task) 
       );
     }
     Promise.all(processes)
