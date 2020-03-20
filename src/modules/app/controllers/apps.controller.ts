@@ -41,6 +41,12 @@ export class AppsController extends BaseController<App> {
     if(results.apps){
       results.apps = results.apps.filter((app)=>app.name.toLowerCase().indexOf('login') === -1)
     }
+    results.apps = results.apps.map((app)=>{
+      return {
+        ...app,
+        appicon: "../" + app.name.toLowerCase() +"/" + app.appicon
+      }
+    });
     return results;
   }
   @Post('upload')
