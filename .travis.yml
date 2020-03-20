@@ -1,9 +1,8 @@
-dist: trusty
-sudo: false
+dist: bionic
 
 language: node_js
 node_js:
-  - '10'
+  - '12'
 
 branches:
   only:
@@ -11,8 +10,19 @@ branches:
     - develop
     - /^greenkeeper/.*$/
 
-ignore:
-  - src/frontend/*/**
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+before_install:
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+
+services:
+  - xvfb
 
 cache:
   directories:
@@ -23,15 +33,7 @@ install:
   - npm install
 
 script:
-  - npm run build:travis
+  - npm run build
 
 notifications:
-  email:
-    recipients:
-      - waltervfaustine@gmail.com
-
-    on_failure: always
-    on_success: always
-  
   slack: hisptz:2UQgrRwNrI14ohefnnPyzms7
-
