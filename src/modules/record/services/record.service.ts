@@ -236,20 +236,4 @@ export class RecordService extends BaseService<Record> {
     console.log('Fetching By UID');
     return await this.recordRepository.findOne({ where: { uid }, join });
   }
-
-  /**
-   *
-   * @param id
-   */
-  async findOneById(id: string): Promise<Record> {
-    let join: any = {};
-    join = {
-      alias: 'record',
-      leftJoinAndSelect: {
-        form: 'record.form',
-        organisationUnit: 'record.organisationUnit',
-      },
-    };
-    return await this.recordRepository.findOne({ where: { id }, join });
-  }
 }
