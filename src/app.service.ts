@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
 import { App } from './modules/app/entities/apps.entity';
@@ -7,7 +7,9 @@ import { AppsService } from './modules/app/services/apps.service';
 
 @Injectable()
 export class AppService{
-    constructor(private appsService: AppsService
+    
+    constructor(
+        private appsService: AppsService
     ) {
     }
 

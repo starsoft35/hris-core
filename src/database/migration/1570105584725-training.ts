@@ -414,6 +414,7 @@ export class training1570105584725 implements MigrationInterface {
     uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
     code character varying(25) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
     name character varying(256) COLLATE pg_catalog."default" NOT NULL,
+    delievry_mode text,
     description text COLLATE pg_catalog."default",
     lastupdatedby character varying COLLATE pg_catalog."default",
     publicaccess character varying(8) COLLATE pg_catalog."default",
