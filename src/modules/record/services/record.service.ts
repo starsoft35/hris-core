@@ -18,6 +18,7 @@ import { getWhereConditions } from 'src/core/utilities';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { Form } from 'src/modules/form/entities/form.entity';
 import { generateUid } from 'src/core/helpers/makeuid';
+import {getUid} from '@iapps/utils/utils'
 
 @Injectable()
 export class RecordService extends BaseService<Record> {
@@ -188,7 +189,7 @@ export class RecordService extends BaseService<Record> {
     );
     let idfield = query[0].id;
     let recordGot = (await this.recordRepository.findOne({ uid })).id;
-    recordValue.uid = generateUid();
+    recordValue.uid = getUid('', 11)
     recordValue.value = value;
     recordValue.startDate = startDate;
     recordValue.endDate = endDate;
