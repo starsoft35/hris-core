@@ -91,10 +91,10 @@ export class report1570103156996 implements MigrationInterface {
       `);
 
       await queryRunner.query(`
-          CREATE TABLE public.reportgroupemebers
+          CREATE TABLE public.reportgroupmembers
           (
-              "reportgroupid" integer NOT NULL,
-              "reportid" integer NOT NULL,
+              "reportgroupId" integer NOT NULL,
+              "reportId" integer NOT NULL,
               CONSTRAINT "PK_ccbf0e9ff27c065da0997ffe71a" PRIMARY KEY ("reportgroupid", "reportid"),
               CONSTRAINT "FK_3d77f41fe60918e43eb1d9d706b" FOREIGN KEY ("reportgroupid")
                   REFERENCES public."reportgroup" (id) MATCH SIMPLE
