@@ -126,8 +126,8 @@ export class report1570103156996 implements MigrationInterface {
               TABLESPACE pg_default;
       `);
 
-      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, html)
-        VALUES (uid(), 'Completeness Report', '/reports/organisationunit/completeness/generate/redirect', 'organisationunit=9272', '<table
+      await queryRunner.query(`INSERT INTO report(uid, name,  uri, parameters, type, html)
+        VALUES (uid(), 'Completeness Report', '/reports/organisationunit/completeness/generate/redirect', 'organisationunit=9272', 'html', '<table
           class="records_list dataTable table table-striped table-bordered table-hover no-footer"
           cellpadding="0"
           cellspacing="0"
@@ -338,8 +338,8 @@ export class report1570103156996 implements MigrationInterface {
         
         `);
 
-      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, html)
-        VALUES (uid(), 'Orgunit By Groupset', '/reports/organisationunit/groupset/organisationunitgroup', 'organisationunit=9272', '<table
+      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, type, html)
+        VALUES (uid(), 'Orgunit By Groupset', '/reports/organisationunit/groupset/organisationunitgroup', 'organisationunit=9272', 'html', '<table
         class="records_list dataTable table table-striped table-bordered table-hover no-footer"
         cellpadding="0"
         cellspacing="0"
@@ -457,8 +457,8 @@ export class report1570103156996 implements MigrationInterface {
 	)  
         `);
 
-      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, html)
-        VALUES (uid(), 'Orgunit By Groupset', '/reports/organisationunit/groupset/organisationunitgroup', 'organisationunit=9272', '<table
+      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, type, html)
+        VALUES (uid(), 'Orgunit By Groupset', '/reports/organisationunit/groupset/organisationunitgroup', 'organisationunit=9272', 'html', '<table
         class="records_list dataTable table table-striped table-bordered table-hover no-footer"
         cellpadding="0"
         cellspacing="0"
@@ -576,8 +576,8 @@ export class report1570103156996 implements MigrationInterface {
 	)  
         `);
 
-      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, html)
-      VALUES (uid(), 'Orgunit By Levels ', '/reports/organisationunit/levels/', 'organisationunit=9272', '<table
+      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, type, html)
+      VALUES (uid(), 'Orgunit By Levels ', '/reports/organisationunit/levels/', 'organisationunit=9272', 'html', '<table
       class="records_list dataTable table table-striped table-bordered table-hover"
       cellpadding="0"
       cellspacing="0"
@@ -805,9 +805,9 @@ export class report1570103156996 implements MigrationInterface {
   )  
         `);
 
-      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, html)
+      await queryRunner.query(`INSERT INTO report(uid, name, uri, parameters, type, html)
 
-      VALUES (uid(), 'Records Report ', '/reports/employeerecords/', 'organisationunit=9272', '<table
+      VALUES (uid(), 'Records Report ', '/reports/employeerecords/', 'organisationunit=9272', 'html', '<table
       class="records_list dataTable table table-striped table-bordered table-hover no-footer"
       cellpadding="0"
       cellspacing="0"
