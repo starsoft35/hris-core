@@ -32,8 +32,8 @@ export class ReportGroup extends EntityCoreProps {
   @ManyToMany(
     type => Report,
     report => report.reportGroups,
-    { nullable: false },
+    { nullable: false, eager: true },
   )
-  @JoinTable({name: 'reportgroupmembers'})
+  @JoinTable({ name: 'reportgroupmembers' })
   reports: Report[];
 }

@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, PrimaryGeneratedColumn } from 'typeorm';
-// import { getUid } from '@iapps/utils';
+ import { getUid } from '@iapps/utils/utils';
 import { TransactionTimestamp } from './transaction-timestamp.entity';
 import { generateUid } from '../helpers/makeuid';
 
@@ -53,6 +53,6 @@ export class EntityCoreProps extends TransactionTimestamp {
      *  2. You can generat UUID by prepending a context specific keyword i.e getUid('HRIS', 20)
      *      Example of UUID::: HRIS_8aydSxYBrrP
      */
-    this.uid =generateUid();
+    this.uid =getUid('', 11);
   }
 }

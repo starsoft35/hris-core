@@ -5,7 +5,7 @@ if (!pathFolder) {
     fs.mkdirSync('./files');
   }
   if (!fs.existsSync('./files/config.json')) {
-    fs.writeFileSync('./files/config.json', fs.readFileSync('./config.json'));
+    fs.writeFileSync('./files/config.json', fs.readFileSync('./config.example.json'));
   }
   pathFolder = __dirname.split('/src/core/utilities').join('') + '/files';
 }

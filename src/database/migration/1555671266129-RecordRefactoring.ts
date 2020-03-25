@@ -1,5 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 import { generateUid } from '../../core/helpers/makeuid';
+import { getUid } from '@iapps/utils/utils';
+
 // import * as uid from 'uid'
 // import getUid from '@iapps/utils'
 export class RecordRefactoring1555771266129 implements MigrationInterface {
@@ -148,7 +150,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
           if (index > 0) {
             query += ',';
           }
-          query += `(now(),now(),'${generateUid()}','${value}',${recordValue.recordid},${recordValue.fieldid})`;
+          query += `(now(),now(),'${getUid('', 11)}','${value}',${recordValue.recordid},${recordValue.fieldid})`;
           index++;
         }
       });
