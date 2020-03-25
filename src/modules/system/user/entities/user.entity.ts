@@ -24,7 +24,7 @@ import { Chart } from '../../../visualization/chart/entities/chart.entity';
 import { Map } from '../../../visualization/map/entities/map.entity';
 import { ReportTable } from '../../../visualization/report-table/entities/report-table.entity';
 import { Dashboard } from '../../../visualization/dashboard/entities/dashboard.entity';
-import { Report } from 'src/modules/report/entities/report.entity';
+import { Report } from '../../../report/entities/report.entity';
 import { ReportService } from 'src/modules/report/services/report.service';
 
 @Entity('user', { schema: 'public' })

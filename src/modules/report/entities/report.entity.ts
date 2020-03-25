@@ -8,8 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ReportGroup } from './report.group.entity';
-import { type } from 'os';
-import { User } from 'src/modules/system/user/entities/user.entity';
+import { User } from '../../system/user/entities/user.entity';
 
 @Entity('report', { schema: 'public' })
 export class Report extends EntityCoreProps {
@@ -19,7 +18,7 @@ export class Report extends EntityCoreProps {
   id: number;
 
   @Column('character varying', {
-    nullable: false,
+    nullable: true,
     length: 255,
     name: 'uri',
   })
@@ -74,7 +73,7 @@ export class Report extends EntityCoreProps {
 
   @Column('character varying', {
     nullable: false,
-    length: 255,
+    length: 256,
     name: 'code',
   })
   code: string;
