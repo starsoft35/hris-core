@@ -1,6 +1,15 @@
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { ReportGroup } from './report.group.entity';
+import { type } from 'os';
+import { User } from 'src/modules/system/user/entities/user.entity';
 
 @Entity('report', { schema: 'public' })
 export class Report extends EntityCoreProps {
@@ -22,6 +31,12 @@ export class Report extends EntityCoreProps {
   })
   parameters: any;
 
+  @Column({
+    nullable: false,
+    name: 'userid',
+  })
+  userid: number;
+
   @Column('character varying', {
     nullable: false,
     length: 255,
@@ -35,13 +50,6 @@ export class Report extends EntityCoreProps {
     name: 'createdby',
   })
   createdby: string;
-
-  @Column('character varying', {
-    nullable: false,
-    length: 255,
-    name: 'userid',
-  })
-  userid: number;
 
   @Column('character varying', {
     nullable: false,
@@ -73,9 +81,16 @@ export class Report extends EntityCoreProps {
 
   @Column('character varying', {
     nullable: false,
-    length: 255,
   })
   html: string;
+
+  @OneToOne(
+    () => User,
+    (user: User) => user.report,
+    { onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'userid', referencedColumnName: 'id' })
+  user: User;
 
   @ManyToMany(
     type => ReportGroup,
