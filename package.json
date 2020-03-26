@@ -33,7 +33,7 @@
     "@nestjs/schedule": "^0.3.0",
     "@nestjs/swagger": "^4.4.0",
     "@nestjs/typeorm": "6.2.0",
-    "@nestjs/websockets": "6.10.14",
+    "@nestjs/websockets": "7.0.6",
     "@tsed/common": "^5.44.10",
     "@tsed/core": "^5.44.10",
     "@tsed/di": "^5.44.10",
