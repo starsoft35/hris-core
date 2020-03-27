@@ -78,7 +78,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "user" ADD CONSTRAINT "fk_user_createdby" FOREIGN KEY("createdbyId") REFERENCES "user"',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD COLUMN "lastupdatedbyId" INTEGER',
+        'ALTER TABLE "user" ADD COLUMN "lastupdatedbyId" INTEGER',                           
       );
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "id" INTEGER',
@@ -88,6 +88,9 @@ TABLESPACE pg_default;
       );
       await queryRunner.query(
         'ALTER TABLE "user" RENAME COLUMN "last_login" TO "lastlogin"',
+      );
+      await queryRunner.query(
+        'ALTER TABLE "user" RENAME COLUMN "organisationunit_id" TO "organisationunitid"',
       );
       await queryRunner.query(
         'ALTER TABLE "user" RENAME COLUMN "confirmation_token" TO "token"',
