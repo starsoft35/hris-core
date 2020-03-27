@@ -53,7 +53,7 @@
     "express-session": "^1.17.0",
     "extract-zip": "^1.6.7",
     "handlebars": "^4.7.2",
-    "helmet": "^3.16.0",
+    "helmet": "^3.22.0",
     "lodash": "^4.17.15",
     "method-override": "^3.0.0",
     "nestjs-typeorm-paginate": "^1.0.3",
