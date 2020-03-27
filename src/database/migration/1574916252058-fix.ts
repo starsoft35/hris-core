@@ -221,6 +221,10 @@ export class fix1574916252058 implements MigrationInterface {
     CREATE SEQUENCE schedule_id_seq;
     `;
     await queryRunner.query(fixes);
+
+    await queryRunner.query(
+      'ALTER TABLE "user" RENAME COLUMN "organisationunit_id" TO "organisationunitid"',
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}
