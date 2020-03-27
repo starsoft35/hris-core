@@ -349,7 +349,9 @@ TABLESPACE pg_default;
         'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "ispinned" boolean',
       );
 
-      await queryRunner.query('ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "showinlist" boolean',);
+      await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "showinlist" boolean',
+      );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoption" RENAME TO "fieldoption"',
@@ -459,12 +461,8 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "removedfieldoptionuid" character varying(255)',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldId" integer',
+        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "field_id" TO "fieldId"',
       );
-      await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldId" integer',
-      );
-
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroupset" RENAME TO "fieldoptiongroupset"',
       );
