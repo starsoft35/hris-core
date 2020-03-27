@@ -15,7 +15,7 @@ export class OrgUnitGenerator extends BackgroundProcess{
           );
           await this.connetion.manager.query(
             'CREATE TABLE _organisationunitstructure(' +
-              'organisationunitid integer NOT NULL,' +
+              'organisationunitid bigserial NOT NULL,' +
               'uid character(30) COLLATE pg_catalog."default", ' +
               'level integer, ' +
               'CONSTRAINT _organisationunitstructure_temp_pkey PRIMARY KEY(organisationunitid)' +
