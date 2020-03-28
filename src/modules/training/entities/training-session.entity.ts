@@ -143,9 +143,9 @@ export class TrainingSession extends TransactionTimestamp {
   @Column('character varying', {
     nullable: true,
     length: 20,
-    name: 'delivery_mode',
+    name: 'deliverymode',
   })
-  delivery_mode: string | null;
+  deliverymode: string | null;
 
   @Column('character varying', {
     nullable: true,

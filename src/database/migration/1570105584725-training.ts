@@ -405,72 +405,63 @@ export class training1570105584725 implements MigrationInterface {
     }
 
     let trainingSession = `
-    CREATE SEQUENCE trainingsession_id_seq;
-    CREATE TABLE public.trainingsession
+
+CREATE TABLE public.trainingsession
 (
     created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
     lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
-    id integer NOT NULL DEFAULT nextval('trainingsession_id_seq'::regclass),
-    uid character varying(256) COLLATE pg_catalog."default" NOT NULL,
-    code character varying(25) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
-    name character varying(256) COLLATE pg_catalog."default" NOT NULL,
-    delievry_mode text,
-    description text COLLATE pg_catalog."default",
-    lastupdatedby character varying COLLATE pg_catalog."default",
-    publicaccess character varying(8) COLLATE pg_catalog."default",
-    externalaccess boolean,
+    id integer NOT NULL,
+    uid character varying(13) COLLATE pg_catalog."default" NOT NULL,
+    venue character varying(100) COLLATE pg_catalog."default",
     startdate timestamp without time zone,
     enddate timestamp without time zone,
+    createdby character varying(100) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+    trainingid integer,
+    deliverymode character varying(20) COLLATE pg_catalog."default",
+    name character varying(256) COLLATE pg_catalog."default",
+    venuename text COLLATE pg_catalog."default",
     sectionid integer,
-    organisationunitid integer,
-    venueid integer,
-    sponsorid integer,
+    region integer,
+    district integer,
+    sponsor integer,
     unitid integer,
     curriculumid integer,
-    organiserid integer,
+    organiser integer,
     CONSTRAINT "PK_423a0626bc00cef44ca00be3be2" PRIMARY KEY (id),
-    CONSTRAINT "UQ_740a23883e56d250a5b08f7bc66" UNIQUE (uid)
-,
+    CONSTRAINT "FK_0d6bd3f9ab70340fc09e50ba659" FOREIGN KEY (district)
+        REFERENCES public.organisationunit (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
     CONSTRAINT "FK_14772fcc31e449bcfecb5be0d0e" FOREIGN KEY (curriculumid)
         REFERENCES public.trainingcurriculum (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
+        ON DELETE CASCADE,
     CONSTRAINT "FK_30778db1b27df56675edf72f9ad" FOREIGN KEY (sectionid)
         REFERENCES public.trainingsections (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT "FK_7311b5eb1d2c11ea7f331dacb84" FOREIGN KEY (organisationunitid)
+        ON DELETE CASCADE,
+    CONSTRAINT "FK_79c5033bfe5efe8614197de0b02" FOREIGN KEY (sponsor)
+        REFERENCES public.trainingsponsor (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT "FK_8545abacaa6a4941338c695a1ed" FOREIGN KEY (region)
         REFERENCES public.organisationunit (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT "FK_76aeeee775bf56bb981764dc25e" FOREIGN KEY (organiserid)
+        ON DELETE CASCADE,
+    CONSTRAINT "FK_c0ff43b75deb28787a428c441f1" FOREIGN KEY (organiser)
         REFERENCES public.trainingsponsor (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT "FK_83ce766a8db4f37f18da08e0db4" FOREIGN KEY (sponsorid)
-        REFERENCES public.trainingsponsor (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT "FK_8cc245eeb7e85c31b83bb6b3955" FOREIGN KEY (venueid)
-        REFERENCES public.trainingvenue (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-        NOT VALID,
+        ON DELETE CASCADE,
     CONSTRAINT "FK_db3070edc959ca56cda6610ea27" FOREIGN KEY (unitid)
         REFERENCES public.trainingunit (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
-        NOT VALID
 )
-WITH (
-    OIDS = FALSE
-)
+
 TABLESPACE pg_default;
+
+ALTER TABLE public.trainingsession
+    OWNER to postgres;
     `;
     await queryRunner.query(trainingSession);
 
