@@ -2,7 +2,7 @@ import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import { TrainingCurriculum } from './training-curriculum.entity';
-import { TrainingInstance } from './training-instance.entity';
+import { TrainingSession } from './training-session.entity';
 import { TrainingUnit } from './training-unit.entity';
 
 @Entity('trainingsections', { schema: 'public' })
@@ -28,9 +28,9 @@ export class TrainingSection extends EntityCoreProps {
   trainingUnits: TrainingUnit[];
 
   @OneToMany(
-    type => TrainingInstance,
-    trainingInstance => trainingInstance.section,
+    type => TrainingSession,
+    trainingSession => trainingSession.section,
     { onDelete: 'CASCADE' },
   )
-  trainingInstance: TrainingInstance[];
+  trainingSessions: TrainingSession[];
 }
