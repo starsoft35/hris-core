@@ -183,7 +183,6 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE trainingsections ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE trainingsession ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE trainingsession ALTER COLUMN sectionid TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN organisationunitid TYPE BIGINT;
         ALTER TABLE trainingsession ALTER COLUMN venueid TYPE BIGINT;
         ALTER TABLE trainingsession ALTER COLUMN sponsorid TYPE BIGINT;
         ALTER TABLE trainingsession ALTER COLUMN unitid TYPE BIGINT;
