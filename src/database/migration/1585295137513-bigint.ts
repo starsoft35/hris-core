@@ -219,6 +219,9 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE userrolemembers ALTER COLUMN "userroleId" TYPE BIGINT;
         ALTER TABLE usersetting ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE validation ALTER COLUMN id TYPE BIGINT;
+        CREATE SEQUENCE task_id_seq AS BIGINT OWNED BY task.id;
+        CREATE SEQUENCE process_id_seq AS BIGINT OWNED BY process.id;
+        CREATE SEQUENCE schedule_id_seq AS BIGINT OWNED BY schedule.id;
         `);
   }
 
