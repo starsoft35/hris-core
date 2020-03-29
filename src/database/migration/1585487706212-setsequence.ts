@@ -2,15 +2,15 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class sequential1585499925311 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
-    // const userid = await queryRunner.query(
-    //     `SELECT id FROM "user" ORDER BY id DESC LIMIT 1`,
-    //   );
-    //   const nextUser = userid[0]
-    //     ? parseInt(userid[0].id) + parseInt('1')
-    //     : parseInt('1');
-    //   await queryRunner.query(
-    //     `ALTER SEQUENCE user_id_seq RESTART WITH ${nextUser};`,
-    //   );
+    const userid = await queryRunner.query(
+        `SELECT id FROM "user" ORDER BY id DESC LIMIT 1`,
+      );
+      const nextUser = userid[0]
+        ? parseInt(userid[0].id) + parseInt('1')
+        : parseInt('1');
+      await queryRunner.query(
+        `ALTER SEQUENCE user_id_seq RESTART WITH ${nextUser};`,
+      );
 
     const usersettingid = await queryRunner.query(
       `SELECT id FROM usersetting ORDER BY id DESC LIMIT 1`,
