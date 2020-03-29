@@ -55,7 +55,7 @@ export class report1570103156996 implements MigrationInterface {
       await queryRunner.query('UPDATE "report" SET uid=uid()');
       await queryRunner.query(' ALTER TABLE "report" OWNER TO "postgres"');
       await queryRunner.query(
-        'CREATE SEQUENCE report_id_seq AS integer OWNED BY report.id',
+        'CREATE SEQUENCE report_id_seq AS BIGINT OWNED BY report.id',
       );
       await queryRunner.query(
         `ALTER TABLE report ALTER COLUMN  id SET DEFAULT nextval('report_id_seq')`,
@@ -85,7 +85,7 @@ export class report1570103156996 implements MigrationInterface {
           ALTER TABLE public."reportgroup"
           OWNER to postgres;
 
-          CREATE SEQUENCE reportgroup_id_seq AS integer OWNED BY reportgroup.id;
+          CREATE SEQUENCE reportgroup_id_seq AS BIGINT OWNED BY reportgroup.id;
           ALTER TABLE public."reportgroup" ALTER COLUMN id SET DEFAULT nextval('reportgroup_id_seq');
 
       `);

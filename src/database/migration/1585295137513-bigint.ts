@@ -222,10 +222,6 @@ export class bigint1585295137513 implements MigrationInterface {
         CREATE SEQUENCE task_id_seq AS BIGINT OWNED BY task.id;
         CREATE SEQUENCE process_id_seq AS BIGINT OWNED BY process.id;
         CREATE SEQUENCE schedule_id_seq AS BIGINT OWNED BY schedule.id;
-        CREATE SEQUENCE leave_id_seq AS BIGINT OWNED BY leave.id;
-        CREATE SEQUENCE leaverelative_id_seq AS BIGINT OWNED BY leaverelative.id;
-        CREATE SEQUENCE leavetype_id_seq AS BIGINT OWNED BY leavetype.id;
-
         `);
   }
 
