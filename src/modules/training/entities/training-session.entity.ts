@@ -16,62 +16,46 @@ import { TrainingSponsor } from './training-sponsor.entity';
 import { TrainingUnit } from './training-unit.entity';
 import { TrainingVenue } from './training-venue.entity';
 import { Record } from '../../record/entities/record.entity';
-import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 
 @Entity('trainingsession', { schema: 'public' })
-export class TrainingSession extends TransactionTimestamp { 
-  static plural = 'sessions';
+export class TrainingSession extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'id',
+    name: 'trainingsessionid',
   })
   id: number;
 
   @ManyToOne(
-    () => TrainingSection,
-    (trainingsections: TrainingSection) => trainingsections.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
+    type => TrainingSection,
+    trainingSection => trainingSection.trainingSessions,
+    { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'sectionid' })
   section: TrainingSection | null;
 
-  @Column('character varying', {
-    nullable: false,
-    length: 13,
-    name: 'uid',
-  })
-  uid: string;
+  @ManyToOne(
+    type => OrganisationUnit,
+    organisationunit => organisationunit.trainingSessions,
+    { onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'organisationunitid' })
+  organisationUnit: OrganisationUnit | null;
 
   @ManyToOne(
-    () => OrganisationUnit,
-    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
+    type => TrainingVenue,
+    trainingVenue => trainingVenue.trainingSessions,
+    { onDelete: 'CASCADE' },
   )
-  @JoinColumn({ name: 'region' })
-  region: OrganisationUnit | null;
+  @JoinColumn({ name: 'venueid' })
+  venue: TrainingVenue | null;
 
   @ManyToOne(
-    () => OrganisationUnit,
-    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
+    type => TrainingSponsor,
+    trainingSponsor => trainingSponsor.sponsorTrainingSessions,
+    { onDelete: 'CASCADE' },
   )
-  @JoinColumn({ name: 'district' })
-  district: OrganisationUnit | null;
-
-  @Column('character varying', {
-    nullable: true,
-    length: 100,
-    name: 'venue',
-  })
-  venue: string | null;
-
-  @ManyToOne(
-    () => TrainingSponsor,
-    (TrainingSponsor: TrainingSponsor) => TrainingSponsor.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'sponsor' })
+  @JoinColumn({ name: 'sponsorid' })
   sponsor: TrainingSponsor | null;
 
   @Column('timestamp without time zone', {
@@ -79,92 +63,52 @@ export class TrainingSession extends TransactionTimestamp {
     default: () => 'NULL::timestamp without time zone',
     name: 'startdate',
   })
-  startdate: Date | null;
+  startDate: Date | null;
 
   @Column('timestamp without time zone', {
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
     name: 'enddate',
   })
-  enddate: Date | null;
-
-  @Column('timestamp without time zone', {
-    nullable: false,
-    name: 'created',
-  })
-  created: Date;
-
-  // @Column('timestamp without time zone', {
-  //   nullable: true,
-  //   default: () => 'NULL::timestamp without time zone',
-  //   name: 'lastupdated',
-  // })
-  // lastupdated: Date | null;
+  endDate: Date | null;
 
   @ManyToOne(
-    () => TrainingUnit,
-    (TrainingUnit: TrainingUnit) => TrainingUnit.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
+    type => TrainingUnit,
+    trainingUnits => trainingUnits.trainingSessions,
+    { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'unitid' })
   unit: TrainingUnit | null;
 
   @ManyToOne(
-    () => TrainingCurriculum,
-    (TrainingCurriculum: TrainingCurriculum) =>
-    TrainingCurriculum.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
+    type => TrainingCurriculum,
+    trainingCurriculum => trainingCurriculum.trainingSessions,
+    { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'curriculumid' })
   curriculum: TrainingCurriculum | null;
 
   @ManyToOne(
-    () => TrainingSponsor,
-    (TrainingSponsor: TrainingSponsor) => TrainingSponsor.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
+    type => TrainingSponsor,
+    trainingSponsor => trainingSponsor.organiserTrainingSessions,
+    { onDelete: 'CASCADE' },
   )
-  @JoinColumn({ name: 'organiser' })
+  @JoinColumn({ name: 'organiserid' })
   organiser: TrainingSponsor | null;
 
-  @Column('character varying', {
-    nullable: true,
-    length: 100,
-    default: () => 'NULL::character varying',
-    name: 'createdby',
-  })
-  createdby: string | null;
-
-  @Column('integer', {
-    nullable: true,
-    name: 'trainingid',
-  })
-  trainingid: number | null;
-
-  @Column('character varying', {
-    nullable: true,
-    length: 20,
-    name: 'deliverymode',
-  })
-  deliverymode: string | null;
-
-  @Column('character varying', {
-    nullable: true,
-    length: 256,
-    name: 'name',
-  })
-  name: string | null;
-
-  @Column('text', {
-    nullable: true,
-    name: 'venuename',
-  })
-  venuename: string | null;
-
   @ManyToMany(
-    () => TrainingMethod,
-    (TrainingMethod: TrainingMethod) => TrainingMethod.trainingSessions,
+    type => TrainingMethod,
+    trainingMethod => trainingMethod.trainingSessions,
     { nullable: false },
   )
-  @JoinTable({ name: 'traininginstancemethods' })
+  @JoinTable({ name: 'trainingsessionmethods' })
   trainingMethods: TrainingMethod[];
+
+  @ManyToMany(
+    type => Record,
+    record => record.trainingSessions,
+    { nullable: false },
+  )
+  @JoinTable({ name: 'recordtrainingsession' })
+  records: Record[];
 }
