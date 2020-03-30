@@ -21,8 +21,8 @@ export class HttpErrorFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR,
       message:
-        exception.message instanceof Object
-          ? exception.message.error
+        exception.message
+          ? exception.message
           : exception.message,
       method: request.method,
       path: request.path,
