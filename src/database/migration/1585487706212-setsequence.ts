@@ -678,27 +678,29 @@ export class sequential1585499925311 implements MigrationInterface {
             DROP SEQUENCE hris_user_id_seq;
             DROP SEQUENCE hris_validation_id_seq;
             DROP SEQUENCE sqlview_id_seq CASCADE;
-
-            SELECT formfieldmember.fieldid FROM formfieldmember
-            INNER JOIN field ON(field.id=formfieldmember.fieldid AND field.name IN(
-              'firstname',
-              'middlename',
-              'surname',
-              'sex',
-              'dob'
-            ))
-            INNER JOIN form ON(form.id=formfieldmember.formid AND title='Public Employee Form')
-          ) AND
-          formfieldmember.formid IN(
-            SELECT formfieldmember.formid FROM formfieldmember
-            INNER JOIN field ON(field.id=formfieldmember.fieldid AND field.name IN(
-              'firstname',
-              'middlename',
-              'surname',
-              'sex',
-              'dob'
-            ))
-            INNER JOIN form ON(form.id=formfieldmember.formid AND title='Public Employee Form');
+            
+            UPDATE formfieldmember SET showinlist=true WHERE formfieldmember.fieldid IN(
+              SELECT formfieldmember.fieldid FROM formfieldmember
+              INNER JOIN field ON(field.id=formfieldmember.fieldid AND field.name IN(
+                'firstname',
+                'middlename',
+                'surname',
+                'sex',
+                'dob'
+              ))
+              INNER JOIN form ON(form.id=formfieldmember.formid AND title='Public Employee Form')
+            ) AND
+            formfieldmember.formid IN(
+              SELECT formfieldmember.formid FROM formfieldmember
+              INNER JOIN field ON(field.id=formfieldmember.fieldid AND field.name IN(
+                'firstname',
+                'middlename',
+                'surname',
+                'sex',
+                'dob'
+              ))
+              INNER JOIN form ON(form.id=formfieldmember.formid AND title='Public Employee Form')
+            )
             `);
   }
 
