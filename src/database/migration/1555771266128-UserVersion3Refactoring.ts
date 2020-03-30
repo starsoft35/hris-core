@@ -1779,7 +1779,8 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
       );
     }
 
-    await queryRunner.query(`CREATE TABLE public.organisationunitmembers
+    await queryRunner.query(`
+    CREATE TABLE public.organisationunitmembers
     (
         userid integer NOT NULL,
         organisationunitid integer NOT NULL,
