@@ -18,7 +18,8 @@ import { getWhereConditions } from 'src/core/utilities';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 import { Form } from 'src/modules/form/entities/form.entity';
 import { generateUid } from 'src/core/helpers/makeuid';
-import {getUid} from '@iapps/utils/utils'
+import { getUid } from '@iapps/utils';
+import * as uid from 'uid';
 
 @Injectable()
 export class RecordService extends BaseService<Record> {
@@ -189,7 +190,7 @@ export class RecordService extends BaseService<Record> {
     );
     let idfield = query[0].id;
     let recordGot = (await this.recordRepository.findOne({ uid })).id;
-    recordValue.uid = getUid('', 11)
+    recordValue.uid = generateUid();
     recordValue.value = value;
     recordValue.startDate = startDate;
     recordValue.endDate = endDate;
@@ -205,22 +206,10 @@ export class RecordService extends BaseService<Record> {
     uid: string,
     updateRecordValueDto: any,
   ): Promise<any> {
-    const {
-      value,
-      comment,
-      endDate,
-      entitledPayment,
-      created,
-      lastUpdated,
-    } = updateRecordValueDto;
-
     let recordValue = await this.recordValueRepository.findOne({ uid });
-    recordValue.value = value;
-    recordValue.comment = comment;
-    recordValue.endDate = endDate;
-    recordValue.entitledPayment = entitledPayment;
-    recordValue.created = created;
-    recordValue.lastUpdated = lastUpdated;
+    Object.keys(updateRecordValueDto).forEach(key => {
+      recordValue[key] = updateRecordValueDto[key];
+    });
 
     await this.recordValueRepository.save(recordValue);
   }

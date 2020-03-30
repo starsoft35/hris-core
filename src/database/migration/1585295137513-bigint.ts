@@ -172,22 +172,22 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE trainingcurriculum ALTER COLUMN unitid TYPE BIGINT;
         ALTER TABLE trainingcurriculummethodmember ALTER COLUMN trainingcurriculumid TYPE BIGINT;
         ALTER TABLE trainingcurriculummethodmember ALTER COLUMN "trainingmethodId" TYPE BIGINT;
-        ALTER TABLE traininginstance ALTER COLUMN id TYPE BIGINT;
-        ALTER TABLE traininginstance ALTER COLUMN sectionid TYPE BIGINT;
-        ALTER TABLE traininginstance ALTER COLUMN unitid TYPE BIGINT;
-        ALTER TABLE traininginstance ALTER COLUMN curriculumid TYPE BIGINT;
-        ALTER TABLE traininginstance ALTER COLUMN trainingid TYPE BIGINT;
+        ALTER TABLE trainingsession ALTER COLUMN id TYPE BIGINT;
+        ALTER TABLE trainingsession ALTER COLUMN sectionid TYPE BIGINT;
+        ALTER TABLE trainingsession ALTER COLUMN unitid TYPE BIGINT;
+        ALTER TABLE trainingsession ALTER COLUMN curriculumid TYPE BIGINT;
+        ALTER TABLE trainingsession ALTER COLUMN trainingid TYPE BIGINT;
         ALTER TABLE traininginstancemethods ALTER COLUMN traininginstanceid TYPE BIGINT;
         ALTER TABLE traininginstancemethods ALTER COLUMN methodid TYPE BIGINT;
         ALTER TABLE trainingmethod ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE trainingsections ALTER COLUMN id TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN id TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN sectionid TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN venueid TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN sponsorid TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN unitid TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN curriculumid TYPE BIGINT;
-        ALTER TABLE trainingsession ALTER COLUMN organiserid TYPE BIGINT;
+        ALTER TABLE traininginstance ALTER COLUMN id TYPE BIGINT;
+        ALTER TABLE traininginstance ALTER COLUMN sectionid TYPE BIGINT;
+        ALTER TABLE traininginstance ALTER COLUMN venueid TYPE BIGINT;
+        ALTER TABLE traininginstance ALTER COLUMN sponsorid TYPE BIGINT;
+        ALTER TABLE traininginstance ALTER COLUMN unitid TYPE BIGINT;
+        ALTER TABLE traininginstance ALTER COLUMN curriculumid TYPE BIGINT;
+        ALTER TABLE traininginstance ALTER COLUMN organiserid TYPE BIGINT;
         ALTER TABLE trainingsessionmethods ALTER COLUMN "trainingsessionId" TYPE BIGINT;
         ALTER TABLE trainingsessionmethods ALTER COLUMN "trainingmethodId" TYPE BIGINT;
         ALTER TABLE trainingsponsor ALTER COLUMN id TYPE BIGINT;
@@ -219,8 +219,11 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE usersetting ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE validation ALTER COLUMN id TYPE BIGINT;
         CREATE SEQUENCE task_id_seq AS BIGINT OWNED BY task.id;
+        ALTER TABLE task ALTER COLUMN id SET DEFAULT nextval('task_id_seq');
         CREATE SEQUENCE process_id_seq AS BIGINT OWNED BY process.id;
+        ALTER TABLE process ALTER COLUMN id SET DEFAULT nextval('process_id_seq');
         CREATE SEQUENCE schedule_id_seq AS BIGINT OWNED BY schedule.id;
+        ALTER TABLE schedule ALTER COLUMN id SET DEFAULT nextval('schedule_id_seq');
         `);
   }
 

@@ -9,7 +9,7 @@ export class TrainingSponsor extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'trainingsponsorid',
+    name: 'id',
   })
   id: number;
 
@@ -19,6 +19,13 @@ export class TrainingSponsor extends EntityCoreProps {
     name: 'phone',
   })
   phone: string | null;
+
+  @Column('character varying', {
+    nullable: true,
+    length: 255,
+    name: 'sponsorname',
+  })
+  sponsorname: string | null;
 
   @Column('character varying', {
     nullable: true,

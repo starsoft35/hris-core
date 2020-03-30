@@ -4,7 +4,7 @@ import {
     JoinColumn,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { getUid } from '@iapps/utils/utils';
+import { getUid } from '@iapps/utils';
 import { TransactionTimestamp } from '../../core/entities/transaction-timestamp.entity';
 import { User } from '../../modules/system/user/entities/user.entity';
 import { generateUid } from '../helpers/makeuid';
@@ -31,6 +31,6 @@ export class UserCoreProps extends TransactionTimestamp {
          *  2. You can generat UUID by prepending a context specific keyword i.e getUid('HRIS', 20)
          *      Example of UUID::: HRIS_8aydSxYBrrP
          */
-        this.uid = getUid('', 11);
+        this.uid = generateUid();
     }
 }
