@@ -19,6 +19,7 @@ import { Record } from '../../record/entities/record.entity';
 
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends EntityCoreProps {
+  static plural = 'sessions'
   @Column('integer', {
     nullable: false,
     primary: true,
