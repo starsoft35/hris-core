@@ -369,13 +369,13 @@ export class training1570105584725 implements MigrationInterface {
       );
 
       await queryRunner.query(
-        'ALTER TABLE "hris_traininginstance_methods" RENAME TO "traininginstancemethods"',
+        'ALTER TABLE "hris_traininginstance_methods" RENAME TO "trainingsessionmethods"',
       );
       await queryRunner.query(
-        'ALTER TABLE "traininginstancemethods" RENAME COLUMN "traininginstance_id" TO "traininginstanceid"',
+        'ALTER TABLE "trainingsessionmethods" RENAME COLUMN "traininginstance_id" TO "trainingsessionid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "traininginstancemethods" RENAME COLUMN "method_id" TO "methodid"',
+        'ALTER TABLE "trainingsessionmethods" RENAME COLUMN "method_id" TO "methodid"',
       );
 
       await queryRunner.query(
@@ -402,10 +402,17 @@ export class training1570105584725 implements MigrationInterface {
       await queryRunner.query(
         'ALTER TABLE "training" ADD COLUMN IF NOT EXISTS "curiculum" text',
       );
+
+      await queryRunner.query(`
+      ALTER TABLE traininginstance RENAME TO trainingsession; 
+      ALTER TABLE trainingsessionmethods DROP CONSTRAINT hris_traininginstance_methods_pkey 
+      ALTER TABLE trainingsessionmethods ADD CONSTRAINT trainingsessionmethods_pkey PRIMARY KEY(trainingsessionid, methodid)
+
+      `)
     }
 
     let trainingSession = `
-    CREATE TABLE public.trainingsession
+    CREATE TABLE public.traininginstance
     (
         created timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
         lastupdated timestamp without time zone NOT NULL DEFAULT LOCALTIMESTAMP,
@@ -464,49 +471,49 @@ export class training1570105584725 implements MigrationInterface {
     `;
     await queryRunner.query(trainingSession);
 
-    let trainingSessionMethod = `CREATE TABLE public.trainingsessionmethods
-    (
-        "trainingsessionId" integer NOT NULL,
-        "trainingmethodId" integer NOT NULL,
-        CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionId", "trainingmethodId"),
-        CONSTRAINT "FK_69ff46ede8e95be623bb4a0fddb" FOREIGN KEY ("trainingsessionId")
-            REFERENCES public.trainingsession (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID,
-        CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY ("trainingmethodId")
-            REFERENCES public.trainingmethod (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID
-    )
-    WITH (
-        OIDS = FALSE
-    )
-    TABLESPACE pg_default;
+    // let trainingSessionMethod = `CREATE TABLE public.trainingsessionmethods
+    // (
+    //     "trainingsessionId" integer NOT NULL,
+    //     "trainingmethodId" integer NOT NULL,
+    //     CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionId", "trainingmethodId"),
+    //     CONSTRAINT "FK_69ff46ede8e95be623bb4a0fddb" FOREIGN KEY ("trainingsessionId")
+    //         REFERENCES public.trainingsession (id) MATCH SIMPLE
+    //         ON UPDATE NO ACTION
+    //         ON DELETE CASCADE
+    //         NOT VALID,
+    //     CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY ("trainingmethodId")
+    //         REFERENCES public.trainingmethod (id) MATCH SIMPLE
+    //         ON UPDATE NO ACTION
+    //         ON DELETE CASCADE
+    //         NOT VALID
+    // )
+    // WITH (
+    //     OIDS = FALSE
+    // )
+    // TABLESPACE pg_default;
     
-    ALTER TABLE public.trainingsessionmethods
-        OWNER to postgres;
+    // ALTER TABLE public.trainingsessionmethods
+    //     OWNER to postgres;
     
-    -- Index: IDX_69ff46ede8e95be623bb4a0fdd
+    // -- Index: IDX_69ff46ede8e95be623bb4a0fdd
     
-    -- DROP INDEX public."IDX_69ff46ede8e95be623bb4a0fdd";
+    // -- DROP INDEX public."IDX_69ff46ede8e95be623bb4a0fdd";
     
-    CREATE INDEX "IDX_69ff46ede8e95be623bb4a0fdd"
-        ON public.trainingsessionmethods USING btree
-        ("trainingsessionId")
-        TABLESPACE pg_default;
+    // CREATE INDEX "IDX_69ff46ede8e95be623bb4a0fdd"
+    //     ON public.trainingsessionmethods USING btree
+    //     ("trainingsessionId")
+    //     TABLESPACE pg_default;
     
-    -- Index: IDX_c6cf5835d03868b97d74d0ad37
+    // -- Index: IDX_c6cf5835d03868b97d74d0ad37
     
-    -- DROP INDEX public."IDX_c6cf5835d03868b97d74d0ad37";
+    // -- DROP INDEX public."IDX_c6cf5835d03868b97d74d0ad37";
     
-    CREATE INDEX "IDX_c6cf5835d03868b97d74d0ad37"
-        ON public.trainingsessionmethods USING btree
-        ("trainingmethodId")
-        TABLESPACE pg_default;`;
+    // CREATE INDEX "IDX_c6cf5835d03868b97d74d0ad37"
+    //     ON public.trainingsessionmethods USING btree
+    //     ("trainingmethodId")
+    //     TABLESPACE pg_default;`;
 
-    await queryRunner.query(trainingSessionMethod);
+    // await queryRunner.query(trainingSessionMethod);
   }
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }
