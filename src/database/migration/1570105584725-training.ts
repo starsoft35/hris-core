@@ -405,9 +405,8 @@ export class training1570105584725 implements MigrationInterface {
 
       await queryRunner.query(`
       ALTER TABLE traininginstance RENAME TO trainingsession; 
-      ALTER TABLE trainingsessionmethods DROP CONSTRAINT hris_traininginstance_methods_pkey 
-      ALTER TABLE trainingsessionmethods ADD CONSTRAINT trainingsessionmethods_pkey PRIMARY KEY(trainingsessionid, methodid)
-
+      ALTER TABLE trainingsessionmethods DROP CONSTRAINT hris_traininginstance_methods_pkey;
+      ALTER TABLE trainingsessionmethods ADD CONSTRAINT trainingsessionmethods_pkey PRIMARY KEY(trainingsessionid, methodid);
       `)
     }
 
