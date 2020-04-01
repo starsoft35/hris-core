@@ -1,14 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { BaseController } from '../../../core/controllers/base.contoller';
 
-import { TrainingMethodService } from '../services/training-method.service';
-import { TrainingMethod } from '../entities/training-method.entity';
+import { TrainingTopicService } from '../services/training-method.service';
+import { TrainingTopic } from '../entities/training-topic.entity';
 
-@Controller('api/training/' + TrainingMethod.plural)
-export class TrainingMethodController extends BaseController<
-TrainingMethod
+@Controller('api/training/' + TrainingTopic.plural)
+export class TrainingTopicController extends BaseController<
+TrainingTopic
 > {
-    constructor(trainingMethodService: TrainingMethodService) {
-        super(trainingMethodService, TrainingMethod);
+    constructor(trainingMethodService: TrainingTopicService) {
+        super(trainingMethodService, TrainingTopic);
     }
 }
