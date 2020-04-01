@@ -209,7 +209,27 @@ export class fix1574916252058 implements MigrationInterface {
     ALTER TABLE userauthority ALTER COLUMN  id SET DEFAULT nextval('userauthority_id_seq');
     ALTER TABLE userauthority ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
 
-
+    ALTER TABLE "fieldgroupmembers" OWNER TO "postgres";
+    ALTER TABLE "fieldgroupset" OWNER TO "postgres";
+    ALTER TABLE "fieldgroupsetmembers" OWNER TO "postgres";
+    ALTER TABLE "fieldoptiongroupmembers" OWNER TO "postgres";
+    ALTER TABLE "fieldoptiongroupsetmembers" OWNER TO "postgres";   
+    ALTER TABLE "fieldrelation" OWNER TO "postgres";
+    ALTER TABLE "formfieldmember" OWNER TO "postgres";
+    ALTER TABLE "formsectionfieldmember" OWNER TO "postgres";
+    ALTER TABLE "formuniquerecordfields" OWNER TO "postgres"; 
+    ALTER TABLE "formvisiblefield" OWNER TO "postgres";
+    ALTER TABLE "friendlyreportarithmeticfilter" OWNER TO "postgres";
+    ALTER TABLE "friendlyreportcategory" OWNER TO "postgres";
+    ALTER TABLE "friendlyreportrelationalfilter" OWNER TO "postgres";
+    ALTER TABLE "indicatortargetfieldoption" OWNER TO "postgres";
+    ALTER TABLE "intergrationdhisdataelementfieldoptionrelation" OWNER TO "postgres";
+    ALTER TABLE "intergrationdhisfieldoptiongroupsetmember" OWNER TO "postgres";
+    ALTER TABLE "intergrationtiisemployeefieldrelation" OWNER TO "postgres";
+    ALTER TABLE "leave" OWNER TO "postgres";
+    ALTER TABLE "organisationunitgroupmembers" OWNER TO "postgres";
+    ALTER TABLE "relationalfiltermember" OWNER TO "postgres";
+    ALTER TABLE "userrolemembers" OWNER TO "postgres";
     ALTER TABLE "validation" OWNER TO "postgres";
     CREATE SEQUENCE validation_id_seq AS BIGINT OWNED BY validation.id;
     ALTER TABLE validation ALTER COLUMN  id SET DEFAULT nextval('validation_id_seq');
