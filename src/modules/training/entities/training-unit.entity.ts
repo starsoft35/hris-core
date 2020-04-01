@@ -11,7 +11,7 @@ export class TrainingUnit extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'trainingunitid',
+    name: 'id',
   })
   id: number;
 

@@ -8,7 +8,7 @@ export class TrainingVenue extends EntityCoreProps {
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'trainingvenueid',
+    name: 'id',
   })
   id: number;
   @Column('character varying', {
