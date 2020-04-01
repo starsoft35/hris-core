@@ -958,49 +958,49 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 
     await queryRunner.query(createAuthorityMembers);
 
-    let userFormMembers = `CREATE TABLE public.userformmembers
-    (
-        "userId" integer NOT NULL,
-        "formId" integer NOT NULL,
-        CONSTRAINT "PK_3436fae40747731a28564ed5665" PRIMARY KEY ("userId", "formId"),
-        CONSTRAINT "FK_9cb26e216d11de2a2b4f880a810" FOREIGN KEY ("formId")
-            REFERENCES public.form (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID,
-        CONSTRAINT "FK_a6e197eeef17a3af9b33f339561" FOREIGN KEY ("userId")
-            REFERENCES public."user" (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID
-    )
-    WITH (
-        OIDS = FALSE
-    )
-    TABLESPACE pg_default;
+    // let userFormMembers = `CREATE TABLE public.userformmembers
+    // (
+    //     "userId" integer NOT NULL,
+    //     "formId" integer NOT NULL,
+    //     CONSTRAINT "PK_3436fae40747731a28564ed5665" PRIMARY KEY ("userId", "formId"),
+    //     CONSTRAINT "FK_9cb26e216d11de2a2b4f880a810" FOREIGN KEY ("formId")
+    //         REFERENCES public.form (id) MATCH SIMPLE
+    //         ON UPDATE NO ACTION
+    //         ON DELETE CASCADE
+    //         NOT VALID,
+    //     CONSTRAINT "FK_a6e197eeef17a3af9b33f339561" FOREIGN KEY ("userId")
+    //         REFERENCES public."user" (id) MATCH SIMPLE
+    //         ON UPDATE NO ACTION
+    //         ON DELETE CASCADE
+    //         NOT VALID
+    // )
+    // WITH (
+    //     OIDS = FALSE
+    // )
+    // TABLESPACE pg_default;
     
-    ALTER TABLE public.userformmembers
-        OWNER to postgres;
+    // ALTER TABLE public.userformmembers
+    //     OWNER to postgres;
     
-    -- Index: IDX_9cb26e216d11de2a2b4f880a81
+    // -- Index: IDX_9cb26e216d11de2a2b4f880a81
     
-    -- DROP INDEX public."IDX_9cb26e216d11de2a2b4f880a81";
+    // -- DROP INDEX public."IDX_9cb26e216d11de2a2b4f880a81";
     
-    CREATE INDEX "IDX_9cb26e216d11de2a2b4f880a81"
-        ON public.userformmembers USING btree
-        ("formId")
-        TABLESPACE pg_default;
+    // CREATE INDEX "IDX_9cb26e216d11de2a2b4f880a81"
+    //     ON public.userformmembers USING btree
+    //     ("formId")
+    //     TABLESPACE pg_default;
     
-    -- Index: IDX_a6e197eeef17a3af9b33f33956
+    // -- Index: IDX_a6e197eeef17a3af9b33f33956
     
-    -- DROP INDEX public."IDX_a6e197eeef17a3af9b33f33956";
+    // -- DROP INDEX public."IDX_a6e197eeef17a3af9b33f33956";
     
-    CREATE INDEX "IDX_a6e197eeef17a3af9b33f33956"
-        ON public.userformmembers USING btree
-        ("userId")
-        TABLESPACE pg_default;`;
+    // CREATE INDEX "IDX_a6e197eeef17a3af9b33f33956"
+    //     ON public.userformmembers USING btree
+    //     ("userId")
+    //     TABLESPACE pg_default;`;
 
-    await queryRunner.query(userFormMembers);
+    // await queryRunner.query(userFormMembers);
 
     let userGroup = `
     CREATE SEQUENCE usergroup_id_seq;
