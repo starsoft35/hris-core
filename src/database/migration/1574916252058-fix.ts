@@ -238,6 +238,7 @@ export class fix1574916252058 implements MigrationInterface {
     ALTER TABLE public."user" DROP COLUMN email_canonical;
 
     ALTER TABLE field ADD COLUMN recordvalueid BIGINT;
+    ALTER TABLE trainingmethod RENAME TO trainingtopic;
 
     `;
     await queryRunner.query(fixes);

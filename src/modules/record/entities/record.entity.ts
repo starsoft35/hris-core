@@ -59,7 +59,7 @@ export class Record extends TransactionUser {
 
   @ManyToMany(
     type => TrainingSession,
-    trainingSession => trainingSession.trainingMethods,
+    trainingSession => trainingSession.trainingTopics,
   )
   trainingSessions: TrainingSession[];
 }
