@@ -34,9 +34,5 @@ export class ReportController extends BaseController<Report> {
       res.status(400).json({ error: error.message });
     }
   }
-  @Get('/deliverymode')
-  @UseGuards(SessionGuard)
-  async delivery (){
-    return this.ReportService.deliverymode()
-  }
+ 
 }

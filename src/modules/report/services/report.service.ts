@@ -60,15 +60,4 @@ export class ReportService extends BaseService<Report> {
     results.listGrid.title = sqlView.name;
     return results;
   }
-  async deliverymode() {
-    let deliverymode: {};
-    return (deliverymode = {
-      deliverymode: {
-        classroom: ' Classroom Training',
-        onjob: 'On Job Training',
-        mentorship: ' Mentorship',
-        online: 'Online',
-      },
-    });
-  }
 }

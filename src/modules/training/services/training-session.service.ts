@@ -6,10 +6,21 @@ import { TrainingSession } from '../entities/training-session.entity';
 
 @Injectable()
 export class TrainingSessionService extends BaseService<TrainingSession> {
-    constructor(
-        @InjectRepository(TrainingSession)
-        trainingSessionRepository: Repository<TrainingSession>,
-    ) {
-        super(trainingSessionRepository, TrainingSession);
-    }
+  constructor(
+    @InjectRepository(TrainingSession)
+    trainingSessionRepository: Repository<TrainingSession>,
+  ) {
+    super(trainingSessionRepository, TrainingSession);
+  }
+  async deliverymode() {
+    let deliverymode: {};
+    return (deliverymode = {
+      deliverymode: {
+        classroom: ' Classroom Training',
+        onjob: 'On Job Training',
+        mentorship: ' Mentorship',
+        online: 'Online',
+      },
+    });
+  }
 }
