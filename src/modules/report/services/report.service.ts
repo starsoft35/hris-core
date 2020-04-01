@@ -61,11 +61,14 @@ export class ReportService extends BaseService<Report> {
     return results;
   }
   async deliverymode() {
-    return {
-      classroom: ' Classroom Training',
-      onjob: 'On Job Training',
-      mentorship: ' Mentorship',
-      online: 'Online',
-    };
+    let deliverymode: {};
+    return (deliverymode = {
+      deliverymode: {
+        classroom: ' Classroom Training',
+        onjob: 'On Job Training',
+        mentorship: ' Mentorship',
+        online: 'Online',
+      },
+    });
   }
 }
