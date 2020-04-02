@@ -80,13 +80,13 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE indicatortargetfieldoption ALTER COLUMN targetid TYPE BIGINT;
         ALTER TABLE indicatortargetfieldoption ALTER COLUMN fieldoptionid TYPE BIGINT;
         ALTER TABLE sessionfacilitator ALTER COLUMN id TYPE BIGINT;
-        ALTER TABLE sessionfacilitator ALTER COLUMN instanceid TYPE BIGINT;
+        ALTER TABLE sessionfacilitator ALTER COLUMN sessionid TYPE BIGINT;
         ALTER TABLE sessionfacilitator ALTER COLUMN recordid TYPE BIGINT;
-        ALTER TABLE sessionparticipants ALTER COLUMN id TYPE BIGINT;
-        ALTER TABLE sessionparticipants ALTER COLUMN instanceid TYPE BIGINT;
-        ALTER TABLE sessionparticipants ALTER COLUMN recordid TYPE BIGINT;
+        ALTER TABLE sessionparticipant ALTER COLUMN id TYPE BIGINT;
+        ALTER TABLE sessionparticipant ALTER COLUMN sessionid TYPE BIGINT;
+        ALTER TABLE sessionparticipant ALTER COLUMN recordid TYPE BIGINT;
         ALTER TABLE instancetrainer ALTER COLUMN id TYPE BIGINT;
-        ALTER TABLE instancetrainer ALTER COLUMN instanceid TYPE BIGINT;
+        ALTER TABLE instancetrainer ALTER COLUMN sessionid TYPE BIGINT;
         ALTER TABLE instancetrainer ALTER COLUMN trainerid TYPE BIGINT;
         ALTER TABLE intergrationdhisdataconnection ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE intergrationdhisdataconnection ALTER COLUMN parentorganisationunitid TYPE BIGINT;
@@ -143,6 +143,7 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE record ALTER COLUMN organisationunitid TYPE BIGINT;
         ALTER TABLE record ALTER COLUMN formid TYPE BIGINT;
         ALTER TABLE record ALTER COLUMN createdbyid TYPE BIGINT;
+        ALTER TABLE record ALTER COLUMN value DROP NOT NULL;
         ALTER TABLE record ALTER COLUMN lastupdatedbyid TYPE BIGINT;
         ALTER TABLE recordvalue ALTER COLUMN recordid TYPE BIGINT;
         ALTER TABLE recordvalue ALTER COLUMN fieldid TYPE BIGINT;
@@ -197,8 +198,6 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE userauthority ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE userauthoritymembers ALTER COLUMN "userauthorityId" TYPE BIGINT;
         ALTER TABLE userauthoritymembers ALTER COLUMN "userroleId" TYPE BIGINT;
-        ALTER TABLE userformmembers ALTER COLUMN "userId" TYPE BIGINT;
-        ALTER TABLE userformmembers ALTER COLUMN "formId" TYPE BIGINT;
         ALTER TABLE usergroup ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE usergroupmembers ALTER COLUMN "userId" TYPE BIGINT;
         ALTER TABLE usergroupmembers ALTER COLUMN "usergroupId" TYPE BIGINT;
@@ -218,8 +217,27 @@ export class bigint1585295137513 implements MigrationInterface {
         CREATE SEQUENCE schedule_id_seq AS BIGINT OWNED BY schedule.id;
         ALTER TABLE schedule ALTER COLUMN id SET DEFAULT nextval('schedule_id_seq');
         ALTER TABLE trainingsession ADD COLUMN "deliverymode" text;
+       
         `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }
+
+// ALTER TABLE sessionparticipant ADD CONSTRAINT "FK_constraint" FOREIGN KEY (sessionid)
+// REFERENCES public.trainingsession (id) MATCH SIMPLE
+// ON UPDATE CASCADE
+// ON DELETE CASCADE;
+// ALTER TABLE sessionfacilitator ADD CONSTRAINT "FK_constraint" FOREIGN KEY (sessionid)
+// REFERENCES public.trainingsession (id) MATCH SIMPLE
+// ON UPDATE CASCADE
+// ON DELETE CASCADE;
+
+// ALTER TABLE sessionparticipant ADD CONSTRAINT "FK_constraint" FOREIGN KEY (recordid)
+// REFERENCES public.record (id) MATCH SIMPLE
+// ON UPDATE CASCADE
+// ON DELETE CASCADE;
+// ALTER TABLE sessionfacilitator ADD CONSTRAINT "FK_constraint" FOREIGN KEY (recordid)
+// REFERENCES public.record (id) MATCH SIMPLE
+// ON UPDATE CASCADE
+// ON DELETE CASCADE;

@@ -4975,22 +4975,22 @@ export class report1570103156996 implements MigrationInterface {
                    INSERT INTO public.reportgroup(uid, name, description)
                     VALUES (uid(), 'Training Reports', 'Training module reports'),(uid(), 'Organization Reports', ''),
                     (uid(), 'Employee Records', ''), (uid(),'Other Reports','');
-                            INSERT INTO public.reportgroupmembers(
-                                "reportgroupId", "reportId")
-                                VALUES (1,13),
-                                (1,14),
-                                (2,1),
-                                (2,2),
-                                (2,3),
-                                (2,4),
-                                (3,5),
-                                (4,6),
-                                (4,7),
-                                (4,8),
-                                (4,9),
-                                (4,10),
-                                (4,11),
-                                (4,12);
+                           -- INSERT INTO public.reportgroupmembers(
+                           --     "reportgroupId", "reportId")
+                           --     VALUES (1,13),
+                           --     (1,14),
+                           --     (2,1),
+                           --     (2,2),
+                           --     (2,3),
+                           --     (2,4),
+                           --     (3,5),
+                           --     (4,6),
+                           --     (4,7),
+                           --     (4,8),
+                           --     (4,9),
+                           --     (4,10),
+                           --     (4,11),
+                           --     (4,12);
                                `);
       await queryRunner.query(`
                                INSERT INTO public.report(
