@@ -6,10 +6,10 @@ export class instances1570141287644 implements MigrationInterface {
         let Instance = await queryRunner.getTable('hris_instance_records');
 
     if (Instance){
-        await queryRunner.query('ALTER TABLE "hris_instance_records" RENAME TO "instancerecord"');
-        await queryRunner.query('ALTER TABLE "instancerecord" RENAME COLUMN "instance_id" TO "instanceid"');
-        await queryRunner.query('ALTER TABLE "instancerecord" RENAME COLUMN "record_id" TO "recordid"');
-        await queryRunner.query('ALTER TABLE "instancerecord" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
+        await queryRunner.query('ALTER TABLE "hris_instance_records" RENAME TO "sessionparticipants"');
+        await queryRunner.query('ALTER TABLE "sessionparticipants" RENAME COLUMN "instance_id" TO "instanceid"');
+        await queryRunner.query('ALTER TABLE "sessionparticipants" RENAME COLUMN "record_id" TO "recordid"');
+        await queryRunner.query('ALTER TABLE "sessionparticipants" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
       
         await queryRunner.query('ALTER TABLE "hris_instancefacilitator" RENAME TO "instancefacilitator"');
         await queryRunner.query('ALTER TABLE "instancefacilitator" RENAME COLUMN "instance_id" TO "instanceid"');
