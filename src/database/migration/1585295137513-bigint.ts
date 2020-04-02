@@ -217,7 +217,7 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE process ALTER COLUMN id SET DEFAULT nextval('process_id_seq');
         CREATE SEQUENCE schedule_id_seq AS BIGINT OWNED BY schedule.id;
         ALTER TABLE schedule ALTER COLUMN id SET DEFAULT nextval('schedule_id_seq');
-        ALTER TABLE trainingsession ADD COLUMN "delivery_mode" text;
+        ALTER TABLE trainingsession ADD COLUMN "deliverymode" text;
         `);
   }
 
