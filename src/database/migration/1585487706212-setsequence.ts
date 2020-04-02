@@ -362,14 +362,14 @@ export class sequential1585499925311 implements MigrationInterface {
       `ALTER SEQUENCE sessionfacilitator_id_seq RESTART WITH ${nextsessionfacilitator}`,
     );
 
-    const sessionparticipants_id_seq = await queryRunner.query(
-      `SELECT id FROM sessionparticipants ORDER BY id DESC LIMIT 1`,
+    const sessionparticipant_id_seq = await queryRunner.query(
+      `SELECT id FROM sessionparticipant ORDER BY id DESC LIMIT 1`,
     );
-    const nextsessionparticipants = sessionparticipants_id_seq[0]
-      ? parseInt(sessionparticipants_id_seq[0].id) + parseInt('1')
+    const nextsessionparticipant = sessionparticipant_id_seq[0]
+      ? parseInt(sessionparticipant_id_seq[0].id) + parseInt('1')
       : parseInt('1');
     await queryRunner.query(
-      `ALTER SEQUENCE sessionparticipants_id_seq RESTART WITH ${nextsessionparticipants}`,
+      `ALTER SEQUENCE sessionparticipant_id_seq RESTART WITH ${nextsessionparticipant}`,
     );
 
     const instancetrainer_id_seq = await queryRunner.query(
