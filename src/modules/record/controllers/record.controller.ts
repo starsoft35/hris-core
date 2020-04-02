@@ -1,25 +1,21 @@
 import {
-  Controller,
-  Post,
   Body,
-  Param,
-  Query,
+  Controller,
   Get,
-  UseGuards,
-  BadRequestException,
-  Put,
-  ForbiddenException,
-  Patch,
   HttpStatus,
+  Param,
+  Post,
+  Put,
+  Query,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { BaseController } from 'src/core/controllers/base.contoller';
-import { Record } from 'src/modules/record/entities/record.entity';
-
-import { RecordService } from '../services/record.service';
 import { ApiResult } from 'src/core/interfaces';
+import { Record } from 'src/modules/record/entities/record.entity';
 import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 import { RecordValue } from '../entities/record-value.entity';
+import { RecordService } from '../services/record.service';
 
 @Controller('api/' + Record.plural)
 export class RecordsController extends BaseController<Record> {
@@ -43,6 +39,14 @@ export class RecordsController extends BaseController<Record> {
     query.filter.push(`organisationUnit:eq:${query.organisationUnit}`);
     query.filter.push(`form:eq:${query.form}`);
     return super.findAll(query);
+  }
+
+  @Post()
+  @UseGuards(SessionGuard)
+  async createRecord(@Body() createRecordDto, @Res() res): Promise<any> {
+    console.log('DTO:::', createRecordDto);
+    await this.recordService.createRecord(createRecordDto);
+    return res.status(HttpStatus.OK).send('Record created');
   }
   @Post(':record/recordVal')
   @UseGuards(SessionGuard)

@@ -1,25 +1,15 @@
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
-import { BaseService } from '../../../core/services/base.service';
-import { Record } from '../entities/record.entity';
-import { RecordValue } from '../entities/record-value.entity';
-import { Field } from 'src/modules/form/entities/field.entity';
-import {
-  getSelections,
-  getRelations,
-} from 'src/core/utilities/get-fields.utility';
-import { getWhereConditions } from 'src/core/utilities';
-import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
-import { Form } from 'src/modules/form/entities/form.entity';
 import { generateUid } from 'src/core/helpers/makeuid';
-import { getUid } from '@iapps/utils';
-import * as uid from 'uid';
+import { getWhereConditions } from 'src/core/utilities';
+import { getRelations, getSelections } from 'src/core/utilities/get-fields.utility';
+import { Field } from 'src/modules/form/entities/field.entity';
+import { Form } from 'src/modules/form/entities/form.entity';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
+import { Repository } from 'typeorm';
+import { BaseService } from '../../../core/services/base.service';
+import { RecordValue } from '../entities/record-value.entity';
+import { Record } from '../entities/record.entity';
 
 @Injectable()
 export class RecordService extends BaseService<Record> {
@@ -35,6 +25,31 @@ export class RecordService extends BaseService<Record> {
     @InjectRepository(Field) private fieldRepository: Repository<Field>,
   ) {
     super(recordRepository, Record);
+  }
+
+  async createRecord(createRecordDto: any) {
+    let record = new Record();
+
+    const { organisationunitid, formid, instance } = createRecordDto;
+
+    const query = await this.organisationunitRepository.manager.query(
+      `select id from organisationunit where uid='${organisationunitid}'`,
+    );
+    const orgunit = query[0].id;
+    console.log('Org Unit', orgunit);
+
+    const queryform = await this.formRepository.manager.query(
+      `select id from form where uid = '${formid}'`,
+    );
+    const form = queryform[0].id;
+    console.log('form', form);
+    record.uid = generateUid();
+    record.form = form;
+    record.organisationUnit = orgunit;
+    record.instance = instance;
+    console.log(record.uid);
+
+    await this.recordRepository.save(record);
   }
 
   async saveRecordValues(record: string, recordValues: any) {
