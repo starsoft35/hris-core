@@ -84,9 +84,9 @@ export class fix1574916252058 implements MigrationInterface {
     ALTER TABLE sessionfacilitator ALTER COLUMN  id SET DEFAULT nextval('sessionfacilitator_id_seq');
     ALTER TABLE sessionfacilitator ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
 
-    ALTER TABLE "sessionparticipants" OWNER TO "postgres";
-    CREATE SEQUENCE sessionparticipants_id_seq AS BIGINT OWNED BY sessionparticipants.id;
-    ALTER TABLE sessionparticipants ALTER COLUMN  id SET DEFAULT nextval('sessionparticipants_id_seq');
+    ALTER TABLE "sessionparticipant" OWNER TO "postgres";
+    CREATE SEQUENCE sessionparticipant_id_seq AS BIGINT OWNED BY sessionparticipant.id;
+    ALTER TABLE sessionparticipant ALTER COLUMN  id SET DEFAULT nextval('sessionparticipant_id_seq');
 
     ALTER TABLE "instancetrainer" OWNER TO "postgres";
     CREATE SEQUENCE instancetrainer_id_seq AS BIGINT OWNED BY instancetrainer.id;
@@ -238,7 +238,6 @@ export class fix1574916252058 implements MigrationInterface {
     ALTER TABLE public."user" DROP COLUMN email_canonical;
 
     ALTER TABLE field ADD COLUMN recordvalueid BIGINT;
-    ALTER TABLE trainingtopic RENAME TO trainingtopic;
 
     `;
     await queryRunner.query(fixes);
