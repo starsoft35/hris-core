@@ -25,6 +25,9 @@ import { TrainingTrainer } from './entities/training-trainer.entity';
 import { TrainingUnit } from './entities/training-unit.entity';
 import { TrainingVenue } from './entities/training-venue.entity';
 import { TrainingSection } from './entities/training-section.entity';
+import { Training } from './entities/training.entity';
+import { TrainingController } from './controllers/training.controller';
+import { TrainingService } from './services/training.service';
 
 @Module({
   imports: [
@@ -38,6 +41,7 @@ import { TrainingSection } from './entities/training-section.entity';
       TrainingTrainer,
       TrainingUnit,
       TrainingVenue,
+      Training
     ]),
   ],
   controllers: [
@@ -49,6 +53,7 @@ import { TrainingSection } from './entities/training-section.entity';
     TrainingTrainerController,
     TrainingUnitController,
     TrainingVenueController,
+    TrainingController
   ],
   providers: [
     TrainingCurriculumService,
@@ -59,6 +64,7 @@ import { TrainingSection } from './entities/training-section.entity';
     TrainingTrainerService,
     TrainingUnitService,
     TrainingVenueService,
+    TrainingService
   ],
 })
 export class TrainingModule {}
