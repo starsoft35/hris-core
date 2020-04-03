@@ -193,12 +193,12 @@ export class RecordService extends BaseService<Record> {
       startDate,
       endDate,
       comment,
-      fieldid,
+      field,
       entitledPayment,
     } = createRecordDto;
 
     let query = await this.fieldRepository.manager.query(
-      `select id from field where uid='${fieldid}'`,
+      `select id from field where uid='${field}'`,
     );
     let idfield = query[0].id;
     let recordGot = (await this.recordRepository.findOne({ uid })).id;

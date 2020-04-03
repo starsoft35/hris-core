@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Query,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Put, Query, Res, UseGuards } from '@nestjs/common';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { ApiResult } from 'src/core/interfaces';
 import { Record } from 'src/modules/record/entities/record.entity';
@@ -44,8 +33,7 @@ export class RecordsController extends BaseController<Record> {
   @Post()
   @UseGuards(SessionGuard)
   async createRecord(@Body() createRecordDto, @Res() res): Promise<any> {
-    await this.recordService.createRecord(createRecordDto);
-    return res.status(HttpStatus.OK).send('Record created');
+    return await this.recordService.createRecord(createRecordDto);
   }
   @Post(':record/recordVal')
   @UseGuards(SessionGuard)
@@ -84,8 +72,10 @@ export class RecordsController extends BaseController<Record> {
     @Body() createRecordValueDto,
     @Res() res,
   ): Promise<any> {
-    await this.recordService.createRecordValue(record, createRecordValueDto);
-    return res.status(HttpStatus.OK).send('Record values created');
+    return await this.recordService.createRecordValue(
+      record,
+      createRecordValueDto,
+    );
   }
   @Put('recordValues/:recordValue')
   @UseGuards(SessionGuard)
