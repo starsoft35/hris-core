@@ -701,6 +701,12 @@ export class sequential1585499925311 implements MigrationInterface {
               ))
               INNER JOIN form ON(form.id=formfieldmember.formid AND title='Public Employee Form')
             )
+            ALTER TABLE record ALTER COLUMN instance DROP NOT NULL;
+            DROP TABLE sessionparticipant;
+            DROP TABLE sessionfacilitator;
+            ALTER TABLE participant RENAME TO sessionparticipant;
+            ALTER TABLE facilitator RENAME TO sessionfacilitator;
+
             `);
   }
 
