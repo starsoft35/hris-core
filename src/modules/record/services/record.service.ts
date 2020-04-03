@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { generateUid } from 'src/core/helpers/makeuid';
 import { getWhereConditions } from 'src/core/utilities';
-import { getRelations, getSelections } from 'src/core/utilities/get-fields.utility';
+import {
+  getRelations,
+  getSelections,
+} from 'src/core/utilities/get-fields.utility';
 import { Field } from 'src/modules/form/entities/field.entity';
 import { Form } from 'src/modules/form/entities/form.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
@@ -29,7 +32,6 @@ export class RecordService extends BaseService<Record> {
 
   async createRecord(createRecordDto: any) {
     let record = new Record();
-
     const { organisationUnit, form, instance } = createRecordDto;
 
     const query = await this.organisationunitRepository.manager.query(
@@ -44,9 +46,10 @@ export class RecordService extends BaseService<Record> {
     record.form = formid;
     record.organisationUnit = orgunitid;
     record.instance = instance;
-    console.log(record.uid);
 
     await this.recordRepository.save(record);
+
+    return this.findOneByUid(record.uid);
   }
 
   async saveRecordValues(record: string, recordValues: any) {
