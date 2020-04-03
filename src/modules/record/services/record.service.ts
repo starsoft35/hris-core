@@ -2,10 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { generateUid } from 'src/core/helpers/makeuid';
 import { getWhereConditions } from 'src/core/utilities';
-import {
-  getRelations,
-  getSelections,
-} from 'src/core/utilities/get-fields.utility';
+import { getRelations, getSelections } from 'src/core/utilities/get-fields.utility';
 import { Field } from 'src/modules/form/entities/field.entity';
 import { Form } from 'src/modules/form/entities/form.entity';
 import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
@@ -33,19 +30,19 @@ export class RecordService extends BaseService<Record> {
   async createRecord(createRecordDto: any) {
     let record = new Record();
 
-    const { organisationunitid, formid, instance } = createRecordDto;
+    const { organisationUnit, form, instance } = createRecordDto;
 
     const query = await this.organisationunitRepository.manager.query(
-      `select id from organisationunit where uid='${organisationunitid}'`,
+      `select id from organisationunit where uid='${organisationUnit}'`,
     );
-    const orgunit = query[0].id;
+    const orgunitid = query[0].id;
     const queryform = await this.formRepository.manager.query(
-      `select id from form where uid = '${formid}'`,
+      `select id from form where uid = '${form}'`,
     );
-    const form = queryform[0].id;
+    const formid = queryform[0].id;
     record.uid = generateUid();
-    record.form = form;
-    record.organisationUnit = orgunit;
+    record.form = formid;
+    record.organisationUnit = orgunitid;
     record.instance = instance;
     console.log(record.uid);
 
