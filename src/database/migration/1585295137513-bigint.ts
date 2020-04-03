@@ -217,6 +217,38 @@ export class bigint1585295137513 implements MigrationInterface {
         CREATE SEQUENCE schedule_id_seq AS BIGINT OWNED BY schedule.id;
         ALTER TABLE schedule ALTER COLUMN id SET DEFAULT nextval('schedule_id_seq');
         ALTER TABLE trainingsession ADD COLUMN "deliverymode" text;
+
+        CREATE TABLE participant(sessionid bigint, recordid bigint);
+        CREATE TABLE facilitator(sessionid bigint, recordid bigint);
+
+
+        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY (sessionid)
+        REFERENCES public.trainingsession (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+        ALTER TABLE facilitator ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY (sessionid)
+        REFERENCES public.trainingsession (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+
+        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_recordid" FOREIGN KEY (recordid)
+        REFERENCES public.record (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+        ALTER TABLE facilitator ADD CONSTRAINT "FK_constraint_recordid" FOREIGN KEY (recordid)
+        REFERENCES public.record (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+
+        INSERT INTO participant(sessionid, recordid)
+        select sessionid,recordid from sessionparticipant
+        INNER JOIN record ON(record.id=sessionparticipant.recordid) 
+        INNER JOIN trainingsession ON(trainingsession.id = sessionparticipant.sessionid);
+
+        INSERT INTO facilitator(sessionid, recordid)
+        select sessionid,recordid from sessionparticipant
+        INNER JOIN record ON(record.id=sessionparticipant.recordid) 
+        INNER JOIN trainingsession ON(trainingsession.id = sessionparticipant.sessionid);
        
         `);
   }
@@ -224,20 +256,3 @@ export class bigint1585295137513 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }
 
-// ALTER TABLE sessionparticipant ADD CONSTRAINT "FK_constraint" FOREIGN KEY (sessionid)
-// REFERENCES public.trainingsession (id) MATCH SIMPLE
-// ON UPDATE CASCADE
-// ON DELETE CASCADE;
-// ALTER TABLE sessionfacilitator ADD CONSTRAINT "FK_constraint" FOREIGN KEY (sessionid)
-// REFERENCES public.trainingsession (id) MATCH SIMPLE
-// ON UPDATE CASCADE
-// ON DELETE CASCADE;
-
-// ALTER TABLE sessionparticipant ADD CONSTRAINT "FK_constraint" FOREIGN KEY (recordid)
-// REFERENCES public.record (id) MATCH SIMPLE
-// ON UPDATE CASCADE
-// ON DELETE CASCADE;
-// ALTER TABLE sessionfacilitator ADD CONSTRAINT "FK_constraint" FOREIGN KEY (recordid)
-// REFERENCES public.record (id) MATCH SIMPLE
-// ON UPDATE CASCADE
-// ON DELETE CASCADE;
