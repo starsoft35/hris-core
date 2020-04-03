@@ -23,9 +23,9 @@ export class TrainingSponsor extends EntityCoreProps {
   @Column('character varying', {
     nullable: true,
     length: 255,
-    name: 'sponsorname',
+    name: 'name',
   })
-  sponsorname: string | null;
+  name: string | null;
 
   @Column('character varying', {
     nullable: true,
