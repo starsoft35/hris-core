@@ -16,6 +16,8 @@ import { TrainingUnit } from './training-unit.entity';
 import { TrainingVenue } from './training-venue.entity';
 import { Record } from '../../record/entities/record.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
+import { SessionFacilitator } from './training-session-facilitatory.entity';
+import { SessionParticipant } from './training-session-participant.entity';
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends TransactionTimestamp {
   static plural = 'sessions';
@@ -125,9 +127,9 @@ export class TrainingSession extends TransactionTimestamp {
   @Column('character varying', {
     nullable: true,
     length: 20,
-    name: 'delivery_mode',
+    name: 'deliverymode',
   })
-  delivery_mode: string | null;
+  deliverymode: string | null;
   @Column('character varying', {
     nullable: true,
     length: 256,
@@ -144,6 +146,13 @@ export class TrainingSession extends TransactionTimestamp {
     (TrainingMethod: TrainingTopic) => TrainingMethod.trainingSessions,
     { nullable: false },
   )
-  @JoinTable({ name: 'traininginstancemethods' })
+  @JoinTable({ name: 'traininginstancetopic' })
   trainingTopics: TrainingTopic[];
+
+  @ManyToMany(
+    type => Record,
+    record => record.trainingSessions,
+  )
+  @JoinTable({ name: 'sessionparticipant' })
+  record: Record;
 }

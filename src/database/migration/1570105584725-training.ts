@@ -49,34 +49,34 @@ export class training1570105584725 implements MigrationInterface {
       );
 
       await queryRunner.query(
-        'ALTER TABLE "hris_training_methods" RENAME TO "trainingmethod"',
+        'ALTER TABLE "hris_training_methods" RENAME TO "trainingtopic"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" RENAME COLUMN "datecreated" TO "created"',
+        'ALTER TABLE "trainingtopic" RENAME COLUMN "datecreated" TO "created"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "externalaccess" boolean',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "code" character varying(25)',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "code" character varying(25)',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingmethod" ADD COLUMN IF NOT EXISTS "description" text',
+        'ALTER TABLE "trainingtopic" ADD COLUMN IF NOT EXISTS "description" text',
       );
 
       await queryRunner.query(
@@ -304,13 +304,13 @@ export class training1570105584725 implements MigrationInterface {
       );
 
       await queryRunner.query(
-        'ALTER TABLE "hris_curriculum_methods_members" RENAME TO "trainingcurriculummethodmember"',
+        'ALTER TABLE "hris_curriculum_methods_members" RENAME TO "trainingcurriculumtopicmember"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingcurriculummethodmember" RENAME COLUMN "curriculum_id" TO "trainingcurriculumid"',
+        'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "curriculum_id" TO "trainingcurriculumid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingcurriculummethodmember" RENAME COLUMN "method_id" TO "trainingmethodId"',
+        'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "method_id" TO "trainingtopicId"',
       );
 
       await queryRunner.query(
@@ -369,13 +369,13 @@ export class training1570105584725 implements MigrationInterface {
       );
 
       await queryRunner.query(
-        'ALTER TABLE "hris_traininginstance_methods" RENAME TO "trainingsessionmethods"',
+        'ALTER TABLE "hris_traininginstance_methods" RENAME TO "trainingsessiontopics"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingsessionmethods" RENAME COLUMN "traininginstance_id" TO "trainingsessionid"',
+        'ALTER TABLE "trainingsessiontopics" RENAME COLUMN "traininginstance_id" TO "trainingsessionid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingsessionmethods" RENAME COLUMN "method_id" TO "methodid"',
+        'ALTER TABLE "trainingsessiontopics" RENAME COLUMN "method_id" TO "topicid"',
       );
 
       await queryRunner.query(
@@ -405,8 +405,8 @@ export class training1570105584725 implements MigrationInterface {
 
       await queryRunner.query(`
       ALTER TABLE traininginstance RENAME TO trainingsession; 
-      ALTER TABLE trainingsessionmethods DROP CONSTRAINT hris_traininginstance_methods_pkey;
-      ALTER TABLE trainingsessionmethods ADD CONSTRAINT trainingsessionmethods_pkey PRIMARY KEY(trainingsessionid, methodid);
+      ALTER TABLE trainingsessiontopics DROP CONSTRAINT hris_traininginstance_methods_pkey;
+      ALTER TABLE trainingsessiontopics ADD CONSTRAINT trainingsessiontopics_pkey PRIMARY KEY(trainingsessionid, topicid);
       `)
     }
 
@@ -470,18 +470,18 @@ export class training1570105584725 implements MigrationInterface {
     `;
     await queryRunner.query(trainingSession);
 
-    // let trainingSessionMethod = `CREATE TABLE public.trainingsessionmethods
+    // let trainingSessionMethod = `CREATE TABLE public.trainingsessiontopics
     // (
     //     "trainingsessionId" integer NOT NULL,
-    //     "trainingmethodId" integer NOT NULL,
-    //     CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionId", "trainingmethodId"),
+    //     "trainingtopicId" integer NOT NULL,
+    //     CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionId", "trainingtopicId"),
     //     CONSTRAINT "FK_69ff46ede8e95be623bb4a0fddb" FOREIGN KEY ("trainingsessionId")
     //         REFERENCES public.trainingsession (id) MATCH SIMPLE
     //         ON UPDATE NO ACTION
     //         ON DELETE CASCADE
     //         NOT VALID,
-    //     CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY ("trainingmethodId")
-    //         REFERENCES public.trainingmethod (id) MATCH SIMPLE
+    //     CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY ("trainingtopicId")
+    //         REFERENCES public.trainingtopic (id) MATCH SIMPLE
     //         ON UPDATE NO ACTION
     //         ON DELETE CASCADE
     //         NOT VALID
@@ -491,7 +491,7 @@ export class training1570105584725 implements MigrationInterface {
     // )
     // TABLESPACE pg_default;
     
-    // ALTER TABLE public.trainingsessionmethods
+    // ALTER TABLE public.trainingsessiontopics
     //     OWNER to postgres;
     
     // -- Index: IDX_69ff46ede8e95be623bb4a0fdd
@@ -499,7 +499,7 @@ export class training1570105584725 implements MigrationInterface {
     // -- DROP INDEX public."IDX_69ff46ede8e95be623bb4a0fdd";
     
     // CREATE INDEX "IDX_69ff46ede8e95be623bb4a0fdd"
-    //     ON public.trainingsessionmethods USING btree
+    //     ON public.trainingsessiontopics USING btree
     //     ("trainingsessionId")
     //     TABLESPACE pg_default;
     
@@ -508,8 +508,8 @@ export class training1570105584725 implements MigrationInterface {
     // -- DROP INDEX public."IDX_c6cf5835d03868b97d74d0ad37";
     
     // CREATE INDEX "IDX_c6cf5835d03868b97d74d0ad37"
-    //     ON public.trainingsessionmethods USING btree
-    //     ("trainingmethodId")
+    //     ON public.trainingsessiontopics USING btree
+    //     ("trainingtopicId")
     //     TABLESPACE pg_default;`;
 
     // await queryRunner.query(trainingSessionMethod);

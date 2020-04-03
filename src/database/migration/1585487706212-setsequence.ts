@@ -352,24 +352,24 @@ export class sequential1585499925311 implements MigrationInterface {
       `ALTER SEQUENCE indicatortarget_id_seq RESTART WITH ${nextindicatortarget}`,
     );
 
-    const instancefacilitator_id_seq = await queryRunner.query(
-      `SELECT id FROM instancefacilitator ORDER BY id DESC LIMIT 1`,
+    const sessionfacilitator_id_seq = await queryRunner.query(
+      `SELECT id FROM sessionfacilitator ORDER BY id DESC LIMIT 1`,
     );
-    const nextinstancefacilitator = instancefacilitator_id_seq[0]
-      ? parseInt(instancefacilitator_id_seq[0].id) + parseInt('1')
+    const nextsessionfacilitator = sessionfacilitator_id_seq[0]
+      ? parseInt(sessionfacilitator_id_seq[0].id) + parseInt('1')
       : parseInt('1');
     await queryRunner.query(
-      `ALTER SEQUENCE instancefacilitator_id_seq RESTART WITH ${nextinstancefacilitator}`,
+      `ALTER SEQUENCE sessionfacilitator_id_seq RESTART WITH ${nextsessionfacilitator}`,
     );
 
-    const instancerecord_id_seq = await queryRunner.query(
-      `SELECT id FROM instancerecord ORDER BY id DESC LIMIT 1`,
+    const sessionparticipant_id_seq = await queryRunner.query(
+      `SELECT id FROM sessionparticipant ORDER BY id DESC LIMIT 1`,
     );
-    const nextinstancerecord = instancerecord_id_seq[0]
-      ? parseInt(instancerecord_id_seq[0].id) + parseInt('1')
+    const nextsessionparticipant = sessionparticipant_id_seq[0]
+      ? parseInt(sessionparticipant_id_seq[0].id) + parseInt('1')
       : parseInt('1');
     await queryRunner.query(
-      `ALTER SEQUENCE instancerecord_id_seq RESTART WITH ${nextinstancerecord}`,
+      `ALTER SEQUENCE sessionparticipant_id_seq RESTART WITH ${nextsessionparticipant}`,
     );
 
     const instancetrainer_id_seq = await queryRunner.query(
@@ -532,14 +532,14 @@ export class sequential1585499925311 implements MigrationInterface {
       `ALTER SEQUENCE traininginstance_id_seq RESTART WITH ${nexttraininginstance}`,
     );
 
-    const trainingmethod_id_seq = await queryRunner.query(
-      `SELECT id FROM trainingmethod ORDER BY id DESC LIMIT 1`,
+    const trainingtopic_id_seq = await queryRunner.query(
+      `SELECT id FROM trainingtopic ORDER BY id DESC LIMIT 1`,
     );
-    const nexttrainingmethod = trainingmethod_id_seq[0]
-      ? parseInt(trainingmethod_id_seq[0].id) + parseInt('1')
+    const nexttrainingtopic = trainingtopic_id_seq[0]
+      ? parseInt(trainingtopic_id_seq[0].id) + parseInt('1')
       : parseInt('1');
     await queryRunner.query(
-      `ALTER SEQUENCE trainingmethod_id_seq RESTART WITH ${nexttrainingmethod}`,
+      `ALTER SEQUENCE trainingtopic_id_seq RESTART WITH ${nexttrainingtopic}`,
     );
 
     const trainingsections_id_seq = await queryRunner.query(

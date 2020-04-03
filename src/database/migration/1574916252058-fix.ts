@@ -79,14 +79,14 @@ export class fix1574916252058 implements MigrationInterface {
     ALTER TABLE indicatortarget ALTER COLUMN  id SET DEFAULT nextval('indicatortarget_id_seq');
     ALTER TABLE indicatortarget ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
 
-    ALTER TABLE "instancefacilitator" OWNER TO "postgres";
-    CREATE SEQUENCE instancefacilitator_id_seq AS BIGINT OWNED BY instancefacilitator.id;
-    ALTER TABLE instancefacilitator ALTER COLUMN  id SET DEFAULT nextval('instancefacilitator_id_seq');
-    ALTER TABLE instancefacilitator ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
+    ALTER TABLE "sessionfacilitator" OWNER TO "postgres";
+    CREATE SEQUENCE sessionfacilitator_id_seq AS BIGINT OWNED BY sessionfacilitator.id;
+    ALTER TABLE sessionfacilitator ALTER COLUMN  id SET DEFAULT nextval('sessionfacilitator_id_seq');
+    ALTER TABLE sessionfacilitator ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
 
-    ALTER TABLE "instancerecord" OWNER TO "postgres";
-    CREATE SEQUENCE instancerecord_id_seq AS BIGINT OWNED BY instancerecord.id;
-    ALTER TABLE instancerecord ALTER COLUMN  id SET DEFAULT nextval('instancerecord_id_seq');
+    ALTER TABLE "sessionparticipant" OWNER TO "postgres";
+    CREATE SEQUENCE sessionparticipant_id_seq AS BIGINT OWNED BY sessionparticipant.id;
+    ALTER TABLE sessionparticipant ALTER COLUMN  id SET DEFAULT nextval('sessionparticipant_id_seq');
 
     ALTER TABLE "instancetrainer" OWNER TO "postgres";
     CREATE SEQUENCE instancetrainer_id_seq AS BIGINT OWNED BY instancetrainer.id;
@@ -172,10 +172,10 @@ export class fix1574916252058 implements MigrationInterface {
     ALTER TABLE traininginstance ALTER COLUMN  id SET DEFAULT nextval('traininginstance_id_seq');
     ALTER TABLE traininginstance ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
 
-    ALTER TABLE "trainingmethod" OWNER TO "postgres";
-    CREATE SEQUENCE trainingmethod_id_seq AS BIGINT OWNED BY trainingmethod.id;
-    ALTER TABLE trainingmethod ALTER COLUMN  id SET DEFAULT nextval('trainingmethod_id_seq');
-    ALTER TABLE trainingmethod ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
+    ALTER TABLE "trainingtopic" OWNER TO "postgres";
+    CREATE SEQUENCE trainingtopic_id_seq AS BIGINT OWNED BY trainingtopic.id;
+    ALTER TABLE trainingtopic ALTER COLUMN  id SET DEFAULT nextval('trainingtopic_id_seq');
+    ALTER TABLE trainingtopic ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
 
     ALTER TABLE "trainingsections" OWNER TO "postgres";
     CREATE SEQUENCE trainingsections_id_seq AS BIGINT OWNED BY trainingsections.id;
@@ -238,7 +238,6 @@ export class fix1574916252058 implements MigrationInterface {
     ALTER TABLE public."user" DROP COLUMN email_canonical;
 
     ALTER TABLE field ADD COLUMN recordvalueid BIGINT;
-    ALTER TABLE trainingmethod RENAME TO trainingtopic;
 
     `;
     await queryRunner.query(fixes);

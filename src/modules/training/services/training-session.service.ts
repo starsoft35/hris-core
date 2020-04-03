@@ -15,12 +15,12 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   async deliverymode() {
     let deliverymode: {};
     return (deliverymode = {
-      deliverymode: {
-        classroom: ' Classroom Training',
-        onjob: 'On Job Training',
-        mentorship: ' Mentorship',
-        online: 'Online',
-      },
+      deliverymode: [
+        { id: 'classroom', name: ' Classroom Training' },
+        { id: 'onjob', name: 'On Job Training' },
+        { id: 'mentorship', name: ' Mentorship' },
+        { id: 'online', name: 'Online' },
+      ],
     });
   }
 }
