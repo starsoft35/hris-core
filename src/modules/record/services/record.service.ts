@@ -213,9 +213,12 @@ export class RecordService extends BaseService<Record> {
     recordValue.entitledPayment = entitledPayment;
     recordValue.recordid = recordGot;
     recordValue.fieldid = idfield;
-    console.log(recordValue.uid);
 
-    await this.recordValueRepository.save(recordValue);
+    const recordValueResponse = await this.recordValueRepository.save(
+      recordValue,
+    );
+
+    return recordValueResponse;
   }
   async updateRecordValue(
     uid: string,
@@ -230,15 +233,27 @@ export class RecordService extends BaseService<Record> {
   }
 
   async findOneByUid(uid: string): Promise<Record> {
-    let join: any = {};
-    join = {
-      alias: 'record',
-      leftJoinAndSelect: {
-        form: 'record.form',
-        organisationUnit: 'record.organisationUnit',
+    const record = await this.recordRepository.findOne({
+      where: { uid },
+      join: {
+        alias: 'record',
+        leftJoinAndSelect: {
+          form: 'record.form',
+          organisationUnit: 'record.organisationUnit',
+        },
       },
-    };
-    console.log('Fetching By UID');
-    return await this.recordRepository.findOne({ where: { uid }, join });
+    });
+
+    const recordValues = await this.recordValueRepository.find({
+      where: { recordid: record.id },
+      join: {
+        alias: 'recordValue',
+        leftJoinAndSelect: { field: 'recordValue.field' },
+      },
+    });
+
+    record.recordValues = recordValues;
+
+    return record;
   }
 }

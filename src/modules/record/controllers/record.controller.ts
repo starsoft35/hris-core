@@ -16,6 +16,7 @@ import { Record } from 'src/modules/record/entities/record.entity';
 import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 import { RecordValue } from '../entities/record-value.entity';
 import { RecordService } from '../services/record.service';
+import { sanitizeResponseObject } from 'src/core/utilities/sanitize-response-object';
 
 @Controller('api/' + Record.plural)
 export class RecordsController extends BaseController<Record> {
@@ -45,7 +46,7 @@ export class RecordsController extends BaseController<Record> {
   @UseGuards(SessionGuard)
   async createRecord(@Body() createRecordDto, @Res() res): Promise<any> {
     const record = await this.recordService.createRecord(createRecordDto);
-    return res.status(HttpStatus.OK).send(record);
+    return res.status(HttpStatus.OK).send(sanitizeResponseObject(record));
   }
   @Post(':record/recordVal')
   @UseGuards(SessionGuard)
@@ -89,7 +90,9 @@ export class RecordsController extends BaseController<Record> {
       createRecordValueDto,
     );
 
-    return res.status(HttpStatus.OK).send(recordValueResult);
+    return res
+      .status(HttpStatus.OK)
+      .send(sanitizeResponseObject(recordValueResult));
   }
   @Put('recordValues/:recordValue')
   @UseGuards(SessionGuard)
