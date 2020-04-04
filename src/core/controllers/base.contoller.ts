@@ -144,7 +144,6 @@ export class BaseController<T extends HRISBaseEntity> {
             ? postSuccessResponse(res, createdEntity)
             : postSuccessResponse(res, createdEntity);
         } else {
-          console.log('Entity Created:::', createdEntity);
           return genericFailureResponse(res);
         }
       }
