@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { TaskService } from '../services/task.service';
-import { Repository } from 'typeorm';
-
 import { Task } from '../entities/task.entity';
+import { TaskService } from '../services/task.service';
+
 
 @Injectable()
 export class BackgroundProcess {

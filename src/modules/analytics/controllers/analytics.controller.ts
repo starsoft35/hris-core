@@ -1,18 +1,7 @@
-import {
-  Body,
-  Get,
-  Post,
-  Put,
-  Param,
-  Delete,
-  Query,
-  UseGuards,
-  Controller,
-} from '@nestjs/common';
-import { AnalyticsService } from '../services/analytics.service';
-import { TaskService } from 'src/modules/system/task/services/task.service';
-import { errorMessage } from 'src/core/helpers/response.helper';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AuthenticatedUser } from 'src/core/helpers/user-decorator.helper';
+import { TaskService } from 'src/modules/system/task/services/task.service';
+import { AnalyticsService } from '../services/analytics.service';
 
 @Controller('api/analytics')
 export class AnalyticsController {
@@ -38,30 +27,33 @@ export class AnalyticsController {
         otherDimensions[split[0]] = split[1];
       }
     });
-    return this.analyticsService.fetchAnalytics(dx, pe, ou,{
-      user:user
+    return this.analyticsService.fetchAnalytics(dx, pe, ou, {
+      user: user,
     });
   }
   @Get('records/:formid')
-  async fetchRecordsAnalytics(@Param() params, @Query() query, @AuthenticatedUser() user) {
+  async fetchRecordsAnalytics(
+    @Param() params,
+    @Query() query,
+    @AuthenticatedUser() user,
+  ) {
     console.log('query:', query);
     let pe;
     let ou;
     let otherDimensions = {};
-    if(!query.dimension){
+    if (!query.dimension) {
       return {
         status: 'ERROR',
-        message: 'No dimension was provided. Please provide period(pe) and organisation unit(ou) dimension',
+        message:
+          'No dimension was provided. Please provide period(pe) and organisation unit(ou) dimension',
       };
     }
-    if(!Array.isArray(query.dimension)){
+    if (!Array.isArray(query.dimension)) {
       console.log(query.dimension);
-      query.dimension = [
-        query.dimension
-      ]
+      query.dimension = [query.dimension];
     }
-    if(!Array.isArray(query.pe)){
-      pe = query.pe.split(';')
+    if (!Array.isArray(query.pe)) {
+      pe = query.pe.split(';');
     }
     query.dimension.forEach(dimension => {
       let split = dimension.split(':');
@@ -93,25 +85,28 @@ export class AnalyticsController {
   }
 
   @Get('training')
-  async fetchTrainingAnalytics(@Param() params, @Query() query, @AuthenticatedUser() user) {
+  async fetchTrainingAnalytics(
+    @Param() params,
+    @Query() query,
+    @AuthenticatedUser() user,
+  ) {
     console.log('query:', query);
     let pe;
     let ou;
     let otherDimensions = {};
-    if(!query.dimension){
+    if (!query.dimension) {
       return {
         status: 'ERROR',
-        message: 'No dimension was provided. Please provide period(pe) and organisation unit(ou) dimension',
+        message:
+          'No dimension was provided. Please provide period(pe) and organisation unit(ou) dimension',
       };
     }
-    if(!Array.isArray(query.dimension)){
+    if (!Array.isArray(query.dimension)) {
       console.log(query.dimension);
-      query.dimension = [
-        query.dimension
-      ]
+      query.dimension = [query.dimension];
     }
-    if(!Array.isArray(query.pe)){
-      pe = query.pe.split(';')
+    if (!Array.isArray(query.pe)) {
+      pe = query.pe.split(';');
     }
     query.dimension.forEach(dimension => {
       let split = dimension.split(':');
@@ -143,25 +138,28 @@ export class AnalyticsController {
   }
 
   @Get('training/coverage')
-  async fetchTrainingCoverageAnalytics(@Param() params, @Query() query, @AuthenticatedUser() user) {
+  async fetchTrainingCoverageAnalytics(
+    @Param() params,
+    @Query() query,
+    @AuthenticatedUser() user,
+  ) {
     console.log('query:', query);
     let pe;
     let ou;
     let otherDimensions = {};
-    if(!query.dimension){
+    if (!query.dimension) {
       return {
         status: 'ERROR',
-        message: 'No dimension was provided. Please provide period(pe) and organisation unit(ou) dimension',
+        message:
+          'No dimension was provided. Please provide period(pe) and organisation unit(ou) dimension',
       };
     }
-    if(!Array.isArray(query.dimension)){
+    if (!Array.isArray(query.dimension)) {
       console.log(query.dimension);
-      query.dimension = [
-        query.dimension
-      ]
+      query.dimension = [query.dimension];
     }
-    if(!Array.isArray(query.pe)){
-      pe = query.pe.split(';')
+    if (!Array.isArray(query.pe)) {
+      pe = query.pe.split(';');
     }
     query.dimension.forEach(dimension => {
       let split = dimension.split(':');

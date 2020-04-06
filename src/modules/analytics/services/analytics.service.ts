@@ -1,20 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Connection } from 'typeorm';
-import {
-  format,
-  endOfMonth,
-  startOfMonth,
-  getDaysInMonth,
-  endOfQuarter,
-  startOfQuarter,
-  differenceInDays,
-  getDaysInYear,
-  startOfYear,
-  endOfWeek,
-  startOfWeek,
-  endOfYear,
-} from 'date-fns';
 import { getWhereConditions } from 'src/core/utilities';
+import { Connection } from 'typeorm';
 
 @Injectable()
 export class AnalyticsService {

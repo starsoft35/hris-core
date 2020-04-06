@@ -1,22 +1,8 @@
-import { Task } from '../entities/task.entity';
-import { BackgroundProcess } from './base.process';
-import { Connection } from 'typeorm';
-import {
-  format,
-  endOfMonth,
-  startOfMonth,
-  getDaysInMonth,
-  endOfQuarter,
-  startOfQuarter,
-  differenceInDays,
-  getDaysInYear,
-  startOfYear,
-  endOfWeek,
-  startOfWeek,
-  endOfYear,
-} from 'date-fns';
 import { Injectable } from '@nestjs/common';
+import { differenceInDays, endOfMonth, endOfQuarter, endOfWeek, endOfYear, format, getDaysInMonth, getDaysInYear, startOfMonth, startOfQuarter, startOfWeek, startOfYear } from 'date-fns';
+import { Connection } from 'typeorm';
 import { TaskService } from '../services/task.service';
+import { BackgroundProcess } from './base.process';
 
 @Injectable()
 export class PeriodGenerator extends BackgroundProcess {

@@ -1,9 +1,8 @@
-import { Connection } from 'typeorm';
-
-import { Task } from '../entities/task.entity';
-import { BackgroundProcess } from './base.process';
-import { TaskService } from '../services/task.service';
 import { Injectable } from '@nestjs/common';
+import { Connection } from 'typeorm';
+import { TaskService } from '../services/task.service';
+import { BackgroundProcess } from './base.process';
+
 
 @Injectable()
 export class Analytics extends BackgroundProcess {
