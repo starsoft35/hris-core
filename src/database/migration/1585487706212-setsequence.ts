@@ -3,14 +3,14 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class sequential1585499925311 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const userid = await queryRunner.query(
-        `SELECT id FROM "user" ORDER BY id DESC LIMIT 1`,
-      );
-      const nextUser = userid[0]
-        ? parseInt(userid[0].id) + parseInt('1')
-        : parseInt('1');
-      await queryRunner.query(
-        `ALTER SEQUENCE user_id_seq RESTART WITH ${nextUser};`,
-      );
+      `SELECT id FROM "user" ORDER BY id DESC LIMIT 1`,
+    );
+    const nextUser = userid[0]
+      ? parseInt(userid[0].id) + parseInt('1')
+      : parseInt('1');
+    await queryRunner.query(
+      `ALTER SEQUENCE user_id_seq RESTART WITH ${nextUser};`,
+    );
 
     const usersettingid = await queryRunner.query(
       `SELECT id FROM usersetting ORDER BY id DESC LIMIT 1`,
@@ -678,7 +678,13 @@ export class sequential1585499925311 implements MigrationInterface {
             DROP SEQUENCE hris_user_id_seq;
             DROP SEQUENCE hris_validation_id_seq;
             DROP SEQUENCE sqlview_id_seq CASCADE;
-            
+            ALTER TABLE record ALTER COLUMN instance DROP NOT NULL;
+            DROP TABLE sessionparticipant;
+            DROP TABLE sessionfacilitator;
+            ALTER TABLE participant RENAME TO sessionparticipant;
+            ALTER TABLE facilitator RENAME TO sessionfacilitator;
+            ALTER TABLE sessionparticipant ADD COLUMN  curriculumid bigint; 
+                        
             UPDATE formfieldmember SET showinlist=true WHERE formfieldmember.fieldid IN(
               SELECT formfieldmember.fieldid FROM formfieldmember
               INNER JOIN field ON(field.id=formfieldmember.fieldid AND field.name IN(
@@ -701,20 +707,15 @@ export class sequential1585499925311 implements MigrationInterface {
               ))
               INNER JOIN form ON(form.id=formfieldmember.formid AND title='Public Employee Form')
             )
-            ALTER TABLE record ALTER COLUMN instance DROP NOT NULL;
-            DROP TABLE sessionparticipant;
-            DROP TABLE sessionfacilitator;
-            ALTER TABLE participant RENAME TO sessionparticipant;
-            ALTER TABLE facilitator RENAME TO sessionfacilitator;
-            ALTER TABLE sessionparticipant ADD COLUMN  curriculumid; 
-            ALTER TABLE sessionparticipant ADD COLUMN trainingsectionid;   
-            ALTER TABLE sessionparticipant ADD COLUMN trainingsectionid;
-            ALTER TABLE sessionparticipant ADD CONSTRAINT "FK_constraint_curriculum" FOREIGN KEY (curriculumid)
-            REFERENCES public.trainingcurriculum (id) MATCH SIMPLE
-            ON UPDATE CASCADE
-            ON DELETE CASCADE;0 
 
             `);
+
+    await queryRunner.query(
+      `ALTER TABLE sessionparticipant ADD CONSTRAINT "FK_constraint_curriculum" FOREIGN KEY (curriculumid)
+    REFERENCES public.trainingcurriculum (id) MATCH SIMPLE
+    ON UPDATE CASCADE
+    ON DELETE CASCADE`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}

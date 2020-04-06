@@ -80,7 +80,7 @@ export class Field extends EntityCoreProps {
       onDelete: 'CASCADE',
     },
   )
-  fieldGroups: FieldGroup[];
+  fieldgroups: FieldGroup[];
 
   /**
    * Many To One Relationship: Field and FieldGroup
@@ -96,23 +96,23 @@ export class Field extends EntityCoreProps {
     },
   )
   @JoinColumn({ referencedColumnName: 'id' })
-  dataType: FieldDataType;
+  datatype: FieldDataType;
 
   @OneToMany(
     type => FieldRelation,
-    fieldRelation => fieldRelation.childField,
+    fieldRelation => fieldRelation.childfield,
     {
       onDelete: 'CASCADE',
     },
   )
-  childFieldRelations: FieldRelation[];
+  childfieldrelations: FieldRelation[];
 
   @OneToMany(
     type => FieldRelation,
     fieldRelation => fieldRelation.parentField,
     { onDelete: 'CASCADE' },
   )
-  parentFieldRelations: FieldRelation[];
+  parentfieldrelations: FieldRelation[];
 
   /**
    * One To Many Relationship: Field and FieldOption
@@ -127,7 +127,7 @@ export class Field extends EntityCoreProps {
       onDelete: 'CASCADE',
     },
   )
-  fieldOptions: FieldOption[];
+  fieldoptions: FieldOption[];
 
   /**
    * Many To One Relationship: Field and FieldInputType
@@ -144,42 +144,42 @@ export class Field extends EntityCoreProps {
     },
   )
   @JoinColumn({ referencedColumnName: 'id' })
-  fieldInputType: FieldInputType;
+  fieldinputtype: FieldInputType;
 
   @OneToMany(
     type => FieldOptionGroup,
     fieldOptionGroup => fieldOptionGroup.field,
     { onDelete: 'CASCADE' },
   )
-  fieldOptionGroups: FieldOptionGroup[];
+  fieldoptiongroups: FieldOptionGroup[];
 
   @OneToMany(
     type => FieldOptionMerge,
     fieldOptionMerge => fieldOptionMerge.field,
     { onDelete: 'CASCADE' },
   )
-  fieldOptionMerges: FieldOptionMerge[];
+  fieldoptionmerges: FieldOptionMerge[];
 
   @OneToMany(
     type => FormFieldMember,
     formFieldMember => formFieldMember.field,
     { onDelete: 'CASCADE' },
   )
-  formFieldMembers: FormFieldMember[];
+  formfieldmembers: FormFieldMember[];
 
   @OneToMany(
     type => FormVisibleField,
     formVisibleField => formVisibleField.field,
     { onDelete: 'CASCADE' },
   )
-  formVisibleFields: FormVisibleField[];
+  formvisiblefields: FormVisibleField[];
 
   @OneToMany(
     type => FormSectionFieldMember,
     formSectionFieldMember => formSectionFieldMember.field,
     { onDelete: 'CASCADE' },
   )
-  formSectionFieldMembers: FormSectionFieldMember[];
+  formsectionfieldmembers: FormSectionFieldMember[];
 
   @ManyToMany(
     type => Form,
@@ -193,5 +193,5 @@ export class Field extends EntityCoreProps {
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'recordvalueid' })
-  recordValue: RecordValue | null;
+  recordvalue: RecordValue | null;
 }

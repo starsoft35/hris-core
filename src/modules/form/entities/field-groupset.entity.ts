@@ -11,7 +11,7 @@ export class FieldGroupSet extends EntityCoreProps {
    */
   @ManyToMany(
     type => FieldGroup,
-    fieldGroup => fieldGroup.fieldGroupSets,
+    fieldGroup => fieldGroup.fieldgroupsets,
     {
       nullable: false,
       cascade: true,
@@ -25,5 +25,5 @@ export class FieldGroupSet extends EntityCoreProps {
     joinColumn: { referencedColumnName: 'id' },
     inverseJoinColumn: { referencedColumnName: 'id' },
   })
-  fieldGroups: FieldGroup[];
+  fieldgroups: FieldGroup[];
 }

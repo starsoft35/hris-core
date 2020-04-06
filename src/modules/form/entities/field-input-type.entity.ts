@@ -21,7 +21,7 @@ export class FieldInputType extends EntityCoreProps {
 
   @OneToMany(
     type => Field,
-    field => field.fieldInputType,
+    field => field.fieldinputtype,
   )
   fields: Field[];
 }

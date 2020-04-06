@@ -42,5 +42,5 @@ export class Message extends EntityCoreProps {
     messageMetadata => messageMetadata.message,
     { onDelete: 'CASCADE' },
   )
-  messageMetadatas: MessageMetadata[];
+  messagemetadatas: MessageMetadata[];
 }

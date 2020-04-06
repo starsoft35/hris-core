@@ -22,7 +22,7 @@ export class FormFieldMember extends HRISBaseEntity {
 
   @ManyToOne(
     type => Field,
-    field => field.formFieldMembers,
+    field => field.formfieldmembers,
     {
       primary: true,
       nullable: false,

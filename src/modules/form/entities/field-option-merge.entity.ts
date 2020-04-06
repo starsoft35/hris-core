@@ -13,7 +13,7 @@ export class FieldOptionMerge extends EntityCoreProps {
    */
   @ManyToOne(
     type => Field,
-    field => field.fieldOptionMerges,
+    field => field.fieldoptionmerges,
     {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
@@ -27,23 +27,23 @@ export class FieldOptionMerge extends EntityCoreProps {
    */
   @ManyToOne(
     type => FieldOption,
-    fieldOption => fieldOption.fieldOptionMerges,
+    fieldOption => fieldOption.fieldoptionmerges,
     { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
   )
   @JoinColumn({ referencedColumnName: 'id' })
-  mergedFieldOption: FieldOption;
+  mergedfieldoption: FieldOption;
 
   @Column({
     type: 'varchar',
     nullable: false,
     length: 255,
   })
-  removedFieldOptionValue: string;
+  removedfieldoptionvalue: string;
 
   @Column({
     type: 'varchar',
     nullable: false,
     length: 255,
   })
-  removedFieldOptionUid: string;
+  removedfieldoptionuid: string;
 }

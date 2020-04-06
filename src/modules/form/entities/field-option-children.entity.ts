@@ -17,7 +17,7 @@ export class FieldOptionChildren extends EntityCoreProps {
     },
   )
   @JoinColumn({ referencedColumnName: 'id' })
-  parentFieldOption: FieldOption;
+  parentfieldoption: FieldOption;
 
   @ManyToOne(
     type => FieldOption,
@@ -29,5 +29,5 @@ export class FieldOptionChildren extends EntityCoreProps {
     },
   )
   @JoinColumn({ referencedColumnName: 'id' })
-  childFieldOption: FieldOption;
+  childfieldoption: FieldOption;
 }

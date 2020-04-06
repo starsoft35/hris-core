@@ -1,7 +1,7 @@
-import { Column, Entity, OneToMany, PrimaryColumn, Generated } from 'typeorm';
-
-import { Field } from './field.entity';
+import { Entity, Generated, OneToMany, PrimaryColumn } from 'typeorm';
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { Field } from './field.entity';
+
 
 @Entity('fielddatatype', { schema: 'public' })
 export class FieldDataType extends EntityCoreProps {
@@ -16,7 +16,7 @@ export class FieldDataType extends EntityCoreProps {
   
   @OneToMany(
     type => Field,
-    field => field.dataType,
+    field => field.datatype,
     {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

@@ -1,14 +1,13 @@
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
 import { OrganisationUnitCompleteness } from '../../../modules/organisation-unit/entities/organisation-unit-completeness.entity';
-import { User } from '../../../modules/system/user/entities/user.entity';
-import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
-
+import { Indicator } from '../../indicator/entities/indicator.entity';
 import { Record } from '../../record/entities/record.entity';
 import { Field } from './field.entity';
 import { FormFieldMember } from './form-field-member.entity';
 import { FormSection } from './form-section.entity';
 import { FormVisibleField } from './form-visible-fields.entity';
-import { Indicator } from '../../indicator/entities/indicator.entity';
+
 
 @Entity('form', { schema: 'public' })
 export class Form extends EntityCoreProps {
@@ -64,7 +63,7 @@ export class Form extends EntityCoreProps {
     type => OrganisationUnitCompleteness,
     organisationUnitCompleteness => organisationUnitCompleteness.form,
   )
-  organisationUnitCompletenesss: OrganisationUnitCompleteness[];
+  organisationunitcompletenesss: OrganisationUnitCompleteness[];
 
   @OneToMany(
     type => Record,

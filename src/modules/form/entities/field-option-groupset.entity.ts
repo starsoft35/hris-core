@@ -17,7 +17,7 @@ export class FieldOptionGroupSet extends EntityCoreProps {
 
   @ManyToMany(
     type => FieldOptionGroup,
-    fieldOptionGroup => fieldOptionGroup.fieldOptionGroupSets,
+    fieldOptionGroup => fieldOptionGroup.fieldoptiongroupsets,
     { nullable: false },
   )
   @JoinTable({ name: 'fieldoptiongroupsetmembers' })

@@ -25,5 +25,5 @@ export class UserAuthority extends UserCoreProps {
         joinColumn: { referencedColumnName: 'id' },
         inverseJoinColumn: { referencedColumnName: 'id' },
     })
-    userRoles: UserRole[];
+    userroles: UserRole[];
 }

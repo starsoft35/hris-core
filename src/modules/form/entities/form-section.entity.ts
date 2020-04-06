@@ -25,5 +25,5 @@ export class FormSection extends EntityCoreProps {
     formSectionFieldMembers => formSectionFieldMembers.formSection,
     { onDelete: 'CASCADE' },
   )
-  formSectionFieldMembers: FormSectionFieldMember[];
+  formsectionfieldmembers: FormSectionFieldMember[];
 }

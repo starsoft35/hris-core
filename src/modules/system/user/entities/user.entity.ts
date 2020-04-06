@@ -1,6 +1,3 @@
-import { UserCoreProps } from '../../../../core/entities/user-core-props.entity';
-import { OrganisationUnit } from '../../../../modules/organisation-unit/entities/organisation-unit.entity';
-
 import {
   BeforeInsert,
   Column,
@@ -11,21 +8,20 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-
-import { Form } from '../../../form/entities/form.entity';
+import { UserCoreProps } from '../../../../core/entities/user-core-props.entity';
+import { OrganisationUnit } from '../../../../modules/organisation-unit/entities/organisation-unit.entity';
 import { MessageMetadata } from '../../../message/entities/message-metadata.entity';
 import { MessageThreadMetadata } from '../../../message/entities/message-thread-metadata.entity';
 import { MessageThread } from '../../../message/entities/message-thread.entity';
 import { Message } from '../../../message/entities/message.entity';
+import { Report } from '../../../report/entities/report.entity';
+import { Chart } from '../../../visualization/chart/entities/chart.entity';
+import { Dashboard } from '../../../visualization/dashboard/entities/dashboard.entity';
+import { Map } from '../../../visualization/map/entities/map.entity';
+import { ReportTable } from '../../../visualization/report-table/entities/report-table.entity';
 import { UserGroup } from '../../user-group/entities/user-group.entity';
 import { UserRole } from '../../user-role/entities/user-role.entity';
 import { UserSettings } from './user-settings.entity';
-import { Chart } from '../../../visualization/chart/entities/chart.entity';
-import { Map } from '../../../visualization/map/entities/map.entity';
-import { ReportTable } from '../../../visualization/report-table/entities/report-table.entity';
-import { Dashboard } from '../../../visualization/dashboard/entities/dashboard.entity';
-import { Report } from '../../../report/entities/report.entity';
-import { ReportService } from 'src/modules/report/services/report.service';
 
 @Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {
@@ -72,7 +68,7 @@ export class User extends UserCoreProps {
     length: 64,
     default: () => 'NULL::varchar',
   })
-  phoneNumber: string | null;
+  phonenumber: string | null;
 
   @Column({
     type: 'varchar',
@@ -89,7 +85,7 @@ export class User extends UserCoreProps {
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
-  lastLogin: Date | null;
+  lastlogin: Date | null;
 
   @Column({
     type: 'timestamp without time zone',
@@ -105,7 +101,7 @@ export class User extends UserCoreProps {
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
   })
-  deletedDate: Date | null;
+  deleteddate: Date | null;
 
   @Column({ type: 'boolean', nullable: true })
   enabled: boolean;
@@ -121,36 +117,44 @@ export class User extends UserCoreProps {
   /**
    * Many To Many Relationship: User and UserRole Entities
    */
-  @ManyToMany(type => UserRole, userRole => userRole.users, {
-    nullable: false,
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(
+    type => UserRole,
+    userRole => userRole.users,
+    {
+      nullable: false,
+      eager: true,
+      cascade: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinTable({
     name: 'userrolemembers',
     joinColumn: { referencedColumnName: 'id' },
     inverseJoinColumn: { referencedColumnName: 'id' },
   })
-  userRoles: UserRole[];
+  userroles: UserRole[];
 
   /**
    * Many To Many Relationship: User and UserGroup Entities
    */
-  @ManyToMany(type => UserGroup, userGroup => userGroup.users, {
-    nullable: false,
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(
+    type => UserGroup,
+    userGroup => userGroup.users,
+    {
+      nullable: false,
+      eager: true,
+      cascade: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinTable({
     name: 'usergroupmembers',
     joinColumn: { referencedColumnName: 'id' },
     inverseJoinColumn: { referencedColumnName: 'id' },
   })
-  userGroups: UserGroup[];
+  usergroups: UserGroup[];
 
   // @OneToMany(type => DashboardChart, dashboardChart => dashboardChart.user, {
   //   onDelete: 'CASCADE',
@@ -184,13 +188,17 @@ export class User extends UserCoreProps {
   /**
    * Many To Many Relationship: User and Message Entities
    */
-  @ManyToMany(type => Message, message => message.user, {
-    nullable: false,
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(
+    type => Message,
+    message => message.user,
+    {
+      nullable: false,
+      eager: true,
+      cascade: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinTable({
     name: 'usermessagemembers',
   })
@@ -204,15 +212,19 @@ export class User extends UserCoreProps {
     messageMetadata => messageMetadata.participant,
     { onDelete: 'CASCADE' },
   )
-  messageMetadatas: MessageMetadata[];
+  messagemetadatas: MessageMetadata[];
 
   /**
    * One To Many Relationship: User and MessageThread Entities
    */
-  @OneToMany(type => MessageThread, messageThread => messageThread.createdBy, {
-    onDelete: 'CASCADE',
-  })
-  messageThreads: MessageThread[];
+  @OneToMany(
+    type => MessageThread,
+    messageThread => messageThread.createdBy,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
+  messagethreads: MessageThread[];
 
   /**
    * One To Many Relationship: User and MessageThreadMetadata Entities
@@ -222,7 +234,7 @@ export class User extends UserCoreProps {
     messageThreadMetadata => messageThreadMetadata.participant,
     { onDelete: 'CASCADE' },
   )
-  messageThreadMetadatas: MessageThreadMetadata[];
+  messagethreadmetadatas: MessageThreadMetadata[];
 
   // ! Deprecated
   // @OneToOne(type => UserSettings, userSettings => userSettings.user, {
@@ -265,33 +277,52 @@ export class User extends UserCoreProps {
   @JoinTable({
     name: 'organisationunitmembers',
     joinColumn: { name: 'userid', referencedColumnName: 'id' },
-    inverseJoinColumn: { name:'organisationunitid', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'organisationunitid',
+      referencedColumnName: 'id',
+    },
   })
   organisationUnits: OrganisationUnit[];
 
   /**
    * One To One Relationship: User and UserSettings Entities
    */
-  @OneToOne(type => UserSettings, userSettings => userSettings.user, {
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @OneToOne(
+    type => UserSettings,
+    userSettings => userSettings.user,
+    {
+      eager: true,
+      cascade: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinColumn({ referencedColumnName: 'id' })
-  userSettings: UserSettings;
+  usersettings: UserSettings;
 
-  @OneToMany(() => Dashboard, (dashboard: Dashboard) => dashboard.user)
+  @OneToMany(
+    () => Dashboard,
+    (dashboard: Dashboard) => dashboard.user,
+  )
   dashboards: Dashboard[];
 
-  @OneToMany(() => Chart, (chart: Chart) => chart.user)
+  @OneToMany(
+    () => Chart,
+    (chart: Chart) => chart.user,
+  )
   charts: Chart[];
 
-  @OneToMany(() => Map, (map: Map) => map.user)
+  @OneToMany(
+    () => Map,
+    (map: Map) => map.user,
+  )
   maps: Map[];
 
-  @OneToMany(() => ReportTable, (reportTable: ReportTable) => reportTable.user)
-  reportTable: ReportTable[];
+  @OneToMany(
+    () => ReportTable,
+    (reportTable: ReportTable) => reportTable.user,
+  )
+  reporttable: ReportTable[];
 
   public static async authenticateUser(user: {
     username: string;
@@ -321,12 +352,11 @@ export class User extends UserCoreProps {
     this.token = User.getBase64(this.username, this.password);
     this.enabled = true;
   }
-  
+
   @OneToMany(
     () => Report,
     (report: Report) => report.user,
     { onDelete: 'CASCADE' },
   )
   report: Report[];
-
 }

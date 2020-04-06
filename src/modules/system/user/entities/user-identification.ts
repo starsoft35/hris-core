@@ -7,5 +7,5 @@ export class UserIdentification extends UserCoreProps {
   createdBy: User;
 
   @JoinColumn({ name: 'lastupdatedbyid' })
-  lastUpdatedBy: User;
+  lastupdatedby: User;
 }

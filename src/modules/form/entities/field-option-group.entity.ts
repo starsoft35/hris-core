@@ -18,7 +18,7 @@ export class FieldOptionGroup extends EntityCoreProps {
 
   @ManyToOne(
     type => Field,
-    field => field.fieldOptionGroups,
+    field => field.fieldoptiongroups,
     {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
@@ -40,7 +40,7 @@ export class FieldOptionGroup extends EntityCoreProps {
    */
   @ManyToMany(
     type => FieldOption,
-    fieldOption => fieldOption.fieldOptionGroups,
+    fieldOption => fieldOption.fieldoptiongroups,
     {
       nullable: false,
       cascade: true,
@@ -61,8 +61,8 @@ export class FieldOptionGroup extends EntityCoreProps {
    */
   @ManyToMany(
     type => FieldOptionGroupSet,
-    fieldOptionGroupSet => fieldOptionGroupSet.fieldOptionGroups,
+    fieldOptionGroupSet => fieldOptionGroupSet.fieldoptiongroups,
     { nullable: false, onUpdate: 'CASCADE', onDelete: 'CASCADE' },
   )
-  fieldOptionGroupSets: FieldOptionGroupSet[];
+  fieldoptiongroupsets: FieldOptionGroupSet[];
 }

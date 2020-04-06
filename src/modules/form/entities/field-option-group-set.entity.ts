@@ -12,7 +12,7 @@ export class FieldOptionGroupSet extends EntityCoreProps {
    */
   @ManyToMany(
     type => FieldOptionGroup,
-    fieldOptionGroup => fieldOptionGroup.fieldOptionGroupSets,
+    fieldOptionGroup => fieldOptionGroup.fieldoptiongroupsets,
     {
       nullable: false,
       cascade: true,
@@ -26,5 +26,5 @@ export class FieldOptionGroupSet extends EntityCoreProps {
     joinColumn: { referencedColumnName: 'id' },
     inverseJoinColumn: { referencedColumnName: 'id' },
   })
-  fieldOptionGroups: FieldOptionGroup[];
+  fieldoptiongroups: FieldOptionGroup[];
 }

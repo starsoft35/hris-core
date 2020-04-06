@@ -32,5 +32,5 @@ export class TrainingSection extends EntityCoreProps {
     trainingSession => trainingSession.section,
     { onDelete: 'CASCADE' },
   )
-  trainingSessions: TrainingSession[];
+  trainingsessions: TrainingSession[];
 }

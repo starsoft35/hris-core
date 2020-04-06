@@ -10,7 +10,7 @@ export class FormSectionFieldMember extends HRISBaseEntity {
 
   @ManyToOne(
     type => FormSection,
-    formSection => formSection.formSectionFieldMembers,
+    formSection => formSection.formsectionfieldmembers,
     { primary: true, nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'formsectionid' })
@@ -18,7 +18,7 @@ export class FormSectionFieldMember extends HRISBaseEntity {
 
   @ManyToOne(
     type => Field,
-    field => field.formSectionFieldMembers,
+    field => field.formsectionfieldmembers,
     {
       primary: true,
       nullable: false,

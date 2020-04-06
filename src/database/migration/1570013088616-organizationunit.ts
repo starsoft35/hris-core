@@ -69,8 +69,8 @@ export class organizationunit1570013088616 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "organisationunitgroupset" ADD COLUMN IF NOT EXISTS "externalaccess" boolean'); 
 
         await queryRunner.query('ALTER TABLE "hris_organisationunitgroup_members" RENAME TO "organisationunitgroupmembers"');
-        await queryRunner.query('ALTER TABLE "organisationunitgroupmembers" RENAME COLUMN "organisationunitgroup_id" TO "organisationunitgroupId"');
-        await queryRunner.query('ALTER TABLE "organisationunitgroupmembers" RENAME COLUMN "organisationunit_id" TO "organisationunitId"');
+        await queryRunner.query('ALTER TABLE "organisationunitgroupmembers" RENAME COLUMN "organisationunitgroup_id" TO organisationunitgroupId');
+        await queryRunner.query('ALTER TABLE "organisationunitgroupmembers" RENAME COLUMN "organisationunit_id" TO organisationunitId');
     }
 
     let organisationunitCompleteness = await queryRunner.getTable('hris_organisationunitcompleteness');

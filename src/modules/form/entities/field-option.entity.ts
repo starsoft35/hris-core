@@ -33,19 +33,19 @@ export class FieldOption extends EntityCoreProps {
    */
   @ManyToOne(
     type => Field,
-    field => field.fieldOptions,
+    field => field.fieldoptions,
   )
   @JoinColumn({ referencedColumnName: 'id' })
   field: Field;
 
   @OneToMany(
     type => FieldOptionMerge,
-    fieldOptionMerge => fieldOptionMerge.mergedFieldOption,
+    fieldoptionmerge => fieldoptionmerge.mergedfieldoption,
     { onDelete: 'CASCADE' },
   )
-  fieldOptionMerges: FieldOptionMerge[];
+  fieldoptionmerges: FieldOptionMerge[];
 
-  /**
+  /*
    * One To Many Relationship: FieldOption and FieldOptionGroup
    */
   @ManyToMany(
@@ -53,5 +53,5 @@ export class FieldOption extends EntityCoreProps {
     fieldOptionGroup => fieldOptionGroup.fieldOptions,
     { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
   )
-  fieldOptionGroups: FieldOptionGroup[];
+  fieldoptiongroups: FieldOptionGroup[];
 }

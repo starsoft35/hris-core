@@ -16,7 +16,7 @@ export class MessageThread extends EntityCoreProps {
   })
   id: number;
 
-  @ManyToOne(type => User, user => user.messageThreads, {
+  @ManyToOne(type => User, user => user.messagethreads, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'createdbyid' })
@@ -45,5 +45,5 @@ export class MessageThread extends EntityCoreProps {
     messageThreadMetadata => messageThreadMetadata.thread,
     { onDelete: 'CASCADE' },
   )
-  messageThreadMetadatas: MessageThreadMetadata[];
+  messagethreadmetadatas: MessageThreadMetadata[];
 }

@@ -95,5 +95,5 @@ export class Report extends EntityCoreProps {
     type => ReportGroup,
     reportGroup => reportGroup.reports,
   )
-  reportGroups: ReportGroup[];
+  reportgroups: ReportGroup[];
 }

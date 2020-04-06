@@ -12,7 +12,7 @@ export class FieldRelation extends HRISBaseEntity {
    */
   @ManyToOne(
     type => Field,
-    field => field.parentFieldRelations,
+    field => field.parentfieldrelations,
     {
       primary: true,
       nullable: false,
@@ -27,7 +27,7 @@ export class FieldRelation extends HRISBaseEntity {
    */
   @ManyToOne(
     type => Field,
-    field => field.childFieldRelations,
+    field => field.childfieldrelations,
     {
       primary: true,
       nullable: false,
@@ -35,5 +35,5 @@ export class FieldRelation extends HRISBaseEntity {
     },
   )
   @JoinColumn({ referencedColumnName: 'id' })
-  childField: Field;
+  childfield: Field;
 }

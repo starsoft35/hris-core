@@ -18,11 +18,11 @@ export class OrganisationUnitGroup extends EntityCoreProps {
 
   @ManyToOne(
     type => OrganisationUnitGroupSet,
-    organisationUnitGroupSet => organisationUnitGroupSet.organisationUnitGroups,
+    organisationUnitGroupSet => organisationUnitGroupSet.organisationunitgroups,
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'organisationunitgroupsetid' })
-  organisationUnitGroupSetId: string;
+  organisationunitgroupsetid: string;
 
   @Column('character varying', {
     nullable: true,
@@ -41,7 +41,7 @@ export class OrganisationUnitGroup extends EntityCoreProps {
 
   @ManyToMany(
     type => OrganisationUnit,
-    organisationUnit => organisationUnit.organisationUnitGroups,
+    organisationUnit => organisationUnit.organisationunitgroups,
     { nullable: false },
   )
   @JoinTable({ name: 'organisationunitgroupmembers' })

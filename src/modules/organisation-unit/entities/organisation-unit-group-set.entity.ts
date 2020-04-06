@@ -23,8 +23,8 @@ export class OrganisationUnitGroupSet extends EntityCoreProps {
 
   @OneToMany(
     type => OrganisationUnitGroup,
-    organisationUnitGroup => organisationUnitGroup.organisationUnitGroupSetId,
+    organisationUnitGroup => organisationUnitGroup.organisationunitgroupsetid,
     { onDelete: 'CASCADE' },
   )
-  organisationUnitGroups: OrganisationUnitGroup[];
+  organisationunitgroups: OrganisationUnitGroup[];
 }

@@ -53,7 +53,7 @@ export class AuthController {
     );
     //result.userRoles.map()
     const allAuthorities = [];
-    result.userRoles.map(role => role.userAuthorities).forEach((authorities) => {
+    result.userroles.map(role => role.userAuthorities).forEach((authorities) => {
       authorities.forEach(authority => {
         allAuthorities.push(authority.name);
       });

@@ -22,13 +22,13 @@ export class UserRole extends UserIdentification {
   /**
    * Many To Many Relationship: UserRole and User Entities
    */
-  @ManyToMany(type => User, user => user.userRoles, { nullable: false })
+  @ManyToMany(type => User, user => user.userroles, { nullable: false })
   users: User[];
 
   /**
    * Many To Many Relationship: UserAuthorities and UserRole Entities
    */
-  @ManyToMany(type => UserAuthority, userAuthority => userAuthority.userRoles, {
+  @ManyToMany(type => UserAuthority, userAuthority => userAuthority.userroles, {
     nullable: false,
     eager: true,
     cascade: true,

@@ -22,7 +22,7 @@ export class TrainingTopic extends EntityCoreProps {
 
   @ManyToMany(
     type => TrainingSession,
-    trainingSession => trainingSession.trainingTopics,
+    trainingSession => trainingSession.trainingtopics,
   )
   trainingSessions: TrainingSession[];
 }

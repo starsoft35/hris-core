@@ -8,5 +8,5 @@ export abstract class UserTracker extends TransactionTimestamp {
   createdBy: User;
 
   @JoinColumn({ name: 'updatedbyid' })
-  lastUpdatedBy: User;
+  lastupdatedby: User;
 }

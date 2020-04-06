@@ -57,7 +57,7 @@ export class TrainingSponsor extends EntityCoreProps {
 
   @OneToMany(
     type => TrainingSession,
-    trainingSession => trainingSession.trainingTopics,
+    trainingSession => trainingSession.trainingtopics,
   )
   trainingSessions: TrainingSession[];
 }

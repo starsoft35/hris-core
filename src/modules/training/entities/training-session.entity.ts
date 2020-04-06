@@ -29,11 +29,11 @@ export class TrainingSession extends TransactionTimestamp {
   id: number;
   @ManyToOne(
     () => TrainingSection,
-    (trainingsections: TrainingSection) => trainingsections.trainingSessions,
+    (trainingsections: TrainingSection) => trainingsections.trainingsessions,
     { eager: true, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'sectionid' })
-  section: TrainingSection | null;
+  section: TrainingSection | null
   @Column('character varying', {
     nullable: false,
     length: 13,
@@ -147,7 +147,7 @@ export class TrainingSession extends TransactionTimestamp {
     { nullable: false },
   )
   @JoinTable({ name: 'traininginstancetopic' })
-  trainingTopics: TrainingTopic[];
+  trainingtopics: TrainingTopic[];
 
   @ManyToMany(
     type => Record,

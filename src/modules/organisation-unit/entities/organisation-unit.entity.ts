@@ -138,7 +138,7 @@ export class OrganisationUnit extends EntityCoreProps {
       organisationUnitCompleteness.organisationUnitId,
     { onDelete: 'CASCADE' },
   )
-  organisationUnitCompletenesses: OrganisationUnitCompleteness[];
+  organisationunitcompletenesses: OrganisationUnitCompleteness[];
 ​
   @OneToMany(type => Record, record => record.organisationUnit, {
     onDelete: 'CASCADE',
@@ -168,5 +168,5 @@ export class OrganisationUnit extends EntityCoreProps {
     type => OrganisationUnitGroup,
     organisationUnitGroup => organisationUnitGroup.organisationUnits,
   )
-  organisationUnitGroups: OrganisationUnitGroup[];
+  organisationunitgroups: OrganisationUnitGroup[];
 }

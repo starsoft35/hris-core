@@ -307,7 +307,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "curriculum_id" TO "trainingcurriculumid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "method_id" TO "trainingtopicId"',
+        'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "method_id" TO trainingtopicId',
       );
 
       await queryRunner.query(
@@ -470,14 +470,14 @@ export class training1570105584725 implements MigrationInterface {
     // let trainingSessionMethod = `CREATE TABLE public.trainingsessiontopics
     // (
     //     "trainingsessionId" integer NOT NULL,
-    //     "trainingtopicId" integer NOT NULL,
-    //     CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionId", "trainingtopicId"),
+    //     trainingtopicId integer NOT NULL,
+    //     CONSTRAINT "PK_442920ec880e8618e1194c1783e" PRIMARY KEY ("trainingsessionId", trainingtopicId),
     //     CONSTRAINT "FK_69ff46ede8e95be623bb4a0fddb" FOREIGN KEY ("trainingsessionId")
     //         REFERENCES public.trainingsession (id) MATCH SIMPLE
     //         ON UPDATE NO ACTION
     //         ON DELETE CASCADE
     //         NOT VALID,
-    //     CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY ("trainingtopicId")
+    //     CONSTRAINT "FK_c6cf5835d03868b97d74d0ad37b" FOREIGN KEY (trainingtopicId)
     //         REFERENCES public.trainingtopic (id) MATCH SIMPLE
     //         ON UPDATE NO ACTION
     //         ON DELETE CASCADE
@@ -506,7 +506,7 @@ export class training1570105584725 implements MigrationInterface {
     
     // CREATE INDEX "IDX_c6cf5835d03868b97d74d0ad37"
     //     ON public.trainingsessiontopics USING btree
-    //     ("trainingtopicId")
+    //     (trainingtopicId)
     //     TABLESPACE pg_default;`;
 
     // await queryRunner.query(trainingSessionMethod);

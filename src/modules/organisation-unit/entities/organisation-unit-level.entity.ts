@@ -16,5 +16,5 @@ export class OrganisationUnitLevel extends EntityCoreProps {
     nullable: false,
     name: 'dataentrylevel',
   })
-  dataEntryLevel: boolean;
+  dataentrylevel: boolean;
 }

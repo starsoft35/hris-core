@@ -12,14 +12,14 @@ export class UserSettings extends EntityCoreProps {
   emailNotification: boolean;
 
   @Column({ type: 'boolean', nullable: false })
-  smsNotification: boolean;
+  smsnotification: boolean;
 
   @Column({ type: 'boolean', nullable: false })
-  completenessAlert: boolean;
+  completenessalert: boolean;
 
   @Column({ type: 'boolean', nullable: false })
-  qualityCheckAlert: boolean;
+  qualitycheckalert: boolean;
 
-  @OneToOne(type => User, user => user.userSettings)
+  @OneToOne(type => User, user => user.usersettings)
   user: User;
 }

@@ -13,7 +13,7 @@ export class FieldGroup extends EntityCoreProps {
    */
   @ManyToMany(
     type => Field,
-    field => field.fieldGroups,
+    field => field.fieldgroups,
     { nullable: false },
   )
   @JoinTable({
@@ -28,7 +28,7 @@ export class FieldGroup extends EntityCoreProps {
    */
   @ManyToMany(
     type => FieldGroupSet,
-    fieldGroupSet => fieldGroupSet.fieldGroups,
+    fieldGroupSet => fieldGroupSet.fieldgroups,
   )
-  fieldGroupSets: FieldGroupSet[];
+  fieldgroupsets: FieldGroupSet[];
 }

@@ -73,7 +73,7 @@ export class RecordValue extends TransactionUser {
 
   @OneToOne(
     () => Field,
-    field => field.recordValue,
+    field => field.recordvalue,
     { nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'fieldid' })

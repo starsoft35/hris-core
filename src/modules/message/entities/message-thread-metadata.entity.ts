@@ -14,13 +14,13 @@ export class MessageThreadMetadata extends EntityCoreProps {
 
   @ManyToOne(
     type => MessageThread,
-    messageThread => messageThread.messageThreadMetadatas,
+    messageThread => messageThread.messagethreadmetadatas,
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'threadid' })
   thread: MessageThread | null;
 
-  @ManyToOne(type => User, user => user.messageThreadMetadatas, {
+  @ManyToOne(type => User, user => user.messagethreadmetadatas, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'participantid' })
@@ -37,12 +37,12 @@ export class MessageThreadMetadata extends EntityCoreProps {
     default: () => 'NULL::timestamp without time zone',
     name: 'lastparticipantmessagedate',
   })
-  lastParticipantMessageDate: Date | null;
+  lastparticipantmessagedate: Date | null;
 
   @Column('timestamp without time zone', {
     nullable: true,
     default: () => 'NULL::timestamp without time zone',
     name: 'lastmessagedate',
   })
-  lastMessageDate: Date | null;
+  lastmessagedate: Date | null;
 }

@@ -11,13 +11,13 @@ export class OrganisationUnitCompleteness extends EntityCoreProps {
 
   @ManyToOne(
     type => OrganisationUnit,
-    organisationUnit => organisationUnit.organisationUnitCompletenesses,
+    organisationUnit => organisationUnit.organisationunitcompletenesses,
     { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'organisationunitid' })
   organisationUnitId: OrganisationUnit;
 
-  @ManyToOne(type => Form, form => form.organisationUnitCompletenesss, {
+  @ManyToOne(type => Form, form => form.organisationunitcompletenesss, {
     nullable: false,
   })
   @JoinColumn({ name: 'formid' })

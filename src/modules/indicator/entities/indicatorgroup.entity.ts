@@ -71,7 +71,7 @@ export class IndicatorGroup {
 
     @ManyToMany(
         () => Indicator,
-        (indicator: Indicator) => indicator.indicatorGroups,
+        (indicator: Indicator) => indicator.indicatorgroups,
         { nullable: false },
     )
     @JoinTable({ name: 'indicatorgroupmembers' })

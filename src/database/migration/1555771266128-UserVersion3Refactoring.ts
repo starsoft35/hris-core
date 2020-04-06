@@ -52,7 +52,7 @@ CREATE TABLE public.app
     lastupdatedby character varying COLLATE pg_catalog."default",
     publicaccess character varying(8) COLLATE pg_catalog."default",
     externalaccess boolean,
-    "shortName" character varying(50) COLLATE pg_catalog."default",
+    shortName character varying(50) COLLATE pg_catalog."default",
     version character varying(255) COLLATE pg_catalog."default" NOT NULL,
     launchpath character varying(255) COLLATE pg_catalog."default" NOT NULL,
     appicon character varying(128) COLLATE pg_catalog."default" NOT NULL,
@@ -72,19 +72,19 @@ TABLESPACE pg_default;
       await queryRunner.query('ALTER TABLE "hris_user" RENAME TO "user"');
 
       await queryRunner.query(
-        'ALTER TABLE "user" ADD COLUMN "createdbyId" INTEGER',
+        'ALTER TABLE "user" ADD COLUMN createdbyId INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_createdby" FOREIGN KEY("createdbyId") REFERENCES "user"',
+        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_createdby" FOREIGN KEY(createdbyId) REFERENCES "user"',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD COLUMN "lastupdatedbyId" INTEGER',
+        'ALTER TABLE "user" ADD COLUMN lastupdatedbyId INTEGER',
       );
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "id" INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
+        'ALTER TABLE "user" ADD CONSTRAINT "fk_user_lastupdatedby" FOREIGN KEY(lastupdatedbyId) REFERENCES "user"',
       );
       await queryRunner.query(
         'ALTER TABLE "user" RENAME COLUMN "last_login" TO "lastlogin"',
@@ -127,18 +127,18 @@ TABLESPACE pg_default;
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "enabled" BOOLEAN',
       );
       await queryRunner.query(
-        'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "userSettingsId" INTEGER',
+        'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS userSettingsId INTEGER',
       );
 
       // await queryRunner.query('ALTER TABLE "user" ADD CONSTRAINT "PK_03b91d2b8321aa7ba32257dc321" PRIMARY KEY (id)');
       await queryRunner.query(
-        'ALTER TABLE "user" ADD CONSTRAINT "REL_7154b7b71e3dd18b59ad8ee8b8" UNIQUE ("userSettingsId")',
+        'ALTER TABLE "user" ADD CONSTRAINT "REL_7154b7b71e3dd18b59ad8ee8b8" UNIQUE (userSettingsId)',
       );
       // await queryRunner.query('ALTER TABLE "user" ADD CONSTRAINT "UQ_b7a5e4a3b174e954b2dabf2ef9e" UNIQUE (email)); one duplicate user mail ****^^^Key (email)=(mwajey@yahoo.com) is duplicated.^^^*****
       await queryRunner.query(
         'ALTER TABLE "user" ADD CONSTRAINT "UQ_bd91f2e189f3dd7ae490007e14e" UNIQUE (uid)',
       );
-      await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT  "FK_7154b7b71e3dd18b59ad8ee8b8f" FOREIGN KEY ("userSettingsId")
+      await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT  "FK_7154b7b71e3dd18b59ad8ee8b8f" FOREIGN KEY (userSettingsId)
             REFERENCES public.usersetting (id) MATCH SIMPLE
             ON UPDATE CASCADE
             ON DELETE CASCADE
@@ -169,16 +169,16 @@ TABLESPACE pg_default;
         'ALTER TABLE "userrole" RENAME COLUMN "datecreated" TO "created"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD COLUMN "createdbyId" INTEGER',
+        'ALTER TABLE "userrole" ADD COLUMN createdbyId INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_createdby" FOREIGN KEY("createdbyId") REFERENCES "user"',
+        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_createdby" FOREIGN KEY(createdbyId) REFERENCES "user"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD COLUMN "lastupdatedbyId" INTEGER',
+        'ALTER TABLE "userrole" ADD COLUMN lastupdatedbyId INTEGER',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
+        'ALTER TABLE "userrole" ADD CONSTRAINT "fk_userrole_lastupdatedby" FOREIGN KEY(lastupdatedbyId) REFERENCES "user"',
       );
       await queryRunner.query(
         'ALTER TABLE "userrole" ADD COLUMN "landingpage" integer',
@@ -191,10 +191,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_user_group_members" RENAME TO "userrolemembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrolemembers" RENAME COLUMN group_id TO "userroleId"',
+        'ALTER TABLE "userrolemembers" RENAME COLUMN group_id TO userroleId',
       );
       await queryRunner.query(
-        'ALTER TABLE "userrolemembers" RENAME COLUMN user_id TO "userId"',
+        'ALTER TABLE "userrolemembers" RENAME COLUMN user_id TO userId',
       );
 
       //await queryRunner.query('ALTER TABLE GOOD ALTER COLUMN "id" RENAME TO userId;');
@@ -255,10 +255,10 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_form_uniquerecordfields" RENAME TO "formuniquerecordfields"',
       );
       await queryRunner.query(
-        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "form_id" TO "formId"',
+        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "form_id" TO formId',
       );
       await queryRunner.query(
-        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "formuniquerecordfields" RENAME COLUMN "field_id" TO "fieldid"',
       );
 
       await queryRunner.query(
@@ -315,7 +315,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_field_relation" RENAME TO "fieldrelation"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO "parentFieldId"',
+        'ALTER TABLE "fieldrelation" RENAME COLUMN "parent_field" TO parentFieldId',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldrelation" RENAME COLUMN "child_field" TO "childFieldId"',
@@ -357,7 +357,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoption" RENAME TO "fieldoption"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoption" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "fieldoption" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoption" RENAME COLUMN "datecreated" TO "created"',
@@ -405,14 +405,14 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "hasTraining" boolean',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "fieldId" text',
+        'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "fieldid" text',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptionmerge" RENAME TO "fieldoptionmerge"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO "mergedFieldOptionId"',
+        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "mergedfieldoption_id" TO mergedFieldOptionId',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "datecreated" TO "created"',
@@ -461,7 +461,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "removedfieldoptionuid" character varying(255)',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroupset" RENAME TO "fieldoptiongroupset"',
@@ -499,7 +499,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldoptiongroup" RENAME TO "fieldoptiongroup"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroup" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "fieldoptiongroup" RENAME COLUMN "field_id" TO "fieldid"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptiongroup" RENAME COLUMN "datecreated" TO "created"',
@@ -529,17 +529,17 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "code" character varying(25)',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "fieldId" integer',
+        'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "fieldid" integer',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoption_children" RENAME TO "fieldoptionchildren"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentFieldoptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO parentFieldoptionId',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO "childFieldoptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO childFieldoptionId',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
@@ -679,40 +679,40 @@ TABLESPACE pg_default;
         'ALTER TABLE "hris_fieldgroup_members" RENAME TO "fieldgroupmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupId"',
+        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "field_id" TO "fieldId"',
+        'ALTER TABLE "fieldgroupmembers" RENAME COLUMN "field_id" TO "fieldid"',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldgroupset_members" RENAME TO "fieldgroupsetmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroupset_id" TO "fieldgroupsetId"',
+        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroupset_id" TO fieldgroupsetId',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupId"',
+        'ALTER TABLE "fieldgroupsetmembers" RENAME COLUMN "fieldgroup_id" TO "fieldgroupid"',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroup_members" RENAME TO "fieldoptiongroupmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupId"',
+        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoptiongroup_id" TO fieldoptiongroupId',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO "fieldoptionId"',
+        'ALTER TABLE "fieldoptiongroupmembers" RENAME COLUMN "fieldoption_id" TO fieldoptionId',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroupset_members" RENAME TO "fieldoptiongroupsetmembers"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroupset_id" TO "fieldoptiongroupsetId"',
+        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroupset_id" TO fieldoptiongroupsetId',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroup_id" TO "fieldoptiongroupId"',
+        'ALTER TABLE "fieldoptiongroupsetmembers" RENAME COLUMN "fieldoptiongroup_id" TO fieldoptiongroupId',
       );
     }
 
@@ -853,7 +853,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "message" RENAME COLUMN "thread_id" TO "threadid"',
       );
       await queryRunner.query(
-        'ALTER TABLE "message" RENAME COLUMN "user_id" TO "userId"',
+        'ALTER TABLE "message" RENAME COLUMN "user_id" TO userId',
       );
       await queryRunner.query(
         'ALTER TABLE "message" RENAME COLUMN "created_at" TO "created"',
@@ -916,15 +916,15 @@ TABLESPACE pg_default;
 
         CREATE TABLE public.userauthoritymembers
 (
-    "userauthorityId" integer NOT NULL,
-    "userroleId" integer NOT NULL,
-    CONSTRAINT "PK_756e47136e4a6023bef85742272" PRIMARY KEY ("userauthorityId", "userroleId"),
-    CONSTRAINT "FK_0f440c00688aa6615dc24e4247d" FOREIGN KEY ("userauthorityId")
+    userauthorityId integer NOT NULL,
+    userroleId integer NOT NULL,
+    CONSTRAINT "PK_756e47136e4a6023bef85742272" PRIMARY KEY (userauthorityId, userroleId),
+    CONSTRAINT "FK_0f440c00688aa6615dc24e4247d" FOREIGN KEY (userauthorityId)
         REFERENCES public.userauthority (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
         NOT VALID,
-    CONSTRAINT "FK_76bc448ca476788f7886a7569b7" FOREIGN KEY ("userroleId")
+    CONSTRAINT "FK_76bc448ca476788f7886a7569b7" FOREIGN KEY (userroleId)
         REFERENCES public.userrole (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
@@ -944,7 +944,7 @@ ALTER TABLE public.userauthoritymembers
 
 CREATE INDEX "IDX_0f440c00688aa6615dc24e4247"
     ON public.userauthoritymembers USING btree
-    ("userauthorityId")
+    (userauthorityId)
     TABLESPACE pg_default;
 
 -- Index: IDX_76bc448ca476788f7886a7569b
@@ -953,22 +953,22 @@ CREATE INDEX "IDX_0f440c00688aa6615dc24e4247"
 
 CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     ON public.userauthoritymembers USING btree
-    ("userroleId")
+    (userroleId)
     TABLESPACE pg_default;`;
 
     await queryRunner.query(createAuthorityMembers);
 
     // let userFormMembers = `CREATE TABLE public.userformmembers
     // (
-    //     "userId" integer NOT NULL,
-    //     "formId" integer NOT NULL,
-    //     CONSTRAINT "PK_3436fae40747731a28564ed5665" PRIMARY KEY ("userId", "formId"),
-    //     CONSTRAINT "FK_9cb26e216d11de2a2b4f880a810" FOREIGN KEY ("formId")
+    //     userId integer NOT NULL,
+    //     formId integer NOT NULL,
+    //     CONSTRAINT "PK_3436fae40747731a28564ed5665" PRIMARY KEY (userId, formId),
+    //     CONSTRAINT "FK_9cb26e216d11de2a2b4f880a810" FOREIGN KEY (formId)
     //         REFERENCES public.form (id) MATCH SIMPLE
     //         ON UPDATE NO ACTION
     //         ON DELETE CASCADE
     //         NOT VALID,
-    //     CONSTRAINT "FK_a6e197eeef17a3af9b33f339561" FOREIGN KEY ("userId")
+    //     CONSTRAINT "FK_a6e197eeef17a3af9b33f339561" FOREIGN KEY (userId)
     //         REFERENCES public."user" (id) MATCH SIMPLE
     //         ON UPDATE NO ACTION
     //         ON DELETE CASCADE
@@ -988,7 +988,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     
     // CREATE INDEX "IDX_9cb26e216d11de2a2b4f880a81"
     //     ON public.userformmembers USING btree
-    //     ("formId")
+    //     (formId)
     //     TABLESPACE pg_default;
     
     // -- Index: IDX_a6e197eeef17a3af9b33f33956
@@ -997,7 +997,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     
     // CREATE INDEX "IDX_a6e197eeef17a3af9b33f33956"
     //     ON public.userformmembers USING btree
-    //     ("userId")
+    //     (userId)
     //     TABLESPACE pg_default;`;
 
     // await queryRunner.query(userFormMembers);
@@ -1025,15 +1025,15 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 
     let userGroupMembers = `CREATE TABLE public.usergroupmembers
     (
-        "userId" integer NOT NULL,
-        "usergroupId" integer NOT NULL,
-        CONSTRAINT "PK_1933bd17be21b29c7ddc78ea75f" PRIMARY KEY ("userId", "usergroupId"),
-        CONSTRAINT "FK_7c5c1a7362092fc8b351ba49586" FOREIGN KEY ("userId")
+        userId integer NOT NULL,
+        usergroupId integer NOT NULL,
+        CONSTRAINT "PK_1933bd17be21b29c7ddc78ea75f" PRIMARY KEY (userId, usergroupId),
+        CONSTRAINT "FK_7c5c1a7362092fc8b351ba49586" FOREIGN KEY (userId)
             REFERENCES public."user" (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE
             NOT VALID,
-        CONSTRAINT "FK_e38ab8a8d42b685d7fb477934ef" FOREIGN KEY ("usergroupId")
+        CONSTRAINT "FK_e38ab8a8d42b685d7fb477934ef" FOREIGN KEY (usergroupId)
             REFERENCES public.usergroup (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE
@@ -1053,7 +1053,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     
     CREATE INDEX "IDX_7c5c1a7362092fc8b351ba4958"
         ON public.usergroupmembers USING btree
-        ("userId")
+        (userId)
         TABLESPACE pg_default;
     
     -- Index: IDX_e38ab8a8d42b685d7fb477934e
@@ -1062,22 +1062,22 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     
     CREATE INDEX "IDX_e38ab8a8d42b685d7fb477934e"
         ON public.usergroupmembers USING btree
-        ("usergroupId")
+        (usergroupId)
         TABLESPACE pg_default;`;
 
     await queryRunner.query(userGroupMembers);
 
     let userMessageMembers = `CREATE TABLE public.usermessagemembers
     (
-        "userId" integer NOT NULL,
-        "messageId" integer NOT NULL,
-        CONSTRAINT "PK_8849fa3d485e6e81f49a2e99b58" PRIMARY KEY ("userId", "messageId"),
-        CONSTRAINT "FK_6cd8cf0394f997c3ebf6c181b8f" FOREIGN KEY ("messageId")
+        userId integer NOT NULL,
+        messageId integer NOT NULL,
+        CONSTRAINT "PK_8849fa3d485e6e81f49a2e99b58" PRIMARY KEY (userId, messageId),
+        CONSTRAINT "FK_6cd8cf0394f997c3ebf6c181b8f" FOREIGN KEY (messageId)
             REFERENCES public.message (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE
             NOT VALID,
-        CONSTRAINT "FK_b20e4e6684ddbc5be3b98f5d77c" FOREIGN KEY ("userId")
+        CONSTRAINT "FK_b20e4e6684ddbc5be3b98f5d77c" FOREIGN KEY (userId)
             REFERENCES public."user" (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE
@@ -1097,7 +1097,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     
     CREATE INDEX "IDX_6cd8cf0394f997c3ebf6c181b8"
         ON public.usermessagemembers USING btree
-        ("messageId")
+        (messageId)
         TABLESPACE pg_default;
     
     -- Index: IDX_b20e4e6684ddbc5be3b98f5d77
@@ -1106,7 +1106,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     
     CREATE INDEX "IDX_b20e4e6684ddbc5be3b98f5d77"
         ON public.usermessagemembers USING btree
-        ("userId")
+        (userId)
         TABLESPACE pg_default;`;
 
     await queryRunner.query(userMessageMembers);
@@ -1753,7 +1753,7 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
       if (auths.length > 0) {
         await queryRunner.query(
           `INSERT INTO userauthoritymembers(
-	"userroleId","userauthorityId")
+	userroleId,userauthorityId)
 	VALUES (` +
             auths
               .map(
@@ -1825,18 +1825,18 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 (SELECT public.user.id,public.user.organisationunit_id FROM public.user WHERE public.user.organisationunit_id IS NOT NULL)`);
 
     await queryRunner.query(
-      'ALTER TABLE "sqlview" ADD COLUMN "createdbyId" INTEGER',
+      'ALTER TABLE "sqlview" ADD COLUMN createdbyId INTEGER',
     );
 
     await queryRunner.query(
-      'ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyId" INTEGER',
+      'ALTER TABLE "sqlview" ADD COLUMN lastupdatedbyId INTEGER',
     );
 
     await queryRunner.query(
-      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyId") REFERENCES "user"',
+      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY(createdbyId) REFERENCES "user"',
     );
     await queryRunner.query(
-      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
+      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY(lastupdatedbyId) REFERENCES "user"',
     );
   }
 

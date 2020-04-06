@@ -93,14 +93,14 @@ export class report1570103156996 implements MigrationInterface {
       await queryRunner.query(`
           CREATE TABLE public.reportgroupmembers
           (
-              "reportgroupId" integer NOT NULL,
-              "reportId" integer NOT NULL,
-              CONSTRAINT "PK_ccbf0e9ff27c065da0997ffe71a" PRIMARY KEY ("reportgroupId", "reportId"),
-              CONSTRAINT "FK_3d77f41fe60918e43eb1d9d706b" FOREIGN KEY ("reportgroupId")
+              reportgroupId integer NOT NULL,
+              reportId integer NOT NULL,
+              CONSTRAINT "PK_ccbf0e9ff27c065da0997ffe71a" PRIMARY KEY (reportgroupId, reportId),
+              CONSTRAINT "FK_3d77f41fe60918e43eb1d9d706b" FOREIGN KEY (reportgroupId)
                   REFERENCES public."reportgroup" (id) MATCH SIMPLE
                   ON UPDATE NO ACTION
                   ON DELETE CASCADE,
-              CONSTRAINT "FK_df981dc4ca8fb4dcff049975fe3" FOREIGN KEY ("reportId")
+              CONSTRAINT "FK_df981dc4ca8fb4dcff049975fe3" FOREIGN KEY (reportId)
                   REFERENCES public.report (id) MATCH SIMPLE
                   ON UPDATE NO ACTION
                   ON DELETE CASCADE
@@ -117,12 +117,12 @@ export class report1570103156996 implements MigrationInterface {
           
           CREATE INDEX "IDX_3d77f41fe60918e43eb1d9d706"
               ON public.reportgroupmembers USING btree
-              ("reportgroupId" ASC NULLS LAST)
+              (reportgroupId ASC NULLS LAST)
               TABLESPACE pg_default;
           
           CREATE INDEX "IDX_df981dc4ca8fb4dcff049975fe"
               ON public.reportgroupmembers USING btree
-              ("reportId" ASC NULLS LAST)
+              (reportId ASC NULLS LAST)
               TABLESPACE pg_default;
       `);
 
@@ -4976,7 +4976,7 @@ export class report1570103156996 implements MigrationInterface {
                     VALUES (uid(), 'Training Reports', 'Training module reports'),(uid(), 'Organization Reports', ''),
                     (uid(), 'Employee Records', ''), (uid(),'Other Reports','');
                            -- INSERT INTO public.reportgroupmembers(
-                           --     "reportgroupId", "reportId")
+                           --     reportgroupId, reportId)
                            --     VALUES (1,13),
                            --     (1,14),
                            --     (2,1),

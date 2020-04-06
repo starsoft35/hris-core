@@ -1,22 +1,11 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  ManyToMany,
-  Generated,
-  PrimaryColumn,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-
-import { Form } from '../../form/entities/form.entity';
+import { SessionParticipant } from '../../../modules/training/entities/training-session-participant.entity';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 import { OrganisationUnit } from '../../../modules/organisation-unit/entities/organisation-unit.entity';
 import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
-import { TransactionUser } from '../../../core/entities/transaction-user.entity';
-import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
+import { Form } from '../../form/entities/form.entity';
 import { RecordValue } from './record-value.entity';
-import { SessionParticipant } from 'src/modules/training/entities/training-session-participant.entity';
+
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {
@@ -60,7 +49,7 @@ export class Record extends TransactionUser {
 
   @ManyToMany(
     type => TrainingSession,
-    trainingSession => trainingSession.trainingTopics,
+    trainingSession => trainingSession.trainingtopics,
   )
   trainingSessions: TrainingSession[];
 
