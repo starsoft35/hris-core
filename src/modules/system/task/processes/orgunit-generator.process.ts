@@ -14,17 +14,25 @@ export class OrgUnitGenerator extends BackgroundProcess{
             'DROP TABLE IF EXISTS _organisationunitstructure',
           );
           await this.connetion.manager.query(
-            'CREATE TABLE _organisationunitstructure(' +
-              'organisationunitid bigserial NOT NULL,' +
-              'uid character(30) COLLATE pg_catalog."default", ' +
-              'level integer, ' +
-              'CONSTRAINT _organisationunitstructure_temp_pkey PRIMARY KEY(organisationunitid)' +
-              // 'created character(30)' +
-              ')',
+            `CREATE TABLE _organisationunitstructure(
+                organisationunitid bigserial NOT NULL,
+                uid character(30) COLLATE pg_catalog."default",
+                level integer,
+                CONSTRAINT _organisationunitstructure_temp_pkey PRIMARY KEY(organisationunitid)
+              )`,
           );
           let level = 1;
           let count: any;
           let countstructure: any;
+          let groups = await this.connetion.manager.query('SELECT id,uid FROM organisationunitgroup');
+          let groupHeaders = '';
+          for(const group of groups){
+            console.log("Group:",group);
+            await this.connetion.manager.query(
+              `ALTER TABLE _organisationunitstructure ADD COLUMN "${group.uid}" boolean`,
+            );
+            groupHeaders += `,"${group.uid}"`;
+          }
           do {
             let INSERTFIELD = '';
             let FIELD = '';
@@ -62,22 +70,18 @@ export class OrgUnitGenerator extends BackgroundProcess{
                   i} ON(oulevel${level - (i - 1)}.parentid =oulevel${level - i}.id)`;
               }
             }
+            let groupSelect = groups.map((group)=>`(SELECT COUNT(*) > 0 FROM organisationunitgroupmembers
+              WHERE oulevel${level}.id=organisationunitgroupmembers."organisationunitId" AND 
+              organisationunitgroupmembers."organisationunitgroupId" = ${group.id})
+              `).join(',')
+            if(groups.length > 0){
+              groupSelect = ',' + groupSelect;
+            }
             let query =
-              'INSERT INTO _organisationunitstructure(' +
-              'organisationunitid, uid, level' +
-              INSERTFIELD +
-              ')' +
-              ' SELECT oulevel' +
-              level +
-              '.id as organisationunitid, oulevel' +
-              level +
-              '.uid,' +
-              level +
-              FIELD +
-              ' FROM organisationunit ' +
-              WHERE +
-              ';';
-            console.log('Query:', query);
+              `INSERT INTO _organisationunitstructure(organisationunitid, uid, level${INSERTFIELD} ${groupHeaders})
+              SELECT oulevel${level}.id as organisationunitid, oulevel${level}.uid,${level + FIELD}
+              ${groupSelect}
+              FROM organisationunit ${WHERE};`;
             await this.connetion.manager.query(query);
             countstructure = await this.connetion.manager.query(
               'SELECT COUNT(*) FROM _organisationunitstructure',

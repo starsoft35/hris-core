@@ -9,12 +9,13 @@ import { Task } from '../entities/task.entity';
 export class BackgroundProcess {
   protected task:Task
   constructor(private taskService: TaskService) {}
-  async start(task:Task){
+  async start(task?:Task){
     this.task = task;
     try{
       await this.run();
       await this.log({type:"SUCCESS",message:"Process finished successfully."});
     }catch(e){
+      console.error(e);
       await this.log({type:"ERROR",message: "("+await this.getProcessName()+")" + e.message});
     }
   }

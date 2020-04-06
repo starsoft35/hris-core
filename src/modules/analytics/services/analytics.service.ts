@@ -14,6 +14,7 @@ import {
   startOfWeek,
   endOfYear,
 } from 'date-fns';
+import { getWhereConditions } from 'src/core/utilities';
 
 @Injectable()
 export class AnalyticsService {
@@ -99,9 +100,10 @@ export class AnalyticsService {
       width: 0,
     };
     let query =
-      "SELECT field.uid,field.caption FROM field INNER JOIN formfieldmembers USING(fieldid) INNER JOIN form ON(form.formid = formfieldmembers.formid AND form.uid ='" +
-      formid +
-      "');";
+      `SELECT field.uid,field.caption FROM field 
+      INNER JOIN formfieldmember ON(formfieldmember.fieldid = field.id) 
+      INNER JOIN form ON(form.id = formfieldmember.formid AND form.uid ='${formid}');`;
+    console.log('Query:',query);
     let fields = await this.connetion.manager.query(query);
     fields.forEach(field => {
       //console.log(field);
@@ -109,6 +111,7 @@ export class AnalyticsService {
         analytics.metaData.items[field.uid] = { name: field.caption };
       }
     });
+    console.log('Here');
     // Dealing with headers
     let headers = await this.connetion.manager.query(
       'SELECT columns.table_name,columns.column_name,' +
@@ -117,6 +120,7 @@ export class AnalyticsService {
       formid +
       "'",
     );
+    console.log('Here1');
     let allowedColumns = ['uid', 'ou'].concat(Object.keys(otherDimensions));
     analytics.headers = headers
       .filter(header => {
@@ -139,28 +143,151 @@ export class AnalyticsService {
     );
 
     let periodquery = pe.map(p => {
-      let split = p.split('-');
-      analytics.metaData.dimensions.pe.push(split[1]);
-      return (
-        '(data."' +
-        split[0] +
-        '"  BETWEEN pes.startdate AND pes.enddate AND pes.iso=\'' +
-        split[1] +
-        "')"
-      );
+      let whereCondition = getWhereConditions(p);
+      console.log('whereCondition:', p, whereCondition);
+      let [dx,operator,operand] = p.split(':');
+      analytics.metaData.dimensions.pe.push(operand);
+      if(operator == 'lt'){
+        return `(data."${dx}" < pes.enddate AND pes.iso='${operand}')`;
+      }
+      return `(data."${dx}" BETWEEN pes.startdate AND pes.enddate AND pes.iso='${operand}')`;
+    });
+    //TODO improve performance for fetching alot of data
+    query =
+      `SELECT ${allowedColumns.map(column => 'data."' + column + '"')} FROM _resource_table_${formid} data
+      INNER JOIN _organisationunitstructure ous ON(ous.uid = data.ou AND ${levelquery.join(' OR ')})
+      INNER JOIN _periodstructure pes ON(${periodquery.join(' OR ')}) LIMIT 200000`;
+    console.log(query);
+    let rows = await this.connetion.manager.query(query);
+    analytics.height = rows.length;
+    analytics.rows = rows.map(row => {
+      let newRow = [];
+      analytics.headers.forEach((header, index) => {
+        newRow[index] = row[header.name];
+      });
+      return newRow;
     });
     query =
-      'SELECT ' +
-      allowedColumns.map(column => 'data."' + column + '"') +
-      ' FROM _resource_table_' +
+      'SELECT ou.uid,ou.name FROM  organisationunit ou WHERE (' +
+      ou.map(o => "ou.uid = '" + o + "'").join(' OR ') +
+      ') ';
+    console.log(query);
+    let organisationunits = await this.connetion.manager.query(query);
+    organisationunits.forEach(orgUnit => {
+      analytics.metaData.items[orgUnit.uid] = orgUnit.name;
+      analytics.metaData.dimensions.ou.push(orgUnit.uid);
+    });
+    console.log('organisationunits:', organisationunits);
+    return analytics;
+  }
+  async getTrainingCoverageRecords(formid, ou, pe, otherDimensions) {
+    let analytics = {
+      headers: [],
+      metaData: {
+        items: {
+          ou: { name: 'Organisation unit' },
+          pe: { name: 'Period' },
+        },
+        dimensions: { pe: [], ou: [] },
+      },
+      rows: [],
+      height: 0,
+      width: 0,
+    };
+    let query =
+      `SELECT field.uid,field.caption FROM field 
+      INNER JOIN formfieldmember ON(formfieldmember.fieldid = field.id) 
+      INNER JOIN form ON(form.id = formfieldmember.formid AND form.uid ='${formid}');`;
+    console.log('Query:',query);
+    let fields = await this.connetion.manager.query(query);
+    fields.forEach(field => {
+      //console.log(field);
+      if (Object.keys(otherDimensions).indexOf(field.uid) > -1) {
+        analytics.metaData.items[field.uid] = { name: field.caption };
+      }
+    });
+    console.log('Here');
+    // Dealing with headers
+    let headers = await this.connetion.manager.query(
+      'SELECT columns.table_name,columns.column_name,' +
+      'columns.data_type, columns.column_default, columns.is_nullable FROM information_schema.columns' +
+      " WHERE table_name = '_resource_table_" +
       formid +
-      ' data ' +
-      'INNER JOIN _organisationunitstructure ous ON(ous.uid = data.ou AND ' +
-      levelquery.join(' OR ') +
-      ') ' +
-      'INNER JOIN _periodstructure pes ON(' +
-      periodquery.join(' OR ') +
-      ')';
+      "'",
+    );
+    console.log('Here1');
+    let allowedColumns = ['uid', 'ou'].concat(Object.keys(otherDimensions));
+    analytics.headers = headers
+      .filter(header => {
+        return allowedColumns.indexOf(header.column_name) > -1;
+      })
+      .map(header => {
+        return {
+          name: header.column_name,
+          column: header.column_name,
+          valueType: this.getGenericType(header.data_type),
+        };
+      });
+    analytics.width = analytics.headers.length;
+
+    query = 'SELECT level FROM organisationunitlevel';
+    let orglevels = await this.connetion.manager.query(query);
+    let levelquery = orglevels.map(
+      orglevel =>
+        'ous.uidlevel' + orglevel.level + " IN ('" + ou.join("','") + "')",
+    );
+
+    let periodquery = pe.map(p => {
+      let whereCondition = getWhereConditions(p);
+      console.log('whereCondition:', p, whereCondition);
+      let [dx,operator,operand] = p.split(':');
+      analytics.metaData.dimensions.pe.push(operand);
+      if(operator == 'lt'){
+        return `(data."${dx}" < pes.enddate AND pes.iso='${operand}')`;
+      }
+      return `(data."${dx}" BETWEEN pes.startdate AND pes.enddate AND pes.iso='${operand}')`;
+    });
+    let groups = await this.connetion.manager.query('SELECT id,uid FROM organisationunitgroup');
+    //TODO improve performance for fetching alot of data
+    query =
+      `SELECT ous.uid,
+      ${orglevels.map(
+        orglevel =>
+          'ous.uidlevel' + orglevel.level + ", namelevel" + orglevel.level,
+      ).join(', ')},
+      ${groups.map(
+        group =>
+          'ous."' + group.uid + '"',
+      ).join(', ')},
+      COUNT(record.*) as providers FROM _organisationunitstructure ous
+      LEFT JOIN record ON(record.organisationunitid=ous.organisationunitid)
+      WHERE ${levelquery.join(' OR ')}
+      GROUP BY ous.uid,${orglevels.map(
+        orglevel =>
+          'ous.uidlevel' + orglevel.level + ", namelevel" + orglevel.level,
+      ).join(', ')}
+      ,${groups.map(
+        group =>
+        'ous."' + group.uid + '"',
+      ).join(', ')}`;
+      analytics.headers = orglevels.map(
+        orglevel =>{
+          return {
+            name:"namelevel" + orglevel.level
+          }
+        }
+      );
+      analytics.headers = analytics.headers.concat(groups.map(
+        group =>
+        {
+          return {
+            name:group.uid
+          }
+        }
+      ));
+      analytics.headers.push({
+        name:'providers'
+      })
     console.log(query);
     let rows = await this.connetion.manager.query(query);
     analytics.height = rows.length;

@@ -35,7 +35,10 @@ export class PeriodGenerator extends BackgroundProcess {
         'CONSTRAINT _periodstructure_temp_pkey PRIMARY KEY(iso)' +
         ')',
     );
-    let query = `SELECT value FROM recordvalue INNER JOIN field f ON(recordvalue.fieldid=f.id) INNER JOIN fielddatatype dt ON(dt.id = f.datatypeid AND dt.name = 'Date') GROUP BY value`;
+    let query = `SELECT value FROM recordvalue 
+      INNER JOIN field f ON(recordvalue.fieldid=f.id) 
+      INNER JOIN fielddatatype dt ON(dt.id = f."dataTypeId" AND dt.name = 'Date') 
+      GROUP BY value`;
     console.log('Field Query:', query);
     let fields = await this.connetion.manager.query(query);
     console.log(fields[0].value, new Date(fields[0].value));
