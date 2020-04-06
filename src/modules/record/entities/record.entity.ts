@@ -16,6 +16,7 @@ import { TrainingSession } from '../../../modules/training/entities/training-ses
 import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import { RecordValue } from './record-value.entity';
+import { SessionParticipant } from 'src/modules/training/entities/training-session-participant.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {
@@ -62,4 +63,7 @@ export class Record extends TransactionUser {
     trainingSession => trainingSession.trainingTopics,
   )
   trainingSessions: TrainingSession[];
+
+  @ManyToMany(type => SessionParticipant, participants => participants.record)
+  participants: SessionParticipant[]
 }

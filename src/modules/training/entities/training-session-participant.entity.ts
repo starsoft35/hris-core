@@ -1,4 +1,5 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany, ManyToMany } from 'typeorm';
+import { Record } from 'src/modules/record/entities/record.entity';
 
 @Entity('sessionparticipant', { schema: 'public' })
 export class SessionParticipant {
@@ -27,4 +28,7 @@ export class SessionParticipant {
     name: 'recordid',
   })
   recordid: number;
+
+  @ManyToMany(type => Record, record => record.participants, {eager: true})
+  record: Record[]
 }
