@@ -9,6 +9,7 @@ import {
   Query,
   Res,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { ApiResult } from 'src/core/interfaces';
@@ -109,5 +110,17 @@ export class RecordsController extends BaseController<Record> {
         .status(HttpStatus.NOT_MODIFIED)
         .send('Recordvalues not Updated');
     }
+  }
+  @Patch(':record/formTransfer')
+  @UseGuards(SessionGuard)
+  async transferRecord(
+    @Param('record') record,
+    @Body() transferRecordDto,
+    @Res() res,
+  ): Promise<any>{
+   const recordtransfered =  await this.recordService.transferForm(record, transferRecordDto)
+    return res
+      .status(HttpStatus.OK)
+      .send(sanitizeResponseObject(recordtransfered));
   }
 }
