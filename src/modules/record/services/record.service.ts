@@ -276,4 +276,25 @@ export class RecordService extends BaseService<Record> {
       },
     });
   }
+
+  async transferOrganisationUnit(uid: string, transferRecordDto: any): Promise<any> {
+    const record = await this.recordRepository.findOne({ uid });
+    const { organisationUnit } = transferRecordDto;
+    const query = await this.formRepository.manager.query(
+      `SELECT id FROM organisationunit WHERE uid='${organisationUnit}'`,
+    );
+    const organisationUnitid = query[0].id;
+    record.organisationUnit = organisationUnitid;
+    await this.recordRepository.save(record);
+    return await this.recordRepository.findOne({
+      where: { uid },
+      join: {
+        alias: 'record',
+        leftJoinAndSelect: {
+          form: 'record.form',
+          organisationUnit: 'record.organisationUnit',
+        },
+      },
+    });
+  }
 }
