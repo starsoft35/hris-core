@@ -128,21 +128,23 @@ export class AnalyticsService {
         'ous.uidlevel' + orglevel.level + " IN ('" + ou.join("','") + "')",
     );
 
-    let periodquery = pe.map(p => {
-      let whereCondition = getWhereConditions(p);
-      console.log('whereCondition:', p, whereCondition);
-      let [dx,operator,operand] = p.split(':');
-      analytics.metaData.dimensions.pe.push(operand);
-      if(operator == 'lt'){
-        return `(data."${dx}" < pes.enddate AND pes.iso='${operand}')`;
-      }
-      return `(data."${dx}" BETWEEN pes.startdate AND pes.enddate AND pes.iso='${operand}')`;
-    });
     //TODO improve performance for fetching alot of data
     query =
       `SELECT ${allowedColumns.map(column => 'data."' + column + '"')} FROM _resource_table_${formid} data
-      INNER JOIN _organisationunitstructure ous ON(ous.uid = data.ou AND ${levelquery.join(' OR ')})
-      INNER JOIN _periodstructure pes ON(${periodquery.join(' OR ')}) LIMIT 200000`;
+      INNER JOIN _organisationunitstructure ous ON(ous.uid = data.ou AND ${levelquery.join(' OR ')})`;
+      if(pe){
+        let periodquery = pe.map(p => {
+          let whereCondition = getWhereConditions(p);
+          console.log('whereCondition:', p, whereCondition);
+          let [dx,operator,operand] = p.split(':');
+          analytics.metaData.dimensions.pe.push(operand);
+          if(operator == 'lt'){
+            return `(data."${dx}" < pes.enddate AND pes.iso='${operand}')`;
+          }
+          return `(data."${dx}" BETWEEN pes.startdate AND pes.enddate AND pes.iso='${operand}')`;
+        });
+        query += ` INNER JOIN _periodstructure pes ON(${periodquery.join(' OR ')}) LIMIT 200000`;
+      }
     console.log(query);
     let rows = await this.connetion.manager.query(query);
     analytics.height = rows.length;

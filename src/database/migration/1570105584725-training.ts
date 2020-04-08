@@ -266,14 +266,12 @@ export class training1570105584725 implements MigrationInterface {
       await queryRunner.query(
         'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "lastupdated" timestamp without time zone',
       );
-      await queryRunner.query(
-        'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
-      );
+     
       await queryRunner.query(
         'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "venuename" text',
+        'ALTER TABLE "trainingvenue" RENAME COLUMN "venuename" TO name',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingvenue" ADD COLUMN IF NOT EXISTS "region" text',

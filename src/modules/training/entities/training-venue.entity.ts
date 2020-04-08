@@ -14,9 +14,9 @@ export class TrainingVenue extends EntityCoreProps {
   @Column('character varying', {
     nullable: false,
     length: 255,
-    name: 'venuename',
+    name: 'name',
   })
-  venueName: string;
+  name: string;
   @Column('character varying', {
     nullable: false,
     length: 255,

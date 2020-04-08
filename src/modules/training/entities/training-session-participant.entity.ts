@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, ManyToMany } from 'typeorm';
 import { Record } from 'src/modules/record/entities/record.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { TrainingSession } from './training-session.entity';
 
 @Entity('sessionparticipant', { schema: 'public' })
 export class SessionParticipant {
@@ -17,18 +18,29 @@ export class SessionParticipant {
   })
   uid: string;
 
-  @Column('integer', {
-    nullable: false,
-    name: 'sessionid',
-  })
-  sessionid: number;
+  // @Column('integer', {
+  //   nullable: false,
+  //   name: 'sessionid',
+  // })
+  // sessionid: number;
 
-  @Column('integer', {
-    nullable: false,
-    name: 'recordid',
-  })
-  recordid: number;
+  // @Column('integer', {
+  //   nullable: false,
+  //   name: 'recordid',
+  // })
+  // recordid: number;
 
-  @ManyToMany(type => Record, record => record.participants, {eager: true})
-  record: Record[]
+  @OneToOne(
+    type => Record,
+    record => record.participants, {eager: true}
+  )
+  @JoinColumn({ name: 'recordid' })
+  recordid: Record[];
+
+  @ManyToOne(
+    type => TrainingSession,
+    trainingSessions => trainingSessions.participants,
+  )
+  @JoinColumn({ name: 'sessionid' })
+  sessionid: TrainingSession[];
 }

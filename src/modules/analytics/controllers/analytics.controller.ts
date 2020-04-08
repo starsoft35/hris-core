@@ -52,7 +52,7 @@ export class AnalyticsController {
       console.log(query.dimension);
       query.dimension = [query.dimension];
     }
-    if (!Array.isArray(query.pe)) {
+    if (query.pe && !Array.isArray(query.pe)) {
       pe = query.pe.split(';');
     }
     query.dimension.forEach(dimension => {
@@ -64,12 +64,12 @@ export class AnalyticsController {
       }
     });
     console.log(otherDimensions);
-    if (!pe || pe[0] === '') {
+    /*if (!pe || pe[0] === '') {
       return {
         status: 'ERROR',
         message: 'Period dimension not found',
       };
-    }
+    }*/
     if (!ou || ou[0] === '') {
       return {
         status: 'ERROR',
