@@ -56,27 +56,32 @@ export class BaseController<T extends HRISBaseEntity> {
 
     const pagerDetails: any = getPagerDetails(query);
 
-    const [entityRes, totalCount]: [
-      T[],
-      number,
-    ] = await this.baseService.findAndCount(
-      query.fields,
-      query.filter,
-      pagerDetails.pageSize,
-      pagerDetails.page - 1,
-    );
-
-    return {
-      pager: {
-        ...pagerDetails,
-        pageCount: entityRes.length,
-        total: totalCount,
-        nextPage: `/api/${this.Model.plural}?page=${parseInt(
-          pagerDetails.page,
-        ) + 1}`,
-      },
-      [this.Model.plural]: _.map(entityRes, sanitizeResponseObject),
-    };
+    try{
+      const [entityRes, totalCount]: [
+        T[],
+        number,
+      ] = await this.baseService.findAndCount(
+        query.fields,
+        query.filter,
+        pagerDetails.pageSize,
+        pagerDetails.page - 1,
+      );
+  
+      return {
+        pager: {
+          ...pagerDetails,
+          pageCount: entityRes.length,
+          total: totalCount,
+          nextPage: `/api/${this.Model.plural}?page=${parseInt(
+            pagerDetails.page,
+          ) + 1}`,
+        },
+        [this.Model.plural]: _.map(entityRes, sanitizeResponseObject),
+      };
+    }catch(e){
+      console.error(e);
+      throw e;
+    }
   }
 
   /**
