@@ -218,13 +218,19 @@ export class RecordService extends BaseService<Record> {
       recordValue,
     );
 
-    return recordValueResponse;
+    return await this.recordValueRepository.findOne({
+      where: { uid: recordValueResponse.uid },
+      join: {
+        alias: 'recordValue',
+        leftJoinAndSelect: { field: 'recordValue.field' },
+      },
+    });
   }
   async updateRecordValue(
     uid: string,
     updateRecordValueDto: any,
   ): Promise<any> {
-    let recordValue = await this.recordValueRepository.findOne({ uid });
+    const recordValue = await this.recordValueRepository.findOne({ uid });
     Object.keys(updateRecordValueDto).forEach(key => {
       recordValue[key] = updateRecordValueDto[key];
     });
