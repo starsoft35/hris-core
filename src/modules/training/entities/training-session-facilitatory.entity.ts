@@ -1,4 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { TrainingSession } from './training-session.entity';
+import { Record } from 'src/modules/record/entities/record.entity';
 
 @Entity('sessionfacilitator', { schema: 'public' })
 export class SessionFacilitator {
@@ -16,28 +18,26 @@ export class SessionFacilitator {
   })
   uid: string;
 
-  @Column('integer', {
-    nullable: false,
-    name: 'sessionid',
-  })
-  sessionid: number;
+  // @Column('integer', {
+  //   nullable: false,
+  //   name: 'sessionid',
+  // })
+  // sessionid: number;
 
-  @Column('integer', {
-    nullable: false,
-    name: 'recordid',
-  })
-  recordid: number;
+  // @Column('integer', {
+  //   nullable: false,
+  //   name: 'recordid',
+  // })
+  // recordid: number;
 
-  @Column('timestamp without time zone', {
-    nullable: false,
-    name: 'datecreated',
-  })
-  datecreated: Date;
 
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
+  @OneToOne(type => Record, record => record.facilitators, {eager: true})
+  @JoinColumn({name: 'recordid'})
+  recordid: Record[]
+
+  @ManyToOne(
+    type => TrainingSession, trainingSessions => trainingSessions.facilitators
+  )
+  @JoinColumn({name: 'sessionid'})
+  sessionid: TrainingSession[]
 }

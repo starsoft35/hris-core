@@ -1,23 +1,14 @@
-import { EntityCoreProps } from '../../../core/entities/entity-core-props';
-import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-} from 'typeorm';
-import { TrainingCurriculum } from './training-curriculum.entity';
-import { TrainingTopic } from './training-topic.entity';
-import { TrainingSection } from './training-section.entity';
-import { TrainingSponsor } from './training-sponsor.entity';
-import { TrainingUnit } from './training-unit.entity';
-import { TrainingVenue } from './training-venue.entity';
-import { Record } from '../../record/entities/record.entity';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
+import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
+import { Record } from '../../record/entities/record.entity';
+import { TrainingCurriculum } from './training-curriculum.entity';
+import { TrainingSection } from './training-section.entity';
 import { SessionFacilitator } from './training-session-facilitatory.entity';
 import { SessionParticipant } from './training-session-participant.entity';
+import { TrainingSponsor } from './training-sponsor.entity';
+import { TrainingTopic } from './training-topic.entity';
+import { TrainingUnit } from './training-unit.entity';
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends TransactionTimestamp {
   static plural = 'sessions';
@@ -149,18 +140,16 @@ export class TrainingSession extends TransactionTimestamp {
   @JoinTable({ name: 'traininginstancetopic' })
   trainingTopics: TrainingTopic[];
 
-  @ManyToMany(
-    type => Record,
-    record => record.trainingSessions,
+  @OneToMany(
+    type => SessionParticipant,
+    participant => participant.sessionid, {eager: true}
   )
-  @JoinTable({ name: 'sessionparticipant' })
-  participants: Record[];
+  participants: SessionParticipant[];
 
 
-  @ManyToMany(
-    type => Record,
-    record => record.trainingSessions,
+  @OneToMany(
+    type => SessionFacilitator,
+    facilitators => facilitators.sessionid, {eager: true}
   )
-  @JoinTable({ name: 'sessionfacilitators' })
-  facilitators: Record[];
+  facilitators: SessionFacilitator[];
 }
