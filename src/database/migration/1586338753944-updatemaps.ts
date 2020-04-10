@@ -245,6 +245,7 @@ UPDATE record SET formid=(SELECT id FROM form WHERE name ilike 'public%');
 DELETE FROM organisationunitcompleteness WHERE formid <> (SELECT id FROM form WHERE name ilike 'public%');
 DELETE FROM form WHERE id <> (SELECT id FROM form WHERE name ilike 'public%');					
 `);
+console.log('**!IMPORTANT*** LOOK FOR CHAT IDs AND ADD CHATDIMENSION')
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}
