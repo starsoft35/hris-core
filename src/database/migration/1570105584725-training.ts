@@ -367,10 +367,10 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "hris_traininginstance_methods" RENAME TO "trainingsessiontopics"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingsessiontopics" RENAME COLUMN "traininginstance_id" TO "trainingsessionid"',
+        'ALTER TABLE "trainingsessiontopics" RENAME COLUMN "traininginstance_id" TO "trainingsessionId"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingsessiontopics" RENAME COLUMN "method_id" TO "topicid"',
+        'ALTER TABLE "trainingsessiontopics" RENAME COLUMN "method_id" TO "trainingtopicId"',
       );
 
       await queryRunner.query(
@@ -401,7 +401,7 @@ export class training1570105584725 implements MigrationInterface {
       await queryRunner.query(`
       ALTER TABLE traininginstance RENAME TO trainingsession; 
       ALTER TABLE trainingsessiontopics DROP CONSTRAINT hris_traininginstance_methods_pkey;
-      ALTER TABLE trainingsessiontopics ADD CONSTRAINT trainingsessiontopics_pkey PRIMARY KEY(trainingsessionid, topicid);
+      ALTER TABLE trainingsessiontopics ADD CONSTRAINT trainingsessiontopics_pkey PRIMARY KEY("trainingsessionId", "trainingtopicId");
       `)
     }
 
