@@ -155,6 +155,11 @@ TABLESPACE pg_default;`;
     rangeaxismaxvalue double precision,
     rangeaxisminvalue double precision,
     rangeaxissteps integer,
+    subscribed boolean,
+    favorite boolean,
+    toplimit integer,
+    displayname text,
+    parentgraphmap jsonb,
     rangeaxisdecimals integer,
     legenddisplaystrategy character varying(40) COLLATE pg_catalog."default",
     sortorder integer,
@@ -518,9 +523,57 @@ TABLESPACE pg_default
         OIDS = FALSE
     )
     TABLESPACE pg_default;
+
+    INSERT INTO 
+    ALTER TABLE chartdimension ALTER COLUMN layout DROP NOT NULL;
+    ALTER TABLE chartdimensionitem ADD COLUMN uid character varying(256) COLLATE pg_catalog."default" NOT NULL;
+    ALTER TABLE chartdimensionitem ADD COLUMN displayname text;
+    ALTER TABLE chartdimensionitem ALTER COLUMN dimensionitem TYPE character varying(256);
+    
+    INSERT INTO 
+    chart(created, lastupdated,uid,name, publicAccess,type,subscribed,cumulativeValues,sortOrder,favorite,toplimit,displayname, percentStackedValues,noSpaceBetweenColumns,hideTitle,series,showData,parentGraphMap,regressionType,completedOnly,hideEmptyRowItems,aggregationType,hideSubtitle,title,hideLegend,category) 
+    VALUES
+    ('2017-07-29T21:18:43.937', '2019-02-09T20:13:45.425','MTWXrZKjPRa','Employments','r-------','COLUMN',false,false,0,false,0,'Employments',false,false,false,'dx',true,'{}','NONE',false,'NONE','DEFAULT',false,'Employments',false,'pe'),
+    ('2017-07-29T21:18:43.937','2019-02-09T20:13:45.425','cbnWOXfp9vW','Retirement','r-------','LINE',false,false,0,false,0,'Retirement',false,false,false,'dx',true,'{}','NONE',false,'NONE','DEFAULT',false,'Retirement',false,'pe'),
+    ('2017-07-29T21:18:43.937','2019-02-09T20:13:45.425','x1cWTFjrxVd','Gender Ratio','r-------','PIE',false,false,0,false,0,'Gender Ratio',false,false,false,'dx',true,'{}','NONE',false,'NONE','DEFAULT',false,'Gender Ratio',false,'pe'),
+    ('2017-07-29T21:18:43.937', '2019-02-09T20:13:45.425','CCIJuYfJqAG', 'Age Distribution', 'r-----','COLUMN',false,false,0,false,0,'Age Distribution',false,false,false,'dx',true,'{}','NONE',false,'NONE','DEFAULT',false,'Age Distribution',false,'pe');
+       
     `;
     await queryRunner.query(createReportTable);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }
+
+// INSERT INTO
+//     chartdimension(dimension,chartid)
+//     VALUES
+//     ('dx',8),
+//     ('ou',8),
+//     ('pe',8),
+//     ('dx',9),
+//     ('ou',9),
+//     ('pe',9),
+//     ('dx',10),
+//     ('ou',10),
+//     ('pe',10),
+//     ('dx',11),
+//     ('ou',11),
+//     ('pe',11);
+    
+//     INSERT INTO 
+//     chartdimensionitem(uid,dimensionitem,displayname,dimensionitemtype,chartdimensionid)
+//     VALUES
+//     ('wo7ITisRXeE','wo7ITisRXeE','Employment','INDICATOR',25),
+//     ('USER ORGUNIT','USER ORGUNIT','USER ORGUNIT', 'ORGANISATIONUNIT',26),
+//     ('LAST_12_MONTHS','LAST_12_MONTHS','LAST_12_MONTHS','PERIOD',27),
+//     ('wo7ITisRXeE','wo7ITisRXeE','Retirement','INDICATOR',28),
+//     ('USER ORGUNIT','USER ORGUNIT','USER ORGUNIT', 'ORGANISATIONUNIT',29),
+//     ('LAST_12_MONTHS','LAST_12_MONTHS','LAST_12_MONTHS','PERIOD',30),
+//     ('yKypqIROIO9','yKypqIROIO9','Age Distribution','INDICATOR',31),
+//     ('USER ORGUNIT','USER ORGUNIT','USER ORGUNIT', 'ORGANISATIONUNIT',32),
+//     ('LAST_12_MONTHS','LAST_12_MONTHS','LAST_12_MONTHS','PERIOD',33),
+//     ('yKypqIROIO9','yKypqIROIO9','Age Distribution','INDICATOR',34),
+//     ('USER ORGUNIT','USER ORGUNIT','USER ORGUNIT', 'ORGANISATIONUNIT',35),
+//     ('LAST_12_MONTHS','LAST_12_MONTHS','LAST_12_MONTHS','PERIOD',36);
+    
