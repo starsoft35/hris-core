@@ -5,7 +5,7 @@ import { BackgroundProcess } from './base.process';
 
 
 @Injectable()
-export class Analytics extends BackgroundProcess {
+export class AnalyticsGenerator extends BackgroundProcess {
   constructor(taskService: TaskService, private connetion: Connection) {
     super(taskService);
   }

@@ -3,7 +3,7 @@ import { TaskService } from '../services/task.service';
 import { BaseController } from 'src/core/controllers/base.contoller';
 import { Task } from '../entities/task.entity';
 import { Connection } from 'typeorm';
-import { Analytics } from '../processes/analytics.process';
+import { AnalyticsGenerator } from '../processes/analytics.process';
 import { OrgUnitGenerator } from '../processes/orgunit-generator.process';
 import { PeriodGenerator } from '../processes/period-generator.process';
 
@@ -20,7 +20,7 @@ export class TaskController extends BaseController<Task>{
     let processes = [];
     if (query.analyticsTables === 'true') {
       console.log('Running Analytics');
-      processes.push((new Analytics(this.taskService, this.connetion)).start(task));
+      processes.push((new AnalyticsGenerator(this.taskService, this.connetion)).start(task));
     }
     if (query.organisationUnitTable === 'true') {
       processes.push((new OrgUnitGenerator(this.taskService, this.connetion)).start(task));
@@ -41,7 +41,7 @@ export class TaskController extends BaseController<Task>{
   async fetchAnalyticsGenerateAnalytics(@Query() query) {
     console.log('Running:', query);
     let task = await this.taskService.createEmptyTask('Task Name');
-    return await (new Analytics(this.taskService, this.connetion)).start(task);
+    return await (new AnalyticsGenerator(this.taskService, this.connetion)).start(task);
   }
   @Get('analytics/generate/periods')
   async fetchAnalyticsGeneratePeriods(@Query() query) {
