@@ -9,7 +9,7 @@ export class ChartDimension extends FavoriteDimension {
   @OneToMany(
     () => ChartDimensionItem,
     (chartDimensionItem: ChartDimensionItem) =>
-      chartDimensionItem.chartDimension,
+      chartDimensionItem.chartDimension, {eager: true}
   )
   items: ChartDimensionItem[];
 
