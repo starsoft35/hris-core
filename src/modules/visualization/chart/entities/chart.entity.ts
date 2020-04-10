@@ -210,13 +210,13 @@ export class Chart extends EntityCoreProps {
 
   @OneToMany(
     () => ChartDimension,
-    (chartDimension: ChartDimension) => chartDimension.chart,
+    (chartDimension: ChartDimension) => chartDimension.chart, {eager: true}
   )
   chartDimensions: ChartDimension[];
 
   @OneToMany(
     () => DashboardItemChart,
-    (dashboardItemChart: DashboardItemChart) => dashboardItemChart.chart,
+    (dashboardItemChart: DashboardItemChart) => dashboardItemChart.chart, {eager: true}
   )
   dashboardItemCharts: DashboardItemChart[];
 }
