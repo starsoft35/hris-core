@@ -1,9 +1,8 @@
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 import { User } from '../../../system/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { ChartDimension } from './chart-dimension.entity';
 import { DashboardItemChart } from '../../dashboard-item/entities/dashboard-item-chart.entity';
-import { DashboardItem } from '../../dashboard-item/entities/dashboard-item.entity';
+import { ChartDimension } from './chart-dimension.entity';
 
 @Entity('chart', { schema: 'public' })
 export class Chart extends EntityCoreProps {
@@ -189,6 +188,18 @@ export class Chart extends EntityCoreProps {
     name: 'sortorder',
   })
   sortOrder: number | null;
+
+  @Column('boolean', { name: 'subscribed' })
+  subscribed: boolean;
+
+  @Column('boolean', { name: 'favorite' })
+  favorite: boolean;
+
+  @Column('integer', { name: 'toplimit' })
+  toplimit: number;
+
+  @Column('jsonb', { name: 'parentgraphmap' })
+  parentgraphmap: any;
 
   @ManyToOne(
     () => User,
