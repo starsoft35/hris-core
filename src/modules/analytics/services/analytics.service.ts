@@ -128,21 +128,23 @@ export class AnalyticsService {
         'ous.uidlevel' + orglevel.level + " IN ('" + ou.join("','") + "')",
     );
 
-    let periodquery = pe.map(p => {
-      let whereCondition = getWhereConditions(p);
-      console.log('whereCondition:', p, whereCondition);
-      let [dx,operator,operand] = p.split(':');
-      analytics.metaData.dimensions.pe.push(operand);
-      if(operator == 'lt'){
-        return `(data."${dx}" < pes.enddate AND pes.iso='${operand}')`;
-      }
-      return `(data."${dx}" BETWEEN pes.startdate AND pes.enddate AND pes.iso='${operand}')`;
-    });
     //TODO improve performance for fetching alot of data
     query =
       `SELECT ${allowedColumns.map(column => 'data."' + column + '"')} FROM _resource_table_${formid} data
-      INNER JOIN _organisationunitstructure ous ON(ous.uid = data.ou AND ${levelquery.join(' OR ')})
-      INNER JOIN _periodstructure pes ON(${periodquery.join(' OR ')}) LIMIT 200000`;
+      INNER JOIN _organisationunitstructure ous ON(ous.uid = data.ou AND ${levelquery.join(' OR ')})`;
+      if(pe){
+        let periodquery = pe.map(p => {
+          let whereCondition = getWhereConditions(p);
+          console.log('whereCondition:', p, whereCondition);
+          let [dx,operator,operand] = p.split(':');
+          analytics.metaData.dimensions.pe.push(operand);
+          if(operator == 'lt'){
+            return `(data."${dx}" < pes.enddate AND pes.iso='${operand}')`;
+          }
+          return `(data."${dx}" BETWEEN pes.startdate AND pes.enddate AND pes.iso='${operand}')`;
+        });
+        query += ` INNER JOIN _periodstructure pes ON(${periodquery.join(' OR ')}) LIMIT 200000`;
+      }
     console.log(query);
     let rows = await this.connetion.manager.query(query);
     analytics.height = rows.length;
@@ -201,7 +203,7 @@ export class AnalyticsService {
       formid +
       "'",
     );
-    console.log('Here1');
+    console.log('Here1:', ou);
     let allowedColumns = ['uid', 'ou'].concat(Object.keys(otherDimensions));
     analytics.headers = headers
       .filter(header => {
@@ -218,10 +220,6 @@ export class AnalyticsService {
 
     query = 'SELECT level FROM organisationunitlevel';
     let orglevels = await this.connetion.manager.query(query);
-    let levelquery = orglevels.map(
-      orglevel =>
-        'ous.uidlevel' + orglevel.level + " IN ('" + ou.join("','") + "')",
-    );
 
     let periodquery = pe.map(p => {
       let whereCondition = getWhereConditions(p);
@@ -247,7 +245,7 @@ export class AnalyticsService {
       ).join(', ')},
       COUNT(record.*) as providers FROM _organisationunitstructure ous
       LEFT JOIN record ON(record.organisationunitid=ous.organisationunitid)
-      WHERE ${levelquery.join(' OR ')}
+      WHERE ${this.generateOUFilterQuery('ous', ou, orglevels)}
       GROUP BY ous.uid,${orglevels.map(
         orglevel =>
           'ous.uidlevel' + orglevel.level + ", namelevel" + orglevel.level,
@@ -296,6 +294,36 @@ export class AnalyticsService {
     });
     console.log('organisationunits:', organisationunits);
     return analytics;
+  }
+  generateOUFilterQuery(ousAlias,ou,levels){
+    let ouIds = ou.filter((ouId)=>ouId.indexOf('LEVEL-') === -1 && ouId.indexOf('OU_GROUP-') === -1);
+    let oulevelIds = ou.filter((ouId)=>ouId.indexOf('LEVEL-') > -1);
+    let ougroupIds = ou.filter((ouId)=>ouId.indexOf('OU_GROUP-') > -1);
+    let ouquery = levels.map(
+      orglevel =>
+        `${ousAlias}.uidlevel${orglevel.level} IN ('${ouIds.join("','")}')`,
+    );
+
+    let levelquery = oulevelIds.map(
+      orglevel =>
+        `${ousAlias}.uidlevel${orglevel.substring(6)} IS NOT NULL`,
+    );
+    let groupquery = ougroupIds.map(
+      ougroupId =>
+        `${ousAlias}."${ougroupId.substring(9)}" = TRUE`,
+    );
+    let queryFilter = ouquery.join(' OR ');
+
+    if(queryFilter !== '' && levelquery.length > 0){
+      queryFilter += ' AND ';
+      queryFilter += levelquery.join(' OR ');
+    }  
+
+    if(queryFilter  !== '' && groupquery.length > 0){
+      queryFilter += ' AND ';
+      queryFilter += groupquery.join(' OR ');
+    }
+    return queryFilter;
   }
   getGenericType(type) {
     if (type === 'timestamp without time zone') {

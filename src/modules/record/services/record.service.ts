@@ -169,6 +169,10 @@ export class RecordService extends BaseService<Record> {
       take: size,
     });
 
+    if (records.length === 0) {
+      return [[], number];
+    }
+
     let query = `SELECT recordvalue.recordvalueid,recordvalue.uid,recordvalue.recordid,recordvalue.value,recordvalue.startdate,
     recordvalue.enddate,recordvalue.comment,recordvalue.entitledpayment,field.uid as field FROM recordvalue
     INNER JOIN field ON(field.id=recordvalue.fieldid)
@@ -218,13 +222,19 @@ export class RecordService extends BaseService<Record> {
       recordValue,
     );
 
-    return recordValueResponse;
+    return await this.recordValueRepository.findOne({
+      where: { uid: recordValueResponse.uid },
+      join: {
+        alias: 'recordValue',
+        leftJoinAndSelect: { field: 'recordValue.field' },
+      },
+    });
   }
   async updateRecordValue(
     uid: string,
     updateRecordValueDto: any,
   ): Promise<any> {
-    let recordValue = await this.recordValueRepository.findOne({ uid });
+    const recordValue = await this.recordValueRepository.findOne({ uid });
     Object.keys(updateRecordValueDto).forEach(key => {
       recordValue[key] = updateRecordValueDto[key];
     });
@@ -277,7 +287,10 @@ export class RecordService extends BaseService<Record> {
     });
   }
 
-  async transferOrganisationUnit(uid: string, transferRecordDto: any): Promise<any> {
+  async transferOrganisationUnit(
+    uid: string,
+    transferRecordDto: any,
+  ): Promise<any> {
     const record = await this.recordRepository.findOne({ uid });
     const { organisationUnit } = transferRecordDto;
     const query = await this.formRepository.manager.query(

@@ -111,27 +111,33 @@ export class RecordsController extends BaseController<Record> {
         .send('Recordvalues not Updated');
     }
   }
-  @Patch(':record/formTransfer')
+  @Put(':record/formTransfer')
   @UseGuards(SessionGuard)
   async formTransfer(
     @Param('record') record,
     @Body() transferRecordDto,
     @Res() res,
-  ): Promise<any>{
-   const recordtransfered =  await this.recordService.transferForm(record, transferRecordDto)
+  ): Promise<any> {
+    const recordtransfered = await this.recordService.transferForm(
+      record,
+      transferRecordDto,
+    );
     return res
       .status(HttpStatus.OK)
       .send(sanitizeResponseObject(recordtransfered));
   }
 
-  @Patch(':record/orgUnitTransfer')
+  @Put(':record/orgUnitTransfer')
   @UseGuards(SessionGuard)
-  async orgUnitTransfer (
+  async orgUnitTransfer(
     @Param('record') record,
     @Body() transferRecordDto,
     @Res() res,
-  ): Promise<any>{
-   const recordtransfered =  await this.recordService.transferOrganisationUnit(record, transferRecordDto)
+  ): Promise<any> {
+    const recordtransfered = await this.recordService.transferOrganisationUnit(
+      record,
+      transferRecordDto,
+    );
     return res
       .status(HttpStatus.OK)
       .send(sanitizeResponseObject(recordtransfered));
