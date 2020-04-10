@@ -57,6 +57,7 @@ export class AnalyticsGenerator extends BackgroundProcess {
         additionalColumns +
         ',PRIMARY KEY(instance))';
       await this.connetion.manager.query(createQuery);
+
       let insertQuery =
         'INSERT INTO _temp_resource_table_' +
         form.uid +
@@ -126,6 +127,8 @@ export class AnalyticsGenerator extends BackgroundProcess {
         form.uid +
         ';',
       );
+      let creatIndex = `CREATE INDEX orgunitrecordindex ON _resource_table_${form.uid}(ou);`;
+      await this.connetion.manager.query(creatIndex);
     }
     this.log({ type: "SUCCESS", message: "Analytics finished running successfully" });
   }
