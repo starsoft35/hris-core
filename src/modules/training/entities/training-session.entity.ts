@@ -1,11 +1,17 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import { Record } from '../../record/entities/record.entity';
 import { TrainingCurriculum } from './training-curriculum.entity';
 import { TrainingSection } from './training-section.entity';
-import { SessionFacilitator } from './training-session-facilitatory.entity';
-import { SessionParticipant } from './training-session-participant.entity';
 import { TrainingSponsor } from './training-sponsor.entity';
 import { TrainingTopic } from './training-topic.entity';
 import { TrainingUnit } from './training-unit.entity';
@@ -135,21 +141,24 @@ export class TrainingSession extends TransactionTimestamp {
   @ManyToMany(
     () => TrainingTopic,
     (TrainingMethod: TrainingTopic) => TrainingMethod.trainingSessions,
-    { nullable: false },
+    { nullable: false, eager: true },
   )
-  @JoinTable({ name: 'traininginstancetopic' })
-  trainingTopics: TrainingTopic[];
+  @JoinTable({ name: 'trainingsessiontopics' })
+  topics: TrainingTopic[];
 
-  @OneToMany(
-    type => SessionParticipant,
-    participant => participant.sessionid, {eager: true}
+  @ManyToMany(
+    type => Record,
+    record => record.trainingSessions,
+    { eager: true },
   )
-  participants: SessionParticipant[];
+  @JoinTable({ name: 'sessionparticipant' })
+  participants: Record;
 
-
-  @OneToMany(
-    type => SessionFacilitator,
-    facilitators => facilitators.sessionid, {eager: true}
+  @ManyToMany(
+    type => Record,
+    record => record.trainingSessions,
+    { eager: true },
   )
-  facilitators: SessionFacilitator[];
+  @JoinTable({ name: 'sessionfacilitator' })
+  facilitators: Record;
 }
