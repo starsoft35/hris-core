@@ -5,7 +5,7 @@ import { BackgroundProcess } from './base.process';
 
 
 @Injectable()
-export class Analytics extends BackgroundProcess {
+export class AnalyticsGenerator extends BackgroundProcess {
   constructor(taskService: TaskService, private connetion: Connection) {
     super(taskService);
   }
@@ -57,6 +57,7 @@ export class Analytics extends BackgroundProcess {
         additionalColumns +
         ',PRIMARY KEY(instance))';
       await this.connetion.manager.query(createQuery);
+
       let insertQuery =
         'INSERT INTO _temp_resource_table_' +
         form.uid +
@@ -126,6 +127,8 @@ export class Analytics extends BackgroundProcess {
         form.uid +
         ';',
       );
+      let creatIndex = `CREATE INDEX orgunitrecordindex ON _resource_table_${form.uid}(ou);`;
+      await this.connetion.manager.query(creatIndex);
     }
     this.log({ type: "SUCCESS", message: "Analytics finished running successfully" });
   }

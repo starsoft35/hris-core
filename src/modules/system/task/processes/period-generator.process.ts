@@ -12,14 +12,13 @@ export class PeriodGenerator extends BackgroundProcess {
   async run() {
     await this.connetion.manager.query('DROP TABLE IF EXISTS _periodstructure');
     await this.connetion.manager.query(
-      'CREATE TABLE _periodstructure' +
-        '(' +
-        'iso character varying(15) COLLATE pg_catalog."default" NOT NULL,' +
-        'daysno integer NOT NULL, ' +
-        'startdate date NOT NULL, ' +
-        'enddate date NOT NULL, ' +
-        'CONSTRAINT _periodstructure_temp_pkey PRIMARY KEY(iso)' +
-        ')',
+      `CREATE TABLE _periodstructure(
+        iso character varying(15) COLLATE pg_catalog."default" NOT NULL,
+        daysno integer NOT NULL,
+        startdate timestamp NOT NULL,
+        enddate timestamp NOT NULL,
+        CONSTRAINT _periodstructure_temp_pkey PRIMARY KEY(iso)
+      )`,
     );
     let query = `SELECT value FROM recordvalue 
       INNER JOIN field f ON(recordvalue.fieldid=f.id) 

@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Schedule } from '../entities/schedule.entity';
 import { SchedulerRegistry, Cron } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { Analytics } from '../../task/processes/analytics.process';
+import { AnalyticsGenerator } from '../../task/processes/analytics.process';
 import { TaskService } from '../../task/services/task.service';
 import { PeriodGenerator } from '../../task/processes/period-generator.process';
 import { OrgUnitGenerator } from '../../task/processes/orgunit-generator.process';
@@ -47,7 +47,7 @@ export class ScheduleService extends BaseService<Schedule>  implements OnModuleI
       let task = await this.taskService.createEmptyTask(schedule.name);
       let process;
       if(schedule.type === 'ANALYTICS'){
-        process = (new Analytics(this.taskService, this.connetion)).start(task);
+        process = (new AnalyticsGenerator(this.taskService, this.connetion)).start(task);
       } else if(schedule.type === 'PERIODSTRUCTURE'){
         process = (new PeriodGenerator(this.taskService, this.connetion)).start(task);
       } else if(schedule.type === 'ORGUNITSTRUCTURE'){
