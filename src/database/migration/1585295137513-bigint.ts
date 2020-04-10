@@ -218,34 +218,34 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE schedule ALTER COLUMN id SET DEFAULT nextval('schedule_id_seq');
         ALTER TABLE trainingsession ADD COLUMN "deliverymode" text;
 
-        CREATE TABLE participant(sessionid bigint, recordid bigint);
-        CREATE TABLE facilitator(sessionid bigint, recordid bigint);
+        CREATE TABLE participant("trainingsessionId" bigint, "recordId" bigint);
+        CREATE TABLE facilitator("trainingsessionId" bigint, "recordId" bigint);
 
 
-        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY (sessionid)
+        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY ("trainingsessionId")
         REFERENCES public.trainingsession (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
-        ALTER TABLE facilitator ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY (sessionid)
+        ALTER TABLE facilitator ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY ("trainingsessionId")
         REFERENCES public.trainingsession (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
 
-        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_recordid" FOREIGN KEY (recordid)
+        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_recordid" FOREIGN KEY ("recordId")
         REFERENCES public.record (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
-        ALTER TABLE facilitator ADD CONSTRAINT "FK_constraint_recordid" FOREIGN KEY (recordid)
+        ALTER TABLE facilitator ADD CONSTRAINT "FK_constraint_recordid" FOREIGN KEY ("recordId")
         REFERENCES public.record (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
 
-        INSERT INTO participant(sessionid, recordid)
+        INSERT INTO participant("trainingsessionId", recordid)
         select sessionid,recordid from sessionparticipant
         INNER JOIN record ON(record.id=sessionparticipant.recordid) 
         INNER JOIN trainingsession ON(trainingsession.id = sessionparticipant.sessionid);
 
-        INSERT INTO facilitator(sessionid, recordid)
+        INSERT INTO facilitator("trainingsessionId", "recordId")
         select sessionid,recordid from sessionparticipant
         INNER JOIN record ON(record.id=sessionparticipant.recordid) 
         INNER JOIN trainingsession ON(trainingsession.id = sessionparticipant.sessionid);
