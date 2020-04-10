@@ -700,24 +700,32 @@ export class sequential1585499925311 implements MigrationInterface {
                 'dob'
               ))
               INNER JOIN form ON(form.id=formfieldmember.formid AND title='Public Employee Form')
-            )
+            );
+            update formfieldmember set showinlist = TRUE where fieldid = 140;
+            update formfieldmember set showinlist = TRUE where fieldid = 131;
+            update formfieldmember set showinlist = TRUE where fieldid = 147;
+            update formfieldmember set showinlist = TRUE where fieldid = 157;
+            update formfieldmember set showinlist = TRUE where fieldid = 129;
+            update formfieldmember set showinlist = TRUE where fieldid = 136;
+            update formfieldmember set showinlist = TRUE where fieldid = 162;
+            update formfieldmember set ispinned = TRUE where fieldid = 129;
+            update formfieldmember set ispinned = TRUE where fieldid = 136;
             ALTER TABLE record ALTER COLUMN instance DROP NOT NULL;
             DROP TABLE sessionparticipant;
             DROP TABLE sessionfacilitator;
             ALTER TABLE participant RENAME TO sessionparticipant;
             ALTER TABLE facilitator RENAME TO sessionfacilitator;
-            ALTER TABLE sessionparticipant ADD COLUMN  curriculumid;
-            ALTER TABLE sessionfacilitator ADD COLUMN  curriculumid;  
+            ALTER TABLE sessionparticipant ADD COLUMN  curriculumid integer;
+            ALTER TABLE sessionfacilitator ADD COLUMN  curriculumid integer;  
             ALTER TABLE sessionparticipant ADD CONSTRAINT "FK_constraint_curriculum" FOREIGN KEY (curriculumid)
             REFERENCES public.trainingcurriculum (id) MATCH SIMPLE
             ON UPDATE CASCADE
             ON DELETE CASCADE;
-
             ALTER TABLE sessionfacilitator ADD CONSTRAINT "FK_constraint_curriculums" FOREIGN KEY (curriculumid)
             REFERENCES public.trainingcurriculum (id) MATCH SIMPLE
             ON UPDATE CASCADE
             ON DELETE CASCADE;
-
+            DROP TABLE traininginstance;
             `);
   }
 
