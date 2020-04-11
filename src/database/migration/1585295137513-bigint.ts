@@ -240,7 +240,7 @@ export class bigint1585295137513 implements MigrationInterface {
         ON UPDATE CASCADE
         ON DELETE CASCADE;
 
-        INSERT INTO participant("trainingsessionId", recordid)
+        INSERT INTO participant("trainingsessionId", "recordId")
         select sessionid,recordid from sessionparticipant
         INNER JOIN record ON(record.id=sessionparticipant.recordid) 
         INNER JOIN trainingsession ON(trainingsession.id = sessionparticipant.sessionid);
