@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { AuthenticatedUser } from 'src/core/helpers/user-decorator.helper';
 import { TaskService } from 'src/modules/system/task/services/task.service';
 import { AnalyticsService } from '../services/analytics.service';
+import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 
 @Controller('api/analytics')
 export class AnalyticsController {
@@ -10,22 +11,33 @@ export class AnalyticsController {
     private taskService: TaskService,
   ) {}
   @Get()
+  @UseGuards(SessionGuard)
   async fetchAnalytics(@Query() query, @AuthenticatedUser() user) {
-    let pe;
-    let ou;
-    let dx;
+    let pe = [];
+    let ou = [];
+    let dx = [];
     let otherDimensions = {};
-    console.log("Dimension:",query.dimension);
     query.dimension.forEach(dimension => {
       let split = dimension.split(':');
       if (split[0] === 'pe') {
-        pe = split[1].split(';');
+        pe = pe.concat(split[1].split(';'));
       } else if (split[0] === 'ou') {
-        ou = split[1].split(';');
+        ou = ou.concat(split[1].split(';'));
       } else if (split[0] === 'dx') {
-        dx = split[1].split(';');
-      } else {
-        otherDimensions[split[0]] = split[1];
+        dx = dx.concat(split[1].split(';'));
+      }
+    });
+    if(!Array.isArray(query.filter)){
+      query.filter = [query.filter];
+    }
+    query.filter.forEach(dimension => {
+      let split = dimension.split(':');
+      if (split[0] === 'pe') {
+        pe = pe.concat(split[1].split(';'));
+      } else if (split[0] === 'ou') {
+        ou = ou.concat(split[1].split(';'));
+      } else if (split[0] === 'dx') {
+        dx = dx.concat(split[1].split(';'));
       }
     });
     return this.analyticsService.fetchAnalytics(dx, pe, ou, {
@@ -188,6 +200,9 @@ export class AnalyticsController {
       ou,
       pe,
       otherDimensions,
+      {
+        user: user
+      }
     );
   }
 }
