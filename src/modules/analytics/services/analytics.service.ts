@@ -3,6 +3,8 @@ import { getWhereConditions } from 'src/core/utilities';
 import { Connection } from 'typeorm';
 import { resultNotFoundResponse } from 'src/core/helpers/response.helper';
 import { Analytics } from 'src/core/interfaces/analytics.interface';
+import { generateOUFilterQuery, getISOOrgUnits } from 'src/core/helpers/ou.helper';
+import { getISOPeriods } from 'src/core/helpers/pe.helper';
 
 declare module namespace {
 
@@ -23,7 +25,6 @@ export class AnalyticsService {
     "any": { "headers": [{ "name": "dx", "column": "Data", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, { "name": "pe", "column": "Period", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, { "name": "ou", "column": "Organisation unit", "valueType": "TEXT", "type": "java.lang.String", "hidden": false, "meta": true }, { "name": "value", "column": "Value", "valueType": "NUMBER", "type": "java.lang.Double", "hidden": false, "meta": false }], "metaData": { "items": { "201907": { "name": "July 2019" }, "MqMQnGOqLuY": { "name": "KE" }, "201906": { "name": "June 2019" }, "201909": { "name": "September 2019" }, "201908": { "name": "August 2019" }, "201903": { "name": "March 2019" }, "201902": { "name": "February 2019" }, "yKypqIROIO9": { "name": "Watoto Waliopatiwa LLIN" }, "201905": { "name": "May 2019" }, "ou": { "name": "Organisation unit" }, "201904": { "name": "April 2019" }, "201910": { "name": "October 2019" }, "201901": { "name": "January 2019" }, "201912": { "name": "December 2019" }, "201911": { "name": "November 2019" }, "X0Me7ygpiUT": { "name": "ME" }, "dx": { "name": "Data" }, "pe": { "name": "Period" }, "Kl9MzjQI3ms": { "name": "Expected children Under 1 Year" }, "m0frOspS7JY": { "name": "MOH - Tanzania" }, "wo7ITisRXeE": { "name": "Measles/Rubella 1 doses given" } }, "dimensions": { "dx": ["Kl9MzjQI3ms", "wo7ITisRXeE", "yKypqIROIO9"], "pe": ["201901", "201902", "201903", "201904", "201905", "201906", "201907", "201908", "201909", "201910", "201911", "201912"], "ou": ["m0frOspS7JY"], "co": ["MqMQnGOqLuY", "X0Me7ygpiUT"] } }, "rows": [["Kl9MzjQI3ms", "201901", "m0frOspS7JY", "2.36250253E7"], ["Kl9MzjQI3ms", "201902", "m0frOspS7JY", "2.6156278E7"], ["Kl9MzjQI3ms", "201903", "m0frOspS7JY", "2.36250253E7"], ["Kl9MzjQI3ms", "201904", "m0frOspS7JY", "2.44125262E7"], ["Kl9MzjQI3ms", "201905", "m0frOspS7JY", "2.36250253E7"], ["Kl9MzjQI3ms", "201906", "m0frOspS7JY", "2.44125262E7"], ["Kl9MzjQI3ms", "201907", "m0frOspS7JY", "2.36250253E7"], ["Kl9MzjQI3ms", "201908", "m0frOspS7JY", "2.36250253E7"], ["Kl9MzjQI3ms", "201909", "m0frOspS7JY", "2.44125262E7"], ["Kl9MzjQI3ms", "201910", "m0frOspS7JY", "2.36250253E7"], ["Kl9MzjQI3ms", "201911", "m0frOspS7JY", "2.44125262E7"], ["Kl9MzjQI3ms", "201912", "m0frOspS7JY", "2.36250253E7"], ["wo7ITisRXeE", "201901", "m0frOspS7JY", "172808.0"], ["wo7ITisRXeE", "201902", "m0frOspS7JY", "164532.0"], ["wo7ITisRXeE", "201903", "m0frOspS7JY", "171820.0"], ["wo7ITisRXeE", "201904", "m0frOspS7JY", "162847.0"], ["wo7ITisRXeE", "201905", "m0frOspS7JY", "181111.0"], ["wo7ITisRXeE", "201906", "m0frOspS7JY", "167957.0"], ["wo7ITisRXeE", "201907", "m0frOspS7JY", "177640.0"], ["wo7ITisRXeE", "201908", "m0frOspS7JY", "181368.0"], ["wo7ITisRXeE", "201909", "m0frOspS7JY", "177983.0"], ["wo7ITisRXeE", "201910", "m0frOspS7JY", "204312.0"], ["wo7ITisRXeE", "201911", "m0frOspS7JY", "155853.0"], ["wo7ITisRXeE", "201912", "m0frOspS7JY", "139938.0"], ["yKypqIROIO9", "201910", "m0frOspS7JY", "134130.0"], ["yKypqIROIO9", "201911", "m0frOspS7JY", "126009.0"], ["yKypqIROIO9", "201902", "m0frOspS7JY", "127274.0"], ["yKypqIROIO9", "201909", "m0frOspS7JY", "146883.0"], ["yKypqIROIO9", "201901", "m0frOspS7JY", "134887.0"], ["yKypqIROIO9", "201903", "m0frOspS7JY", "135008.0"], ["yKypqIROIO9", "201912", "m0frOspS7JY", "105449.0"], ["yKypqIROIO9", "201906", "m0frOspS7JY", "133842.0"], ["yKypqIROIO9", "201905", "m0frOspS7JY", "140172.0"], ["yKypqIROIO9", "201907", "m0frOspS7JY", "146057.0"], ["yKypqIROIO9", "201908", "m0frOspS7JY", "149497.0"], ["yKypqIROIO9", "201904", "m0frOspS7JY", "126747.0"]], "width": 4, "height": 36 }
   }
   async fetchAnalytics(dx: any, pe: any, ou: any[], context: any) {
-    console.log(dx, pe, ou, context);
     //if (dx[0] !== '52893cd128bd2.wo7ITisRXeE') {
     if(false){
       return this.sampleAnalytics[dx] ? this.sampleAnalytics[dx] : this.sampleAnalytics['any'];
@@ -215,11 +216,11 @@ export class AnalyticsService {
       }
       let query = 'SELECT level FROM organisationunitlevel';
       let orglevels = await this.connetion.manager.query(query);
-      console.log('dx:', dx);
       //let dx = ["yE9m8ltllxfqP"];
       let queries = [];
       for (let indId of dx) {
         let indicator = indicators[indId];
+        console.log('Ind:', indicator);
         analytics.metaData.dimensions.dx.push(indicator.id);
         analytics.metaData.items[indicator.id] = {
           name: indicator.name
@@ -234,18 +235,18 @@ export class AnalyticsService {
             filter = ` AND (${filter}) `;
             console.log('filter:', filter)
           }
-        for (let orgUnit of ou) {
+        for (let orgUnit of getISOOrgUnits(ou, context.user)) {
           queries.push(
             `SELECT '${indId}' as dx,'${orgUnit}' as ou,pe.iso as pe,COUNT(*) as value FROM _resource_table_${indicator.formuid} data
         INNER JOIN _organisationunitstructure ous ON(data.ou=ous.uid) 
-        INNER JOIN _periodstructure pe ON((${this.getISOPeriods(pe).map((p) => `pe.iso='${p}'`).join(' OR ')}) ${filter} ) 
-        WHERE ${this.generateOUFilterQuery('ous', ou, orglevels)} 
+        INNER JOIN _periodstructure pe ON((${getISOPeriods(pe).map((p) => `pe.iso='${p}'`).join(' OR ')}) ${filter} ) 
+        WHERE ${generateOUFilterQuery('ous', ou, orglevels,context.user)} 
         GROUP BY pe.iso`
           )
         }
       }
       console.log(queries.join(' UNION '));
-      analytics.metaData.dimensions.pe = this.getISOPeriods(pe);
+      analytics.metaData.dimensions.pe = getISOPeriods(pe);
       let result = await this.connetion.manager.query(queries.join(' UNION '));
       let ouToLoad = [];
       analytics.rows = result.map((data) => {
@@ -271,21 +272,7 @@ export class AnalyticsService {
       return analytics;
     }
   }
-  getISOPeriods(periods) {
-    let returnPeriods = [];
-    periods.forEach((period) => {
-      if (period === 'LAST_10_YEARS') {
-        for (let i = (new Date()).getFullYear() - 10; i < (new Date()).getFullYear(); i++) {
-          returnPeriods.push("" + i);
-        }
-      }if (period === 'THIS_YEARS') {
-        returnPeriods.push("" + (new Date()).getFullYear());
-      } else {
-        returnPeriods.push(period);
-      }
-    })
-    return returnPeriods;
-  }
+  
   async getAnalyticsRecords(formid, ou, pe, otherDimensions) {
     let analytics = {
       headers: [],
@@ -383,7 +370,7 @@ export class AnalyticsService {
     console.log('organisationunits:', organisationunits);
     return analytics;
   }
-  async getTrainingCoverageRecords(formid, ou, pe, otherDimensions) {
+  async getTrainingCoverageRecords(formid, ou, pe, otherDimensions, context: any) {
     let analytics = {
       headers: [],
       metaData: {
@@ -460,7 +447,7 @@ export class AnalyticsService {
       ).join(', ')},
       COUNT(record.*) as providers FROM _organisationunitstructure ous
       LEFT JOIN record ON(record.organisationunitid=ous.organisationunitid)
-      WHERE ${this.generateOUFilterQuery('ous', ou, orglevels)}
+      WHERE ${generateOUFilterQuery('ous', ou, orglevels,context.user)}
       GROUP BY ous.uid,${orglevels.map(
         orglevel =>
           'ous.uidlevel' + orglevel.level + ", namelevel" + orglevel.level,
@@ -508,36 +495,6 @@ export class AnalyticsService {
     });
     console.log('organisationunits:', organisationunits);
     return analytics;
-  }
-  generateOUFilterQuery(ousAlias, ou, levels) {
-    let ouIds = ou.filter((ouId) => ouId.indexOf('LEVEL-') === -1 && ouId.indexOf('OU_GROUP-') === -1);
-    let oulevelIds = ou.filter((ouId) => ouId.indexOf('LEVEL-') > -1);
-    let ougroupIds = ou.filter((ouId) => ouId.indexOf('OU_GROUP-') > -1);
-    let ouquery = levels.map(
-      orglevel =>
-        `${ousAlias}.uidlevel${orglevel.level} IN ('${ouIds.join("','")}')`,
-    );
-
-    let levelquery = oulevelIds.map(
-      orglevel =>
-        `${ousAlias}.uidlevel${orglevel.substring(6)} IS NOT NULL`,
-    );
-    let groupquery = ougroupIds.map(
-      ougroupId =>
-        `${ousAlias}."${ougroupId.substring(9)}" = TRUE`,
-    );
-    let queryFilter = ouquery.join(' OR ');
-
-    if (queryFilter !== '' && levelquery.length > 0) {
-      queryFilter += ' AND ';
-      queryFilter += levelquery.join(' OR ');
-    }
-
-    if (queryFilter !== '' && groupquery.length > 0) {
-      queryFilter += ' AND ';
-      queryFilter += groupquery.join(' OR ');
-    }
-    return queryFilter;
   }
   getGenericType(type) {
     if (type === 'timestamp without time zone') {
