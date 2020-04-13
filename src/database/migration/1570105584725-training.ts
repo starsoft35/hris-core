@@ -302,7 +302,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "hris_curriculum_methods_members" RENAME TO "trainingcurriculumtopicmember"',
       );
       await queryRunner.query(
-        'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "curriculum_id" TO "trainingcurriculumid"',
+        'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "curriculum_id" TO "trainingcurriculumId"',
       );
       await queryRunner.query(
         'ALTER TABLE "trainingcurriculumtopicmember" RENAME COLUMN "method_id" TO "trainingtopicId"',
