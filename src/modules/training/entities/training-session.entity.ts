@@ -37,20 +37,21 @@ export class TrainingSession extends TransactionTimestamp {
     name: 'uid',
   })
   uid: string;
-  @ManyToOne(
-    () => OrganisationUnit,
-    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'region' })
-  OrganisationUnit: OrganisationUnit | null;
   // @ManyToOne(
   //   () => OrganisationUnit,
   //   (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
   //   { eager: true, onDelete: 'CASCADE' },
   // )
-  // @JoinColumn({ name: 'district' })
-  // district: OrganisationUnit | null;
+  // @JoinColumn({ name: 'region' })
+  // organisationUnit: OrganisationUnit | null;
+  @ManyToOne(
+    () => OrganisationUnit,
+    (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
+    { eager: true, onDelete: 'CASCADE' },
+  )
+  @JoinColumn({ name: 'district' })
+  organisationUnit: OrganisationUnit | null;
+  
   @Column('character varying', {
     nullable: true,
     length: 100,
