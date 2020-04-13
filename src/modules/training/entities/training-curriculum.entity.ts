@@ -58,6 +58,6 @@ export class TrainingCurriculum extends EntityCoreProps {
     trainingMethod => trainingMethod.trainingCurriculums,
     { nullable: false },
   )
-  @JoinTable({ name: 'trainingcurriculummethodmember' })
+  // @JoinTable({ name: 'trainingcurriculumtopicmember' })
   trainingTopics: TrainingTopic[];
 }

@@ -30,18 +30,11 @@ export class SessionFacilitator {
   })
   recordId: number;
 
-  @Column('timestamp without time zone', {
+  @Column('integer', {
     nullable: false,
-    name: 'datecreated',
+    name: 'curriculumid',
   })
-  datecreated: Date;
-
-  @Column('timestamp without time zone', {
-    nullable: true,
-    default: () => 'NULL::timestamp without time zone',
-    name: 'lastupdated',
-  })
-  lastupdated: Date | null;
+  curriculumid: number;
 
   @ManyToOne(type => Record, record => record.facilitators, {eager: true})
   record: Record[]

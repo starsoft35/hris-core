@@ -22,7 +22,6 @@ TrainingSession
     @UseGuards(SessionGuard)
     async getParticipants(@Param() session, @Res() res
     ){
-      console.log('sessions', session)
       const sessions = await this.trainingSessionService.getParticipants(session)
       return res
       .status(HttpStatus.OK)

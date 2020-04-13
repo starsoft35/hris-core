@@ -1,5 +1,5 @@
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
-import { Column, Entity, ManyToMany } from 'typeorm';
+import { Column, Entity, ManyToMany, JoinTable } from 'typeorm';
 
 import { TrainingCurriculum } from './training-curriculum.entity';
 import { TrainingSession } from './training-session.entity';
@@ -16,8 +16,9 @@ export class TrainingTopic extends EntityCoreProps {
 
   @ManyToMany(
     type => TrainingCurriculum,
-    trainingCurriculum => trainingCurriculum.trainingTopics,
+    trainingCurriculum => trainingCurriculum.trainingTopics, {eager: true}
   )
+  @JoinTable({ name: 'trainingcurriculumtopicmember' })
   trainingCurriculums: TrainingCurriculum[];
 
   @ManyToMany(

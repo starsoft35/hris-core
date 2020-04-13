@@ -30,6 +30,12 @@ export class SessionParticipant {
   })
   recordId: number;
 
+  @Column('integer', {
+    nullable: false,
+    name: 'curriculumid',
+  })
+  curriculumid: number;
+
   @ManyToOne(
     type => Record,
     record => record.participants,

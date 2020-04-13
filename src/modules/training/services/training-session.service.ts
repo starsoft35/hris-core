@@ -24,7 +24,6 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     });
   }
   async getParticipants(uid: string) {
-    console.log(uid)
     return this.trainingSessionRepository.findOne(uid);
   }
 }
