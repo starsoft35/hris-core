@@ -16,10 +16,10 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     let deliverymode: {};
     return (deliverymode = {
       deliverymode: [
-        { id: 'classroom', name: ' Classroom Training' },
-        { id: 'onjob', name: 'On Job Training' },
-        { id: 'mentorship', name: ' Mentorship' },
-        { id: 'online', name: 'Online' },
+        { id: 'Classroom Training', name: 'Classroom Training' },
+        { id: 'On Job Training', name: 'On Job Training' },
+        { id: 'Mentorship', name: 'Mentorship' },
+        { id: 'Online', name: 'Online' },
       ],
     });
   }
