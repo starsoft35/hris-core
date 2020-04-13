@@ -12,6 +12,8 @@ import { OrganisationUnit } from '../../../modules/organisation-unit/entities/or
 import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
 import { Form } from '../../form/entities/form.entity';
 import { RecordValue } from './record-value.entity';
+import { SessionParticipant } from '../../../modules/training/entities/training-session-participant.entity';
+import { SessionFacilitator } from 'src/modules/training/entities/training-session-facilitatory.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {
@@ -58,4 +60,18 @@ export class Record extends TransactionUser {
     trainingSession => trainingSession.topics,
   )
   trainingSessions: TrainingSession[];
+
+  @OneToMany(
+    type => SessionParticipant,
+    participants => participants.recordId,
+  )
+  @JoinColumn({ name: 'recordId' })
+  participants: SessionParticipant[];
+
+  @OneToMany(
+    type => SessionFacilitator,
+    sessionfacilitator => sessionfacilitator.recordId,
+  )
+  @JoinColumn({ name: 'recordId' })
+  facilitators: SessionFacilitator[];
 }
