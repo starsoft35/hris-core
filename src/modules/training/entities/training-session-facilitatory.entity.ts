@@ -39,6 +39,6 @@ export class SessionFacilitator {
   @ManyToOne(type => Record, record => record.facilitators, {eager: true})
   record: Record[]
 
-  @ManyToOne(type => TrainingSession, trainingsession => trainingsession.facilitators)
-  trainingSession: TrainingSession[]
+  /*@ManyToOne(type => TrainingSession, trainingsession => trainingsession.facilitators)
+  trainingSession: TrainingSession[]*/
 }

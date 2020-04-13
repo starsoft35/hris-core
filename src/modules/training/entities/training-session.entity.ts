@@ -151,7 +151,7 @@ export class TrainingSession extends TransactionTimestamp {
   @JoinTable({ name: 'trainingsessiontopics' })
   topics: TrainingTopic[];
 
-  @ManyToMany(
+  /*@ManyToMany(
     type => Record,
     record => record.trainingSessions,
     { eager: true },
@@ -165,7 +165,7 @@ export class TrainingSession extends TransactionTimestamp {
     { eager: true },
   )
   @JoinTable({ name: 'sessionfacilitator' })
-  facilitators: Record;
+  facilitators: Record;*/
 
   // @ManyToMany(
   //   type => SessionParticipant,

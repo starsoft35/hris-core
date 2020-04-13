@@ -1,10 +1,13 @@
-import { Controller, Get, UseGuards, Param, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, UseGuards, Param, HttpStatus, Res, Query } from '@nestjs/common';
 import { BaseController } from '../../../core/controllers/base.contoller';
 
 import { TrainingSessionService } from '../services/training-session.service';
 import { TrainingSession } from '../entities/training-session.entity';
 import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 import { sanitizeResponseObject } from 'src/core/utilities/sanitize-response-object';
+import { SessionParticipant } from '../entities/training-session-participant.entity';
+import { getPagerDetails } from 'src/core/utilities';
+import * as _ from 'lodash';
 
 @Controller('api/training/' + TrainingSession.plural)
 export class TrainingSessionController extends BaseController<
@@ -20,19 +23,37 @@ TrainingSession
   }
   @Get(':session/participants')
   @UseGuards(SessionGuard)
-  async getParticipants(@Param() session, @Res() res
+  async getParticipants(@Param() param, @Res() res, @Query() query
   ) {
-    const sessions = await this.trainingSessionService.getParticipants(session)
+    const sessions = await this.trainingSessionService.getParticipants(param.session)
     return res
       .status(HttpStatus.OK)
       .send(sanitizeResponseObject(sessions));
+      /*const pagerDetails: any = getPagerDetails(query);
+  
+      const [entityRes, totalCount]: [
+        SessionParticipant[],
+        number,
+      ] = await this.trainingSessionService.getParticipants(param.session,pagerDetails.pageSize, pagerDetails.page - 1);
+  
+      return {
+        pager: {
+          ...pagerDetails,
+          pageCount: entityRes.length,
+          total: totalCount,
+          nextPage: `/api/${SessionParticipant.plural}?page=${parseInt(
+            pagerDetails.page,
+          ) + 1}`,
+        },
+        [SessionParticipant.plural]: _.map(entityRes, sanitizeResponseObject),
+      };*/
   }
 
   @Get(':session/facilitators')
   @UseGuards(SessionGuard)
-  async getFacilitators(@Param() session, @Res() res
+  async getFacilitators(@Param() param, @Res() res
   ) {
-    const sessions = await this.trainingSessionService.getFacilitators(session)
+    const sessions = await this.trainingSessionService.getFacilitators(param.session)
     return res
       .status(HttpStatus.OK)
       .send(sanitizeResponseObject(sessions));

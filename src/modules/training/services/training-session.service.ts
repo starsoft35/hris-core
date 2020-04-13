@@ -12,7 +12,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     @InjectRepository(TrainingSession)
     private trainingSessionRepository: Repository<TrainingSession>,
     @InjectRepository(SessionParticipant)
-    private trainingSessionParticipantRepository: Repository<SessionParticipant>,
+    private participantRepository: Repository<SessionParticipant>,
     @InjectRepository(SessionFacilitator)
     private trainingSessionFacilitatorRepository: Repository<SessionFacilitator>
   ) {
@@ -31,18 +31,21 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   }
   async getParticipants(uid: string) {
     let session:TrainingSession = await this.trainingSessionRepository.findOne({uid:uid});
-    return this.trainingSessionParticipantRepository.find({
+    return this.participantRepository.find({
+      //select: ['recordId'],
+      relations: ['record','record.recordValues'],
       where:{
-        trainingsessionId: session.id
-      }
+        trainingSessionId: session.id
+      },
     });
+    
   }
 
   async getFacilitators(uid: string) {
     let session:TrainingSession = await this.trainingSessionRepository.findOne({uid:uid});
     return this.trainingSessionFacilitatorRepository.find({
       where:{
-        trainingsessionId: session.id
+        trainingSessionId: session.id
       }
     });
   }
