@@ -55,7 +55,7 @@ export class TrainingCurriculum extends EntityCoreProps {
 
   @ManyToMany(
     type => TrainingTopic,
-    trainingMethod => trainingMethod.trainingCurriculums,
+    trainingMethod => trainingMethod.curriculums,
     { nullable: false },
   )
   // @JoinTable({ name: 'trainingcurriculumtopicmember' })

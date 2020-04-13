@@ -16,10 +16,11 @@ export class TrainingTopic extends EntityCoreProps {
 
   @ManyToMany(
     type => TrainingCurriculum,
-    trainingCurriculum => trainingCurriculum.trainingTopics, {eager: true}
+    trainingCurriculum => trainingCurriculum.trainingTopics,
+    { eager: true },
   )
   @JoinTable({ name: 'trainingcurriculumtopicmember' })
-  trainingCurriculums: TrainingCurriculum[];
+  curriculums: TrainingCurriculum[];
 
   @ManyToMany(
     type => TrainingSession,
