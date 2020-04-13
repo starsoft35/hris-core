@@ -18,7 +18,7 @@ export class TrainingUnit extends EntityCoreProps {
   @ManyToOne(
     type => TrainingSection,
     trainingSection => trainingSection.trainingUnits,
-    { eager:true, onDelete: 'CASCADE' },
+    { onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'sectionid' })
   section: TrainingSection | null;
@@ -30,8 +30,12 @@ export class TrainingUnit extends EntityCoreProps {
   )
   trainingCurriculums: TrainingCurriculum[];
 
-  @OneToMany(type => TrainingSession, trainingSession => trainingSession.unit, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(
+    type => TrainingSession,
+    trainingSession => trainingSession.unit,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   trainingSessions: TrainingSession[];
 }
