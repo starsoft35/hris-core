@@ -3,12 +3,18 @@ import { BaseService } from 'src/core/services/base.service';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TrainingSession } from '../entities/training-session.entity';
+import { SessionParticipant } from '../entities/training-session-participant.entity';
+import { SessionFacilitator } from '../entities/training-session-facilitatory.entity';
 
 @Injectable()
 export class TrainingSessionService extends BaseService<TrainingSession> {
   constructor(
     @InjectRepository(TrainingSession)
     private trainingSessionRepository: Repository<TrainingSession>,
+    @InjectRepository(SessionParticipant)
+    private trainingSessionParticipantRepository: Repository<SessionParticipant>,
+    @InjectRepository(SessionFacilitator)
+    private trainingSessionFacilitatorRepository: Repository<SessionFacilitator>
   ) {
     super(trainingSessionRepository, TrainingSession);
   }
@@ -24,7 +30,21 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     });
   }
   async getParticipants(uid: string) {
-    return this.trainingSessionRepository.findOne(uid);
+    let session:TrainingSession = await this.trainingSessionRepository.findOne({uid:uid});
+    return this.trainingSessionParticipantRepository.find({
+      where:{
+        trainingsessionId: session.id
+      }
+    });
+  }
+
+  async getFacilitators(uid: string) {
+    let session:TrainingSession = await this.trainingSessionRepository.findOne({uid:uid});
+    return this.trainingSessionFacilitatorRepository.find({
+      where:{
+        trainingsessionId: session.id
+      }
+    });
   }
 }
 

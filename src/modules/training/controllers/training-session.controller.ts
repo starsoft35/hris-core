@@ -10,22 +10,31 @@ import { sanitizeResponseObject } from 'src/core/utilities/sanitize-response-obj
 export class TrainingSessionController extends BaseController<
 TrainingSession
 > {
-    constructor(private trainingSessionService: TrainingSessionService) {
-        super(trainingSessionService, TrainingSession);
-    }
-    @Get('/deliverymode')
-    @UseGuards(SessionGuard)
-    async delivery (){
-      return this.trainingSessionService.deliverymode()
-    }
-    @Get(':session/participants')
-    @UseGuards(SessionGuard)
-    async getParticipants(@Param() session, @Res() res
-    ){
-      const sessions = await this.trainingSessionService.getParticipants(session)
-      return res
+  constructor(private trainingSessionService: TrainingSessionService) {
+    super(trainingSessionService, TrainingSession);
+  }
+  @Get('/deliverymode')
+  @UseGuards(SessionGuard)
+  async delivery() {
+    return this.trainingSessionService.deliverymode()
+  }
+  @Get(':session/participants')
+  @UseGuards(SessionGuard)
+  async getParticipants(@Param() session, @Res() res
+  ) {
+    const sessions = await this.trainingSessionService.getParticipants(session)
+    return res
       .status(HttpStatus.OK)
       .send(sanitizeResponseObject(sessions));
   }
 
-    }
+  @Get(':session/facilitators')
+  @UseGuards(SessionGuard)
+  async getFacilitators(@Param() session, @Res() res
+  ) {
+    const sessions = await this.trainingSessionService.getFacilitators(session)
+    return res
+      .status(HttpStatus.OK)
+      .send(sanitizeResponseObject(sessions));
+  }
+}

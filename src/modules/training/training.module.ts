@@ -28,6 +28,8 @@ import { TrainingSection } from './entities/training-section.entity';
 import { Training } from './entities/training.entity';
 import { TrainingController } from './controllers/training.controller';
 import { TrainingService } from './services/training.service';
+import { SessionParticipant } from './entities/training-session-participant.entity';
+import { SessionFacilitator } from './entities/training-session-facilitatory.entity';
 
 @Module({
   imports: [
@@ -41,7 +43,9 @@ import { TrainingService } from './services/training.service';
       TrainingTrainer,
       TrainingUnit,
       TrainingVenue,
-      Training
+      Training,
+      SessionParticipant,
+      SessionFacilitator
     ]),
   ],
   controllers: [
