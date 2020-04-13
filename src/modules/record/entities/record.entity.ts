@@ -61,14 +61,14 @@ export class Record extends TransactionUser {
   )
   trainingSessions: TrainingSession[];
 
-  @ManyToMany(
+  @OneToMany(
     type => SessionParticipant,
     participants => participants.recordId,
   )
   @JoinColumn({ name: 'recordId' })
   participants: SessionParticipant[];
 
-  @ManyToMany(
+  @OneToMany(
     type => SessionFacilitator,
     sessionfacilitator => sessionfacilitator.recordId,
   )

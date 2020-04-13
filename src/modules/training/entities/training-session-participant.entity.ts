@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, ManyToMany } from 'typeorm';
+import { Column, Entity, OneToMany, ManyToMany, ManyToOne } from 'typeorm';
 import { Record } from 'src/modules/record/entities/record.entity';
+import { TrainingSession } from './training-session.entity';
 
 @Entity('sessionparticipant', { schema: 'public' })
 export class SessionParticipant {
@@ -29,6 +30,16 @@ export class SessionParticipant {
   })
   recordId: number;
 
-  @ManyToMany(type => Record, record => record.participants, {eager: true})
-  record: Record[]
+  @ManyToOne(
+    type => Record,
+    record => record.participants,
+    { eager: true },
+  )
+  record: Record[];
+
+  @ManyToOne(
+    type => TrainingSession,
+    trainingsession => trainingsession.participants,
+  )
+  trainingSessions: TrainingSession[];
 }

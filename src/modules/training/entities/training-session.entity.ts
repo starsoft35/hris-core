@@ -55,7 +55,7 @@ export class TrainingSession extends TransactionTimestamp {
   )
   @JoinColumn({ name: 'district' })
   organisationUnit: OrganisationUnit | null;
-  
+
   @Column('character varying', {
     nullable: true,
     length: 100,
@@ -152,17 +152,31 @@ export class TrainingSession extends TransactionTimestamp {
   topics: TrainingTopic[];
 
   @ManyToMany(
-    type => SessionParticipant,
-    sessionParticipant => sessionParticipant.trainingSessionId,
+    type => Record,
+    record => record.trainingSessions,
+    { eager: true },
   )
-  @JoinColumn({ name: 'recordId' })
-  participants: SessionParticipant[];
+  @JoinTable({ name: 'sessionparticipant' })
+  participants: Record;
 
-
-  @OneToMany(
-    type => SessionFacilitator,
-    facilitators => facilitators.trainingSessionId, {eager: true}
+  @ManyToMany(
+    type => Record,
+    record => record.trainingSessions,
+    { eager: true },
   )
-  @JoinColumn({ name: 'recordId' })
-  facilitators: SessionFacilitator[];
+  @JoinTable({ name: 'sessionfacilitator' })
+  facilitators: Record;
+
+  // @ManyToMany(
+  //   type => SessionParticipant,
+  //   sessionFacilitator => sessionFacilitator.trainingSessionId,
+  // )
+  // @JoinColumn({name: 'trainingSessionId'})
+  // participants: SessionParticipant[];
+
+  // @OneToMany(
+  //   type => SessionFacilitator,
+  //   sessionfacilitator => sessionfacilitator.trainingSessionId, {eager: true}
+  // )
+  // facilitators: SessionFacilitator[];
 }
