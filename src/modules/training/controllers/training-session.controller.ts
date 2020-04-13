@@ -18,12 +18,12 @@ TrainingSession
     async delivery (){
       return this.trainingSessionService.deliverymode()
     }
-    @Get(':uid/participants')
+    @Get(':session/participants')
     @UseGuards(SessionGuard)
-    async getParticipants(@Param() uid, @Res() res
+    async getParticipants(@Param() session, @Res() res
     ){
-      console.log('sessions', uid)
-      const sessions = await this.trainingSessionService.getParticipants(uid)
+      console.log('sessions', session)
+      const sessions = await this.trainingSessionService.getParticipants(session)
       return res
       .status(HttpStatus.OK)
       .send(sanitizeResponseObject(sessions));

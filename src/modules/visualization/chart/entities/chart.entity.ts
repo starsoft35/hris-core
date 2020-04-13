@@ -201,6 +201,9 @@ export class Chart extends EntityCoreProps {
   @Column('jsonb', { name: 'parentgraphmap' })
   parentgraphmap: any;
 
+  @Column('jsonb', { name: 'access' })
+  access: any;
+
   @ManyToOne(
     () => User,
     (user: User) => user.charts,
