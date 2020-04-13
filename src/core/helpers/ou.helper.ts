@@ -30,16 +30,16 @@ export function generateOUFilterQuery(ousAlias, ou, levels, user) {
         ougroupId =>
             `${ousAlias}."${ougroupId.substring(9)}" = TRUE`,
     );
-    let queryFilter = ouquery.join(' OR ');
+    let queryFilter = '(' + ouquery.join(' OR ') + ')';
 
     if (queryFilter !== '' && levelquery.length > 0) {
         queryFilter += ' AND ';
-        queryFilter += levelquery.join(' OR ');
+        queryFilter += '(' + levelquery.join(' OR ') + ')';
     }
 
     if (queryFilter !== '' && groupquery.length > 0) {
         queryFilter += ' AND ';
-        queryFilter += groupquery.join(' OR ');
+        queryFilter += '(' + groupquery.join(' OR ') + ')';
     }
     return queryFilter;
 }

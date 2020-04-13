@@ -369,6 +369,42 @@ export class AnalyticsService {
     console.log('organisationunits:', organisationunits);
     return analytics;
   }
+
+  async getAnalyticsOrgUnitCount(ou, pe, otherDimensions, context) {
+    let analytics: Analytics = {"headers":[{"name":"dx","column":"Data","valueType":"TEXT","type":"java.lang.String","hidden":false,"meta":true},{"name":"ou","column":"Organisation unit","valueType":"TEXT","type":"java.lang.String","hidden":false,"meta":true},{"name":"pe","column":"Period","valueType":"TEXT","type":"java.lang.String","hidden":false,"meta":true},{"name":"value","column":"Value","valueType":"NUMBER","type":"java.lang.Double","hidden":false,"meta":false}],"metaData":{"items":{},"dimensions":{"dx":[],"pe":[],"ou":[],"co":[]}},"rows":[]};
+      let query = 'SELECT level FROM organisationunitlevel';
+      let orglevels = await this.connetion.manager.query(query);
+      //let dx = ["yE9m8ltllxfqP"];
+      let queries = [];
+      for (let orgUnit of getISOOrgUnits(ou, context.user)) {
+        queries.push(
+          `SELECT '${orgUnit}' as ou,COUNT(*) as value FROM _organisationunitstructure ous
+      WHERE ${generateOUFilterQuery('ous', ou, orglevels,context.user)}`
+        )
+      }
+      console.log(queries.join(' UNION '));
+      //analytics.metaData.dimensions.pe = getISOPeriods(pe);
+      let result = await this.connetion.manager.query(queries.join(' UNION '));
+      analytics.rows = result.map((data) => {
+        if (analytics.metaData.dimensions.ou.indexOf(data.ou) === -1) {
+          analytics.metaData.dimensions.ou.push(data.ou)
+        }
+        return [
+          data.ou,
+          data.value,
+        ]
+      });
+      query = `SELECT *  FROM organisationunit WHERE uid IN('${analytics.metaData.dimensions.ou.join("','")}')`;
+      console.log('Query To Load', query);
+      (await this.connetion.manager.query(query)).forEach((orgUnit) => {
+        analytics.metaData.items[orgUnit.uid] = {
+          name: orgUnit.name
+        }
+      });
+      analytics.height = analytics.rows.length;
+      analytics.width = analytics.headers.length;
+      return analytics;
+  }
   async getTrainingCoverageRecords(formid, ou, pe, otherDimensions, context: any) {
     let analytics = {
       headers: [],
