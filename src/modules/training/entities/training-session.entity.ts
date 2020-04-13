@@ -1,3 +1,5 @@
+import { EntityCoreProps } from '../../../core/entities/entity-core-props';
+import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import {
   Column,
   Entity,
@@ -7,14 +9,16 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
-import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
-import { Record } from '../../record/entities/record.entity';
 import { TrainingCurriculum } from './training-curriculum.entity';
+import { TrainingTopic } from './training-topic.entity';
 import { TrainingSection } from './training-section.entity';
 import { TrainingSponsor } from './training-sponsor.entity';
-import { TrainingTopic } from './training-topic.entity';
 import { TrainingUnit } from './training-unit.entity';
+import { TrainingVenue } from './training-venue.entity';
+import { Record } from '../../record/entities/record.entity';
+import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
+import { SessionFacilitator } from './training-session-facilitatory.entity';
+import { SessionParticipant } from './training-session-participant.entity';
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends TransactionTimestamp {
   static plural = 'sessions';
@@ -148,10 +152,17 @@ export class TrainingSession extends TransactionTimestamp {
   topics: TrainingTopic[];
 
   @ManyToMany(
-    type => Record,
-    record => record.trainingSessions,
-    { eager: true },
+    type => SessionParticipant,
+    sessionParticipant => sessionParticipant.trainingSessionId,
   )
-  @JoinTable({ name: 'sessionparticipant' })
-  record: Record;
+  @JoinColumn({ name: 'recordId' })
+  participants: SessionParticipant[];
+
+
+  @OneToMany(
+    type => SessionFacilitator,
+    facilitators => facilitators.trainingSessionId, {eager: true}
+  )
+  @JoinColumn({ name: 'recordId' })
+  facilitators: SessionFacilitator[];
 }
