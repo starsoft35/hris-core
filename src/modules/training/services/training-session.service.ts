@@ -8,7 +8,7 @@ import { TrainingSession } from '../entities/training-session.entity';
 export class TrainingSessionService extends BaseService<TrainingSession> {
   constructor(
     @InjectRepository(TrainingSession)
-    trainingSessionRepository: Repository<TrainingSession>,
+    private trainingSessionRepository: Repository<TrainingSession>,
   ) {
     super(trainingSessionRepository, TrainingSession);
   }
@@ -23,4 +23,9 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       ],
     });
   }
+  async getParticipants(uid: string) {
+    console.log(uid)
+    return this.trainingSessionRepository.findOne(uid);
+  }
 }
+
