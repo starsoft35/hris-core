@@ -15,6 +15,7 @@ export class AnalyticsGenerator extends BackgroundProcess {
       'SELECT id as formid,uid,title FROM form',
     );
     for (const form of forms) {
+      this.log({ type: "INFO", message: `Droping Temporary table for ${form.uid}.` });
       await this.connetion.manager.query(
         'DROP TABLE IF EXISTS _temp_resource_table_' + form.uid,
       );
@@ -56,6 +57,7 @@ export class AnalyticsGenerator extends BackgroundProcess {
         'formid integer NOT NULL' +
         additionalColumns +
         ',PRIMARY KEY(instance))';
+      this.log({ type: "INFO", message: `Creating Temporary table for ${form.uid}.` });
       await this.connetion.manager.query(createQuery);
 
       let insertQuery =
@@ -117,16 +119,14 @@ export class AnalyticsGenerator extends BackgroundProcess {
         ' WHERE r.formid=' +
         form.formid +
         ';';
+        this.log({ type: "INFO", message: `Inserting records for ${form.uid}.` });
       await this.connetion.manager.query(insertQuery);
+      this.log({ type: "INFO", message: `Cleaning temporary tables for ${form.uid}.` });
       await this.connetion.manager.query(
-        'DROP TABLE IF EXISTS _resource_table_' +
-        form.uid +
-        ';ALTER TABLE _temp_resource_table_' +
-        form.uid +
-        ' RENAME TO _resource_table_' +
-        form.uid +
-        ';',
+        `DROP TABLE IF EXISTS _resource_table_${form.uid};
+        ALTER TABLE _temp_resource_table_${form.uid} RENAME TO _resource_table_${form.uid};`,
       );
+      this.log({ type: "INFO", message: `Creating indexes for form ${form.uid}.` });
       let creatIndex = `CREATE INDEX record${form.uid}index ON _resource_table_${form.uid}(ou);`;
       await this.connetion.manager.query(creatIndex);
     }
