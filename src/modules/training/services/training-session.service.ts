@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { BaseService } from 'src/core/services/base.service';
-import { Repository } from 'typeorm';
+import { Repository, In, Raw } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TrainingSession } from '../entities/training-session.entity';
 import { SessionParticipant } from '../entities/training-session-participant.entity';
 import { SessionFacilitator } from '../entities/training-session-facilitatory.entity';
+import { Record } from 'src/modules/record/entities/record.entity';
 
 @Injectable()
 export class TrainingSessionService extends BaseService<TrainingSession> {
@@ -14,7 +15,9 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     @InjectRepository(SessionParticipant)
     private participantRepository: Repository<SessionParticipant>,
     @InjectRepository(SessionFacilitator)
-    private trainingSessionFacilitatorRepository: Repository<SessionFacilitator>
+    private facilitatorsRepository: Repository<SessionFacilitator>,
+    @InjectRepository(Record)
+    private recordRepository: Repository<Record>
   ) {
     super(trainingSessionRepository, TrainingSession);
   }
@@ -30,24 +33,35 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     });
   }
   async getParticipants(uid: string) {
-    let session:TrainingSession = await this.trainingSessionRepository.findOne({uid:uid});
-    return this.participantRepository.find({
-      //select: ['recordId'],
-      relations: ['record','record.recordValues'],
+    let participants = await this.participantRepository.find({
       where:{
-        trainingSessionId: session.id
-      },
+        trainingSessionId: Raw(`(SELECT id FROM trainingsession WHERE uid='${uid}')`)//session.id
+      }
     });
-    
+    return {
+      participants: await this.recordRepository.find({
+        relations: ['recordValues'],
+        where:{
+          id: In(participants.map((participant)=>participant.recordId))
+        }
+      })
+    };
   }
 
   async getFacilitators(uid: string) {
-    let session:TrainingSession = await this.trainingSessionRepository.findOne({uid:uid});
-    return this.trainingSessionFacilitatorRepository.find({
+    let participants = await this.facilitatorsRepository.find({
       where:{
-        trainingSessionId: session.id
+        trainingSessionId: Raw(`(SELECT id FROM trainingsession WHERE uid='${uid}')`)//session.id
       }
     });
+    return {
+      facilitators: await this.recordRepository.find({
+        relations: ['recordValues'],
+        where:{
+          id: In(participants.map((participant)=>participant.recordId))
+        }
+      })
+    };
   }
 }
 

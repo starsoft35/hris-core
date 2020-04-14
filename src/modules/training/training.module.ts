@@ -30,6 +30,7 @@ import { TrainingController } from './controllers/training.controller';
 import { TrainingService } from './services/training.service';
 import { SessionParticipant } from './entities/training-session-participant.entity';
 import { SessionFacilitator } from './entities/training-session-facilitatory.entity';
+import { Record } from '../record/entities/record.entity';
 
 @Module({
   imports: [
@@ -45,7 +46,8 @@ import { SessionFacilitator } from './entities/training-session-facilitatory.ent
       TrainingVenue,
       Training,
       SessionParticipant,
-      SessionFacilitator
+      SessionFacilitator,
+      Record
     ]),
   ],
   controllers: [

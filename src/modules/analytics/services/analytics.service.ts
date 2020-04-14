@@ -285,7 +285,7 @@ export class AnalyticsService {
         "analyticstype": "RECORDS"
       }
     }
-    return dx.filter((d)=>indicators[d]).map((d) => {
+    return dx.filter((d) => indicators[d]).map((d) => {
       console.log("This is it:", d);
       return {
         ...indicators[d],

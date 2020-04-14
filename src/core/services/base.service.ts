@@ -57,7 +57,6 @@ export class BaseService<T extends HRISBaseEntity> {
         },
       };
     }
-
     return await this.modelRepository.findAndCount({
       select: getSelections(fields, metaData),
       relations: getRelations(fields, metaData),
