@@ -75,22 +75,27 @@ export class TrainingSessionController extends BaseController<TrainingSession> {
     );
     return res.status(HttpStatus.OK).send(sanitizeResponseObject(sessions));
   }
-  @Delete(':session/participants')
+  @Delete(':session/participants/:participant')
   @UseGuards(SessionGuard)
   async deleteParticipants(@Param() param, @Res() res, @Query() query) {
-    const sessions = await this.trainingSessionService.getParticipants(
+    const sessions = await this.trainingSessionService.deleteParticipant(
       param.session,
+      param.participant,
     );
-    return res.status(HttpStatus.OK).send(sanitizeResponseObject(sessions));
+    return res
+      .status(HttpStatus.OK)
+      .send('Participant Deleted Successfully', sessions);
   }
 
   @Delete(':session/facilitators/:facilitator')
   @UseGuards(SessionGuard)
   async deleteFacilitators(@Param() param, @Res() res) {
-       const sessions = await this.trainingSessionService.deleteFacilitator(
+    const sessions = await this.trainingSessionService.deleteFacilitator(
       param.session,
-      param.facilitator
+      param.facilitator,
     );
-    return res.status(HttpStatus.OK).send('Facilitator Deleted Successfully');
+    return res
+      .status(HttpStatus.OK)
+      .send('Facilitator Deleted Successfully', sessions);
   }
 }

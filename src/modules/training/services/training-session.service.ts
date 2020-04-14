@@ -105,7 +105,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     const facilitators = await this.facilitatorsRepository.manager.query(
       `SELECT id FROM sessionfacilitator WHERE uid='${facilitator}'`,
     );
-    if (facilitators == undefined) {
+    if (facilitators[0] == undefined) {
       throw new NotFoundException(
         `Facilitator with ID ${facilitator} is not available `,
       );
@@ -116,5 +116,22 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       throw new NotFoundException(`Can not delete facilitator with ID ${id} `);
     }
     return deletedFacilitator;
+  }
+
+  async deleteParticipant(uid: string, facilitator: any) {
+    const participants = await this.participantRepository.manager.query(
+      `SELECT id FROM sessionparticipant WHERE uid='${facilitator}'`,
+    );
+    if (participants[0] == undefined) {
+      throw new NotFoundException(
+        `Participant with ID ${participants} is not available `,
+      );
+    }
+    const id = participants[0].id;
+    let deletedParticipants = await this.participantRepository.delete(id);
+    if (facilitator.affected === 0) {
+      throw new NotFoundException(`Can not delete participant with ID ${id} `);
+    }
+    return deletedParticipants;
   }
 }
