@@ -13,7 +13,7 @@ import { TrainingSession } from '../../../modules/training/entities/training-ses
 import { Form } from '../../form/entities/form.entity';
 import { RecordValue } from './record-value.entity';
 import { SessionParticipant } from '../../../modules/training/entities/training-session-participant.entity';
-import { SessionFacilitator } from 'src/modules/training/entities/training-session-facilitatory.entity';
+import { SessionFacilitator } from '../../../modules/training/entities/training-session-facilitatory.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {

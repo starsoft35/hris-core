@@ -1,6 +1,5 @@
-import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm';
-import { Record } from 'src/modules/record/entities/record.entity';
-import { TrainingSession } from './training-session.entity';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { Record } from '../../../modules/record/entities/record.entity';
 
 @Entity('sessionfacilitator', { schema: 'public' })
 export class SessionFacilitator {
@@ -20,9 +19,9 @@ export class SessionFacilitator {
 
   @Column('integer', {
     nullable: false,
-    name: 'trainingSessionId',
+    name: 'trainingsessionId',
   })
-  trainingSessionId: number;
+  trainingsessionId: number;
 
   @Column('integer', {
     nullable: false,
@@ -37,7 +36,7 @@ export class SessionFacilitator {
   curriculumid: number;
 
   @ManyToOne(type => Record, record => record.facilitators, {eager: true})
-  record: Record[]
+  facilitators: Record[]
 
   /*@ManyToOne(type => TrainingSession, trainingsession => trainingsession.facilitators)
   trainingSession: TrainingSession[]*/
