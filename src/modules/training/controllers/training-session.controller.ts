@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Param, HttpStatus, Res, Query } from '@nestjs/common';
+import { Controller, Get, UseGuards, Param, HttpStatus, Res, Query, Post, Delete } from '@nestjs/common';
 import { BaseController } from '../../../core/controllers/base.contoller';
 
 import { TrainingSessionService } from '../services/training-session.service';
@@ -29,29 +29,49 @@ TrainingSession
     return res
       .status(HttpStatus.OK)
       .send(sanitizeResponseObject(sessions));
-      /*const pagerDetails: any = getPagerDetails(query);
-  
-      const [entityRes, totalCount]: [
-        SessionParticipant[],
-        number,
-      ] = await this.trainingSessionService.getParticipants(param.session,pagerDetails.pageSize, pagerDetails.page - 1);
-  
-      return {
-        pager: {
-          ...pagerDetails,
-          pageCount: entityRes.length,
-          total: totalCount,
-          nextPage: `/api/${SessionParticipant.plural}?page=${parseInt(
-            pagerDetails.page,
-          ) + 1}`,
-        },
-        [SessionParticipant.plural]: _.map(entityRes, sanitizeResponseObject),
-      };*/
   }
 
   @Get(':session/facilitators')
   @UseGuards(SessionGuard)
   async getFacilitators(@Param() param, @Res() res
+  ) {
+    const sessions = await this.trainingSessionService.getFacilitators(param.session)
+    return res
+      .status(HttpStatus.OK)
+      .send(sanitizeResponseObject(sessions));
+  }
+  @Post(':session/participants')
+  @UseGuards(SessionGuard)
+  async addParticipants(@Param() param, @Res() res, @Query() query
+  ) {
+    const sessions = await this.trainingSessionService.getParticipants(param.session)
+    return res
+      .status(HttpStatus.OK)
+      .send(sanitizeResponseObject(sessions));
+  }
+
+  @Post(':session/facilitators')
+  @UseGuards(SessionGuard)
+  async addFacilitators(@Param() param, @Res() res
+  ) {
+    const sessions = await this.trainingSessionService.getFacilitators(param.session)
+    return res
+      .status(HttpStatus.OK)
+      .send(sanitizeResponseObject(sessions));
+  }
+  @Delete(':session/participants')
+  @UseGuards(SessionGuard)
+  async deleteParticipants(@Param() param, @Res() res, @Query() query
+  ) {
+    const sessions = await this.trainingSessionService.getParticipants(param.session)
+    return res
+      .status(HttpStatus.OK)
+      .send(sanitizeResponseObject(sessions));
+  }
+
+  @Delete(':session/facilitators')
+  @UseGuards(SessionGuard)
+  async deleteFacilitators(@Param() param, @Res() res
   ) {
     const sessions = await this.trainingSessionService.getFacilitators(param.session)
     return res

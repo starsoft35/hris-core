@@ -18,6 +18,7 @@ export class AnalyticsController {
     let dx = [];
     let otherDimensions = {};
     query.dimension.forEach(dimension => {
+      console.log('dimension:', dimension);
       let split = dimension.split(':');
       if (split[0] === 'pe') {
         pe = pe.concat(split[1].split(';'));
@@ -27,19 +28,22 @@ export class AnalyticsController {
         dx = dx.concat(split[1].split(';'));
       }
     });
-    if(!Array.isArray(query.filter)){
-      query.filter = [query.filter];
+    if(query.filter){
+      if(!Array.isArray(query.filter)){
+        query.filter = [query.filter];
+      }
+      console.log("query.filter:", query.filter);
+      query.filter.forEach(dimension => {
+        let split = dimension.split(':');
+        if (split[0] === 'pe') {
+          pe = pe.concat(split[1].split(';'));
+        } else if (split[0] === 'ou') {
+          ou = ou.concat(split[1].split(';'));
+        } else if (split[0] === 'dx') {
+          dx = dx.concat(split[1].split(';'));
+        }
+      });
     }
-    query.filter.forEach(dimension => {
-      let split = dimension.split(':');
-      if (split[0] === 'pe') {
-        pe = pe.concat(split[1].split(';'));
-      } else if (split[0] === 'ou') {
-        ou = ou.concat(split[1].split(';'));
-      } else if (split[0] === 'dx') {
-        dx = dx.concat(split[1].split(';'));
-      }
-    });
     return this.analyticsService.fetchAnalytics(dx, pe, ou, {
       user: user,
     });
