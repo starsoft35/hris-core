@@ -84,12 +84,13 @@ export class TrainingSessionController extends BaseController<TrainingSession> {
     return res.status(HttpStatus.OK).send(sanitizeResponseObject(sessions));
   }
 
-  @Delete(':session/facilitators')
+  @Delete(':session/facilitators/:facilitator')
   @UseGuards(SessionGuard)
   async deleteFacilitators(@Param() param, @Res() res) {
-    const sessions = await this.trainingSessionService.getFacilitators(
+       const sessions = await this.trainingSessionService.deleteFacilitator(
       param.session,
+      param.facilitator
     );
-    return res.status(HttpStatus.OK).send(sanitizeResponseObject(sessions));
+    return res.status(HttpStatus.OK).send('Facilitator Deleted Successfully');
   }
 }

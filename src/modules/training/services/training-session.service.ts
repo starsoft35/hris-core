@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { BaseService } from 'src/core/services/base.service';
 import { Repository, In, Raw } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -99,5 +99,22 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     facilitator.trainingsessionId = trainingsession;
     facilitator.recordId = recordid;
     return await this.facilitatorsRepository.save(facilitator);
+  }
+
+  async deleteFacilitator(uid: string, facilitator: any) {
+    const facilitators = await this.facilitatorsRepository.manager.query(
+      `SELECT id FROM sessionfacilitator WHERE uid='${facilitator}'`,
+    );
+    if (facilitators == undefined) {
+      throw new NotFoundException(
+        `Facilitator with ID ${facilitator} is not available `,
+      );
+    }
+    const id = facilitators[0].id;
+    let deletedFacilitator = await this.facilitatorsRepository.delete(id);
+    if (facilitator.affected === 0) {
+      throw new NotFoundException(`Can not delete facilitator with ID ${id} `);
+    }
+    return deletedFacilitator;
   }
 }
