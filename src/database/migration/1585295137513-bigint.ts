@@ -224,7 +224,7 @@ export class bigint1585295137513 implements MigrationInterface {
         CREATE TABLE facilitator(id bigint NOT NULL DEFAULT  nextval('id_facilitators'::regclass),uid text,"recordId" bigint, "trainingsessionId" bigint);
 
 
-        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY ("trainingsessionId")
+        ALTER TABLE participant ADD CONSTRAINT "FK_participant_sessionid" FOREIGN KEY ("trainingsessionId")
         REFERENCES public.trainingsession (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
@@ -233,7 +233,7 @@ export class bigint1585295137513 implements MigrationInterface {
         ON UPDATE CASCADE
         ON DELETE CASCADE;
 
-        ALTER TABLE participant ADD CONSTRAINT "FK_constraint_recordid" FOREIGN KEY ("recordId")
+        ALTER TABLE participant ADD CONSTRAINT "FK_participant_recordid" FOREIGN KEY ("recordId")
         REFERENCES public.record (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
