@@ -243,7 +243,9 @@ GROUP BY fieldid;
 DELETE FROM formfieldmember WHERE formid <> (SELECT id FROM form WHERE name ilike 'public%');
 UPDATE record SET formid=(SELECT id FROM form WHERE name ilike 'public%');
 DELETE FROM organisationunitcompleteness WHERE formid <> (SELECT id FROM form WHERE name ilike 'public%');
-DELETE FROM form WHERE id <> (SELECT id FROM form WHERE name ilike 'public%');					
+DELETE FROM form WHERE id <> (SELECT id FROM form WHERE name ilike 'public%');				
+ALTER TABLE sessionparticipant ADD COLUMN "participantsId" bigint;
+ALTER TABLE sessionfacilitator ADD COLUMN "facilitdtorsIs" bigint;	
 `);
   }
 
