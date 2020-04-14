@@ -35,7 +35,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   async getParticipants(uid: string) {
     let participants = await this.participantRepository.find({
       where:{
-        trainingSessionId: Raw(`(SELECT id FROM trainingsession WHERE uid='${uid}')`)//session.id
+        trainingsessionId: Raw(`(SELECT id FROM trainingsession WHERE uid='${uid}')`)//session.id
       }
     });
     return {
@@ -51,7 +51,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   async getFacilitators(uid: string) {
     let participants = await this.facilitatorsRepository.find({
       where:{
-        trainingSessionId: Raw(`(SELECT id FROM trainingsession WHERE uid='${uid}')`)//session.id
+        trainingsessionId: Raw(`(SELECT id FROM trainingsession WHERE uid='${uid}')`)//session.id
       }
     });
     return {
