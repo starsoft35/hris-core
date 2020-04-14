@@ -49,35 +49,6 @@ export class RecordsController extends BaseController<Record> {
     const record = await this.recordService.createRecord(createRecordDto);
     return res.status(HttpStatus.OK).send(sanitizeResponseObject(record));
   }
-  @Post(':record/recordVal')
-  @UseGuards(SessionGuard)
-  async getAll(@Param() params, @Body() createEntityDto) {
-    return await this.recordService.saveRecordValues(
-      params.record,
-      createEntityDto,
-    );
-    try {
-      return await this.recordService.saveRecordValues(
-        params.record,
-        createEntityDto,
-      );
-      // if (isIDExist !== undefined) {
-      //   return entityExistResponse(res, isIDExist);
-      // } else {
-      //   const createdEntity = await this.baseService.create(createEntityDto);
-      //   if (createdEntity !== undefined) {
-      //     const isPropExcluded = delete createdEntity.id;
-      //     return isPropExcluded
-      //       ? postSuccessResponse(res, createdEntity)
-      //       : postSuccessResponse(res, createdEntity);
-      //   } else {
-      //     return genericFailureResponse(res);
-      //   }
-      // }
-    } catch (error) {
-      //res.status(400).json({ error: error.message });
-    }
-  }
 
   @Post(':record/recordValues')
   @UseGuards(SessionGuard)
