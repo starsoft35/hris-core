@@ -127,7 +127,7 @@ export class AnalyticsGenerator extends BackgroundProcess {
         form.uid +
         ';',
       );
-      let creatIndex = `CREATE INDEX orgunitrecordindex ON _resource_table_${form.uid}(ou);`;
+      let creatIndex = `CREATE INDEX record${form.uid}index ON _resource_table_${form.uid}(ou);`;
       await this.connetion.manager.query(creatIndex);
     }
     this.log({ type: "SUCCESS", message: "Analytics finished running successfully" });
