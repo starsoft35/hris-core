@@ -93,7 +93,7 @@ export class OrgUnitGenerator extends BackgroundProcess {
       level++;
     } while (count[0].count !== countstructure[0].count);
     let creatIndex = `CREATE INDEX orgunitindex ON _organisationunitstructure(
-      uid,${indexQuery});`;
+      uid${indexQuery});`;
     await this.connetion.manager.query(creatIndex);
   }
   async getProcessName() {
