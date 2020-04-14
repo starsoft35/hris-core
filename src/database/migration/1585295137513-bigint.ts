@@ -171,7 +171,7 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE trainingcurriculum ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE trainingcurriculum ALTER COLUMN sectionid TYPE BIGINT;
         ALTER TABLE trainingcurriculum ALTER COLUMN unitid TYPE BIGINT;
-        ALTER TABLE trainingcurriculumtopicmember ALTER COLUMN trainingcurriculumid TYPE BIGINT;
+        ALTER TABLE trainingcurriculumtopicmember ALTER COLUMN "trainingcurriculumId" TYPE BIGINT;
         ALTER TABLE trainingcurriculumtopicmember ALTER COLUMN "trainingtopicId" TYPE BIGINT;
         ALTER TABLE trainingsession ALTER COLUMN id TYPE BIGINT;
         ALTER TABLE trainingsession ALTER COLUMN sectionid TYPE BIGINT;
@@ -218,8 +218,10 @@ export class bigint1585295137513 implements MigrationInterface {
         ALTER TABLE schedule ALTER COLUMN id SET DEFAULT nextval('schedule_id_seq');
         ALTER TABLE trainingsession ADD COLUMN "deliverymode" text;
 
-        CREATE TABLE participant("trainingsessionId" bigint, "recordId" bigint);
-        CREATE TABLE facilitator("trainingsessionId" bigint, "recordId" bigint);
+        CREATE SEQUENCE id_facilitators;
+        CREATE SEQUENCE id_participants;
+        CREATE TABLE participant(id bigint NOT NULL DEFAULT nextval('id_participants'::regclass),uid text,"recordId" bigint, "trainingsessionId" bigint);
+        CREATE TABLE facilitator(id bigint NOT NULL DEFAULT  nextval('id_facilitators'::regclass),uid text,"recordId" bigint, "trainingsessionId" bigint);
 
 
         ALTER TABLE participant ADD CONSTRAINT "FK_constraint_sessionid" FOREIGN KEY ("trainingsessionId")
@@ -240,13 +242,13 @@ export class bigint1585295137513 implements MigrationInterface {
         ON UPDATE CASCADE
         ON DELETE CASCADE;
 
-        INSERT INTO participant("trainingsessionId", "recordId")
-        select sessionid,recordid from sessionparticipant
+        INSERT INTO participant(uid, "trainingsessionId", "recordId")
+        select uid(), sessionid,recordid from sessionparticipant
         INNER JOIN record ON(record.id=sessionparticipant.recordid) 
         INNER JOIN trainingsession ON(trainingsession.id = sessionparticipant.sessionid);
 
-        INSERT INTO facilitator("trainingsessionId", "recordId")
-        select sessionid,recordid from sessionparticipant
+        INSERT INTO facilitator(uid, "trainingsessionId", "recordId")
+        select uid(), sessionid,recordid from sessionparticipant
         INNER JOIN record ON(record.id=sessionparticipant.recordid) 
         INNER JOIN trainingsession ON(trainingsession.id = sessionparticipant.sessionid);
        
@@ -255,4 +257,3 @@ export class bigint1585295137513 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }
-
