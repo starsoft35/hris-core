@@ -41,6 +41,11 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
         ), //session.id
       },
     });
+    if (participants[0] == undefined) {
+      throw new NotFoundException(
+        `Participants are not available for this training session `,
+      );
+    }
     return {
       participants: await this.recordRepository.find({
         relations: ['recordValues'],
@@ -52,18 +57,23 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   }
 
   async getFacilitators(uid: string) {
-    let participants = await this.facilitatorRepository.find({
+    let facilitators = await this.facilitatorRepository.find({
       where: {
         trainingsessionId: Raw(
           `(SELECT id FROM trainingsession WHERE uid='${uid}')`,
         ), //session.id
       },
     });
+    if (facilitators[0] == undefined) {
+      throw new NotFoundException(
+        `Facilitators are not available for this training session `,
+      );
+    }
     return {
       facilitators: await this.recordRepository.find({
         relations: ['recordValues'],
         where: {
-          id: In(participants.map(participant => participant.recordId)),
+          id: In(facilitators.map(participant => participant.recordId)),
         },
       }),
     };
@@ -132,7 +142,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     const participants = await this.participantRepository.manager.query(
       `SELECT id FROM sessionparticipant WHERE "recordId"=${recordid} AND "trainingsessionId"=${sessionid}`,
     );
-    console.log('participants', participants)
+    console.log('participants', participants);
     if (participants[0] == undefined) {
       throw new NotFoundException(`Participant is not available `);
     }
