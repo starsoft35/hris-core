@@ -43,7 +43,7 @@ export class SessionParticipant {
     record => record.participants,
     { eager: true },
   )
-  participants: Record[];
+  record: Record[];
   static plural: any = 'participants';
 
   /*@ManyToOne(
