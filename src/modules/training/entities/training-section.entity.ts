@@ -26,11 +26,4 @@ export class TrainingSection extends EntityCoreProps {
     onDelete: 'CASCADE',
   })
   trainingUnits: TrainingUnit[];
-
-  @OneToMany(
-    type => TrainingSession,
-    trainingSession => trainingSession.section,
-    { onDelete: 'CASCADE' },
-  )
-  trainingSessions: TrainingSession[];
 }
