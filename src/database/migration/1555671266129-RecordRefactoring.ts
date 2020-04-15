@@ -115,6 +115,48 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         await this.updateData(queryRunner, newObjects);
       } while (results.length > 0);
     }
+
+    //Add history data
+    await queryRunner.manager.query(
+      'ALTER TABLE recordvalue ADD COLUMN lastupdatedby character varying;',
+    );
+    await queryRunner.manager.query(
+      `INSERT INTO fielddatatype(uid,name,created,lastupdated) VALUES (uid(),'Organisation Unit',now(),now());`,
+    );
+    await queryRunner.manager.query(
+      `INSERT INTO field("dataTypeId","fieldInputTypeId",uid,name,caption,compulsory,isunique,
+      iscalculated,hashistory,hastarget,skipinreport,created,lastupdated)
+  VALUES((SELECT id FROM fielddatatype WHERE name='Organisation Unit'),(SELECT id FROM fieldinputtype WHERE name='Text'),
+       uid(),'previous_duty_post','Previous Duty Post',false,false,
+      false,true,false,true,now(),now()
+  );`,
+    );
+    await queryRunner.manager.query(
+      `UPDATE hris_record_history SET history=REPLACE(history, 'Centre', 'Center' );`,
+    );
+    await queryRunner.manager.query(
+      `UPDATE hris_record_history his SET organisationunit_id=(SELECT id FROM organisationunit WHERE his.history=name LIMIT 1)
+      WHERE his.organisationunit_id IS NULL AND his.field_id IS NULL`,
+    );
+
+    await queryRunner.manager.query(
+      `UPDATE hris_record_history his SET field_id=(SELECT "fieldId" FROM fieldoption WHERE his.history=value LIMIT 1)
+      WHERE his.organisationunit_id IS NULL AND his.field_id IS NULL`,
+    );
+
+    await queryRunner.manager.query(
+      `INSERT INTO recordvalue(created,lastupdated,uid,value,startdate,enddate,comment,entitledpayment,recordid,fieldid,lastupdatedby)
+      SELECT 
+        datecreated,lastupdated,uid,history,startdate,enddate,reason,entitled_payment,record_id,field_id,username
+      FROM hris_record_history
+      WHERE organisationunit_id IS NULL AND field_id IS NOT NULL
+      UNION
+      SELECT 
+        datecreated,lastupdated,uid,(SELECT uid FROM organisationunit WHERE id=organisationunit_id),
+        startdate,enddate,reason,entitled_payment,record_id,(SELECT id FROM field WHERE name='previous_duty_post'),username
+      FROM hris_record_history
+      WHERE organisationunit_id IS NOT NULL;`,
+    );
   }
 
   async updateData(queryRunner, data) {
@@ -157,5 +199,5 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
       await queryRunner.manager.query(query);
     } while (data.length > 0);
   }
-  public async down(queryRunner: QueryRunner): Promise<any> {}
+  public async down(queryRunner: QueryRunner): Promise<any> { }
 }
