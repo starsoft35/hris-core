@@ -28,13 +28,6 @@ export class TrainingSession extends TransactionTimestamp {
     name: 'id',
   })
   id: number;
-  @ManyToOne(
-    () => TrainingSection,
-    (trainingsections: TrainingSection) => trainingsections.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'sectionid' })
-  section: TrainingSection | null;
   @Column('character varying', {
     nullable: false,
     length: 13,
@@ -92,13 +85,6 @@ export class TrainingSession extends TransactionTimestamp {
   //   name: 'lastupdated',
   // })
   // lastupdated: Date | null;
-  @ManyToOne(
-    () => TrainingUnit,
-    (TrainingUnit: TrainingUnit) => TrainingUnit.trainingSessions,
-    { eager: true, onDelete: 'CASCADE' },
-  )
-  @JoinColumn({ name: 'unitid' })
-  unit: TrainingUnit | null;
   @ManyToOne(
     () => TrainingCurriculum,
     (TrainingCurriculum: TrainingCurriculum) =>
