@@ -1,13 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { BaseService } from 'src/core/services/base.service';
-import { Repository, In, Raw } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TrainingSession } from '../entities/training-session.entity';
-import { SessionParticipant } from '../entities/training-session-participant.entity';
-import { SessionFacilitator } from '../entities/training-session-facilitatory.entity';
-import { Record } from '../../../modules/record/entities/record.entity';
-import { generateUid } from '../../../core/helpers/makeuid';
+import { BaseService } from 'src/core/services/base.service';
 import { RecordValue } from 'src/modules/record/entities/record-value.entity';
+import { In, Repository } from 'typeorm';
+import { generateUid } from '../../../core/helpers/makeuid';
+import { Record } from '../../../modules/record/entities/record.entity';
+import { SessionFacilitator } from '../entities/training-session-facilitatory.entity';
+import { SessionParticipant } from '../entities/training-session-participant.entity';
+import { TrainingSession } from '../entities/training-session.entity';
 
 @Injectable()
 export class TrainingSessionService extends BaseService<TrainingSession> {
@@ -20,8 +20,6 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     private facilitatorRepository: Repository<SessionFacilitator>,
     @InjectRepository(Record)
     private recordRepository: Repository<Record>,
-    @InjectRepository(RecordValue)
-    private recordValueRepository: Repository<RecordValue>,
   ) {
     super(trainingSessionRepository, TrainingSession);
   }
@@ -49,23 +47,13 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       );
     }
     return {
-    //   participants: await this.recordRepository.find({
-    //     relations: ['recordValues'],
-    //     where: {
-    //       id: In(participants.map(participant => participant.recordId)),
-    //     },
-    //   }),
-    participants: await this.recordValueRepository.find({
-      where: {
-        recordid: In(participants.map(participant => participant.recordId)),
-      },
-      join: {
-        alias: 'recordValue',
-        leftJoinAndSelect: { field: 'recordValue.field' },
-      },
-    }),
-  };  
-
+      participants: await this.recordRepository.find({
+        relations: ['recordValues', 'recordValues.field'],
+        where: {
+          id: In(participants.map(participant => participant.recordId)),
+        },
+      }),
+    };
   }
 
   async getFacilitators(uid: string) {
@@ -81,17 +69,14 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       );
     }
     return {
-      facilitators: await this.recordValueRepository.find({
+      facilitators: await this.recordRepository.find({
+        relations: ['recordValues', 'recordValues.field'],
         where: {
-          recordid: In(facilitators.map(facilitator => facilitator.recordId)),
-        },
-        join: {
-          alias: 'recordValue',
-          leftJoinAndSelect: { field: 'recordValue.field' },
+          id: In(facilitators.map(facilitator => facilitator.recordId)),
         },
       }),
     };
-   }
+  }
 
   async addParticipant(uid: string, createParticipantDto: any) {
     const { record } = createParticipantDto;
