@@ -1,8 +1,8 @@
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 import { User } from '../../../system/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { ChartDimension } from '../../other/entities/chart-dimension.entity';
-import { DashboardItemChart } from '../../other/entities/dashboard-item-chart.entity';
+import { DashboardItemChart } from '../../dashboard-item/entities/dashboard-item-chart.entity';
+import { ChartDimension } from './chart-dimension.entity';
 
 @Entity('chart', { schema: 'public' })
 export class Chart extends EntityCoreProps {
@@ -189,19 +189,37 @@ export class Chart extends EntityCoreProps {
   })
   sortOrder: number | null;
 
-  @ManyToOne(() => User, (user: User) => user.charts)
+  @Column('boolean', { name: 'subscribed' })
+  subscribed: boolean;
+
+  @Column('boolean', { name: 'favorite' })
+  favorite: boolean;
+
+  @Column('integer', { name: 'toplimit' })
+  toplimit: number;
+
+  @Column('jsonb', { name: 'parentgraphmap' })
+  parentgraphmap: any;
+
+  @Column('jsonb', { name: 'access' })
+  access: any;
+
+  @ManyToOne(
+    () => User,
+    (user: User) => user.charts,
+  )
   @JoinColumn({ name: 'userid' })
   user: User | null;
 
   @OneToMany(
     () => ChartDimension,
-    (chartDimension: ChartDimension) => chartDimension.chart,
+    (chartDimension: ChartDimension) => chartDimension.chart, {eager: true}
   )
   chartDimensions: ChartDimension[];
 
   @OneToMany(
     () => DashboardItemChart,
-    (dashboardItemChart: DashboardItemChart) => dashboardItemChart.chart,
+    (dashboardItemChart: DashboardItemChart) => dashboardItemChart.chart, {eager: true}
   )
   dashboardItemCharts: DashboardItemChart[];
 }

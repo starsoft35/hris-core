@@ -9,6 +9,7 @@ import {
   Req,
   Res,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
@@ -22,7 +23,7 @@ import {
   getSuccessResponse,
   postSuccessResponse,
 } from '../helpers/response.helper';
-import { ApiResult, Pager } from '../interfaces';
+import { ApiResult } from '../interfaces';
 import { DeleteResponse } from '../interfaces/response/delete.interface';
 import { BaseService } from '../services/base.service';
 import { getPagerDetails } from '../utilities';
@@ -53,7 +54,7 @@ export class BaseController<T extends HRISBaseEntity> {
       };
     }
 
-    const pagerDetails: Pager = getPagerDetails(query);
+    const pagerDetails: any = getPagerDetails(query);
 
     const [entityRes, totalCount]: [
       T[],
@@ -70,7 +71,9 @@ export class BaseController<T extends HRISBaseEntity> {
         ...pagerDetails,
         pageCount: entityRes.length,
         total: totalCount,
-        nextPage: `/api/${this.Model.plural}?page=${pagerDetails.page + 1}`,
+        nextPage: `/api/${this.Model.plural}?page=${parseInt(
+          pagerDetails.page,
+        ) + 1}`,
       },
       [this.Model.plural]: _.map(entityRes, sanitizeResponseObject),
     };

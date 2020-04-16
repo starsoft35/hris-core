@@ -10,5 +10,12 @@
     "outDir": "./dist",
     "baseUrl": "./"
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"],
+  "externalDependencies": [
+    "@nestjs/microservices",
+    "@nestjs/platform-express",
+    "class-transformer",
+    "class-validator",
+    "cache-manager"
+  ]
 }

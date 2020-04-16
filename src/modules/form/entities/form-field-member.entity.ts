@@ -33,9 +33,30 @@ export class FormFieldMember extends HRISBaseEntity {
   @JoinColumn({ name: 'fieldid' })
   field: Field | null;
 
-  @Column('integer', {
+  @Column({
+    type: 'integer',
     nullable: false,
     name: 'sort',
   })
   sort: number;
+
+  @Column({ type: 'boolean', nullable: false, name: 'compulsory' })
+  compulsory: boolean;
+
+  @Column({
+    type: 'boolean',
+    nullable: false,
+    name: 'ispinned',
+  })
+  isPinned: boolean;
+
+  @Column({
+    type: 'boolean',
+    nullable: false,
+    name: 'showinprofile',
+  })
+  showInProfile: boolean;
+
+  @Column({ type: 'boolean', nullable: true, name: 'showinlist' })
+  showInList: boolean | null;
 }

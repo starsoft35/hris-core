@@ -2,20 +2,18 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
   ManyToMany,
-  Generated,
-  PrimaryColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
-import { Form } from '../../form/entities/form.entity';
+import { TransactionUser } from '../../../core/entities/transaction-user.entity';
 import { OrganisationUnit } from '../../../modules/organisation-unit/entities/organisation-unit.entity';
 import { TrainingSession } from '../../../modules/training/entities/training-session.entity';
-import { TransactionUser } from '../../../core/entities/transaction-user.entity';
-import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
+import { Form } from '../../form/entities/form.entity';
 import { RecordValue } from './record-value.entity';
+import { SessionParticipant } from '../../../modules/training/entities/training-session-participant.entity';
+import { SessionFacilitator } from '../../../modules/training/entities/training-session-facilitatory.entity';
 
 @Entity('record', { schema: 'public' })
 export class Record extends TransactionUser {
@@ -30,7 +28,7 @@ export class Record extends TransactionUser {
   @ManyToOne(
     type => OrganisationUnit,
     organisationUnit => organisationUnit.records,
-    { eager: true, nullable: false, onDelete: 'CASCADE' },
+    { nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'organisationunitid' })
   organisationUnit: OrganisationUnit | null;
@@ -53,13 +51,27 @@ export class Record extends TransactionUser {
   @OneToMany(
     () => RecordValue,
     (recordvalue: RecordValue) => recordvalue.record,
-    { eager: true, onDelete: 'CASCADE' },
+    { onDelete: 'CASCADE' },
   )
   recordValues: RecordValue[];
 
   @ManyToMany(
     type => TrainingSession,
-    trainingSession => trainingSession.trainingMethods,
+    trainingSession => trainingSession.topics,
   )
   trainingSessions: TrainingSession[];
+
+  @OneToMany(
+    type => SessionParticipant,
+    participants => participants.recordId,
+  )
+  @JoinColumn({ name: 'recordId' })
+  participants: SessionParticipant[];
+
+  @OneToMany(
+    type => SessionFacilitator,
+    sessionfacilitator => sessionfacilitator.recordId,
+  )
+  @JoinColumn({ name: 'recordId' })
+  facilitators: SessionFacilitator[];
 }

@@ -24,6 +24,8 @@ import { Chart } from '../../../visualization/chart/entities/chart.entity';
 import { Map } from '../../../visualization/map/entities/map.entity';
 import { ReportTable } from '../../../visualization/report-table/entities/report-table.entity';
 import { Dashboard } from '../../../visualization/dashboard/entities/dashboard.entity';
+import { Report } from '../../../report/entities/report.entity';
+import { ReportService } from 'src/modules/report/services/report.service';
 
 @Entity('user', { schema: 'public' })
 export class User extends UserCoreProps {
@@ -232,19 +234,19 @@ export class User extends UserCoreProps {
   /**
    * Many To Many Relationship: User and Form Entities
    */
-  @ManyToMany(type => Form, form => form.users, {
-    nullable: false,
-    cascade: true,
-    eager: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  @JoinTable({
-    name: 'userformmembers',
-    joinColumn: { referencedColumnName: 'id' },
-    inverseJoinColumn: { referencedColumnName: 'id' },
-  })
-  forms: Form[];
+  // @ManyToMany(type => Form, form => form.users, {
+  //   nullable: false,
+  //   cascade: true,
+  //   eager: true,
+  //   onUpdate: 'CASCADE',
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinTable({
+  //   name: 'userformmembers',
+  //   joinColumn: { referencedColumnName: 'id' },
+  //   inverseJoinColumn: { referencedColumnName: 'id' },
+  // })
+  // forms: Form[];
 
   /**
    * Many To Many Relationship: User and OrganizationUnit Entities
@@ -319,4 +321,12 @@ export class User extends UserCoreProps {
     this.token = User.getBase64(this.username, this.password);
     this.enabled = true;
   }
+  
+  @OneToMany(
+    () => Report,
+    (report: Report) => report.user,
+    { onDelete: 'CASCADE' },
+  )
+  report: Report[];
+
 }

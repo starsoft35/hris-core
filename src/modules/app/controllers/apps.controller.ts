@@ -11,6 +11,8 @@ import {
   Param,
   Res,
   Req,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -20,6 +22,7 @@ import * as StreamZip from 'node-stream-zip';
 import { ApiResult } from 'src/core/interfaces';
 import { Request, Response } from 'express';
 import { postSuccessResponse, genericFailureResponse } from 'src/core/helpers/response.helper';
+import { SessionGuard } from 'src/modules/system/user/guards/session.guard';
 
 @Controller('api/' + App.plural)
 export class AppsController extends BaseController<App> {
@@ -27,6 +30,25 @@ export class AppsController extends BaseController<App> {
     super(service, App);
   }
 
+  /**
+   *
+   * @param query
+   */
+  @Get()
+  @UseGuards(SessionGuard)
+  async findAll(@Query() query): Promise<ApiResult> {
+    let results = await super.findAll(query)
+    if(results.apps){
+      results.apps = results.apps.filter((app)=>app.name.toLowerCase().indexOf('login') === -1)
+    }
+    results.apps = results.apps.map((app)=>{
+      return {
+        ...app,
+        appicon: "../" + app.name.toLowerCase() +"/" + app.appicon
+      }
+    });
+    return results;
+  }
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -50,6 +72,7 @@ export class AppsController extends BaseController<App> {
     @UploadedFile() file,
   ): Promise<ApiResult> {
     try {
+      console.log('Here');
       const result: any = await this.uploadFile(file);
       // tslint:disable-next-line: no-console
       console.log('UPLOAD FILE::: ' + JSON.stringify(result));
@@ -77,6 +100,12 @@ export class AppsController extends BaseController<App> {
    */
   uploadFile(file) {
     return new Promise((resolve, reject) => {
+      if(!file){
+        reject({
+          message: 'File Does not exists',
+        });
+        return;
+      }
       const zip = new StreamZip({
         file: file.path,
         storeEntries: true,
@@ -163,6 +192,6 @@ export class AppsController extends BaseController<App> {
   @Get(':id/*')
   async loadFile(@Param() params, @Res() res) {
     // const result = await this.service.findOneByUid(params.id);
-    res.sendFile(getConfiguration().apps + '/' + params.id + '/' + params['0']);
+    res.sendFile(getConfiguration().apps + '/' + params.id.toLowerCase() + '/' + params['0']);
   }
 }

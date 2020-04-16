@@ -1,10 +1,11 @@
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { DashboardItemChart } from '../../other/entities/dashboard-item-chart.entity';
-import { DashboardItemMap } from '../../other/entities/dashboard-item-map.entity';
-import { DashboardItemReportTable } from '../../other/entities/dashboard-item-report-table.entity';
+import { DashboardItemChart } from './dashboard-item-chart.entity';
+import { DashboardItemMap } from './dashboard-item-map.entity';
+import { DashboardItemReportTable } from './dashboard-item-report-table.entity';
 import { Dashboard } from '../../dashboard/entities/dashboard.entity';
+import { Chart } from '../../chart/entities/chart.entity';
 
 @Entity('dashboarditem', { schema: 'public' })
 export class DashboardItem extends EntityCoreProps {
@@ -46,6 +47,13 @@ export class DashboardItem extends EntityCoreProps {
     name: 'width',
   })
   width: number | null;
+
+  @Column('character varying', {
+    nullable: true,
+    length: 50,
+    name: 'type',
+  })
+  type: string | null;
 
   @ManyToOne(
     () => Dashboard,

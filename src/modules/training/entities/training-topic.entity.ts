@@ -1,28 +1,29 @@
 import { EntityCoreProps } from '../../../core/entities/entity-core-props';
-import { Column, Entity, ManyToMany } from 'typeorm';
+import { Column, Entity, ManyToMany, JoinTable } from 'typeorm';
 
 import { TrainingCurriculum } from './training-curriculum.entity';
 import { TrainingSession } from './training-session.entity';
 
-@Entity('trainingmethod', { schema: 'public' })
-export class TrainingMethod extends EntityCoreProps {
-  static plural = 'methods';
+@Entity('trainingtopic', { schema: 'public' })
+export class TrainingTopic extends EntityCoreProps {
+  static plural = 'topics';
   @Column('integer', {
     nullable: false,
     primary: true,
-    name: 'trainingmethodid',
+    name: 'id',
   })
   id: number;
 
   @ManyToMany(
     type => TrainingCurriculum,
-    trainingCurriculum => trainingCurriculum.trainingMethods,
+    trainingCurriculum => trainingCurriculum.trainingTopics,
   )
-  trainingCurriculums: TrainingCurriculum[];
+  @JoinTable({ name: 'trainingcurriculumtopicmember' })
+  curriculums: TrainingCurriculum[];
 
   @ManyToMany(
     type => TrainingSession,
-    trainingSession => trainingSession.trainingMethods,
+    trainingSession => trainingSession.topics,
   )
   trainingSessions: TrainingSession[];
 }

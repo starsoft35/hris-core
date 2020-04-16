@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/core/services/base.service';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 
 import { Task } from '../entities/task.entity';
 
@@ -9,8 +9,16 @@ import { Task } from '../entities/task.entity';
 export class TaskService extends BaseService<Task> {
   constructor(
     @InjectRepository(Task)
-    taskRepository: Repository<Task>,
+    private taskRepository: Repository<Task>,
   ) {
     super(taskRepository, Task);
+  }
+  async createEmptyTask(name:string): Promise<any> {
+    return this.create({
+      name: name,
+      startedat: new Date(),
+      log: [],
+      status: "Started"
+    });
   }
 }

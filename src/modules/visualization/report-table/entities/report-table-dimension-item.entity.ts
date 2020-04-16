@@ -1,6 +1,6 @@
 import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { FavoriteDimensionItem } from './favorite-dimension-item.entity';
+import { FavoriteDimensionItem } from '../../dashboard/entities/favorite-dimension-item.entity';
 import { ReportTableDimension } from './report-table-dimension.entity';
 
 @Entity('reporttabledimensionitem', { schema: 'public' })

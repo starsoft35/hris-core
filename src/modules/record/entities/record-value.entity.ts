@@ -5,6 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   OneToOne,
+  Generated,
+  BeforeInsert,
 } from 'typeorm';
 
 import { Record } from './record.entity';
@@ -24,11 +26,20 @@ export class RecordValue extends TransactionUser {
   @JoinColumn({ name: 'recordid' })
   record: Record | null;
 
+  @Column()
+  recordid: number;
+
   @Column('text', {
     nullable: false,
     name: 'value',
   })
   value: string;
+
+  @Generated('uuid')
+  @Column('character varying', {
+    nullable: false,
+  })
+  uid: string;
 
   @Column('timestamp without time zone', {
     nullable: true,
@@ -63,8 +74,11 @@ export class RecordValue extends TransactionUser {
   @OneToOne(
     () => Field,
     field => field.recordValue,
-    { eager:true, nullable: false, onDelete: 'CASCADE' },
+    { nullable: false, onDelete: 'CASCADE' },
   )
   @JoinColumn({ name: 'fieldid' })
   field: Field | null;
+
+  @Column()
+  fieldid: number;
 }

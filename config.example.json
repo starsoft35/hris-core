@@ -9,6 +9,6 @@
     "username": "postgres",
     "password": "postgres",
     "database": "hris",
-    "synchronize": true
+    "synchronize": false
   }
 }

@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ChartDimensionItem } from './other/entities/chart-dimension-item.entity';
-import { ChartDimension } from './other/entities/chart-dimension.entity';
+import { ChartDimensionItem } from './chart/entities/chart-dimension-item.entity';
+import { ChartDimension } from './chart/entities/chart-dimension.entity';
 import { DashboardItem } from './dashboard-item/entities/dashboard-item.entity';
 import { Dashboard } from './dashboard/entities/dashboard.entity';
-import { ReportTableDimension } from './other/entities/report-table-dimension.entity';
+import { ReportTableDimension } from './report-table/entities/report-table-dimension.entity';
 import { ReportTable } from './report-table/entities/report-table.entity';
-import { ReportTableDimensionItem } from './other/entities/report-table-dimension-item.entity';
-import { MapView } from './other/entities/map-view.entity';
+import { ReportTableDimensionItem } from './report-table/entities/report-table-dimension-item.entity';
+import { MapView } from './map/entities/map-view.entity';
 import { Map } from './map/entities/map.entity';
-import { MapViewDimension } from './other/entities/map-view-dimension.entity';
-import { MapViewDimensionItem } from './other/entities/map-view-dimension-item.entity';
-import { DashboardItemChart } from './other/entities/dashboard-item-chart.entity';
-import { DashboardItemReportTable } from './other/entities/dashboard-item-report-table.entity';
-import { DashboardItemMap } from './other/entities/dashboard-item-map.entity';
+import { MapViewDimension } from './map/entities/map-view-dimension.entity';
+import { MapViewDimensionItem } from './map/entities/map-view-dimension-item.entity';
+import { DashboardItemChart } from './dashboard-item/entities/dashboard-item-chart.entity';
+import { DashboardItemReportTable } from './dashboard-item/entities/dashboard-item-report-table.entity';
+import { DashboardItemMap } from './dashboard-item/entities/dashboard-item-map.entity';
 import { DashboardService } from './dashboard/services/dashboard.service';
 import { DashboardItemService } from './dashboard-item/services/dashboard-item.service';
 import { ReportTableService } from './report-table/services/report-table.service';
@@ -27,7 +27,6 @@ import { ChartModule } from './chart/chart.module';
 import { DashboardItemModule } from './dashboard-item/dashboard-item.module';
 import { MapModule } from './map/map.module';
 import { ReportTableModule } from './report-table/report-table.module';
-import { OtherModule } from './other/other.module';
 
 @Module({
   imports: [
@@ -53,7 +52,6 @@ import { OtherModule } from './other/other.module';
     VisualizationModule,
     MapModule,
     ReportTableModule,
-    OtherModule,
   ],
   controllers: [
     DashboardController,
@@ -68,4 +66,4 @@ import { OtherModule } from './other/other.module';
     MapService,
   ],
 })
-export class VisualizationModule { }
+export class VisualizationModule {}

@@ -20,8 +20,12 @@ export class AppController {
   @Get()
   async index(@Req() request, @Res() response) {
     let app;
+    console.log("request.session:",request.session);
     if (request.session && request.session.user) {
       app = request.session.user.userRoles[0].landingPage;
+      if(!app){
+        app = await this.appService.getDefaultLoginApp();
+      }
       console.log('App:', app);
     } else {
       app = await this.appService.getLoginApp();

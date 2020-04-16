@@ -39,7 +39,6 @@ export class Form extends EntityCoreProps {
     type => FormFieldMember,
     formFieldMember => formFieldMember.form,
     {
-      eager: true,
       onDelete: 'CASCADE',
     },
   )
@@ -86,11 +85,11 @@ export class Form extends EntityCoreProps {
   @JoinTable({ name: 'formuniquerecordfields' })
   fields: Field[];
 
-  @ManyToMany(
-    type => User,
-    user => user.forms,
-  )
-  users: User[];
+  // @ManyToMany(
+  //   type => User,
+  //   user => user.forms,
+  // )
+  // users: User[];
 
   @OneToMany(
     () => Indicator,

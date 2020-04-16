@@ -32,28 +32,33 @@ export class Field extends EntityCoreProps {
   @Column({ type: 'boolean', nullable: true })
   compulsory: boolean | null;
 
-  @Column({ type: 'boolean', nullable: true })
+  @Column({ type: 'boolean', nullable: true, name: 'isunique' })
   isUnique: boolean | null;
 
-  @Column({ type: 'boolean', nullable: true })
+  @Column({ type: 'boolean', nullable: true, name: 'iscalculated' })
   isCalculated: boolean | null;
 
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'text', nullable: true, name: 'calculatedexpression' })
   calculatedExpression: string | null;
 
-  @Column({ type: 'boolean', nullable: true })
+  @Column({ type: 'boolean', nullable: true, name: 'hashistory' })
   hasHistory: boolean | null;
 
-  @Column({ type: 'boolean', nullable: false, default: false })
+  @Column({
+    type: 'boolean',
+    nullable: false,
+    default: false,
+    name: 'hasoptions',
+  })
   hasOptions: boolean | null;
 
-  @Column({ type: 'boolean', nullable: true })
+  @Column({ type: 'boolean', nullable: true, name: 'hastarget' })
   hasTarget: boolean | null;
 
-  @Column({ type: 'boolean', nullable: true })
+  @Column({ type: 'boolean', nullable: true, name: 'showinlist' })
   showInList: boolean | null;
 
   @Column({ type: 'boolean', nullable: true, name: 'fieldrelation' })

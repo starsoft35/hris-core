@@ -110,9 +110,7 @@ TABLESPACE pg_default;
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "email" TEXT',
       );
-      await queryRunner.query(
-        'ALTER TABLE "user" DROP COLUMN "roles"',
-      );
+      await queryRunner.query('ALTER TABLE "user" DROP COLUMN "roles"');
       await queryRunner.query(
         'ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "phonenumber" TEXT',
       );
@@ -199,7 +197,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "userrolemembers" RENAME COLUMN user_id TO "userId"',
       );
 
-      //await queryRunner.query('ALTER TABLE GOOD ALTER COLUMN "id" RENAME TO userid;');
+      //await queryRunner.query('ALTER TABLE GOOD ALTER COLUMN "id" RENAME TO userId;');
     }
 
     let form = await queryRunner.getTable('hris_form');
@@ -340,6 +338,22 @@ TABLESPACE pg_default;
       );
 
       await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "compulsory" boolean',
+      );
+
+      await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "showinprofile" boolean',
+      );
+
+      await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "ispinned" boolean',
+      );
+
+      await queryRunner.query(
+        'ALTER TABLE "formfieldmember" ADD COLUMN IF NOT EXISTS "showinlist" boolean',
+      );
+
+      await queryRunner.query(
         'ALTER TABLE "hris_fieldoption" RENAME TO "fieldoption"',
       );
       await queryRunner.query(
@@ -391,7 +405,7 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "hasTraining" boolean',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "fieldid" text',
+        'ALTER TABLE "fieldoption" ADD COLUMN IF NOT EXISTS "fieldId" text',
       );
 
       await queryRunner.query(
@@ -447,12 +461,8 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "removedfieldoptionuid" character varying(255)',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldid" integer',
+        'ALTER TABLE "fieldoptionmerge" RENAME COLUMN "field_id" TO "fieldId"',
       );
-      await queryRunner.query(
-        'ALTER TABLE "fieldoptionmerge" ADD COLUMN IF NOT EXISTS "fieldId" integer',
-      );
-
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoptiongroupset" RENAME TO "fieldoptiongroupset"',
       );
@@ -519,17 +529,17 @@ TABLESPACE pg_default;
         'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "code" character varying(25)',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "fieldid" integer',
+        'ALTER TABLE "fieldoptiongroup" ADD COLUMN IF NOT EXISTS "fieldId" integer',
       );
 
       await queryRunner.query(
         'ALTER TABLE "hris_fieldoption_children" RENAME TO "fieldoptionchildren"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentFieldOptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "parent_fieldoption" TO "parentFieldoptionId"',
       );
       await queryRunner.query(
-        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO "childFieldOptionId"',
+        'ALTER TABLE "fieldoptionchildren" RENAME COLUMN "child_fieldoption" TO "childFieldoptionId"',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldoptionchildren" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
@@ -567,6 +577,9 @@ TABLESPACE pg_default;
       );
       await queryRunner.query(
         'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "description" text',
+      );
+      await queryRunner.query(
+        'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "id" integer',
       );
       await queryRunner.query(
         'ALTER TABLE "fieldinputtype" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
@@ -639,6 +652,10 @@ TABLESPACE pg_default;
       await queryRunner.query(
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "description" text',
       );
+      await queryRunner.query(
+        'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "id" integer',
+      );
+
       await queryRunner.query(
         'ALTER TABLE "fielddatatype" ADD COLUMN IF NOT EXISTS "name" character varying(256)',
       );
@@ -941,49 +958,49 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
 
     await queryRunner.query(createAuthorityMembers);
 
-    let userFormMembers = `CREATE TABLE public.userformmembers
-    (
-        "userId" integer NOT NULL,
-        "formId" integer NOT NULL,
-        CONSTRAINT "PK_3436fae40747731a28564ed5665" PRIMARY KEY ("userId", "formId"),
-        CONSTRAINT "FK_9cb26e216d11de2a2b4f880a810" FOREIGN KEY ("formId")
-            REFERENCES public.form (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID,
-        CONSTRAINT "FK_a6e197eeef17a3af9b33f339561" FOREIGN KEY ("userId")
-            REFERENCES public."user" (id) MATCH SIMPLE
-            ON UPDATE NO ACTION
-            ON DELETE CASCADE
-            NOT VALID
-    )
-    WITH (
-        OIDS = FALSE
-    )
-    TABLESPACE pg_default;
+    // let userFormMembers = `CREATE TABLE public.userformmembers
+    // (
+    //     "userId" integer NOT NULL,
+    //     "formId" integer NOT NULL,
+    //     CONSTRAINT "PK_3436fae40747731a28564ed5665" PRIMARY KEY ("userId", "formId"),
+    //     CONSTRAINT "FK_9cb26e216d11de2a2b4f880a810" FOREIGN KEY ("formId")
+    //         REFERENCES public.form (id) MATCH SIMPLE
+    //         ON UPDATE NO ACTION
+    //         ON DELETE CASCADE
+    //         NOT VALID,
+    //     CONSTRAINT "FK_a6e197eeef17a3af9b33f339561" FOREIGN KEY ("userId")
+    //         REFERENCES public."user" (id) MATCH SIMPLE
+    //         ON UPDATE NO ACTION
+    //         ON DELETE CASCADE
+    //         NOT VALID
+    // )
+    // WITH (
+    //     OIDS = FALSE
+    // )
+    // TABLESPACE pg_default;
     
-    ALTER TABLE public.userformmembers
-        OWNER to postgres;
+    // ALTER TABLE public.userformmembers
+    //     OWNER to postgres;
     
-    -- Index: IDX_9cb26e216d11de2a2b4f880a81
+    // -- Index: IDX_9cb26e216d11de2a2b4f880a81
     
-    -- DROP INDEX public."IDX_9cb26e216d11de2a2b4f880a81";
+    // -- DROP INDEX public."IDX_9cb26e216d11de2a2b4f880a81";
     
-    CREATE INDEX "IDX_9cb26e216d11de2a2b4f880a81"
-        ON public.userformmembers USING btree
-        ("formId")
-        TABLESPACE pg_default;
+    // CREATE INDEX "IDX_9cb26e216d11de2a2b4f880a81"
+    //     ON public.userformmembers USING btree
+    //     ("formId")
+    //     TABLESPACE pg_default;
     
-    -- Index: IDX_a6e197eeef17a3af9b33f33956
+    // -- Index: IDX_a6e197eeef17a3af9b33f33956
     
-    -- DROP INDEX public."IDX_a6e197eeef17a3af9b33f33956";
+    // -- DROP INDEX public."IDX_a6e197eeef17a3af9b33f33956";
     
-    CREATE INDEX "IDX_a6e197eeef17a3af9b33f33956"
-        ON public.userformmembers USING btree
-        ("userId")
-        TABLESPACE pg_default;`;
+    // CREATE INDEX "IDX_a6e197eeef17a3af9b33f33956"
+    //     ON public.userformmembers USING btree
+    //     ("userId")
+    //     TABLESPACE pg_default;`;
 
-    await queryRunner.query(userFormMembers);
+    // await queryRunner.query(userFormMembers);
 
     let userGroup = `
     CREATE SEQUENCE usergroup_id_seq;
@@ -1762,7 +1779,8 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
       );
     }
 
-    let organisationUnitMembers = `CREATE TABLE public.organisationunitmembers
+    await queryRunner.query(`
+    CREATE TABLE public.organisationunitmembers
     (
         userid integer NOT NULL,
         organisationunitid integer NOT NULL,
@@ -1802,21 +1820,23 @@ CREATE INDEX "IDX_76bc448ca476788f7886a7569b"
     CREATE INDEX "IDX_f54224b61c067df95828b544ad"
         ON public.organisationunitmembers USING btree
         ("organisationunitid")
-        TABLESPACE pg_default;`;
-
-    await queryRunner.query(organisationUnitMembers);
-    await queryRunner.query(`INSERT INTO organisationunitmembers(userid,organisationunitid)
+        TABLESPACE pg_default`);
+    await queryRunner.query(`INSERT INTO organisationunitmembers("userid",organisationunitid)
 (SELECT public.user.id,public.user.organisationunit_id FROM public.user WHERE public.user.organisationunit_id IS NOT NULL)`);
 
-    await queryRunner.query('ALTER TABLE "sqlview" ADD COLUMN "createdbyid" INTEGER',);
-    
-    await queryRunner.query('ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyid" INTEGER', );
+    await queryRunner.query(
+      'ALTER TABLE "sqlview" ADD COLUMN "createdbyId" INTEGER',
+    );
 
     await queryRunner.query(
-      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyid") REFERENCES "user"',
+      'ALTER TABLE "sqlview" ADD COLUMN "lastupdatedbyId" INTEGER',
+    );
+
+    await queryRunner.query(
+      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_createdby" FOREIGN KEY("createdbyId") REFERENCES "user"',
     );
     await queryRunner.query(
-      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyid") REFERENCES "user"',
+      'ALTER TABLE "sqlview" ADD CONSTRAINT "fk_sql_view_lastupdatedby" FOREIGN KEY("lastupdatedbyId") REFERENCES "user"',
     );
   }
 

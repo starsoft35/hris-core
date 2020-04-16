@@ -426,3 +426,5 @@ dist
 files
 ormconfig.json
 config.json
+.vscode
+documentation

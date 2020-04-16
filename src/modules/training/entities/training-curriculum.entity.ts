@@ -9,7 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { TrainingMethod } from './training-method.entity';
+import { TrainingTopic } from './training-topic.entity';
 import { TrainingSection } from './training-section.entity';
 import { TrainingSession } from './training-session.entity';
 import { TrainingUnit } from './training-unit.entity';
@@ -54,10 +54,10 @@ export class TrainingCurriculum extends EntityCoreProps {
   trainingSessions: TrainingSession[];
 
   @ManyToMany(
-    type => TrainingMethod,
-    trainingMethod => trainingMethod.trainingCurriculums,
+    type => TrainingTopic,
+    trainingMethod => trainingMethod.curriculums,
     { nullable: false },
   )
-  @JoinTable({ name: 'trainingcurriculummethodmember' })
-  trainingMethods: TrainingMethod[];
+  // @JoinTable({ name: 'trainingcurriculumtopicmember' })
+  trainingTopics: TrainingTopic[];
 }

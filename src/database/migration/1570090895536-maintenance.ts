@@ -16,19 +16,18 @@ export class maintenance1570090895536 implements MigrationInterface {
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "uid" character varying(256)');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "description" text');        
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "caption" text');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "isCalculated" boolean');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "iscalculated" boolean');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "compulsory" boolean');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "isUnique" boolean');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "isunique" boolean');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "fieldrelation" boolean');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "calculatedExpression" text');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "hasHistory" boolean');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "calculatedexpression" text');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "skipinreport" boolean');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "hasTarget" boolean');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "hasOptions" boolean');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "hastarget" boolean');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "hasoptions" boolean');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "lastupdatedby" character varying');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "publicaccess" character varying(8)');
         await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "externalaccess" boolean');
-        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "showInList" boolean');
+        await queryRunner.query('ALTER TABLE "field" ADD COLUMN IF NOT EXISTS "showinlist" boolean');
        
         await queryRunner.query('ALTER TABLE "hris_fieldgroup" RENAME TO "fieldgroup"');
         await queryRunner.query('ALTER TABLE "fieldgroup" RENAME COLUMN "datecreated" TO "created"');

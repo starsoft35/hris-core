@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Generated } from 'typeorm';
 import { EntityCoreProps } from '../../../../core/entities/entity-core-props';
 
 @Entity('task', { schema: 'public' })
@@ -8,21 +8,20 @@ export class Task extends EntityCoreProps {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 256, unique: true })
+  @Generated()
   uid: string;
 
   @Column({
     nullable: false,
-    length: 255,
-    unique: true
+    length: 255
   })
   name: string;
 
   @Column({
+    type:'jsonb',
     nullable: false,
-    length: 255,
   })
-  log: string;
+  log: any;
 
   @Column({
     type: 'varchar',
