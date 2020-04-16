@@ -16,7 +16,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     @InjectRepository(SessionParticipant)
     private participantRepository: Repository<SessionParticipant>,
     @InjectRepository(SessionFacilitator)
-    private facilitatorsRepository: Repository<SessionFacilitator>,
+    private facilitatorRepository: Repository<SessionFacilitator>,
     @InjectRepository(Record)
     private recordRepository: Repository<Record>,
   ) {
@@ -41,6 +41,11 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
         ), //session.id
       },
     });
+    if (participants[0] == undefined) {
+      throw new NotFoundException(
+        `Participants are not available for this training session `,
+      );
+    }
     return {
       participants: await this.recordRepository.find({
         relations: ['recordValues'],
@@ -52,18 +57,23 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   }
 
   async getFacilitators(uid: string) {
-    let participants = await this.facilitatorsRepository.find({
+    let facilitators = await this.facilitatorRepository.find({
       where: {
         trainingsessionId: Raw(
           `(SELECT id FROM trainingsession WHERE uid='${uid}')`,
         ), //session.id
       },
     });
+    if (facilitators[0] == undefined) {
+      throw new NotFoundException(
+        `Facilitators are not available for this training session `,
+      );
+    }
     return {
       facilitators: await this.recordRepository.find({
         relations: ['recordValues'],
         where: {
-          id: In(participants.map(participant => participant.recordId)),
+          id: In(facilitators.map(participant => participant.recordId)),
         },
       }),
     };
@@ -98,38 +108,59 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     facilitator.uid = generateUid();
     facilitator.trainingsessionId = trainingsession;
     facilitator.recordId = recordid;
-    return await this.facilitatorsRepository.save(facilitator);
+    return await this.facilitatorRepository.save(facilitator);
   }
 
-  async deleteFacilitator(uid: string, facilitator: any) {
-    const facilitators = await this.facilitatorsRepository.manager.query(
-      `SELECT id FROM sessionfacilitator WHERE uid='${facilitator}'`,
+  async deleteFacilitator(uid: string, record: any) {
+    const records = await this.recordRepository.manager.query(
+      `SELECT id FROM record WHERE uid='${record}'`,
+    );
+    const sessionid = (await this.trainingSessionRepository.findOne({ uid }))
+      .id;
+    const recordid = records[0].id;
+    const facilitators = await this.facilitatorRepository.manager.query(
+      `SELECT id FROM sessionfacilitator WHERE "recordId"=${recordid} AND "trainingsessionId"=${sessionid}`,
     );
     if (facilitators[0] == undefined) {
-      throw new NotFoundException(
-        `Facilitator with ID ${facilitator} is not available `,
-      );
+      throw new NotFoundException(`Facilitator is not available `);
     }
-    const id = facilitators[0].id;
-    let deletedFacilitator = await this.facilitatorsRepository.delete(id);
-    if (facilitator.affected === 0) {
+    const facilitator = facilitators[0].id;
+    const id = {
+      id: facilitator,
+      trainingsessionId: sessionid,
+      recordId: recordid,
+    };
+    console.log(id);
+    console.log('sessionid', sessionid);
+    let deletedFacilitator = await this.facilitatorRepository.delete(id);
+    if (facilitators.affected === 0) {
       throw new NotFoundException(`Can not delete facilitator with ID ${id} `);
     }
     return deletedFacilitator;
   }
 
-  async deleteParticipant(uid: string, facilitator: any) {
-    const participants = await this.participantRepository.manager.query(
-      `SELECT id FROM sessionparticipant WHERE uid='${facilitator}'`,
+  async deleteParticipant(uid: string, record: any) {
+    const records = await this.recordRepository.manager.query(
+      `SELECT id FROM record WHERE uid='${record}'`,
     );
+    const sessionid = (await this.trainingSessionRepository.findOne({ uid }))
+      .id;
+    const recordid = records[0].id;
+    const participants = await this.participantRepository.manager.query(
+      `SELECT id FROM sessionparticipant WHERE "recordId"=${recordid} AND "trainingsessionId"=${sessionid}`,
+    );
+
     if (participants[0] == undefined) {
-      throw new NotFoundException(
-        `Participant with ID ${participants} is not available `,
-      );
+      throw new NotFoundException(`Participant is not available `);
     }
-    const id = participants[0].id;
+    const participant = participants[0].id;
+    const id = {
+      id: participant,
+      trainingsessionId: sessionid,
+      recordId: recordid,
+    };
     let deletedParticipants = await this.participantRepository.delete(id);
-    if (facilitator.affected === 0) {
+    if (participants.affected === 0) {
       throw new NotFoundException(`Can not delete participant with ID ${id} `);
     }
     return deletedParticipants;
