@@ -28,11 +28,11 @@ export class AnalyticsController {
         dx = dx.concat(split[1].split(';'));
       }
     });
-    if(query.filter){
-      if(!Array.isArray(query.filter)){
+    if (query.filter) {
+      if (!Array.isArray(query.filter)) {
         query.filter = [query.filter];
       }
-      console.log("query.filter:", query.filter);
+      console.log('query.filter:', query.filter);
       query.filter.forEach(dimension => {
         let split = dimension.split(':');
         if (split[0] === 'pe') {
@@ -151,8 +151,8 @@ export class AnalyticsController {
       pe,
       otherDimensions,
       {
-        user: user
-      }
+        user: user,
+      },
     );
   }
 
@@ -260,8 +260,25 @@ export class AnalyticsController {
       pe,
       otherDimensions,
       {
-        user: user
-      }
+        user: user,
+      },
+    );
+  }
+
+  @Get('geofeatures')
+  async getGeoFeatures(
+    @Param() params,
+    @Query() queryParams,
+    @AuthenticatedUser() user,
+  ) {
+    if (!queryParams['dimension:ou']) {
+      return {
+        status: 'ERROR',
+        message: 'Organisation Unit dimension not found',
+      };
+    }
+    return await this.analyticsService.getGeoFeatures(
+      queryParams['dimension:ou'],
     );
   }
 }

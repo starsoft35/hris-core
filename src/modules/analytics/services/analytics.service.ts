@@ -574,4 +574,35 @@ export class AnalyticsService {
       return type
     }
   }
+
+  async getGeoFeatures(ouQueryParam:any) {
+
+    const ouIds: any[] = ouQueryParam.split(';');
+    const query =
+      `SELECT uid,name,shortname,featuretype,coordinates FROM organisationunit WHERE uid IN ('` +
+      ouIds.join("','") +
+      `')`;
+      let analytics = {
+        headers: [],
+        metaData: {
+          items: {
+            ou: { name: 'Organisation unit' }
+          },
+          dimensions: { ou: [] },
+        },
+        rows: [],
+        height: 0,
+        width: 0,
+      };
+      let geoFeaturesInfo = await this.connetion.manager.query(query);
+      analytics.metaData.dimensions.ou = ouIds;
+      analytics.rows = geoFeaturesInfo;
+      analytics.height = geoFeaturesInfo.length;
+      analytics.width = 5;
+      // analytics.headers.push({})
+      geoFeaturesInfo.forEach((ouGeoFeature) => {
+        analytics.metaData.items[ouGeoFeature.uid] = {name: ouGeoFeature.name}
+      })
+    return await analytics
+  }
 }
