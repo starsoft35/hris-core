@@ -34,11 +34,10 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     });
   }
   async getParticipants(uid: string) {
+    const session = (await this.trainingSessionRepository.findOne({ uid })).id;
     let participants = await this.participantRepository.find({
       where: {
-        trainingsessionId: Raw(
-          `(SELECT id FROM trainingsession WHERE uid='${uid}')`,
-        ), //session.id
+        trainingsessionId: session,
       },
     });
     if (participants[0] == undefined) {
@@ -57,11 +56,10 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   }
 
   async getFacilitators(uid: string) {
+    const session = (await this.trainingSessionRepository.findOne({ uid })).id;
     let facilitators = await this.facilitatorRepository.find({
       where: {
-        trainingsessionId: Raw(
-          `(SELECT id FROM trainingsession WHERE uid='${uid}')`,
-        ), //session.id
+        trainingsessionId: session,
       },
     });
     if (facilitators[0] == undefined) {
@@ -81,9 +79,9 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
 
   async addParticipant(uid: string, createParticipantDto: any) {
     const { record } = createParticipantDto;
-    const records = await this.recordRepository.manager.query(
-      `SELECT id from record WHERE uid ='${record}'`,
-    );
+    const records = await this.recordRepository.find({
+      where: [{ uid: record }],
+    });
     const recordid = records[0].id;
     const trainingsession = (
       await this.trainingSessionRepository.findOne({ uid })
@@ -97,9 +95,9 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
 
   async addFacilitator(uid: string, createFacilitatorDto: any) {
     const { record } = createFacilitatorDto;
-    const records = await this.recordRepository.manager.query(
-      `SELECT id from record WHERE uid ='${record}'`,
-    );
+    const records = await this.recordRepository.find({
+      where: [{ uid: record }],
+    });
     const recordid = records[0].id;
     const trainingsession = (
       await this.trainingSessionRepository.findOne({ uid })
@@ -112,15 +110,17 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
   }
 
   async deleteFacilitator(uid: string, record: any) {
-    const records = await this.recordRepository.manager.query(
-      `SELECT id FROM record WHERE uid='${record}'`,
-    );
+    const records = await this.recordRepository.find({
+      where: [{ uid: record }],
+    });
+
     const sessionid = (await this.trainingSessionRepository.findOne({ uid }))
       .id;
     const recordid = records[0].id;
-    const facilitators = await this.facilitatorRepository.manager.query(
-      `SELECT id FROM sessionfacilitator WHERE "recordId"=${recordid} AND "trainingsessionId"=${sessionid}`,
-    );
+    const facilitators = await this.facilitatorRepository.find({
+      select: ['id'],
+      where: [{ recordId: recordid, trainingsessionId: sessionid }],
+    });
     if (facilitators[0] == undefined) {
       throw new NotFoundException(`Facilitator is not available `);
     }
@@ -130,25 +130,21 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       trainingsessionId: sessionid,
       recordId: recordid,
     };
-    console.log(id);
-    console.log('sessionid', sessionid);
     let deletedFacilitator = await this.facilitatorRepository.delete(id);
-    if (facilitators.affected === 0) {
-      throw new NotFoundException(`Can not delete facilitator with ID ${id} `);
-    }
     return deletedFacilitator;
   }
 
   async deleteParticipant(uid: string, record: any) {
-    const records = await this.recordRepository.manager.query(
-      `SELECT id FROM record WHERE uid='${record}'`,
-    );
+    const records = await this.recordRepository.find({
+      where: [{ uid: record }],
+    });
     const sessionid = (await this.trainingSessionRepository.findOne({ uid }))
       .id;
     const recordid = records[0].id;
-    const participants = await this.participantRepository.manager.query(
-      `SELECT id FROM sessionparticipant WHERE "recordId"=${recordid} AND "trainingsessionId"=${sessionid}`,
-    );
+    const participants = await this.participantRepository.find({
+      select: ['id'],
+      where: [{ recordId: recordid, trainingsessionId: sessionid }],
+    });
 
     if (participants[0] == undefined) {
       throw new NotFoundException(`Participant is not available `);
@@ -160,9 +156,6 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       recordId: recordid,
     };
     let deletedParticipants = await this.participantRepository.delete(id);
-    if (participants.affected === 0) {
-      throw new NotFoundException(`Can not delete participant with ID ${id} `);
-    }
     return deletedParticipants;
   }
 }
