@@ -136,9 +136,8 @@ export class RecordService extends BaseService<Record> {
       entitledPayment,
     } = createRecordDto;
 
-    let query = await this.fieldRepository.manager.query(
-      `select id from field where uid='${field}'`,
-    );
+   
+    const query = await this.fieldRepository.find({select: ['id'], where: [{uid: field}]})
     let idfield = query[0].id;
     let recordGot = (await this.recordRepository.findOne({ uid })).id;
     recordValue.uid = generateUid();
