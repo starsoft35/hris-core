@@ -117,7 +117,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
     }
 
     //Add history data
-    await queryRunner.manager.query(
+    /*await queryRunner.manager.query(
       'ALTER TABLE recordvalue ADD COLUMN lastupdatedby character varying;',
     );
     await queryRunner.manager.query(
@@ -156,7 +156,7 @@ export class RecordRefactoring1555771266129 implements MigrationInterface {
         startdate,enddate,reason,entitled_payment,record_id,(SELECT id FROM field WHERE name='previous_duty_post'),username
       FROM hris_record_history
       WHERE organisationunit_id IS NOT NULL;`,
-    );
+    );*/
   }
 
   async updateData(queryRunner, data) {

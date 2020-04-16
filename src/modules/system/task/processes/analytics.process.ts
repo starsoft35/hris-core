@@ -120,6 +120,7 @@ export class AnalyticsGenerator extends BackgroundProcess {
         form.formid +
         ';';
         this.log({ type: "INFO", message: `Inserting records for ${form.uid}.` });
+        console.log('insertQuery:', insertQuery);
       await this.connetion.manager.query(insertQuery);
       this.log({ type: "INFO", message: `Cleaning temporary tables for ${form.uid}.` });
       await this.connetion.manager.query(
@@ -129,6 +130,7 @@ export class AnalyticsGenerator extends BackgroundProcess {
       this.log({ type: "INFO", message: `Creating indexes for form ${form.uid}.` });
       let creatIndex = `CREATE INDEX record${form.uid}index ON _resource_table_${form.uid}(ou);`;
       await this.connetion.manager.query(creatIndex);
+      this.log({ type: "INFO", message: `Done creating table for for form ${form.uid}.` });
     }
     this.log({ type: "SUCCESS", message: "Analytics finished running successfully" });
   }
