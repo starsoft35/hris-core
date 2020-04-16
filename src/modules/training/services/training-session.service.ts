@@ -7,6 +7,7 @@ import { SessionParticipant } from '../entities/training-session-participant.ent
 import { SessionFacilitator } from '../entities/training-session-facilitatory.entity';
 import { Record } from '../../../modules/record/entities/record.entity';
 import { generateUid } from '../../../core/helpers/makeuid';
+import { RecordValue } from 'src/modules/record/entities/record-value.entity';
 
 @Injectable()
 export class TrainingSessionService extends BaseService<TrainingSession> {
@@ -19,6 +20,8 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     private facilitatorRepository: Repository<SessionFacilitator>,
     @InjectRepository(Record)
     private recordRepository: Repository<Record>,
+    @InjectRepository(RecordValue)
+    private recordValueRepository: Repository<RecordValue>,
   ) {
     super(trainingSessionRepository, TrainingSession);
   }
@@ -46,13 +49,23 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       );
     }
     return {
-      participants: await this.recordRepository.find({
-        relations: ['recordValues'],
-        where: {
-          id: In(participants.map(participant => participant.recordId)),
-        },
-      }),
-    };
+    //   participants: await this.recordRepository.find({
+    //     relations: ['recordValues'],
+    //     where: {
+    //       id: In(participants.map(participant => participant.recordId)),
+    //     },
+    //   }),
+    participants: await this.recordValueRepository.find({
+      where: {
+        recordid: In(participants.map(participant => participant.recordId)),
+      },
+      join: {
+        alias: 'recordValue',
+        leftJoinAndSelect: { field: 'recordValue.field' },
+      },
+    }),
+  };  
+
   }
 
   async getFacilitators(uid: string) {
@@ -68,14 +81,17 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
       );
     }
     return {
-      facilitators: await this.recordRepository.find({
-        relations: ['recordValues'],
+      facilitators: await this.recordValueRepository.find({
         where: {
-          id: In(facilitators.map(participant => participant.recordId)),
+          recordid: In(facilitators.map(facilitator => facilitator.recordId)),
+        },
+        join: {
+          alias: 'recordValue',
+          leftJoinAndSelect: { field: 'recordValue.field' },
         },
       }),
     };
-  }
+   }
 
   async addParticipant(uid: string, createParticipantDto: any) {
     const { record } = createParticipantDto;
