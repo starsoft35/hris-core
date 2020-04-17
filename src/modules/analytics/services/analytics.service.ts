@@ -5,7 +5,7 @@ import { resultNotFoundResponse } from 'src/core/helpers/response.helper';
 import { Analytics } from 'src/core/interfaces/analytics.interface';
 import { generateOUFilterQuery, getISOOrgUnits } from 'src/core/helpers/ou.helper';
 import { getISOPeriods } from 'src/core/helpers/pe.helper';
-
+import * as _ from "lodash";
 declare module namespace {
 
 
@@ -576,33 +576,102 @@ export class AnalyticsService {
   }
 
   async getGeoFeatures(ouQueryParam:any) {
+        let geoFeatureAnalytics = {
+          id: '', //ou id
+          code: '', // ou code
+          na: '', // ou name
+          hcd: false, // Has coordinates to decendants of
+          hcu: false,
+          le: null, // level of ou on key Id
+          pg: '', // Path
+          pi: '',
+          pn: '',
+          ty: null, // level of the parent
+          co: '',
+        };
+        let ouIds: any[] = [];
+        let ousWIthLevels = {};
+        let availableLevels = [];
+        let analytics = [];
 
-    const ouIds: any[] = ouQueryParam.split(';');
-    const query =
-      `SELECT uid,name,shortname,featuretype,coordinates FROM organisationunit WHERE uid IN ('` +
-      ouIds.join("','") +
-      `')`;
-      let analytics = {
-        headers: [],
-        metaData: {
-          items: {
-            ou: { name: 'Organisation unit' }
+        _.map(
+          ouQueryParam.split(';'),
+          queryParam => {
+            if (
+              queryParam.indexOf('LEVEL-') ==
+              -1
+            ) {
+              ouIds.push(queryParam);
+            } else {
+              availableLevels.push(
+                parseInt(
+                  queryParam.split('-')[1],
+                ),
+              );
+            }
           },
-          dimensions: { ou: [] },
-        },
-        rows: [],
-        height: 0,
-        width: 0,
-      };
-      let geoFeaturesInfo = await this.connetion.manager.query(query);
-      analytics.metaData.dimensions.ou = ouIds;
-      analytics.rows = geoFeaturesInfo;
-      analytics.height = geoFeaturesInfo.length;
-      analytics.width = 5;
-      // analytics.headers.push({})
-      geoFeaturesInfo.forEach((ouGeoFeature) => {
-        analytics.metaData.items[ouGeoFeature.uid] = {name: ouGeoFeature.name}
-      })
-    return await analytics
-  }
+        );
+        /**
+        * Steps
+        * 1. Get the maximum level of the ous
+        * 2. Get level of the selected ou and then identify the parent, if the parent has coordinates then
+        * 3. Get ous for specified level
+        */
+        // 1. Get the maximum level of the ous
+        let maximamuOuLevel = await this.connetion.manager.query(
+          'SELECT MAX(level) FROM organisationunitlevel',
+        );
+        console.log('maximamuOuLevel', maximamuOuLevel[0]['max']);
+
+        // 2. Get the level and coordinates of the parent ou
+        let ousLevelsAndCoordinates = await this.connetion.manager.query(
+          `SELECT _organisationunitstructure.level,organisationunit.uid,organisationunit.code,organisationunit.name,organisationunit.shortname,organisationunit.featuretype,organisationunit.coordinates 
+  FROM organisationunit 
+  INNER JOIN _organisationunitstructure 
+  ON organisationunit.id =_organisationunitstructure.organisationunitid 
+  WHERE organisationunit.uid IN ('` +
+            _.uniq(ouIds).join("','") +
+            `')`,
+        );
+
+        _.each(
+          ousLevelsAndCoordinates,
+          (ou: any) => {
+            if (ou.level) {
+              ousWIthLevels[ou.uid] =
+                ou.level;
+              availableLevels.push(ou.level);
+            }
+          },
+        );
+
+        if (
+          _.uniq(availableLevels).length ==
+            1
+        ) {
+          _.each(
+            ousLevelsAndCoordinates,
+            ou => {
+              let structuredAnalytics = geoFeatureAnalytics;
+              structuredAnalytics.id =
+                ou.uid;
+              structuredAnalytics.code =
+                ou.code;
+              structuredAnalytics.na =
+                ou.name;
+              structuredAnalytics.hcd = ou.level < maximamuOuLevel[0]['max'] ? true: false;
+              structuredAnalytics.hcu =false,
+              structuredAnalytics.le = ou.level, // level of ou on key Id
+              structuredAnalytics.pg = `${ou.uid}`, // Path
+              structuredAnalytics.pi = ou.level > 1 ? `${ou.uid}`: '', // Parent ou Id
+              structuredAnalytics.pn = ou.name,
+              structuredAnalytics.ty = 2, // level of the parent
+              structuredAnalytics.co = ou.coordinates
+
+              analytics.push(structuredAnalytics);
+            }
+          );
+        } else {}
+        return await analytics;
+      }
 }
