@@ -264,21 +264,24 @@ export class AnalyticsController {
       },
     );
   }
-
+  /**
+   * Geo features
+   * @param params
+   * @param queryParams
+   * @param user
+   */
   @Get('geofeatures')
   async getGeoFeatures(
     @Param() params,
     @Query() queryParams,
     @AuthenticatedUser() user,
   ) {
-    if (!queryParams['dimension:ou']) {
+    if (!queryParams['ou']) {
       return {
         status: 'ERROR',
         message: 'Organisation Unit dimension not found',
       };
     }
-    return await this.analyticsService.getGeoFeatures(
-      queryParams['dimension:ou'],
-    );
+    return await this.analyticsService.getGeoFeatures(queryParams['ou']);
   }
 }

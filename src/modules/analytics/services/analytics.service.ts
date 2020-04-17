@@ -595,7 +595,7 @@ export class AnalyticsService {
         let analytics = [];
 
         _.map(
-          ouQueryParam.split(';'),
+          ouQueryParam.split(':')[1].split(';'),
           queryParam => {
             if (
               queryParam.indexOf('LEVEL-') ==
