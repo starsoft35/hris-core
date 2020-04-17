@@ -621,7 +621,6 @@ export class AnalyticsService {
         let maximamuOuLevel = await this.connetion.manager.query(
           'SELECT MAX(level) FROM organisationunitlevel',
         );
-        console.log('maximamuOuLevel', maximamuOuLevel[0]['max']);
 
         // 2. Get the level and coordinates of the parent ou
         let ousLevelsAndCoordinates = await this.connetion.manager.query(
