@@ -8,6 +8,14 @@ import { Record } from '../../../modules/record/entities/record.entity';
 import { SessionFacilitator } from '../entities/training-session-facilitatory.entity';
 import { SessionParticipant } from '../entities/training-session-participant.entity';
 import { TrainingSession } from '../entities/training-session.entity';
+import { TrainingSection } from '../entities/training-section.entity';
+import { Training } from '../entities/training.entity';
+import { TrainingUnit } from '../entities/training-unit.entity';
+import { TrainingCurriculum } from '../entities/training-curriculum.entity';
+import { TrainingTopic } from '../entities/training-topic.entity';
+import { TrainingVenue } from '../entities/training-venue.entity';
+import { TrainingSponsor } from '../entities/training-sponsor.entity';
+import { OrganisationUnit } from 'src/modules/organisation-unit/entities/organisation-unit.entity';
 
 @Injectable()
 export class TrainingSessionService extends BaseService<TrainingSession> {
@@ -20,6 +28,20 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     private facilitatorRepository: Repository<SessionFacilitator>,
     @InjectRepository(Record)
     private recordRepository: Repository<Record>,
+    @InjectRepository(TrainingSection)
+    private trainingSectionRepository: Repository<TrainingSection>,
+    @InjectRepository(TrainingUnit)
+    private trainingUnitRepository: Repository<TrainingUnit>,
+    @InjectRepository(TrainingCurriculum)
+    private trainingCurriculumRepository: Repository<TrainingCurriculum>,
+    @InjectRepository(TrainingTopic)
+    private topicRepository: Repository<TrainingTopic>,
+    @InjectRepository(TrainingVenue)
+    private trainingVenueRepository: Repository<TrainingVenue>,
+    @InjectRepository(TrainingSponsor)
+    private trainingSponsorRepository: Repository<TrainingSponsor>,
+    @InjectRepository(OrganisationUnit)
+    private organisationunitRepository: Repository<OrganisationUnit>,
   ) {
     super(trainingSessionRepository, TrainingSession);
   }
@@ -158,5 +180,101 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     };
     let deletedParticipants = await this.participantRepository.delete(id);
     return deletedParticipants;
+  }
+  async createSession(createSessionDTO: any) {
+    const {
+      section,
+      unit,
+      curriculum,
+      deliveryMode,
+      topics,
+      orgunit,
+      venue,
+      sponsor,
+      organiser,
+      facilitators,
+      participants,
+      startDate,
+      endDate,
+    } = createSessionDTO;
+
+    const session = new TrainingSession();
+    // const sections = await this.trainingSectionRepository.find({
+    //   select: ['id'],
+    //   where: [{ uid: section }],
+    // });
+
+    const sections = await this.trainingSectionRepository.manager.query(
+      `SELECT id FROM trainingsection WHERE uid='${section}'`,
+    );
+
+    const sectionid = sections[0].id;
+
+    // const units = await this.trainingUnitRepository.find({
+    //   select: ['id'],
+    //   where: [{ uid: unit }],
+    // });
+    const units = await this.trainingUnitRepository.manager.query(
+      `SELECT id FROM trainingunit WHERE uid='${unit}'`,
+    );
+    const unitid = units[0].id;
+    // const organisationunits = await this.organisationunitRepository.find({
+    //   select: ['id'],
+    //   where: [{ uid: orgunit }],
+    // });
+    const organisationunits = await this.organisationunitRepository.manager.query(
+      `SELECT id FROM organisationunit WHERE uid='${orgunit}'`,
+    );
+    const organisationunitid = organisationunits[0].id;
+
+    // const curriculums = await this.trainingCurriculumRepository.find({
+    //   select: ['id'],
+    //   where: [{ uid: curriculum }],
+    // });
+
+    const curriculums = await this.trainingCurriculumRepository.manager.query(
+      `SELECT id FROM trainingcurriculu WHERE uid='${curriculum}'`,
+    );
+
+    const curriculumid = curriculums[0].id;
+
+    // const sponsors = await this.trainingSponsorRepository.find({
+    //   select: ['id'],
+    //   where: [{ uid: sponsor }],
+    // });
+    const sponsors = await this.trainingSponsorRepository.manager.query(
+      `SELECT id FROM trainingsponsor WHERE uid='${sponsor}'`,
+    );
+
+    const sponsorid = sponsors[0].id;
+
+    // const venues = await this.trainingVenueRepository.find({
+    //   select: ['id'],
+    //   where: [{ uid: venue }],
+    // });
+    const venues = await this.trainingVenueRepository.manager.query(
+      ` SELECT id FROM trainingvenue WHERE uid='${venue}'`,
+    );
+    const venueid = venues[0].id;
+
+    // const orgnizers = await this.trainingSponsorRepository.find({
+    //   select: ['id'],
+    //   where: [{ uid: organiser }],
+    // });
+
+    const orgnizers = await this.trainingSponsorRepository.manager.query(
+      `SELECT id FROM trainingsession WHERE uid='${organiser}'`,
+    );
+    const orginiserid = orgnizers[0].id;
+    session.organiser = orginiserid;
+    session.venue = venueid;
+    session.deliverymode = deliveryMode;
+    session.sponsor = sponsorid;
+    session.curriculum = curriculumid;
+    session.enddate = endDate;
+    session.startdate = startDate;
+    session.organisationUnit = organisationunitid;
+    // session.topics = topicid;
+    await this.trainingSessionRepository.save(session);
   }
 }
