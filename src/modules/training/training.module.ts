@@ -32,6 +32,7 @@ import { SessionParticipant } from './entities/training-session-participant.enti
 import { SessionFacilitator } from './entities/training-session-facilitatory.entity';
 import { Record } from '../record/entities/record.entity';
 import { RecordValue } from '../record/entities/record-value.entity';
+import { OrganisationUnit } from '../organisation-unit/entities/organisation-unit.entity';
 
 @Module({
   imports: [
@@ -49,7 +50,8 @@ import { RecordValue } from '../record/entities/record-value.entity';
       SessionParticipant,
       SessionFacilitator,
       Record,
-      RecordValue
+      RecordValue,
+      OrganisationUnit
     ]),
   ],
   controllers: [
