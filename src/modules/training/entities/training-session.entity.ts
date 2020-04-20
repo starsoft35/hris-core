@@ -1,24 +1,9 @@
-import { EntityCoreProps } from '../../../core/entities/entity-core-props';
-import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
-import { TrainingCurriculum } from './training-curriculum.entity';
-import { TrainingTopic } from './training-topic.entity';
-import { TrainingSection } from './training-section.entity';
-import { TrainingSponsor } from './training-sponsor.entity';
-import { TrainingUnit } from './training-unit.entity';
-import { TrainingVenue } from './training-venue.entity';
-import { Record } from '../../record/entities/record.entity';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
-import { SessionFacilitator } from './training-session-facilitatory.entity';
-import { SessionParticipant } from './training-session-participant.entity';
+import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
+import { TrainingCurriculum } from './training-curriculum.entity';
+import { TrainingSponsor } from './training-sponsor.entity';
+import { TrainingTopic } from './training-topic.entity';
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends TransactionTimestamp {
   static plural = 'sessions';
@@ -79,12 +64,6 @@ export class TrainingSession extends TransactionTimestamp {
     name: 'created',
   })
   created: Date;
-  // @Column('timestamp without time zone', {
-  //   nullable: true,
-  //   default: () => 'NULL::timestamp without time zone',
-  //   name: 'lastupdated',
-  // })
-  // lastupdated: Date | null;
   @ManyToOne(
     () => TrainingCurriculum,
     (TrainingCurriculum: TrainingCurriculum) =>
@@ -123,12 +102,6 @@ export class TrainingSession extends TransactionTimestamp {
     length: 256,
     name: 'name',
   })
-  name: string | null;
-  @Column('text', {
-    nullable: true,
-    name: 'venuename',
-  })
-  venuename: string | null;
   @ManyToMany(
     () => TrainingTopic,
     (TrainingMethod: TrainingTopic) => TrainingMethod.trainingSessions,
@@ -136,33 +109,4 @@ export class TrainingSession extends TransactionTimestamp {
   )
   @JoinTable({ name: 'trainingsessiontopics' })
   topics: TrainingTopic[];
-
-  /*@ManyToMany(
-    type => Record,
-    record => record.trainingSessions,
-    { eager: true },
-  )
-  @JoinTable({ name: 'sessionparticipant' })
-  participants: Record;
-
-  @ManyToMany(
-    type => Record,
-    record => record.trainingSessions,
-    { eager: true },
-  )
-  @JoinTable({ name: 'sessionfacilitator' })
-  facilitators: Record;*/
-
-  // @ManyToMany(
-  //   type => SessionParticipant,
-  //   sessionFacilitator => sessionFacilitator.trainingSessionId,
-  // )
-  // @JoinColumn({name: 'trainingSessionId'})
-  // participants: SessionParticipant[];
-
-  // @OneToMany(
-  //   type => SessionFacilitator,
-  //   sessionfacilitator => sessionfacilitator.trainingSessionId, {eager: true}
-  // )
-  // facilitators: SessionFacilitator[];
 }
