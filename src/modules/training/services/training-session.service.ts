@@ -205,7 +205,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     // });
 
     const sections = await this.trainingSectionRepository.manager.query(
-      `SELECT id FROM trainingsection WHERE uid='${section}'`,
+      `SELECT id FROM trainingsections WHERE uid='${section}'`,
     );
 
     const sectionid = sections[0].id;
@@ -233,7 +233,7 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     // });
 
     const curriculums = await this.trainingCurriculumRepository.manager.query(
-      `SELECT id FROM trainingcurriculu WHERE uid='${curriculum}'`,
+      `SELECT id FROM trainingcurriculum WHERE uid='${curriculum}'`,
     );
 
     const curriculumid = curriculums[0].id;
@@ -262,10 +262,12 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     //   where: [{ uid: organiser }],
     // });
 
-    const orgnizers = await this.trainingSponsorRepository.manager.query(
-      `SELECT id FROM trainingsession WHERE uid='${organiser}'`,
+    const organizers = await this.trainingSponsorRepository.manager.query(
+      `SELECT id FROM trainingsponsor WHERE uid='${organiser}'`,
     );
-    const orginiserid = orgnizers[0].id;
+    const orginiserid = organizers[0].id;
+
+    session.uid = generateUid();
     session.organiser = orginiserid;
     session.venue = venueid;
     session.deliverymode = deliveryMode;
@@ -274,7 +276,9 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     session.enddate = endDate;
     session.startdate = startDate;
     session.organisationUnit = organisationunitid;
-    // session.topics = topicid;
+    session.startdate = startDate;
+    session.enddate = endDate;
     await this.trainingSessionRepository.save(session);
+    return this.trainingSessionRepository.findOne({ uid: session.uid });
   }
 }

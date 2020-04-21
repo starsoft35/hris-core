@@ -25,6 +25,15 @@ export class TrainingSessionController extends BaseController<TrainingSession> {
   constructor(private trainingSessionService: TrainingSessionService) {
     super(trainingSessionService, TrainingSession);
   }
+
+  @Post()
+  @UseGuards(SessionGuard)
+  async createSession(@Body() createSessionDTO: any, @Res() res) {
+    const session = await this.trainingSessionService.createSession(
+      createSessionDTO,
+    );
+    return res.status(HttpStatus.OK).send(sanitizeResponseObject(session));
+  }
   @Get('/deliverymode')
   @UseGuards(SessionGuard)
   async delivery() {
