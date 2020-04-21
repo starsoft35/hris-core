@@ -204,6 +204,7 @@ export class fix1574916252058 implements MigrationInterface {
 
     CREATE SEQUENCE trainingsession_id_seq AS BIGINT OWNED BY trainingsession.id;
     ALTER TABLE trainingsession ALTER COLUMN id SET DEFAULT nextval('trainingsession_id_seq');
+    ALTER TABLE trainingsession ALTER COLUMN created SET DEFAULT LOCALTIMESTAMP;
 
     ALTER TABLE "userauthority" OWNER TO "postgres";
     ALTER TABLE userauthority ALTER COLUMN  id SET DEFAULT nextval('userauthority_id_seq');
