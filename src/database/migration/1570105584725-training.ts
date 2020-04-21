@@ -336,7 +336,7 @@ export class training1570105584725 implements MigrationInterface {
         'ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "uid" character varying(256)',
       );
       await queryRunner.query(
-        'ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "venuename" text',
+        'ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "venueid" integer',
       );
       await queryRunner.query(
         'ALTER TABLE "traininginstance" ADD COLUMN IF NOT EXISTS "region" text',
