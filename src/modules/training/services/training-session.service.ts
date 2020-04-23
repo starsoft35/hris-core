@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseService } from 'src/core/services/base.service';
 import { RecordValue } from 'src/modules/record/entities/record-value.entity';
-import { In, Repository } from 'typeorm';
+import { In, Repository, getConnection } from 'typeorm';
 import { generateUid } from '../../../core/helpers/makeuid';
 import { Record } from '../../../modules/record/entities/record.entity';
 import { SessionFacilitator } from '../entities/training-session-facilitatory.entity';
@@ -42,6 +42,8 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     private trainingSponsorRepository: Repository<TrainingSponsor>,
     @InjectRepository(OrganisationUnit)
     private organisationunitRepository: Repository<OrganisationUnit>,
+    @InjectRepository(TrainingTopic)
+    private trainingTopicRepository: Repository<TrainingTopic>,
   ) {
     super(trainingSessionRepository, TrainingSession);
   }
@@ -279,6 +281,41 @@ export class TrainingSessionService extends BaseService<TrainingSession> {
     session.startdate = startDate;
     session.enddate = endDate;
     await this.trainingSessionRepository.save(session);
+    // const sessionid = (
+    //   await this.trainingSessionRepository.findOne({ uid: session.uid })
+    // ).id;
+    // const topicsfound = (await this.trainingTopicRepository.findOne({
+    //   select: ['id'],
+    //   where: [{ uid: topic }],
+    // })).id;
+
+    // const topicsfound = await this.trainingTopicRepository.find({
+    //   where: [{ uid: In(topics.map(topic => topic.id)) }],
+    // });
+    // await getConnection()
+    // .createQueryBuilder()
+    // .insert()
+    // .into('trainingsessiontopics')
+    // .values([
+    //     { trainingsessionId: session, trainingtopicId: topicsfound },
+    //  ])
+    // .execute();
     return this.trainingSessionRepository.findOne({ uid: session.uid });
+  }
+  async saveTopics(uid: string, saveTopicsDTO: any) {
+    const { topic } = saveTopicsDTO;
+    const session = (await this.trainingSessionRepository.findOne({ uid })).id;
+    const topics = (
+      await this.trainingTopicRepository.findOne({
+        select: ['id'],
+        where: [{ uid: topic }],
+      })
+    ).id;
+    await getConnection()
+      .createQueryBuilder()
+      .insert()
+      .into('trainingsessiontopics')
+      .values([{ trainingsessionId: session, trainingtopicId: topics }])
+      .execute();
   }
 }
