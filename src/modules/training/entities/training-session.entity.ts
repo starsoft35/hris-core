@@ -1,9 +1,10 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne } from 'typeorm';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import { TrainingCurriculum } from './training-curriculum.entity';
 import { TrainingSponsor } from './training-sponsor.entity';
 import { TrainingTopic } from './training-topic.entity';
+import { TrainingVenue } from './training-venue.entity';
 @Entity('trainingsession', { schema: 'public' })
 export class TrainingSession extends TransactionTimestamp {
   static plural = 'sessions';
@@ -34,12 +35,6 @@ export class TrainingSession extends TransactionTimestamp {
   @JoinColumn({ name: 'district' })
   organisationUnit: OrganisationUnit | null;
 
-  @Column('character varying', {
-    nullable: true,
-    length: 100,
-    name: 'venue',
-  })
-  venue: string | null;
   @ManyToOne(
     () => TrainingSponsor,
     (TrainingSponsor: TrainingSponsor) => TrainingSponsor.trainingSessions,
@@ -109,4 +104,7 @@ export class TrainingSession extends TransactionTimestamp {
   )
   @JoinTable({ name: 'trainingsessiontopics' })
   topics: TrainingTopic[];
+
+  @OneToOne(type => TrainingVenue, trainingvenue => trainingvenue.trainingSessions)
+  venue: TrainingVenue[]
 }
