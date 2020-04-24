@@ -1,4 +1,12 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToOne,
+} from 'typeorm';
 import { TransactionTimestamp } from '../../../core/entities/transaction-timestamp.entity';
 import { OrganisationUnit } from '../../organisation-unit/entities/organisation-unit.entity';
 import { TrainingCurriculum } from './training-curriculum.entity';
@@ -105,6 +113,11 @@ export class TrainingSession extends TransactionTimestamp {
   @JoinTable({ name: 'trainingsessiontopics' })
   topics: TrainingTopic[];
 
-  @OneToOne(type => TrainingVenue, trainingvenue => trainingvenue.trainingSessions)
-  venue: TrainingVenue[]
+  @OneToOne(
+    type => TrainingVenue,
+    trainingvenue => trainingvenue.trainingSessions,
+    {eager: true },
+  )
+  @JoinColumn({name: 'venue'})
+  venue: TrainingVenue[];
 }

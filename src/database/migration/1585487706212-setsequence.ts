@@ -726,6 +726,13 @@ export class sequential1585499925311 implements MigrationInterface {
             ON UPDATE CASCADE
             ON DELETE CASCADE;
             DROP TABLE traininginstance;
+            ALTER TABLE trainingsession RENAME COLUMN venue TO venuename;
+            ALTER TABLE trainingsession ADD COLUMN venue BIGINT;
+            ALTER TABLE trainingsession
+            ADD CONSTRAINT "FK_Venue" FOREIGN KEY (venue) 
+            REFERENCES public.trainingvenue (id) MATCH SIMPLE
+            ON UPDATE CASCADE
+            ON DELETE CASCADE;
             `);
   }
 
