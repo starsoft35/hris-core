@@ -28,19 +28,13 @@ export class TrainingSession extends TransactionTimestamp {
     name: 'uid',
   })
   uid: string;
-  // @ManyToOne(
-  //   () => OrganisationUnit,
-  //   (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
-  //   { eager: true, onDelete: 'CASCADE' },
-  // )
-  // @JoinColumn({ name: 'region' })
-  // organisationUnit: OrganisationUnit | null;
+  
   @ManyToOne(
     () => OrganisationUnit,
     (OrganisationUnit: OrganisationUnit) => OrganisationUnit.trainingSessions,
     { eager: true, onDelete: 'CASCADE' },
   )
-  @JoinColumn({ name: 'district' })
+  @JoinColumn({ name: 'organisationunit' })
   organisationUnit: OrganisationUnit | null;
 
   @ManyToOne(
@@ -116,8 +110,8 @@ export class TrainingSession extends TransactionTimestamp {
   @OneToOne(
     type => TrainingVenue,
     trainingvenue => trainingvenue.trainingSessions,
-    {eager: true },
+    { eager: true },
   )
-  @JoinColumn({name: 'venue'})
+  @JoinColumn({ name: 'venue' })
   venue: TrainingVenue[];
 }
