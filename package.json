@@ -36,7 +36,7 @@
     "@nestjs/websockets": "7.0.9",
     "@tsed/common": "^5.50.0",
     "@tsed/core": "^5.50.0",
-    "@tsed/di": "^5.46.0",
+    "@tsed/di": "^5.52.1",
     "@tsed/typeorm": "^5.50.0",
     "@types/pg": "^7.14.2",
     "apollo-server-express": "^2.13.0",
